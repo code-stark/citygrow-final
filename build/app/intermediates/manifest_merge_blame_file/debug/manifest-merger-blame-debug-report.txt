@@ -1,0 +1,647 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.panaceasoft.digitalproductstore"
+4    android:versionCode="4"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:9:5-67
+14-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:9:22-64
+15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+15-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:10:5-81
+15-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:10:22-78
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+16-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:11:5-80
+16-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:11:22-77
+17    <uses-permission android:name="android.permission.VIBRATE" />
+17-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:12:5-66
+17-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:12:22-63
+18    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+18-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:13:5-80
+18-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:13:22-78
+19    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+19-->[:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+19-->[:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+20    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+20-->[:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-76
+20-->[:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-73
+21    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+21-->[com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:24:5-68
+21-->[com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:24:22-65
+22    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+22-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:26:5-82
+22-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:26:22-79
+23
+24    <uses-feature
+24-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+25        android:glEsVersion="0x00020000"
+25-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+26        android:required="true" />
+26-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+27
+28    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+28-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:26:5-110
+28-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:26:22-107
+29    <uses-permission android:name="android.permission.CAMERA" />
+29-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:9:5-65
+29-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:9:22-62
+30
+31    <uses-feature
+31-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:12:5-14:36
+32        android:name="android.hardware.camera"
+32-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:13:9-47
+33        android:required="false" />
+33-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:14:9-33
+34    <uses-feature
+34-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:15:5-17:36
+35        android:name="android.hardware.camera.autofocus"
+35-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:16:9-57
+36        android:required="false" />
+36-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:17:9-33
+37    <!--
+38 android:name="io.flutter.app.FlutterApplication"
+39    android:name=".Application"
+40    -->
+41    <application
+41-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:16:5-68:19
+42        android:name="com.panaceasoft.digitalproductstore.Application"
+42-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:17:9-36
+43        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+43-->[androidx.core:core:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:22:18-86
+44        android:debuggable="true"
+45        android:icon="@mipmap/ic_launcher"
+45-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:19:9-43
+46        android:label="Digital Product Store"
+46-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:18:9-46
+47        android:supportsRtl="true"
+47-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:16:9-35
+48        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+48-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:11:18-74
+49        <activity
+49-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:20:9-42:20
+50            android:name="com.panaceasoft.digitalproductstore.MainActivity"
+50-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:21:13-41
+51            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+51-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:24:13-144
+52            android:hardwareAccelerated="true"
+52-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:25:13-47
+53            android:launchMode="singleTop"
+53-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:22:13-43
+54            android:theme="@style/LaunchTheme"
+54-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:23:13-47
+55            android:windowSoftInputMode="adjustResize" >
+55-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:26:13-55
+56
+57            <!--
+58                 This keeps the window background of the activity showing
+59                 until Flutter renders its first frame. It can be removed if
+60                 there is no splash screen (such as the default splash screen
+61                 defined in @style/LaunchTheme).
+62            -->
+63            <meta-data
+63-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:31:13-33:40
+64                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+64-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:32:17-82
+65                android:value="true" />
+65-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:33:17-37
+66
+67            <intent-filter>
+67-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:34:13-37:29
+68                <action android:name="android.intent.action.MAIN" />
+68-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:35:17-68
+68-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:35:25-66
+69
+70                <category android:name="android.intent.category.LAUNCHER" />
+70-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:36:17-76
+70-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:36:27-74
+71            </intent-filter>
+72            <intent-filter>
+72-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:38:13-40:29
+73                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+73-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:39:17-69
+73-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:39:25-66
+74            </intent-filter>
+75        </activity>
+76        <activity
+76-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:43:9-51:20
+77            android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+77-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:43:19-90
+78            android:launchMode="singleTask" >
+78-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:44:13-44
+79            <intent-filter>
+79-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:45:13-50:29
+80                <action android:name="android.intent.action.VIEW" />
+80-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:46:17-69
+80-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:46:25-66
+81
+82                <category android:name="android.intent.category.DEFAULT" />
+82-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:47:17-76
+82-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:47:27-73
+83                <category android:name="android.intent.category.BROWSABLE" />
+83-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:48:17-78
+83-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:48:27-75
+84
+85                <data android:scheme="com.panaceasoft.digitalproductstore.braintree" />
+86            </intent-filter>
+87        </activity>
+88
+89        <meta-data
+89-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:52:9-53:46
+90            android:name="com.facebook.sdk.ApplicationId"
+90-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:52:20-65
+91            android:value="@string/facebook_app_id" />
+91-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:53:5-44
+92
+93        <activity
+93-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:54:9-57:40
+94            android:name="com.facebook.FacebookActivity"
+94-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:54:19-63
+95            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+95-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:55:5-101
+96            android:label="@string/app_name"
+96-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:57:5-37
+97            android:theme="@style/com_facebook_activity_theme" />
+97-->[com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:32:13-63
+98        <activity
+98-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:58:9-67:20
+99            android:name="com.facebook.CustomTabActivity"
+99-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:59:13-58
+100            android:exported="true" >
+100-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:60:13-36
+101            <intent-filter>
+101-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:61:13-66:29
+102                <action android:name="android.intent.action.VIEW" />
+102-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:46:17-69
+102-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:46:25-66
+103
+104                <category android:name="android.intent.category.DEFAULT" />
+104-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:47:17-76
+104-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:47:27-73
+105                <category android:name="android.intent.category.BROWSABLE" />
+105-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:48:17-78
+105-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:48:27-75
+106
+107                <data android:scheme="@string/fb_login_protocol_scheme" />
+108            </intent-filter>
+109        </activity>
+110
+111        <meta-data
+111-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-14:36
+112            android:name="com.google.android.gms.wallet.api.enabled"
+112-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-69
+113            android:value="true" />
+113-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-33
+114
+115        <activity
+115-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:16:9-20:75
+116            android:name="com.gettipsi.stripe.OpenBrowserActivity"
+116-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:17:13-67
+117            android:exported="false"
+117-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-37
+118            android:launchMode="singleTask"
+118-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-44
+119            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+119-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:20:13-72
+120        <activity
+120-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:21:9-34:20
+121            android:name="com.gettipsi.stripe.RedirectUriReceiver"
+121-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:22:13-67
+122            android:exported="true"
+122-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:23:13-36
+123            android:launchMode="singleTask"
+123-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-44
+124            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+124-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:25:13-83
+125            <intent-filter>
+125-->[:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:26:13-33:29
+126                <action android:name="android.intent.action.VIEW" />
+126-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:46:17-69
+126-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:46:25-66
+127
+128                <category android:name="android.intent.category.DEFAULT" />
+128-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:47:17-76
+128-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:47:27-73
+129                <category android:name="android.intent.category.BROWSABLE" />
+129-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:48:17-78
+129-->C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:48:27-75
+130
+131                <data android:scheme="example" />
+132            </intent-filter>
+133        </activity>
+134
+135        <service
+135-->[:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+136            android:name="com.google.firebase.components.ComponentDiscoveryService"
+136-->[:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-89
+137            android:directBootAware="true"
+137-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
+138            android:exported="false" >
+138-->[com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:37:13-37
+139            <meta-data
+139-->[:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+140                android:name="com.google.firebase.components:io.flutter.plugins.firebaseauth.FlutterFirebaseAppRegistrar"
+140-->[:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-122
+141                android:value="com.google.firebase.components.ComponentRegistrar" />
+141-->[:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+142            <meta-data
+142-->[:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+143                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar"
+143-->[:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-123
+144                android:value="com.google.firebase.components.ComponentRegistrar" />
+144-->[:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+145            <meta-data
+145-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-16:85
+146                android:name="com.google.firebase.components:io.flutter.plugins.firebasemessaging.FlutterFirebaseAppRegistrar"
+146-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-127
+147                android:value="com.google.firebase.components.ComponentRegistrar" />
+147-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:16:17-82
+148            <meta-data
+148-->[com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:38:13-40:85
+149                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+149-->[com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:39:17-119
+150                android:value="com.google.firebase.components.ComponentRegistrar" />
+150-->[com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:40:17-82
+151            <meta-data
+151-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:28:13-30:85
+152                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+152-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:29:17-115
+153                android:value="com.google.firebase.components.ComponentRegistrar" />
+153-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:30:17-82
+154            <meta-data
+154-->[com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:30:13-32:85
+155                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+155-->[com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:31:17-139
+156                android:value="com.google.firebase.components.ComponentRegistrar" />
+156-->[com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:32:17-82
+157            <meta-data
+157-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:32:13-34:85
+158                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+158-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:33:17-96
+159                android:value="com.google.firebase.components.ComponentRegistrar" />
+159-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:34:17-82
+160            <meta-data
+160-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:36:13-38:85
+161                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+161-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:37:17-109
+162                android:value="com.google.firebase.components.ComponentRegistrar" />
+162-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:38:17-82
+163        </service>
+164
+165        <provider
+165-->[:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+166            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+166-->[:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+167            android:authorities="com.panaceasoft.digitalproductstore.flutter.image_provider"
+167-->[:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+168            android:exported="false"
+168-->[:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+169            android:grantUriPermissions="true" >
+169-->[:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+170            <meta-data
+170-->[:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+171                android:name="android.support.FILE_PROVIDER_PATHS"
+171-->[:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+172                android:resource="@xml/flutter_image_picker_file_paths" />
+172-->[:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+173        </provider>
+174
+175        <service android:name="io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService" >
+175-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+175-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-101
+176            <intent-filter>
+176-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+177                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+177-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+177-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+178            </intent-filter>
+179        </service>
+180
+181        <activity
+181-->[:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+182            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+182-->[:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+183            android:exported="false"
+183-->[:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+184            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+184-->[:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+185        <!--
+186             FirebaseMessagingService performs security checks at runtime,
+187             but set to not exported to explicitly avoid allowing another app to call it.
+188        -->
+189        <service
+189-->[com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:28:9-34:19
+190            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+190-->[com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:29:13-82
+191            android:exported="false" >
+191-->[com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:30:13-37
+192            <intent-filter android:priority="-500" >
+192-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+193                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+193-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+193-->[:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+194            </intent-filter>
+195        </service>
+196
+197        <receiver
+197-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:37:9-44:20
+198            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+198-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:38:13-78
+199            android:exported="true"
+199-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:39:13-36
+200            android:permission="com.google.android.c2dm.permission.SEND" >
+200-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:40:13-73
+201            <intent-filter>
+201-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:41:13-43:29
+202                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+202-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:42:17-81
+202-->[com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:42:25-78
+203            </intent-filter>
+204        </receiver>
+205
+206        <activity
+206-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:24:9-31:50
+207            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+207-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:25:13-85
+208            android:excludeFromRecents="true"
+208-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:26:13-46
+209            android:exported="true"
+209-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:27:13-36
+210            android:launchMode="singleTask"
+210-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:28:13-44
+211            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+211-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:29:13-102
+212            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+212-->[com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:30:13-72
+213
+214        <provider
+214-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+215            android:name="com.google.firebase.provider.FirebaseInitProvider"
+215-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+216            android:authorities="com.panaceasoft.digitalproductstore.firebaseinitprovider"
+216-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+217            android:exported="false"
+217-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+218            android:initOrder="100" />
+218-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+219
+220        <activity
+220-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:23:9-27:75
+221            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+221-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:24:13-93
+222            android:excludeFromRecents="true"
+222-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:25:13-46
+223            android:exported="false"
+223-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:26:13-37
+224            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+224-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:27:13-72
+225        <!--
+226            Service handling Google Sign-In user revocation. For apps that do not integrate with
+227            Google Sign-In, this service will never be started.
+228        -->
+229        <service
+229-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:33:9-36:110
+230            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+230-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:34:13-89
+231            android:exported="true"
+231-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:35:13-36
+232            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" /> <!-- Needs to be explicitly declared on P+ -->
+232-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:36:13-107
+233        <uses-library
+233-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+234            android:name="org.apache.http.legacy"
+234-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+235            android:required="false" />
+235-->[com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+236
+237        <activity
+237-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
+238            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+238-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:24:13-79
+239            android:exported="false"
+239-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:25:13-37
+240            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+240-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:26:13-72
+241
+242        <receiver
+242-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:29:9-33:20
+243            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+243-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:30:13-85
+244            android:enabled="true"
+244-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:31:13-35
+245            android:exported="false" >
+245-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:32:13-37
+246        </receiver>
+247        <receiver
+247-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:34:9-42:20
+248            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+248-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:35:13-100
+249            android:enabled="true"
+249-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:36:13-35
+250            android:exported="true"
+250-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:37:13-36
+251            android:permission="android.permission.INSTALL_PACKAGES" >
+251-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:38:13-69
+252            <intent-filter>
+252-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:39:13-41:29
+253                <action android:name="com.android.vending.INSTALL_REFERRER" />
+253-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:40:17-79
+253-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:40:25-76
+254            </intent-filter>
+255        </receiver>
+256
+257        <service
+257-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:44:9-47:40
+258            android:name="com.google.android.gms.measurement.AppMeasurementService"
+258-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:45:13-84
+259            android:enabled="true"
+259-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:46:13-35
+260            android:exported="false" />
+260-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:47:13-37
+261        <service
+261-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:48:9-52:72
+262            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+262-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:49:13-87
+263            android:enabled="true"
+263-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:50:13-35
+264            android:exported="false"
+264-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:51:13-37
+265            android:permission="android.permission.BIND_JOB_SERVICE" />
+265-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:52:13-69
+266
+267        <meta-data
+267-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+268            android:name="com.google.android.gms.version"
+268-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+269            android:value="@integer/google_play_services_version" />
+269-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+270
+271        <activity
+271-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:12:9-14:57
+272            android:name="com.stripe.android.view.AddPaymentMethodActivity"
+272-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:13:13-76
+273            android:theme="@style/StripeDefaultTheme" />
+273-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:14:13-54
+274        <activity
+274-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:15:9-17:57
+275            android:name="com.stripe.android.view.PaymentMethodsActivity"
+275-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:16:13-74
+276            android:theme="@style/StripeDefaultTheme" />
+276-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:17:13-54
+277        <activity
+277-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:18:9-20:57
+278            android:name="com.stripe.android.view.PaymentFlowActivity"
+278-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:19:13-71
+279            android:theme="@style/StripeDefaultTheme" />
+279-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:20:13-54
+280        <activity
+280-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:21:9-23:57
+281            android:name="com.stripe.android.view.PaymentAuthWebViewActivity"
+281-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:22:13-78
+282            android:theme="@style/StripeDefaultTheme" />
+282-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:23:13-54
+283        <activity
+283-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:24:9-26:57
+284            android:name="com.stripe.android.view.PaymentRelayActivity"
+284-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:25:13-72
+285            android:theme="@style/StripeDefaultTheme" />
+285-->[com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:26:13-54
+286        <activity
+286-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:18:9-20:64
+287            android:name="com.braintreepayments.api.dropin.DropInActivity"
+287-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:19:13-75
+288            android:theme="@style/bt_drop_in_activity_theme" />
+288-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:20:13-61
+289        <activity
+289-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:21:9-23:65
+290            android:name="com.braintreepayments.api.dropin.AddCardActivity"
+290-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:22:13-76
+291            android:theme="@style/bt_add_card_activity_theme" />
+291-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:23:13-62
+292        <activity
+292-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:24:9-26:70
+293            android:name="com.braintreepayments.api.dropin.VaultManagerActivity"
+293-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:25:13-81
+294            android:theme="@style/bt_vault_manager_activity_theme" />
+294-->[com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:26:13-67
+295        <activity
+295-->[com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:12:9-14:54
+296            android:name="com.stripe.android.stripe3ds2.views.ChallengeActivity"
+296-->[com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:13:13-81
+297            android:theme="@style/Stripe3DS2Theme" />
+297-->[com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:14:13-51
+298        <activity
+298-->[com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:15:9-17:54
+299            android:name="com.stripe.android.stripe3ds2.views.ChallengeProgressDialogActivity"
+299-->[com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:16:13-95
+300            android:theme="@style/Stripe3DS2Theme" />
+300-->[com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:17:13-51
+301
+302        <service android:name="com.braintreepayments.api.internal.AnalyticsIntentService" />
+302-->[com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:15:9-93
+302-->[com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:15:18-90
+303
+304        <activity android:name="com.facebook.CustomTabMainActivity" />
+304-->[com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:33:9-71
+304-->[com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:33:19-68
+305        <!--
+306         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+307         with the application context. This config is merged in with the host app's manifest,
+308         but there can only be one provider with the same authority activated at any given
+309         point; so if the end user has two or more different apps that use Facebook SDK, only the
+310         first one will be able to use the provider. To work around this problem, we use the
+311         following placeholder in the authority to identify each host application as if it was
+312         a completely different provider.
+313        -->
+314        <provider
+314-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:39:9-42:40
+315            android:name="com.facebook.internal.FacebookInitProvider"
+315-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:40:13-70
+316            android:authorities="com.panaceasoft.digitalproductstore.FacebookInitProvider"
+316-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:41:13-72
+317            android:exported="false" />
+317-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:42:13-37
+318
+319        <receiver
+319-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:44:9-50:20
+320            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+320-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:45:13-86
+321            android:exported="false" >
+321-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:46:13-37
+322            <intent-filter>
+322-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:47:13-49:29
+323                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+323-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:48:17-95
+323-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:48:25-92
+324            </intent-filter>
+325        </receiver>
+326        <receiver
+326-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:51:9-58:20
+327            android:name="com.facebook.CampaignTrackingReceiver"
+327-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:52:13-65
+328            android:exported="true"
+328-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:53:13-36
+329            android:permission="android.permission.INSTALL_PACKAGES" >
+329-->[com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:54:13-69
+330            <intent-filter>
+330-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:39:13-41:29
+331                <action android:name="com.android.vending.INSTALL_REFERRER" />
+331-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:40:17-79
+331-->[com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:40:25-76
+332            </intent-filter>
+333        </receiver>
+334
+335        <service
+335-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:29:9-35:19
+336            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+336-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:30:13-103
+337            android:exported="false" >
+337-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:31:13-37
+338            <meta-data
+338-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:32:13-34:39
+339                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+339-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:33:17-94
+340                android:value="cct" />
+340-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:34:17-36
+341        </service>
+342        <service
+342-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:26:9-30:19
+343            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+343-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:27:13-117
+344            android:exported="false"
+344-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:28:13-37
+345            android:permission="android.permission.BIND_JOB_SERVICE" >
+345-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:29:13-69
+346        </service>
+347
+348        <receiver
+348-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:32:9-34:40
+349            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+349-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:33:13-132
+350            android:exported="false" />
+350-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:34:13-37
+351
+352        <activity
+352-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:20:9-22:66
+353            android:name="io.card.payment.CardIOActivity"
+353-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:21:13-58
+354            android:configChanges="keyboardHidden|orientation" />
+354-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:22:13-63
+355        <activity android:name="io.card.payment.DataEntryActivity" />
+355-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:23:9-70
+355-->[io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:23:19-67
+356        <activity
+356-->[com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:12:9-14:62
+357            android:name="com.braintreepayments.api.GooglePaymentActivity"
+357-->[com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:13:13-75
+358            android:theme="@style/bt_transparent_activity" />
+358-->[com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:14:13-59
+359    </application>
+360
+361</manifest>

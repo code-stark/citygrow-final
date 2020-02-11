@@ -1,0 +1,1063 @@
+-- Merging decision tree log ---
+data
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:49:17-69
+	android:scheme
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml
+manifest
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:1:1-69:12
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:1:1-69:12
+MERGED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:1:1-69:12
+MERGED from [:braintree_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\braintree_payment\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-37:12
+MERGED from [:google_sign_in] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\google_sign_in\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
+MERGED from [:firebase_core_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core_web\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-22:12
+MERGED from [:package_info] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\package_info\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:permission_handler] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:firebase_auth_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth_web\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-20:12
+MERGED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
+MERGED from [:url_launcher_macos] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher_macos\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences_macos] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences_macos\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences_web\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:url_launcher_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher_web\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:google_sign_in_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\google_sign_in_web\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:sqflite] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-10:12
+MERGED from [:flutter_facebook_login] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\flutter_facebook_login\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:path_provider] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:launch_review] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\launch_review\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.firebase:firebase-core:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\350ae6e75ada395668d60c13ad23a490\firebase-core-17.2.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:17:1-44:12
+MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\19ed3525dea1525b7ebca9ebde583893\multidex-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:15:1-34:12
+MERGED from [com.google.firebase:firebase-analytics:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\af932722b8180dd37f0fac6c0151a7c2\firebase-analytics-17.2.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:17:1-36:12
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:17:1-47:12
+MERGED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:17:1-42:12
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d8d8a1da441620db6c1f4899f8b8b69\firebase-auth-interop-19.0.0\AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:15:1-39:12
+MERGED from [com.google.android.gms:play-services-wallet:18.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8ac50a85000eb3463580cbc56ab1a9eb\play-services-wallet-18.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:17:1-39:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\6ad1d110a09371fdd704f27f970222ba\jetified-play-services-auth-api-phone-16.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3f83e214ce76e9a4eb5572843fd11c6b\jetified-play-services-auth-base-16.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\520fa26dea95f0288ec40036950ce805\firebase-iid-interop-17.0.0\AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8c4f658695a2810f0fc01dee789386e6\play-services-identity-17.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:17:1-38:12
+MERGED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\6845c69e263908bca8ab45d7c39a1b20\play-services-tasks-17.0.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4dcf95d1aa85e70d114d3e835cc89ecf\firebase-measurement-connector-18.0.0\AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:17:1-55:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\1f88eb2be9a38f314bd7e75a915f6c52\play-services-measurement-sdk-17.2.1\AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\488fbfcee7f9e82def1174180302c81d\play-services-stats-17.0.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\19fc234860cc05089e65b1d66a680edd\play-services-measurement-base-17.2.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4ae5c806527406f77c711db15930365f\play-services-ads-identifier-17.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:17:1-28:12
+MERGED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:2:1-29:12
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:2:1-29:12
+MERGED from [com.braintreepayments:card-form:4.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\310485ca66917b3cc27633e9bad31f8d\jetified-card-form-4.1.0\AndroidManifest.xml:2:1-11:12
+MERGED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:2:1-20:12
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3df2fd68af0236fb7b1a24eeed8b503b\material-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.facebook.android:facebook-login:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\94e4484fdf4463cd8c30784b44d92243\jetified-facebook-login-5.5.1\AndroidManifest.xml:21:1-31:12
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:2:1-18:12
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:21:1-37:12
+MERGED from [androidx.appcompat:appcompat:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\32110d83d5afad0d9d4069c1a864d2af\appcompat-1.0.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b9799d70f08d6212f2bb67aeb995639d\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.paypal.android.sdk:paypal-one-touch:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c78c3ac2c2563d4341a15cce4223ea98\paypal-one-touch-3.0.0\AndroidManifest.xml:2:1-13:12
+MERGED from [com.braintreepayments.api:core:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\fa23b1ddab58718f5feb2789cee4ec88\core-3.0.0\AndroidManifest.xml:2:1-11:12
+MERGED from [com.braintreepayments:browser-switch:0.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0b54393b26899ddbc563204e09f3c0f8\browser-switch-0.2.0\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\ad7e8978b214163478bfde401fa98c83\fragment-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2b1bcabae6ee9c47b0643990b00d5cab\recyclerview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.browser:browser:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c2d3966f4637a5ae78c8a6ab897a8b79\browser-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\247f914cac81e7c8d9a2fad2c7abbf38\vectordrawable-animated-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\77f38ede50d86bb3bde02e7424569968\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:21:1-61:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a2812e63738b1c43d88b94e2e3e83098\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8b9f96df1a219288d5310a3f5ee0b475\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d98c89cf50bdd03f81aa09467d0c2ed3\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\aa9ec5933c64a7f92a2e54256e9d183b\coordinatorlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2215b7515dd4dbb7a4b19b0c72864742\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0330067c7295b8ae2a93b976266b0d2d\slidingpanelayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\30989f83181402fab157072c421048ee\customview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7fc233ef99bb8b4c500b664971fcda3e\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\02b68bf10ec20fa11ccb9afa9bf02988\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6b5b70b38f5af6285523b36939a61d7\transition-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\aaecf1ed98dfc9aaf30ee637687fa577\vectordrawable-1.0.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f73554407891e5f42b5a27997e9f0ce3\media-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3703fcbb34e955d73aa95084af596a63\lifecycle-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b630fccbdc2ad6089a310917acf4dfc1\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\07a10a0cead9a447f78103e8d38f9b9b\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:15:1-38:12
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:15:1-41:12
+MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\bda6d04f75d557021224c9dd1177863d\jetified-firebase-components-16.0.0\AndroidManifest.xml:15:1-23:12
+MERGED from [com.google.firebase:firebase-encoders-json:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0401f3c0df757b3bb530e2331dd620a1\firebase-encoders-json-16.0.0\AndroidManifest.xml:15:1-23:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\bc22db016844aa20c758d4921775e519\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\5351ba69d53acfbae58340a136c409ac\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\584211f80e055adcb4aa397abbed8e98\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b6362d95ebb099144b9b7e3d2ca2ff19\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\dc00afe98654b60ddd616a33528e20cf\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7e6ebd92550f66c9083ebcf4be850998\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\89b91c90415f820a35378d852e8c8a88\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9951022edd0c1aa1cd274f086f532952\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.datatransport:transport-api:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3884e8fab8ff0f35853fdb01fab777be\transport-api-2.2.0\AndroidManifest.xml:15:1-22:12
+MERGED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:2:1-26:12
+MERGED from [com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:2:1-17:12
+MERGED from [com.paypal.android.sdk:data-collector:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7286b2edc8861ea2b9186784ef6c4c1f\jetified-data-collector-3.0.0\AndroidManifest.xml:2:1-13:12
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+	package
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:2:5-50
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:1:1-69:12
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:1:1-69:12
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:9:5-67
+MERGED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:9:5-67
+MERGED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:9:5-67
+MERGED from [:google_sign_in] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\google_sign_in\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-67
+MERGED from [:google_sign_in] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\google_sign_in\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:23:5-67
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:13:5-67
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:13:5-67
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:12:5-67
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:12:5-67
+MERGED from [com.paypal.android.sdk:paypal-one-touch:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c78c3ac2c2563d4341a15cce4223ea98\paypal-one-touch-3.0.0\AndroidManifest.xml:11:5-67
+MERGED from [com.paypal.android.sdk:paypal-one-touch:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c78c3ac2c2563d4341a15cce4223ea98\paypal-one-touch-3.0.0\AndroidManifest.xml:11:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:26:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:26:5-67
+MERGED from [com.paypal.android.sdk:data-collector:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7286b2edc8861ea2b9186784ef6c4c1f\jetified-data-collector-3.0.0\AndroidManifest.xml:11:5-67
+MERGED from [com.paypal.android.sdk:data-collector:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7286b2edc8861ea2b9186784ef6c4c1f\jetified-data-collector-3.0.0\AndroidManifest.xml:11:5-67
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:9:22-64
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:10:5-81
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:10:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:11:5-80
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:11:22-77
+uses-permission#android.permission.VIBRATE
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:12:5-66
+MERGED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:10:5-66
+MERGED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:10:5-66
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:12:22-63
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:13:5-80
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:13:22-78
+application
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:16:5-68:19
+MERGED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-35:19
+MERGED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-35:19
+MERGED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-13:19
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-20:19
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-20:19
+MERGED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-18:19
+MERGED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-18:19
+MERGED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-12:19
+MERGED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-12:19
+MERGED from [com.google.firebase:firebase-core:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\350ae6e75ada395668d60c13ad23a490\firebase-core-17.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-core:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\350ae6e75ada395668d60c13ad23a490\firebase-core-17.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:22:5-42:19
+MERGED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:22:5-42:19
+MERGED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:24:5-32:19
+MERGED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:24:5-32:19
+MERGED from [com.google.firebase:firebase-analytics:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\af932722b8180dd37f0fac6c0151a7c2\firebase-analytics-17.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-analytics:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\af932722b8180dd37f0fac6c0151a7c2\firebase-analytics-17.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:28:5-45:19
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:28:5-45:19
+MERGED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:23:5-40:19
+MERGED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:23:5-40:19
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d8d8a1da441620db6c1f4899f8b8b69\firebase-auth-interop-19.0.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d8d8a1da441620db6c1f4899f8b8b69\firebase-auth-interop-19.0.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:25:5-37:19
+MERGED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:25:5-37:19
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\520fa26dea95f0288ec40036950ce805\firebase-iid-interop-17.0.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\520fa26dea95f0288ec40036950ce805\firebase-iid-interop-17.0.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8c4f658695a2810f0fc01dee789386e6\play-services-identity-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8c4f658695a2810f0fc01dee789386e6\play-services-identity-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:30:5-36:19
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:30:5-36:19
+MERGED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\6845c69e263908bca8ab45d7c39a1b20\play-services-tasks-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\6845c69e263908bca8ab45d7c39a1b20\play-services-tasks-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4dcf95d1aa85e70d114d3e835cc89ecf\firebase-measurement-connector-18.0.0\AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4dcf95d1aa85e70d114d3e835cc89ecf\firebase-measurement-connector-18.0.0\AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:28:5-53:19
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:28:5-53:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\1f88eb2be9a38f314bd7e75a915f6c52\play-services-measurement-sdk-17.2.1\AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\1f88eb2be9a38f314bd7e75a915f6c52\play-services-measurement-sdk-17.2.1\AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:28:5-38:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:28:5-38:19
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\488fbfcee7f9e82def1174180302c81d\play-services-stats-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\488fbfcee7f9e82def1174180302c81d\play-services-stats-17.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\19fc234860cc05089e65b1d66a680edd\play-services-measurement-base-17.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\19fc234860cc05089e65b1d66a680edd\play-services-measurement-base-17.2.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4ae5c806527406f77c711db15930365f\play-services-ads-identifier-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4ae5c806527406f77c711db15930365f\play-services-ads-identifier-17.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:22:5-26:19
+MERGED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:11:5-27:19
+MERGED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:11:5-27:19
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:15:5-27:19
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:15:5-27:19
+MERGED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:11:5-18:19
+MERGED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:11:5-18:19
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3df2fd68af0236fb7b1a24eeed8b503b\material-1.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3df2fd68af0236fb7b1a24eeed8b503b\material-1.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.facebook.android:facebook-login:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\94e4484fdf4463cd8c30784b44d92243\jetified-facebook-login-5.5.1\AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-login:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\94e4484fdf4463cd8c30784b44d92243\jetified-facebook-login-5.5.1\AndroidManifest.xml:28:5-29:19
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:14:5-16:19
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:14:5-16:19
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:28:5-35:19
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:28:5-35:19
+MERGED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:28:5-59:19
+MERGED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:28:5-59:19
+MERGED from [androidx.core:core:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:28:5-36:19
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:25:5-39:19
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:25:5-39:19
+MERGED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:19:5-24:19
+MERGED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:19:5-24:19
+MERGED from [com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:11:5-15:19
+MERGED from [com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:11:5-15:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:22:18-86
+	android:supportsRtl
+		ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:16:9-35
+	android:label
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:18:9-46
+	tools:ignore
+		ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:17:9-39
+	android:icon
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:19:9-43
+	android:theme
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:11:18-74
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:17:9-36
+activity#com.panaceasoft.digitalproductstore.MainActivity
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:20:9-42:20
+	android:launchMode
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:22:13-43
+	android:hardwareAccelerated
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:25:13-47
+	android:windowSoftInputMode
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:26:13-55
+	android:configChanges
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:24:13-144
+	android:theme
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:23:13-47
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:21:13-41
+meta-data#io.flutter.app.android.SplashScreenUntilFirstFrame
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:31:13-33:40
+	android:value
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:33:17-37
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:32:17-82
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:34:13-37:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:35:17-68
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:35:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:36:17-76
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:36:27-74
+intent-filter#action:name:FLUTTER_NOTIFICATION_CLICK
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:38:13-40:29
+action#FLUTTER_NOTIFICATION_CLICK
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:39:17-69
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:39:25-66
+activity#com.braintreepayments.api.BraintreeBrowserSwitchActivity
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:43:9-51:20
+	android:launchMode
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:44:13-44
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:43:19-90
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:com.panaceasoft.digitalproductstore.braintree
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:45:13-50:29
+action#android.intent.action.VIEW
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:46:17-69
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:46:25-66
+category#android.intent.category.DEFAULT
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:47:17-76
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:47:27-73
+category#android.intent.category.BROWSABLE
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:48:17-78
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:48:27-75
+meta-data#com.facebook.sdk.ApplicationId
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:52:9-53:46
+	android:value
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:53:5-44
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:52:20-65
+activity#com.facebook.FacebookActivity
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:54:9-57:40
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:29:9-32:66
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:29:9-32:66
+	android:label
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:57:5-37
+	android:configChanges
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:55:5-101
+	android:theme
+		ADDED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:32:13-63
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:54:19-63
+activity#com.facebook.CustomTabActivity
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:58:9-67:20
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:34:9-67
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:34:9-67
+	android:exported
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:60:13-36
+	android:name
+		ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:59:13-58
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:@string/fb_login_protocol_scheme
+ADDED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml:61:13-66:29
+uses-sdk
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml
+MERGED from [:braintree_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\braintree_payment\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:braintree_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\braintree_payment\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:google_sign_in] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\google_sign_in\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:google_sign_in] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\google_sign_in\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_core_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_core_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:package_info] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\package_info\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:package_info] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\package_info\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\permission_handler\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_macos] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_macos] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_macos] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_macos] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences_macos\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\shared_preferences_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:url_launcher_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:google_sign_in_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\google_sign_in_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:google_sign_in_web] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\google_sign_in_web\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_facebook_login] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\flutter_facebook_login\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_facebook_login] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\flutter_facebook_login\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:launch_review] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\launch_review\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:launch_review] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\launch_review\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-core:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\350ae6e75ada395668d60c13ad23a490\firebase-core-17.2.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-core:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\350ae6e75ada395668d60c13ad23a490\firebase-core-17.2.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\19ed3525dea1525b7ebca9ebde583893\multidex-2.0.0\AndroidManifest.xml:20:5-43
+MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\19ed3525dea1525b7ebca9ebde583893\multidex-2.0.0\AndroidManifest.xml:20:5-43
+MERGED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-analytics:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\af932722b8180dd37f0fac6c0151a7c2\firebase-analytics-17.2.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-analytics:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\af932722b8180dd37f0fac6c0151a7c2\firebase-analytics-17.2.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d8d8a1da441620db6c1f4899f8b8b69\firebase-auth-interop-19.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d8d8a1da441620db6c1f4899f8b8b69\firebase-auth-interop-19.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-wallet:18.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8ac50a85000eb3463580cbc56ab1a9eb\play-services-wallet-18.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-wallet:18.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8ac50a85000eb3463580cbc56ab1a9eb\play-services-wallet-18.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\6ad1d110a09371fdd704f27f970222ba\jetified-play-services-auth-api-phone-16.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\6ad1d110a09371fdd704f27f970222ba\jetified-play-services-auth-api-phone-16.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3f83e214ce76e9a4eb5572843fd11c6b\jetified-play-services-auth-base-16.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3f83e214ce76e9a4eb5572843fd11c6b\jetified-play-services-auth-base-16.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\520fa26dea95f0288ec40036950ce805\firebase-iid-interop-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\520fa26dea95f0288ec40036950ce805\firebase-iid-interop-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8c4f658695a2810f0fc01dee789386e6\play-services-identity-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-identity:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8c4f658695a2810f0fc01dee789386e6\play-services-identity-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\6845c69e263908bca8ab45d7c39a1b20\play-services-tasks-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\6845c69e263908bca8ab45d7c39a1b20\play-services-tasks-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4dcf95d1aa85e70d114d3e835cc89ecf\firebase-measurement-connector-18.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4dcf95d1aa85e70d114d3e835cc89ecf\firebase-measurement-connector-18.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\1f88eb2be9a38f314bd7e75a915f6c52\play-services-measurement-sdk-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\1f88eb2be9a38f314bd7e75a915f6c52\play-services-measurement-sdk-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\488fbfcee7f9e82def1174180302c81d\play-services-stats-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\488fbfcee7f9e82def1174180302c81d\play-services-stats-17.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\19fc234860cc05089e65b1d66a680edd\play-services-measurement-base-17.2.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\19fc234860cc05089e65b1d66a680edd\play-services-measurement-base-17.2.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4ae5c806527406f77c711db15930365f\play-services-ads-identifier-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4ae5c806527406f77c711db15930365f\play-services-ads-identifier-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:7:5-9:41
+MERGED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:7:5-9:41
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:8:5-10:41
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:8:5-10:41
+MERGED from [com.braintreepayments:card-form:4.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\310485ca66917b3cc27633e9bad31f8d\jetified-card-form-4.1.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.braintreepayments:card-form:4.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\310485ca66917b3cc27633e9bad31f8d\jetified-card-form-4.1.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:7:5-9:41
+MERGED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3df2fd68af0236fb7b1a24eeed8b503b\material-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3df2fd68af0236fb7b1a24eeed8b503b\material-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.android:facebook-login:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\94e4484fdf4463cd8c30784b44d92243\jetified-facebook-login-5.5.1\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-login:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\94e4484fdf4463cd8c30784b44d92243\jetified-facebook-login-5.5.1\AndroidManifest.xml:24:5-26:41
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:24:5-26:41
+MERGED from [androidx.appcompat:appcompat:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\32110d83d5afad0d9d4069c1a864d2af\appcompat-1.0.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\32110d83d5afad0d9d4069c1a864d2af\appcompat-1.0.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b9799d70f08d6212f2bb67aeb995639d\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b9799d70f08d6212f2bb67aeb995639d\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.paypal.android.sdk:paypal-one-touch:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c78c3ac2c2563d4341a15cce4223ea98\paypal-one-touch-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.paypal.android.sdk:paypal-one-touch:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c78c3ac2c2563d4341a15cce4223ea98\paypal-one-touch-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.braintreepayments.api:core:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\fa23b1ddab58718f5feb2789cee4ec88\core-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.braintreepayments.api:core:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\fa23b1ddab58718f5feb2789cee4ec88\core-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.braintreepayments:browser-switch:0.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0b54393b26899ddbc563204e09f3c0f8\browser-switch-0.2.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.braintreepayments:browser-switch:0.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0b54393b26899ddbc563204e09f3c0f8\browser-switch-0.2.0\AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\ad7e8978b214163478bfde401fa98c83\fragment-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\ad7e8978b214163478bfde401fa98c83\fragment-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2b1bcabae6ee9c47b0643990b00d5cab\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2b1bcabae6ee9c47b0643990b00d5cab\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c2d3966f4637a5ae78c8a6ab897a8b79\browser-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c2d3966f4637a5ae78c8a6ab897a8b79\browser-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\247f914cac81e7c8d9a2fad2c7abbf38\vectordrawable-animated-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\247f914cac81e7c8d9a2fad2c7abbf38\vectordrawable-animated-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\77f38ede50d86bb3bde02e7424569968\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\77f38ede50d86bb3bde02e7424569968\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:24:5-26:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a2812e63738b1c43d88b94e2e3e83098\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a2812e63738b1c43d88b94e2e3e83098\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8b9f96df1a219288d5310a3f5ee0b475\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\8b9f96df1a219288d5310a3f5ee0b475\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d98c89cf50bdd03f81aa09467d0c2ed3\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d98c89cf50bdd03f81aa09467d0c2ed3\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\aa9ec5933c64a7f92a2e54256e9d183b\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\aa9ec5933c64a7f92a2e54256e9d183b\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2215b7515dd4dbb7a4b19b0c72864742\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2215b7515dd4dbb7a4b19b0c72864742\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0330067c7295b8ae2a93b976266b0d2d\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0330067c7295b8ae2a93b976266b0d2d\slidingpanelayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\30989f83181402fab157072c421048ee\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\30989f83181402fab157072c421048ee\customview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7fc233ef99bb8b4c500b664971fcda3e\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7fc233ef99bb8b4c500b664971fcda3e\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\02b68bf10ec20fa11ccb9afa9bf02988\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\02b68bf10ec20fa11ccb9afa9bf02988\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6b5b70b38f5af6285523b36939a61d7\transition-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6b5b70b38f5af6285523b36939a61d7\transition-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\aaecf1ed98dfc9aaf30ee637687fa577\vectordrawable-1.0.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\aaecf1ed98dfc9aaf30ee637687fa577\vectordrawable-1.0.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f73554407891e5f42b5a27997e9f0ce3\media-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f73554407891e5f42b5a27997e9f0ce3\media-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3703fcbb34e955d73aa95084af596a63\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3703fcbb34e955d73aa95084af596a63\lifecycle-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b630fccbdc2ad6089a310917acf4dfc1\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b630fccbdc2ad6089a310917acf4dfc1\lifecycle-livedata-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\07a10a0cead9a447f78103e8d38f9b9b\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\07a10a0cead9a447f78103e8d38f9b9b\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\bda6d04f75d557021224c9dd1177863d\jetified-firebase-components-16.0.0\AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\bda6d04f75d557021224c9dd1177863d\jetified-firebase-components-16.0.0\AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-encoders-json:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0401f3c0df757b3bb530e2331dd620a1\firebase-encoders-json-16.0.0\AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-encoders-json:16.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\0401f3c0df757b3bb530e2331dd620a1\firebase-encoders-json-16.0.0\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\bc22db016844aa20c758d4921775e519\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\bc22db016844aa20c758d4921775e519\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\5351ba69d53acfbae58340a136c409ac\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\5351ba69d53acfbae58340a136c409ac\core-runtime-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\584211f80e055adcb4aa397abbed8e98\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\584211f80e055adcb4aa397abbed8e98\lifecycle-viewmodel-2.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b6362d95ebb099144b9b7e3d2ca2ff19\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b6362d95ebb099144b9b7e3d2ca2ff19\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\dc00afe98654b60ddd616a33528e20cf\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\dc00afe98654b60ddd616a33528e20cf\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7e6ebd92550f66c9083ebcf4be850998\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7e6ebd92550f66c9083ebcf4be850998\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\89b91c90415f820a35378d852e8c8a88\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\89b91c90415f820a35378d852e8c8a88\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9951022edd0c1aa1cd274f086f532952\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9951022edd0c1aa1cd274f086f532952\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.datatransport:transport-api:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3884e8fab8ff0f35853fdb01fab777be\transport-api-2.2.0\AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.android.datatransport:transport-api:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3884e8fab8ff0f35853fdb01fab777be\transport-api-2.2.0\AndroidManifest.xml:18:5-20:41
+MERGED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:5:5-7:41
+MERGED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.paypal.android.sdk:data-collector:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7286b2edc8861ea2b9186784ef6c4c1f\jetified-data-collector-3.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.paypal.android.sdk:data-collector:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7286b2edc8861ea2b9186784ef6c4c1f\jetified-data-collector-3.0.0\AndroidManifest.xml:7:5-9:41
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml
+INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\android\app\src\debug\AndroidManifest.xml
+meta-data#com.google.android.gms.wallet.api.enabled
+ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-14:36
+	android:value
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-33
+	android:name
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-69
+activity#com.gettipsi.stripe.OpenBrowserActivity
+ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:16:9-20:75
+	android:launchMode
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-44
+	android:exported
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-37
+	android:theme
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:20:13-72
+	android:name
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:17:13-67
+activity#com.gettipsi.stripe.RedirectUriReceiver
+ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:21:9-34:20
+	android:launchMode
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-44
+	android:exported
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:23:13-36
+	android:theme
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:25:13-83
+	android:name
+		ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:22:13-67
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:example
+ADDED from [:stripe_payment] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\stripe_payment\intermediates\library_manifest\debug\AndroidManifest.xml:26:13-33:29
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:13:9-17:19
+MERGED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:13:9-17:19
+MERGED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:35:9-41:19
+MERGED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:35:9-41:19
+MERGED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:25:9-31:19
+MERGED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:25:9-31:19
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:33:9-39:19
+MERGED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:33:9-39:19
+MERGED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:32:9-36:35
+MERGED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:32:9-36:35
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:37:13-37
+	tools:targetApi
+		ADDED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:36:13-32
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
+	android:name
+		ADDED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-89
+meta-data#com.google.firebase.components:io.flutter.plugins.firebaseauth.FlutterFirebaseAppRegistrar
+ADDED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_auth] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-122
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseAppRegistrar
+ADDED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_core] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-123
+provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
+ADDED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+	android:grantUriPermissions
+		ADDED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+	android:authorities
+		ADDED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+	android:exported
+		ADDED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+	android:name
+		ADDED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+	android:resource
+		ADDED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+	android:name
+		ADDED from [:image_picker] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+service#io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService
+ADDED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+	android:name
+		ADDED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-101
+intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
+ADDED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+	android:name
+		ADDED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+meta-data#com.google.firebase.components:io.flutter.plugins.firebasemessaging.FlutterFirebaseAppRegistrar
+ADDED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-16:85
+	android:value
+		ADDED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:16:17-82
+	android:name
+		ADDED from [:firebase_messaging] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-127
+activity#io.flutter.plugins.urllauncher.WebViewActivity
+ADDED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+	android:exported
+		ADDED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+	android:theme
+		ADDED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+	android:name
+		ADDED from [:url_launcher] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:24:5-79
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:12:5-79
+MERGED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:12:5-79
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:11:5-79
+MERGED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:11:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from [:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from [:connectivity] C:\Users\Himanshu Maurya\Desktop\final project\Digital-Product\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-73
+service#com.google.firebase.messaging.FirebaseMessagingService
+ADDED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:28:9-34:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:30:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:29:13-82
+meta-data#com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar
+ADDED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:38:13-40:85
+	android:value
+		ADDED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:40:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:20.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2f8500ba305e3e4e9c6045461ab5b052\jetified-firebase-messaging-20.1.0\AndroidManifest.xml:39:17-119
+meta-data#com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar
+ADDED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:28:13-30:85
+	android:value
+		ADDED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:30:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\085863ceb8e0f453417cd69a0a8f7ba5\firebase-datatransport-17.0.3\AndroidManifest.xml:29:17-115
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:24:5-68
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:24:5-68
+MERGED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c048ad61ba6e19ee428d5f6f4cd2ed59\play-services-measurement-sdk-api-17.2.1\AndroidManifest.xml:25:5-68
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:24:22-65
+meta-data#com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar
+ADDED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:30:13-32:85
+	android:value
+		ADDED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:32:17-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement-api:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\3e3cdd4175eb3827483caa9c75f911c9\play-services-measurement-api-17.2.1\AndroidManifest.xml:31:17-139
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:26:5-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:26:22-79
+meta-data#com.google.firebase.components:com.google.firebase.iid.Registrar
+ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:32:13-34:85
+	android:value
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:34:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:33:17-96
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:37:9-44:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:39:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:40:13-73
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:38:13-78
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:41:13-43:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:42:17-81
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\55caed1b9c6c940582a42453c80a9176\firebase-iid-20.0.2\AndroidManifest.xml:42:25-78
+activity#com.google.firebase.auth.internal.FederatedSignInActivity
+ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:24:9-31:50
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:26:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:28:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:27:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:29:13-102
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:30:13-72
+	tools:replace
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:31:13-47
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:25:13-85
+meta-data#com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar
+ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:36:13-38:85
+	android:value
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:38:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\4c05444f12eca45675b5d4ded5b0e7c0\firebase-auth-19.2.0\AndroidManifest.xml:37:17-109
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:19.3.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\886d8f69d6bb23b2410c676916993b0c\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:23:9-27:75
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:25:13-46
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:26:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:27:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:24:13-93
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:33:9-36:110
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:35:13-36
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:36:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\41c78647df23dcb0939581260df64f81\jetified-play-services-auth-16.0.1\AndroidManifest.xml:34:13-89
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:27:9-41
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:28:9-32
+uses-library#org.apache.http.legacy
+ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:33:9-35:40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:35:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7bcf804a339ceb9c6955f16dcce483b3\play-services-maps-17.0.0\AndroidManifest.xml:34:13-50
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\c6ed24259e187418524151309c91ad64\play-services-base-17.1.0\AndroidManifest.xml:24:13-79
+uses-permission#com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:26:5-110
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:26:22-107
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:29:9-33:20
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:31:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:32:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:30:13-85
+receiver#com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:34:9-42:20
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:29:9-37:20
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\9ff107986b8be7af259cac8c087bc219\play-services-measurement-impl-17.2.1\AndroidManifest.xml:29:9-37:20
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:36:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:37:13-36
+	android:permission
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:38:13-69
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:35:13-100
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:39:13-41:29
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:40:17-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:40:25-76
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:44:9-47:40
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:46:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:47:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:45:13-84
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:48:9-52:72
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:50:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:51:13-37
+	android:permission
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:52:13-69
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\f850f032f32e5a254783332061c80ee1\play-services-measurement-17.2.1\AndroidManifest.xml:49:13-87
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\eb2cc8b7ea82594ef7ccbd499168a2fe\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+activity#com.stripe.android.view.AddPaymentMethodActivity
+ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:12:9-14:57
+	android:theme
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:14:13-54
+	android:name
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:13:13-76
+activity#com.stripe.android.view.PaymentMethodsActivity
+ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:15:9-17:57
+	android:theme
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:17:13-54
+	android:name
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:16:13-74
+activity#com.stripe.android.view.PaymentFlowActivity
+ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:18:9-20:57
+	android:theme
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:20:13-54
+	android:name
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:19:13-71
+activity#com.stripe.android.view.PaymentAuthWebViewActivity
+ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:21:9-23:57
+	android:theme
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:23:13-54
+	android:name
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:22:13-78
+activity#com.stripe.android.view.PaymentRelayActivity
+ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:24:9-26:57
+	android:theme
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:26:13-54
+	android:name
+		ADDED from [com.stripe:stripe-android:10.4.6] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a8155e6c1fdd8ffd215113199cb87823\jetified-stripe-android-10.4.6\AndroidManifest.xml:25:13-72
+activity#com.braintreepayments.api.dropin.DropInActivity
+ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:18:9-20:64
+	android:theme
+		ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:20:13-61
+	android:name
+		ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:19:13-75
+activity#com.braintreepayments.api.dropin.AddCardActivity
+ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:21:9-23:65
+	android:theme
+		ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:23:13-62
+	android:name
+		ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:22:13-76
+activity#com.braintreepayments.api.dropin.VaultManagerActivity
+ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:24:9-26:70
+	android:theme
+		ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:26:13-67
+	android:name
+		ADDED from [com.braintreepayments.api:drop-in:4.1.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\03723be2b751fc852647c74385079352\jetified-drop-in-4.1.1\AndroidManifest.xml:25:13-81
+activity#com.stripe.android.stripe3ds2.views.ChallengeActivity
+ADDED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:12:9-14:54
+	android:theme
+		ADDED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:14:13-51
+	android:name
+		ADDED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:13:13-81
+activity#com.stripe.android.stripe3ds2.views.ChallengeProgressDialogActivity
+ADDED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:15:9-17:54
+	android:theme
+		ADDED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:17:13-51
+	android:name
+		ADDED from [com.stripe:stripe-3ds2-android:1.2.2] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\e526523fc2c39428f334df6e8d98509a\jetified-stripe-3ds2-android-1.2.2\AndroidManifest.xml:16:13-95
+service#com.braintreepayments.api.internal.AnalyticsIntentService
+ADDED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:15:9-93
+	android:name
+		ADDED from [com.braintreepayments.api:braintree:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b77c3a11ee6e85418c5e42ac84019d83\jetified-braintree-3.0.0\AndroidManifest.xml:15:18-90
+activity#com.facebook.CustomTabMainActivity
+ADDED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:33:9-71
+	android:name
+		ADDED from [com.facebook.android:facebook-common:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\a256f65805ab38d9be84592982fc50c1\jetified-facebook-common-5.5.1\AndroidManifest.xml:33:19-68
+provider#com.facebook.internal.FacebookInitProvider
+ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:39:9-42:40
+	android:authorities
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:41:13-72
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:42:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:40:13-70
+receiver#com.facebook.CurrentAccessTokenExpirationBroadcastReceiver
+ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:44:9-50:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:46:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:45:13-86
+intent-filter#action:name:com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:47:13-49:29
+action#com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:48:17-95
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:48:25-92
+receiver#com.facebook.CampaignTrackingReceiver
+ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:51:9-58:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:53:13-36
+	android:permission
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:54:13-69
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\92f1b3797523877583eb95efd87ee758\jetified-facebook-core-5.5.1\AndroidManifest.xml:52:13-65
+service#com.google.android.datatransport.runtime.backends.TransportBackendDiscovery
+ADDED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:36:9-38:40
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:36:9-38:40
+	android:exported
+		ADDED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:31:13-37
+	android:name
+		ADDED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:30:13-103
+meta-data#backend:com.google.android.datatransport.cct.CctBackendFactory
+ADDED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:32:13-34:39
+	android:value
+		ADDED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:34:17-36
+	android:name
+		ADDED from [com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\b797554d34ec635317f4e6286f8910e4\transport-backend-cct-2.2.0\AndroidManifest.xml:33:17-94
+service#com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService
+ADDED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:26:9-30:19
+	android:exported
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:28:13-37
+	android:permission
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:29:13-69
+	android:name
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:27:13-117
+receiver#com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver
+ADDED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:32:9-34:40
+	android:exported
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:34:13-37
+	android:name
+		ADDED from [com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\33404314d25ae3d2e845b28c390c0981\transport-runtime-2.2.0\AndroidManifest.xml:33:13-132
+uses-permission#android.permission.CAMERA
+ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:9:5-65
+	android:name
+		ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:9:22-62
+uses-feature#android.hardware.camera
+ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:12:5-14:36
+	android:required
+		ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:14:9-33
+	android:name
+		ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:13:9-47
+uses-feature#android.hardware.camera.autofocus
+ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:15:5-17:36
+	android:required
+		ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:17:9-33
+	android:name
+		ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:16:9-57
+activity#io.card.payment.CardIOActivity
+ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:20:9-22:66
+	android:configChanges
+		ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:22:13-63
+	android:name
+		ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:21:13-58
+activity#io.card.payment.DataEntryActivity
+ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:23:9-70
+	android:name
+		ADDED from [io.card:android-sdk:5.5.1] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\2bf7323c69e717593396aae2c4289e3a\jetified-android-sdk-5.5.1\AndroidManifest.xml:23:19-67
+activity#com.braintreepayments.api.GooglePaymentActivity
+ADDED from [com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:12:9-14:62
+	android:theme
+		ADDED from [com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:14:13-59
+	android:name
+		ADDED from [com.braintreepayments.api:google-payment:3.0.0] C:\Users\Himanshu Maurya\.gradle\caches\transforms-2\files-2.1\7d080e812f9db497ea10b0ccb8ca071c\jetified-google-payment-3.0.0\AndroidManifest.xml:13:13-75
