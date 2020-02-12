@@ -150,7 +150,7 @@ class __TextFieldAndButtonWidgetState extends State<_TextFieldAndButtonWidget> {
                 context, 'email_verify__enter_verification_code'),
             hintStyle: Theme.of(context).textTheme.button.copyWith(),
           ),
-          style: Theme.of(context).textTheme.title.copyWith(),
+          style: Theme.of(context).textTheme.subtitle1.copyWith(),
         ),
         const SizedBox(
           height: ps_space_8,

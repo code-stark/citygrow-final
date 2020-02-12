@@ -11,6 +11,7 @@ import 'package:digitalproductstore/repository/user_repository.dart';
 import 'package:digitalproductstore/ui/common/dialog/error_dialog.dart';
 import 'package:digitalproductstore/ui/common/dialog/loading_dialog.dart';
 import 'package:digitalproductstore/ui/common/dialog/warning_dialog_view.dart';
+import 'package:digitalproductstore/ui/user/profile/profile_view.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
 import 'package:digitalproductstore/viewobject/holder/fb_login_parameter_holder.dart';
@@ -18,6 +19,7 @@ import 'package:digitalproductstore/viewobject/holder/google_login_parameter_hol
 import 'package:digitalproductstore/viewobject/holder/user_login_parameter_holder.dart';
 import 'package:digitalproductstore/viewobject/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -260,38 +262,42 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                   // );
 
                   // final ProgressDialog progressDialog = loadingDialog(
-                    // context,
+                  //   context,
                   // );
                   // progressDialog.show();
                   // final PsResource<User> _apiStatus = await widget.provider
                   //     .postUserLogin(userLoginParameterHolder.toMap());
 
                   // if (_apiStatus.data != null) {
-                  // progressDialog.dismiss();
+                  //   progressDialog.dismiss();
 
-                  // widget.provider.replaceVerifyUserData('', '', '', '');
-                  // widget.provider.replaceLoginUserId(_apiStatus.data.userId);
+                    widget.provider.replaceVerifyUserData('', '', '', '');
+                    widget.provider.replaceLoginUserId('_apiStatus.data.userId');
 
-                  // if (widget.onProfileSelected != null) {
-                  // await widget.provider
-                  //     .replaceVerifyUserData('', '', '', '');
-                  // await widget.provider
-                  //     .replaceLoginUserId(_apiStatus.data.userId);
-                  // await widget.onProfileSelected(_apiStatus.data.userId);
+                  //   if (widget.onProfileSelected != null) {
+                  //     await widget.provider
+                  //         .replaceVerifyUserData('', '', '', '');
+                  //     await widget.provider
+                  //         .replaceLoginUserId(_apiStatus.data.userId);
+                  //     await widget.onProfileSelected(_apiStatus.data.userId);
+                  //   } else {
+                      // Navigator.pop(context);
+                  //   }
                   // } else {
-                  Navigator.pop(context);
+                  //   progressDialog.dismiss();
+                  //   showDialog<dynamic>(
+                  //       context: context,
+                  //       builder: (BuildContext context) {
+                  //         return const ErrorDialog(
+                  //           message: '_apiStatus.message',
+                  //         );
+                  //       });
                   // }
-                  // } else {
-                  // progressDialog.dismiss();
-  
-                  // showDialog<dynamic>(
-                  //     context: context,
-                  //     builder: (BuildContext context) {
-                  //       return const ErrorDialog(
-                  //         message: '_apiStatus.message',
-                  //       );
-                  //     });
-                  // }
+                  // Navigator.push<dynamic>(
+                  //     context,
+                  //     MaterialPageRoute<dynamic>(
+                  //         builder: (BuildContext context) => const ProfileView(
+                  //             flag: null, scaffoldKey: null)));
                 } else {
                   showDialog<dynamic>(
                       context: context,

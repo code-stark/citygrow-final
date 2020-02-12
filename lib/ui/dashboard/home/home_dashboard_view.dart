@@ -657,7 +657,7 @@ class _HomeSelectingProductTypeWidget extends StatelessWidget {
                     Text(Utils.getString(context, 'app_name'),
                         style: Theme.of(context)
                             .textTheme
-                            .subhead
+                            .subtitle1
                             .copyWith(color: ps_ctheme__color_speical)),
                     const SizedBox(
                       height: ps_space_12,
@@ -1333,7 +1333,7 @@ class __MyHeaderWidgetState extends State<_MyHeaderWidget> {
             Expanded(
               //   fit: FlexFit.loose,
               child: Text(widget.headerName,
-                  style: Theme.of(context).textTheme.subhead),
+                  style: Theme.of(context).textTheme.subtitle1),
             ),
             Text(
               Utils.getString(context, 'dashboard__view_all'),

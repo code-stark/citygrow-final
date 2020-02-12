@@ -150,7 +150,7 @@ class __TextWidgetState extends State<_TextWidget> {
     return GestureDetector(
       child: Text(
         Utils.getString(context, 'register__login'),
-        style: Theme.of(context).textTheme.body1.copyWith(color: Colors.orange),
+        style: Theme.of(context).textTheme.bodyText1.copyWith(color: Colors.orange),
       ),
       onTap: () {
         if (widget.goToLoginSelected != null) {
@@ -264,7 +264,7 @@ class _HeaderIconAndTextWidget extends StatelessWidget {
         ),
         Text(
           Utils.getString(context, 'app_name'),
-          style: Theme.of(context).textTheme.title.copyWith(
+          style: Theme.of(context).textTheme.subtitle1.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -328,69 +328,69 @@ class __SignInButtonWidgetState extends State<_SignInButtonWidget> {
                 Utils.getString(context, 'warning_dialog__input_password'));
           } else {
             if (await utilsCheckInternetConnectivity()) {
-              final UserRegisterParameterHolder userRegisterParameterHolder =
-                  UserRegisterParameterHolder(
-                userId: '',
-                userName: widget.nameTextEditingController.text,
-                userEmail: widget.emailTextEditingController.text,
-                userPassword: widget.passwordTextEditingController.text,
-                userPhone: '',
-                deviceToken: widget.provider.psValueHolder.deviceToken,
-              );
+              // final UserRegisterParameterHolder userRegisterParameterHolder =
+              //     UserRegisterParameterHolder(
+              //   userId: '',
+              //   userName: widget.nameTextEditingController.text,
+              //   userEmail: widget.emailTextEditingController.text,
+              //   userPassword: widget.passwordTextEditingController.text,
+              //   userPhone: '',
+              //   deviceToken: widget.provider.psValueHolder.deviceToken,
+              // );
 
-              final PsResource<User> _apiStatus = await widget.provider
-                  .postUserRegister(userRegisterParameterHolder.toMap());
+              // final PsResource<User> _apiStatus = await widget.provider
+              //     .postUserRegister(userRegisterParameterHolder.toMap());
 
-              if (_apiStatus.data != null) {
-                final User user = _apiStatus.data;
+              // if (_apiStatus.data != null) {
+              //   final User user = _apiStatus.data;
 
-                //verify
-                await widget.provider.replaceVerifyUserData(
-                    _apiStatus.data.userId,
-                    _apiStatus.data.userName,
-                    _apiStatus.data.userEmail,
-                    widget.passwordTextEditingController.text);
+              //   //verify
+              //   await widget.provider.replaceVerifyUserData(
+              //       _apiStatus.data.userId,
+              //       _apiStatus.data.userName,
+              //       _apiStatus.data.userEmail,
+              //       widget.passwordTextEditingController.text);
 
-                widget.provider.psValueHolder.userIdToVerify = user.userId;
-                widget.provider.psValueHolder.userNameToVerify = user.userName;
-                widget.provider.psValueHolder.userEmailToVerify =
-                    user.userEmail;
-                widget.provider.psValueHolder.userPasswordToVerify =
-                    user.userPassword;
+              //   widget.provider.psValueHolder.userIdToVerify = user.userId;
+              //   widget.provider.psValueHolder.userNameToVerify = user.userName;
+              //   widget.provider.psValueHolder.userEmailToVerify =
+              //       user.userEmail;
+              //   widget.provider.psValueHolder.userPasswordToVerify =
+              //       user.userPassword;
 
-                //
-                if (widget.onRegisterSelected != null) {
-                  await widget.onRegisterSelected();
-                } else {
-                  final dynamic returnData = await Navigator.pushNamed(
-                    context,
-                    RoutePaths.user_verify_email_container,
-                  );
+              //   //
+              //   if (widget.onRegisterSelected != null) {
+              //     await widget.onRegisterSelected();
+              //   } else {
+                //   final dynamic returnData = await Navigator.pushNamed(
+                //     context,
+                //     RoutePaths.user_verify_email_container,
+                //   );
 
-                  if (returnData != null && returnData is User) {
-                    final User user = returnData;
-                    if (Provider != null && Provider.of != null) {
-                      widget.provider.psValueHolder =
-                          Provider.of<PsValueHolder>(context);
-                    }
-                    widget.provider.psValueHolder.loginUserId = user.userId;
-                    widget.provider.psValueHolder.userIdToVerify = '';
-                    widget.provider.psValueHolder.userNameToVerify = '';
-                    widget.provider.psValueHolder.userEmailToVerify = '';
-                    widget.provider.psValueHolder.userPasswordToVerify = '';
-                    print(user.userId);
-                    Navigator.of(context).pop();
-                  }
-                }
-              } else {
-                showDialog<dynamic>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return ErrorDialog(
-                        message: _apiStatus.message,
-                      );
-                    });
-              }
+                //   if (returnData != null && returnData is User) {
+                //     final User user = returnData;
+                //     if (Provider != null && Provider.of != null) {
+                //       widget.provider.psValueHolder =
+                //           Provider.of<PsValueHolder>(context);
+                //     }
+                //     widget.provider.psValueHolder.loginUserId = user.userId;
+                //     widget.provider.psValueHolder.userIdToVerify = '';
+                //     widget.provider.psValueHolder.userNameToVerify = '';
+                //     widget.provider.psValueHolder.userEmailToVerify = '';
+                //     widget.provider.psValueHolder.userPasswordToVerify = '';
+                //     print(user.userId);
+                    Navigator.of(context,rootNavigator: true).pop();
+                //   }
+                // }
+              // } else {
+              //   showDialog<dynamic>(
+              //       context: context,
+              //       builder: (BuildContext context) {
+              //         return ErrorDialog(
+              //           message: _apiStatus.message,
+              //         );
+              //       });
+              // }
             } else {
               showDialog<dynamic>(
                   context: context,
