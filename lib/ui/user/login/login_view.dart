@@ -283,7 +283,7 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                   // }
                   // } else {
                   // progressDialog.dismiss();
-
+  
                   // showDialog<dynamic>(
                   //     context: context,
                   //     builder: (BuildContext context) {
