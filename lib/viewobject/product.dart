@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/viewobject/category.dart';
 // import 'package:digitalproductstore/viewobject/color.dart';
 // import 'package:digitalproductstore/viewobject/specs.dart';
@@ -106,6 +107,13 @@ class Product extends PsObject<Product> {
     return id;
   }
 
+  // Stream<Product> get Guru {
+  //   return Firestore.instance
+  //       .document(uid)
+  //       .snapshots()
+  //       .map(_dataGuruFromSnapshot);
+  // }
+
   @override
   Product fromMap(dynamic dynamicData) {
     if (dynamicData != null) {
@@ -156,6 +164,33 @@ class Product extends PsObject<Product> {
       return null;
     }
   }
+  // ProductListsView productcollection(DocumentSnapshot snapshot) {
+  //   Map data = snapshot.data;
+  //   return ProductListsView(
+  //       userName: data["UploaderName"] ?? "",
+  //       uid: uid,
+  //       price: data["price"] ?? "",
+  //       brand: data["brand"] ?? "",
+  //       category: data["category"] ?? "",
+  //       images: data["images"] ?? "",
+  //       sizes: data["sizes"] ?? "",
+  //       quantity: data["quantity"] ?? "");
+  // }
+
+  // // stream of data
+  // Stream<ProductListsView> get productSnapshot {
+  //   return _db
+  //       .collection("ProductListID")
+  //       .document(uid)
+  //       .collection(uid)
+  //       .where("PersonID", isEqualTo: uid)
+  //       .snapshots()
+  //       .map(_productDataFromSnapshot);
+  // }
+
+  // ProductListsView _productDataFromSnapshot(snapshot) {
+  //   return productcollection(snapshot);
+  // }
 
   @override
   Map<String, dynamic> toMap(dynamic object) {

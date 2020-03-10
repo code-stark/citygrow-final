@@ -11,6 +11,7 @@ import 'package:digitalproductstore/repository/user_repository.dart';
 import 'package:digitalproductstore/ui/common/dialog/error_dialog.dart';
 import 'package:digitalproductstore/ui/common/dialog/loading_dialog.dart';
 import 'package:digitalproductstore/ui/common/dialog/warning_dialog_view.dart';
+import 'package:digitalproductstore/ui/noti/detail/noti_view.dart';
 import 'package:digitalproductstore/ui/user/profile/profile_view.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
@@ -271,8 +272,8 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                   // if (_apiStatus.data != null) {
                   //   progressDialog.dismiss();
 
-                    widget.provider.replaceVerifyUserData('', '', '', '');
-                    widget.provider.replaceLoginUserId('_apiStatus.data.userId');
+                  widget.provider.replaceVerifyUserData('', '', '', '');
+                  widget.provider.replaceLoginUserId('_apiStatus.data.userId');
 
                   //   if (widget.onProfileSelected != null) {
                   //     await widget.provider
@@ -281,7 +282,7 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                   //         .replaceLoginUserId(_apiStatus.data.userId);
                   //     await widget.onProfileSelected(_apiStatus.data.userId);
                   //   } else {
-                      // Navigator.pop(context);
+                  // Navigator.pop(context);
                   //   }
                   // } else {
                   //   progressDialog.dismiss();
@@ -293,11 +294,11 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                   //         );
                   //       });
                   // }
-                  // Navigator.push<dynamic>(
-                  //     context,
-                  //     MaterialPageRoute<dynamic>(
-                  //         builder: (BuildContext context) => const ProfileView(
-                  //             flag: null, scaffoldKey: null)));
+                  Navigator.push<dynamic>(
+                      context,
+                      MaterialPageRoute<dynamic>(
+                          builder: (BuildContext context) =>
+                              const ProfileView(flag: 1, scaffoldKey: null)));
                 } else {
                   showDialog<dynamic>(
                       context: context,

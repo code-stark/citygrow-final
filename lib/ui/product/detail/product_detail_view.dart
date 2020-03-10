@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 import 'package:digitalproductstore/api/common/ps_status.dart';
 
@@ -48,8 +49,9 @@ import 'views/terms_and_policy_tile_view.dart';
 class ProductDetailView extends StatefulWidget {
   const ProductDetailView({
     @required this.product,
+    @required this.productList,
   });
-
+  final DocumentSnapshot productList;
   final Product product;
   @override
   _ProductDetailState createState() => _ProductDetailState();
@@ -299,6 +301,8 @@ class _ProductDetailState extends State<ProductDetailView>
                                     ? Colors.grey[100]
                                     : Colors.grey[900],
                                 child: PsNetworkImage(
+                                  firebasePhoto: widget.productList["images"]
+                                      [0],
                                   photoKey: '',
                                   defaultPhoto: widget.product.defaultPhoto,
                                   width: double.infinity,
@@ -321,6 +325,7 @@ class _ProductDetailState extends State<ProductDetailView>
                                     : Colors.black87,
                                 child: Column(children: <Widget>[
                                   _HeaderBoxWidget(
+                                    productList: widget.productList,
                                     productDetail: provider,
                                     product: widget.product,
                                   ),
@@ -477,7 +482,9 @@ class _HeaderBoxWidget extends StatefulWidget {
     Key key,
     @required this.productDetail,
     @required this.product,
+    @required this.productList,
   }) : super(key: key);
+  final DocumentSnapshot productList;
 
   final ProductDetailProvider productDetail;
   final Product product;
@@ -502,12 +509,14 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
                 child: Column(
                   children: <Widget>[
                     _FavouriteWidget(
+                        productList: widget.productList,
                         productDetail: widget.productDetail,
                         product: widget.product),
                     const SizedBox(
                       height: ps_space_12,
                     ),
                     _HeaderPriceWidget(
+                      productPrice: widget.productList,
                       productProvider: widget.productDetail,
                     ),
                     const SizedBox(
@@ -521,6 +530,7 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
                       padding: const EdgeInsets.only(
                           top: ps_space_16, bottom: ps_space_4),
                       child: _HeaderRatingWidget(
+                        productref: widget.productList,
                         productDetail: widget.productDetail,
                       ),
                     ),
@@ -557,6 +567,7 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
               ),
             ),
             DescriptionTileView(
+              productDescription: widget.productList,
               productDetail: widget.productDetail.productDetail.data,
             ),
             Container(
@@ -584,10 +595,12 @@ class _FavouriteWidget extends StatefulWidget {
     Key key,
     @required this.productDetail,
     @required this.product,
+    @required this.productList,
   }) : super(key: key);
 
   final ProductDetailProvider productDetail;
   final Product product;
+  final DocumentSnapshot productList;
 
   @override
   __FavouriteWidgetState createState() => __FavouriteWidgetState();
@@ -622,7 +635,7 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
             children: <Widget>[
               Expanded(
                 child: Text(
-                  widget.productDetail.productDetail.data.name ?? '',
+                  widget.productList['ProductName'] ?? '',
                   style: Theme.of(context).textTheme.headline.copyWith(),
                 ),
               ),
@@ -756,8 +769,9 @@ class _HeaderRatingWidget extends StatelessWidget {
   const _HeaderRatingWidget({
     Key key,
     @required this.productDetail,
+    @required this.productref,
   }) : super(key: key);
-
+  final DocumentSnapshot productref;
   final ProductDetailProvider productDetail;
 
   @override
@@ -889,7 +903,7 @@ class _HeaderRatingWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    productDetail.productDetail.data.code ?? '',
+                    productref['Reference'] ?? '',
                     textAlign: TextAlign.end,
                     style: Theme.of(context)
                         .textTheme
@@ -912,8 +926,9 @@ class _HeaderPriceWidget extends StatefulWidget {
   const _HeaderPriceWidget({
     Key key,
     @required this.productProvider,
+    @required this.productPrice,
   }) : super(key: key);
-
+  final DocumentSnapshot productPrice;
   final ProductDetailProvider productProvider;
 
   @override
@@ -1056,7 +1071,7 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
                   else
                     Text(
                       widget.productProvider.productDetail.data.unitPrice != '0'
-                          ? '${widget.productProvider.productDetail.data.currencySymbol} ${Utils.getPriceFormat(widget.productProvider.productDetail.data.originalPrice)}'
+                          ? '₹${widget.productPrice["price"]}'
                           : Utils.getString(context, 'global_product__free'),
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)

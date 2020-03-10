@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
+import 'package:digitalproductstore/model/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
@@ -11,15 +14,22 @@ import 'package:digitalproductstore/viewobject/product.dart';
 class ProductHorizontalListItem extends StatelessWidget {
   const ProductHorizontalListItem({
     Key key,
-    @required this.product,
+    @required this.productList,
+    this.product,
     this.onTap,
   }) : super(key: key);
 
   final Product product;
+  final DocumentSnapshot productList;
   final Function onTap;
 
   @override
   Widget build(BuildContext context) {
+    if (productList == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return GestureDetector(
         onTap: onTap,
         child: Card(
@@ -37,6 +47,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: PsNetworkImage(
+                          firebasePhoto: productList['images'][0],
                           photoKey: '',
                           defaultPhoto: product.defaultPhoto,
                           width: ps_space_180,
@@ -55,7 +66,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                             right: ps_space_8,
                             bottom: ps_space_4),
                         child: Text(
-                          product.name,
+                          productList['ProductName'],
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.body2,
                           maxLines: 1,
@@ -69,8 +80,8 @@ class ProductHorizontalListItem extends StatelessWidget {
                         child: Row(
                           children: <Widget>[
                             Text(
-                                product.unitPrice != '0'
-                                    ? '${product.currencySymbol}${Utils.getPriceFormat(product.unitPrice)}'
+                                productList['price'] != '0'
+                                    ? '₹${productList["price"]}'
                                     : Utils.getString(
                                         context, 'global_product__free'),
                                 textAlign: TextAlign.start,
@@ -81,9 +92,8 @@ class ProductHorizontalListItem extends StatelessWidget {
                             Padding(
                                 padding: const EdgeInsets.only(
                                     left: ps_space_8, right: ps_space_8),
-                                child: product.isDiscount == ONE
-                                    ? Text(
-                                        '${product.currencySymbol}${Utils.getPriceFormat(product.originalPrice)}',
+                                child: productList['Discount'] != null
+                                    ? Text('₹${productList["Orignal Price"]}',
                                         textAlign: TextAlign.start,
                                         style: Theme.of(context)
                                             .textTheme
@@ -144,7 +154,8 @@ class ProductHorizontalListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                          child: product.isDiscount == ONE
+                          child: productList['Discount'] != null &&
+                                  productList['Discount'] != 0
                               ? Container(
                                   width: ps_space_52,
                                   height: ps_space_24,
@@ -156,7 +167,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                                           color: ps_ctheme__color_speical),
                                       Center(
                                         child: Text(
-                                          '-${product.discountPercent}%',
+                                          '-${productList["Discount"].toString().replaceAll(".", " ").substring(0, 2)}%',
                                           textAlign: TextAlign.start,
                                           style: Theme.of(context)
                                               .textTheme

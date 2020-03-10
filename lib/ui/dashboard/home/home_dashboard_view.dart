@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
+import 'package:digitalproductstore/model/product_model.dart';
 import 'package:digitalproductstore/provider/category/trending_category_provider.dart';
 import 'package:digitalproductstore/provider/common/notification_provider.dart';
 import 'package:digitalproductstore/provider/product/discount_product_provider.dart';
@@ -19,6 +21,7 @@ import 'package:digitalproductstore/ui/collection/horizontal_list/product_collec
 import 'package:digitalproductstore/ui/common/ps_frame_loading_widget.dart';
 import 'package:digitalproductstore/ui/common/dialog/noti_dialog.dart';
 import 'package:digitalproductstore/ui/product/collection_product/product_list_by_collection_id_view.dart';
+import 'package:digitalproductstore/ui/product/detail/product_detail_view.dart';
 import 'package:digitalproductstore/ui/product/item/product_horizontal_list_item.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
@@ -352,6 +355,9 @@ class _HomeLatestProductHorizontalListWidget extends StatelessWidget {
   final AnimationController animationController;
   final Animation<double> animation;
 
+  ProductList get data => ProductList();
+
+// TODO: latest products
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -384,41 +390,95 @@ class _HomeLatestProductHorizontalListWidget extends StatelessWidget {
                                     ));
                               },
                             ),
-                            Container(
-                                height: ps_space_300,
-                                width: MediaQuery.of(context).size.width,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        productProvider.productList.data.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      if (productProvider.productList.status ==
-                                          PsStatus.BLOCK_LOADING) {
-                                        return Shimmer.fromColors(
-                                            baseColor: Colors.grey[300],
-                                            highlightColor: Colors.white,
-                                            child: Row(children: const <Widget>[
-                                              PsFrameUIForLoading(),
-                                            ]));
-                                      } else {
-                                        return ProductHorizontalListItem(
-                                          product: productProvider
-                                              .productList.data[index],
-                                          onTap: () {
-                                            print(productProvider
-                                                .productList
-                                                .data[index]
-                                                .defaultPhoto
-                                                .imgPath);
-                                            Navigator.pushNamed(context,
-                                                RoutePaths.productDetail,
-                                                arguments: productProvider
-                                                    .productList.data[index]);
-                                          },
-                                        );
-                                      }
-                                    }))
+                            StreamBuilder<QuerySnapshot>(
+                                stream: Firestore.instance
+                                    .collection('ProductListID')
+                                    .snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Container(
+                                        height: ps_space_300,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount:
+                                                snapshot.data.documents.length
+                                            // productProvider
+                                            //     .productList.data.length
+                                            ,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              if (productProvider
+                                                      .productList.status ==
+                                                  PsStatus.BLOCK_LOADING) {
+                                                return Shimmer.fromColors(
+                                                    baseColor: Colors.grey[300],
+                                                    highlightColor:
+                                                        Colors.white,
+                                                    child: Row(children: const <
+                                                        Widget>[
+                                                      PsFrameUIForLoading(),
+                                                    ]));
+                                              } else {
+                                                return ProductHorizontalListItem(
+                                                  productList: snapshot
+                                                      .data.documents[index],
+                                                  product: productProvider
+                                                      .productList.data[index],
+                                                  onTap: () {
+                                                    print(productProvider
+                                                        .productList
+                                                        .data[index]
+                                                        .defaultPhoto
+                                                        .imgPath);
+                                                    print(snapshot.data
+                                                            .documents[index]
+                                                        ['ProductName']);
+                                                    Navigator.pushNamed(
+                                                        context,
+                                                        RoutePaths
+                                                            .productDetail,
+                                                        arguments:
+                                                            productProvider
+                                                                .productList
+                                                                .data[index]);
+                                                    Navigator.pushReplacement<
+                                                            dynamic, dynamic>(
+                                                        context,
+                                                        MaterialPageRoute<
+                                                                dynamic>(
+                                                            builder: (BuildContext
+                                                                    context) =>
+                                                                ProductDetailView(
+                                                                  product: productProvider
+                                                                      .productList
+                                                                      .data[index],
+                                                                  productList:
+                                                                      snapshot
+                                                                          .data
+                                                                          .documents[index],
+                                                                )));
+                                                    // Navigator.pushNamed(
+                                                    //     context,
+                                                    //     RoutePaths
+                                                    //         .productDetail,
+                                                    //     arguments: <dynamic>[
+                                                    //       productProvider
+                                                    //           .productList
+                                                    //           .data[index],
+                                                    //       snapshot.data
+                                                    //           .documents[index]
+                                                    //     ]);
+                                                  },
+                                                );
+                                              }
+                                            }));
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
+                                })
                           ])
                         : Container(),
                   ),
@@ -672,91 +732,91 @@ class _HomeSelectingProductTypeWidget extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Expanded(
-                            child: _SelectingImageAndTextWidget(
-                                imagePath:
-                                    'assets/images/home_icon/free_download.png',
-                                title: Utils.getString(
-                                    context, 'dashboard__free_download'),
-                                description: Utils.getString(context,
-                                    'dashboard__free_download_description'),
-                                onTap: () {
-                                  print('free download');
-                                  Navigator.pushNamed(
-                                      context, RoutePaths.filterProductList,
-                                      arguments: ProductListIntentHolder(
-                                          appBarTitle: Utils.getString(context,
-                                              'dashboard__free_product'),
-                                          productParameterHolder:
-                                              ProductParameterHolder()
-                                                  .getFreeParameterHolder()));
-                                }),
-                          ),
-                          Expanded(
-                            child: _SelectingImageAndTextWidget(
-                                imagePath:
-                                    'assets/images/home_icon/easy_payment.png',
-                                title: Utils.getString(
-                                    context, 'dashboard__easy_payment'),
-                                description: Utils.getString(context,
-                                    'dashboard__easy_payment_description'),
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutePaths.basketList,
-                                  );
-                                }),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.white
-                          : Colors.grey[900],
-                      padding: const EdgeInsets.only(
-                          top: ps_space_8, bottom: ps_space_8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                            child: _SelectingImageAndTextWidget(
-                                imagePath:
-                                    'assets/images/home_icon/featured_products.png',
-                                title: Utils.getString(
-                                    context, 'dashboard__feature_product'),
-                                description: Utils.getString(context,
-                                    'dashboard__feature_product_description'),
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, RoutePaths.filterProductList,
-                                      arguments: ProductListIntentHolder(
-                                          appBarTitle: Utils.getString(context,
-                                              'dashboard__feature_product'),
-                                          productParameterHolder:
-                                              ProductParameterHolder()
-                                                  .getFeaturedParameterHolder()));
-                                }),
-                          ),
-                          Expanded(
-                            child: _SelectingImageAndTextWidget(
-                                imagePath:
-                                    'assets/images/home_icon/discount_products.png',
-                                title: Utils.getString(
-                                    context, 'dashboard__discount_product'),
-                                description: Utils.getString(context,
-                                    'dashboard__discount_product_description'),
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, RoutePaths.filterProductList,
-                                      arguments: ProductListIntentHolder(
-                                          appBarTitle: Utils.getString(context,
-                                              'dashboard__discount_product'),
-                                          productParameterHolder:
-                                              ProductParameterHolder()
-                                                  .getDiscountParameterHolder()));
-                                }),
-                          ),
+                          //       Expanded(
+                          //         child: _SelectingImageAndTextWidget(
+                          //             imagePath:
+                          //                 'assets/images/home_icon/free_download.png',
+                          //             title: Utils.getString(
+                          //                 context, 'dashboard__free_download'),
+                          //             description: Utils.getString(context,
+                          //                 'dashboard__free_download_description'),
+                          //             onTap: () {
+                          //               print('free download');
+                          //               Navigator.pushNamed(
+                          //                   context, RoutePaths.filterProductList,
+                          //                   arguments: ProductListIntentHolder(
+                          //                       appBarTitle: Utils.getString(context,
+                          //                           'dashboard__free_product'),
+                          //                       productParameterHolder:
+                          //                           ProductParameterHolder()
+                          //                               .getFreeParameterHolder()));
+                          //             }),
+                          //       ),
+                          //       Expanded(
+                          //         child: _SelectingImageAndTextWidget(
+                          //             imagePath:
+                          //                 'assets/images/home_icon/easy_payment.png',
+                          //             title: Utils.getString(
+                          //                 context, 'dashboard__easy_payment'),
+                          //             description: Utils.getString(context,
+                          //                 'dashboard__easy_payment_description'),
+                          //             onTap: () {
+                          //               Navigator.pushNamed(
+                          //                 context,
+                          //                 RoutePaths.basketList,
+                          //               );
+                          //             }),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          // Container(
+                          //   color: Theme.of(context).brightness == Brightness.light
+                          //       ? Colors.white
+                          //       : Colors.grey[900],
+                          //   padding: const EdgeInsets.only(
+                          //       top: ps_space_8, bottom: ps_space_8),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: <Widget>[
+                          //       Expanded(
+                          //         child: _SelectingImageAndTextWidget(
+                          //             imagePath:
+                          //                 'assets/images/home_icon/featured_products.png',
+                          //             title: Utils.getString(
+                          //                 context, 'dashboard__feature_product'),
+                          //             description: Utils.getString(context,
+                          //                 'dashboard__feature_product_description'),
+                          //             onTap: () {
+                          //               Navigator.pushNamed(
+                          //                   context, RoutePaths.filterProductList,
+                          //                   arguments: ProductListIntentHolder(
+                          //                       appBarTitle: Utils.getString(context,
+                          //                           'dashboard__feature_product'),
+                          //                       productParameterHolder:
+                          //                           ProductParameterHolder()
+                          //                               .getFeaturedParameterHolder()));
+                          //             }),
+                          //       ),
+                          //       Expanded(
+                          //         child: _SelectingImageAndTextWidget(
+                          //             imagePath:
+                          //                 'assets/images/home_icon/discount_products.png',
+                          //             title: Utils.getString(
+                          //                 context, 'dashboard__discount_product'),
+                          //             description: Utils.getString(context,
+                          //                 'dashboard__discount_product_description'),
+                          //             onTap: () {
+                          //               Navigator.pushNamed(
+                          //                   context, RoutePaths.filterProductList,
+                          //                   arguments: ProductListIntentHolder(
+                          //                       appBarTitle: Utils.getString(context,
+                          //                           'dashboard__discount_product'),
+                          //                       productParameterHolder:
+                          //                           ProductParameterHolder()
+                          //                               .getDiscountParameterHolder()));
+                          //             }),
+                          //       ),
                         ],
                       ),
                     ),
@@ -772,56 +832,56 @@ class _HomeSelectingProductTypeWidget extends StatelessWidget {
   }
 }
 
-class _SelectingImageAndTextWidget extends StatelessWidget {
-  const _SelectingImageAndTextWidget(
-      {Key key,
-      @required this.imagePath,
-      @required this.title,
-      @required this.description,
-      @required this.onTap})
-      : super(key: key);
+// class _SelectingImageAndTextWidget extends StatelessWidget {
+//   const _SelectingImageAndTextWidget(
+//       {Key key,
+//       @required this.imagePath,
+//       @required this.title,
+//       @required this.description,
+//       @required this.onTap})
+//       : super(key: key);
 
-  final String imagePath;
-  final String title;
-  final String description;
-  final Function onTap;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(ps_space_12),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Image.asset(
-                imagePath,
-                width: ps_space_60,
-                height: ps_space_60,
-              ),
-            ),
-            const SizedBox(
-              height: ps_space_12,
-            ),
-            Text(title,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.subhead),
-            const SizedBox(
-              height: ps_space_12,
-            ),
-            Text(description,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.caption),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   final String imagePath;
+//   final String title;
+//   final String description;
+//   final Function onTap;
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: const EdgeInsets.all(ps_space_12),
+//         child: Column(
+//           mainAxisSize: MainAxisSize.max,
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           crossAxisAlignment: CrossAxisAlignment.center,
+//           children: <Widget>[
+//             Center(
+//               child: Image.asset(
+//                 imagePath,
+//                 width: ps_space_60,
+//                 height: ps_space_60,
+//               ),
+//             ),
+//             const SizedBox(
+//               height: ps_space_12,
+//             ),
+//             Text(title,
+//                 textAlign: TextAlign.center,
+//                 style: Theme.of(context).textTheme.subhead),
+//             const SizedBox(
+//               height: ps_space_12,
+//             ),
+//             Text(description,
+//                 maxLines: 3,
+//                 overflow: TextOverflow.ellipsis,
+//                 style: Theme.of(context).textTheme.caption),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
   const _HomeTrendingCategoryHorizontalListWidget(

@@ -17,7 +17,8 @@ class PsNetworkImage extends StatelessWidget {
       this.width,
       this.height,
       this.onTap,
-      this.boxfit = BoxFit.cover})
+      this.boxfit = BoxFit.cover,
+      @required this.firebasePhoto})
       : super(key: key);
 
   final double width;
@@ -26,7 +27,7 @@ class PsNetworkImage extends StatelessWidget {
   final String photoKey;
   final BoxFit boxfit;
   final DefaultPhoto defaultPhoto;
-
+  final dynamic firebasePhoto;
   @override
   Widget build(BuildContext context) {
     //Utils.psPrint("ImagePath : ${defaultPhoto.imgPath}");
@@ -63,13 +64,13 @@ class PsNetworkImage extends StatelessWidget {
                     fit: boxfit,
                   );
                 },
-                imageUrl: '$ps_app_image_thumbs_url${defaultPhoto.imgPath}',
+                imageUrl: '${firebasePhoto}',
               );
             },
             width: width,
             height: height,
             fit: boxfit,
-            imageUrl: '$ps_app_image_url${defaultPhoto.imgPath}',
+            imageUrl: '${firebasePhoto}',
             errorWidget: (BuildContext context, String url, Object error) {
               return Image.asset(
                 'assets/images/placeholder_image.png',
@@ -85,7 +86,7 @@ class PsNetworkImage extends StatelessWidget {
         return GestureDetector(
           onTap: onTap,
           child: Hero(
-            tag: '$photoKey$ps_app_image_url${defaultPhoto.imgPath}',
+            tag: '${firebasePhoto}',
             child: CachedNetworkImage(
               placeholder: (BuildContext context, String url) {
                 return CachedNetworkImage(
@@ -100,13 +101,13 @@ class PsNetworkImage extends StatelessWidget {
                       fit: boxfit,
                     );
                   },
-                  imageUrl: '$ps_app_image_thumbs_url${defaultPhoto.imgPath}',
+                  imageUrl: '${firebasePhoto}',
                 );
               },
               width: width,
               height: height,
               fit: boxfit,
-              imageUrl: '$ps_app_image_url${defaultPhoto.imgPath}',
+              imageUrl: '${firebasePhoto}',
               errorWidget: (BuildContext context, String url, Object error) =>
                   Image.asset(
                 'assets/images/placeholder_image.png',

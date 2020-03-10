@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digitalproductstore/model/product_model.dart';
 import 'package:digitalproductstore/ui/basket/list/basket_list_container.dart';
 import 'package:digitalproductstore/ui/blog/detail/blog_view.dart';
 import 'package:digitalproductstore/ui/blog/list/blog_list_container.dart';
@@ -91,7 +93,12 @@ Future<void> main() async {
     await prefs.setString('codeC', null);
     await prefs.setString('codeL', null);
   }
-  runApp(EasyLocalization(child: PSApp()));
+  runApp(EasyLocalization(
+      child: MultiProvider(providers: <SingleChildCloneableWidget>[
+    Provider<ProductList>(
+      create: (BuildContext context) => ProductList(),
+    ),
+  ], child: PSApp())));
 }
 
 class PSApp extends StatefulWidget {
@@ -334,7 +341,9 @@ class _PSAppState extends State<PSApp> {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final Product product = args ?? Product;
-                        return ProductDetailView(product: product);
+                        return ProductDetailView(
+                          product: product,
+                        );
                       },
                       '${RoutePaths.filterExpantion}': (BuildContext context) {
                         final dynamic args =

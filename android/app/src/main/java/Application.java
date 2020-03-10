@@ -1,4 +1,4 @@
-package com.panaceasoft.digitalproductstore;
+package in.citygrow.app;
 
  import io.flutter.app.FlutterApplication;
  import io.flutter.plugin.common.PluginRegistry;

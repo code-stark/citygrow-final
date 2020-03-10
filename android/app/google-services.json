@@ -1,42 +1,116 @@
 {
   "project_info": {
-    "project_number": "000000000000",
-    "firebase_url": "https://digital-product-store.firebaseio.com",
-    "project_id": "digital-product-store",
-    "storage_bucket": "digital-product-store.appspot.com"
+    "project_number": "1042985976846",
+    "firebase_url": "https://citygrow-7c1ab.firebaseio.com",
+    "project_id": "citygrow-7c1ab",
+    "storage_bucket": "citygrow-7c1ab.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:376000000000:android:bd90000000000000000000",
+        "mobilesdk_app_id": "1:1042985976846:android:14713286947e9731a5e85f",
         "android_client_info": {
-          "package_name": "com.panaceasoft.digitalproductstore"
+          "package_name": "com.citygrow.in"
         }
       },
       "oauth_client": [
         {
-          "client_id": "000000000000-00000000000000000000000000000lip.apps.googleusercontent.com",
+          "client_id": "1042985976846-nvjhk1hunvksgc7ja004ec5ds9a59j8v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.panaceasoft.digitalproductstore",
-            "certificate_hash": "0000000000000000000000000000000000000000"
+            "package_name": "com.citygrow.in",
+            "certificate_hash": "b8380ba47071536746e3e97e5e50b243b7b59e1a"
           }
         },
         {
-          "client_id": "000000000000-00000000000000000000000000000000.apps.googleusercontent.com",
+          "client_id": "1042985976846-k1imdm746qo5tocngamv5uivluflml1c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaS000000-000000000000000000000000000"
+          "current_key": "AIzaSyD1MC9wzHJki_QjHBajYLiHaRQqdBcG5iM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "000000000000-00000000000000000000000000000000.apps.googleusercontent.com",
+              "client_id": "1042985976846-k1imdm746qo5tocngamv5uivluflml1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042985976846:android:d469705b3d51be19a5e85f",
+        "android_client_info": {
+          "package_name": "in.citygrow.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042985976846-j8qq7711a7qmhqvn391ru44g1nfs39ra.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.citygrow.app",
+            "certificate_hash": "b8380ba47071536746e3e97e5e50b243b7b59e1a"
+          }
+        },
+        {
+          "client_id": "1042985976846-k1imdm746qo5tocngamv5uivluflml1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1MC9wzHJki_QjHBajYLiHaRQqdBcG5iM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042985976846-k1imdm746qo5tocngamv5uivluflml1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042985976846:android:8766fb5b4cfe178aa5e85f",
+        "android_client_info": {
+          "package_name": "in.citygrow.seller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042985976846-d97m2q6b9kv2r48i8nqp882g0qrjeqa8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.citygrow.seller",
+            "certificate_hash": "bbe3e7ba4a7abc578259ea9e6e05f53ff1176d5f"
+          }
+        },
+        {
+          "client_id": "1042985976846-k1imdm746qo5tocngamv5uivluflml1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1MC9wzHJki_QjHBajYLiHaRQqdBcG5iM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042985976846-k1imdm746qo5tocngamv5uivluflml1c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
