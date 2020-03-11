@@ -47,7 +47,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: PsNetworkImage(
-                          firebasePhoto: productList['images'][0],
+                          firebasePhoto: productList['images'],
                           photoKey: '',
                           defaultPhoto: product.defaultPhoto,
                           width: ps_space_180,

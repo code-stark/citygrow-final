@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/viewobject/default_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class PsNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Utils.psPrint("ImagePath : ${defaultPhoto.imgPath}");
-    if (defaultPhoto.imgPath == '') {
+    if (firebasePhoto == null) {
       return GestureDetector(
           onTap: onTap,
           // child: Hero(
@@ -64,13 +65,17 @@ class PsNetworkImage extends StatelessWidget {
                     fit: boxfit,
                   );
                 },
-                imageUrl: '${firebasePhoto}',
+                imageUrl: ('$firebasePhoto'.contains('['))
+                    ? '${firebasePhoto[0]}'
+                    : firebasePhoto,
               );
             },
             width: width,
             height: height,
             fit: boxfit,
-            imageUrl: '${firebasePhoto}',
+            imageUrl: ('$firebasePhoto'.contains('['))
+                ? '${firebasePhoto[0]}'
+                : firebasePhoto,
             errorWidget: (BuildContext context, String url, Object error) {
               return Image.asset(
                 'assets/images/placeholder_image.png',
@@ -86,7 +91,9 @@ class PsNetworkImage extends StatelessWidget {
         return GestureDetector(
           onTap: onTap,
           child: Hero(
-            tag: '${firebasePhoto}',
+            tag: ('$firebasePhoto'.contains('['))
+                ? '${firebasePhoto[0]}'
+                : firebasePhoto,
             child: CachedNetworkImage(
               placeholder: (BuildContext context, String url) {
                 return CachedNetworkImage(
@@ -101,13 +108,17 @@ class PsNetworkImage extends StatelessWidget {
                       fit: boxfit,
                     );
                   },
-                  imageUrl: '${firebasePhoto}',
+                  imageUrl: ('$firebasePhoto'.contains('['))
+                      ? '${firebasePhoto[0]}'
+                      : firebasePhoto,
                 );
               },
               width: width,
               height: height,
               fit: boxfit,
-              imageUrl: '${firebasePhoto}',
+              imageUrl: ('$firebasePhoto'.contains('['))
+                  ? '${firebasePhoto[0]}'
+                  : firebasePhoto,
               errorWidget: (BuildContext context, String url, Object error) =>
                   Image.asset(
                 'assets/images/placeholder_image.png',

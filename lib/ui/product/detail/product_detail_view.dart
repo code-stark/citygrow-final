@@ -24,6 +24,7 @@ import 'package:digitalproductstore/ui/common/ps_expansion_tile.dart';
 import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/ui/common/dialog/error_dialog.dart';
 import 'package:digitalproductstore/ui/common/dialog/success_dialog.dart';
+import 'package:digitalproductstore/ui/gallery/grid/gallery_grid_view.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/api_status.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
@@ -85,10 +86,34 @@ class _ProductDetailState extends State<ProductDetailView>
   @override
   void initState() {
     super.initState();
+    viewcounter();
     controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
+  }
+
+  Future<dynamic> viewcounter() async {
+    // final QuerySnapshot results = await Firestore.instance
+    //     .collection("ProductListID")
+    //     .where("id", isEqualTo: widget.productList.documentID)
+    //     .getDocuments();
+    // final List<DocumentSnapshot> documents = results.documents;
+
+    // await Future<DocumentSnapshot>.delayed(const Duration(seconds: 5));
+    if (widget.productList == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      final Map<String, FieldValue> data = {
+        'views': FieldValue.increment(1),
+      };
+      return await Firestore.instance
+          .collection('ProductListID')
+          .document(widget.productList.documentID)
+          .updateData(data);
+    }
   }
 
   List<Product> basketList = <Product>[];
@@ -185,33 +210,33 @@ class _ProductDetailState extends State<ProductDetailView>
             child: Consumer<ProductDetailProvider>(
               builder: (BuildContext context, ProductDetailProvider provider,
                   Widget child) {
-                if (provider.productDetail != null &&
-                    provider.productDetail.data != null) {
+                if (widget.productList != null &&
+                    widget.productList['images'] != null) {
                   ///
                   /// Add to History
                   ///
-                  historyProvider.addHistoryList(provider.productDetail.data);
+                  // historyProvider.addHistoryList(provider.productDetail.data);
 
                   ///
                   /// Load Related Products
                   ///
-                  final RelatedProductProvider relatedProductProvider =
-                      Provider.of<RelatedProductProvider>(context,
-                          listen: false); // Listen : False is important.
+                  // final RelatedProductProvider relatedProductProvider =
+                  //     Provider.of<RelatedProductProvider>(context,
+                  //         listen: false); // Listen : False is important.
 
-                  relatedProductProvider.loadRelatedProductList(
-                    provider.productDetail.data.id,
-                    provider.productDetail.data.catId,
-                  );
+                  // relatedProductProvider.loadRelatedProductList(
+                  //   provider.productDetail.data.id,
+                  //   provider.productDetail.data.catId,
+                  // );
 
                   ///
                   /// Load Basket List
                   ///
                   ///
-                  basketProvider = Provider.of<BasketProvider>(context,
-                      listen: false); // Listen : False is important.
+                  // basketProvider = Provider.of<BasketProvider>(context,
+                  //     listen: false); // Listen : False is important.
 
-                  basketProvider.loadBasketList();
+                  // basketProvider.loadBasketList();
 
                   return Consumer<BasketProvider>(builder:
                       (BuildContext context, BasketProvider basketProvider,
@@ -301,17 +326,25 @@ class _ProductDetailState extends State<ProductDetailView>
                                     ? Colors.grey[100]
                                     : Colors.grey[900],
                                 child: PsNetworkImage(
-                                  firebasePhoto: widget.productList["images"]
-                                      [0],
+                                  firebasePhoto: widget.productList['images'],
                                   photoKey: '',
                                   defaultPhoto: widget.product.defaultPhoto,
                                   width: double.infinity,
                                   height: double.infinity,
                                   boxfit: BoxFit.fitHeight,
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, RoutePaths.galleryGrid,
-                                        arguments: widget.product);
+                                    Navigator.pushReplacement<dynamic, dynamic>(
+                                        context,
+                                        MaterialPageRoute<dynamic>(
+                                            builder: (BuildContext context) =>
+                                                GalleryGridView(
+                                                  product: widget.product,
+                                                  productList:
+                                                      widget.productList,
+                                                )));
+                                    // Navigator.pushNamed(
+                                    //     context, RoutePaths.galleryGrid,
+                                    //     arguments: widget.product);
                                   },
                                 ),
                               ),
@@ -339,8 +372,7 @@ class _ProductDetailState extends State<ProductDetailView>
                                   RelatedProductsTileView(
                                     productDetail: provider,
                                   ),
-                                  if (provider.productDetail.data.unitPrice !=
-                                      '0')
+                                  if (widget.productList['images'] != '0')
                                     const SizedBox(
                                       height: ps_space_40,
                                     ),
@@ -349,7 +381,7 @@ class _ProductDetailState extends State<ProductDetailView>
                             ]),
                           )
                         ]),
-                        if (provider.productDetail.data.unitPrice != '0')
+                        if (widget.productList['price'] != '0')
                           _AddToBasketAndBuyButtonWidget(
                             productProvider: provider,
                             basketProvider: basketProvider,
@@ -579,6 +611,7 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
             //   height: ps_space_10,
             // ),
             _HeaderButtonWidget(
+              productList: widget.productList,
               productDetail: widget.productDetail.productDetail.data,
             ),
           ],
@@ -1032,8 +1065,8 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
           color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600),
     );
 
-    if (widget.productProvider.productDetail.data != null &&
-        widget.productProvider.productDetail.data.unitPrice != null) {
+    if (widget.productPrice['Orignal Price'] != null &&
+        widget.productPrice != null) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1043,14 +1076,14 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  if (widget.productProvider.productDetail.data.isDiscount ==
-                      ONE)
+                  if (widget.productPrice['Orignal Price'] !=
+                      widget.productPrice['price'])
                     Text(
-                      '${widget.productProvider.productDetail.data.currencySymbol} ${Utils.getPriceFormat(widget.productProvider.productDetail.data.originalPrice)}',
+                      '₹${widget.productPrice["Orignal Price"]}',
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
-                          .body1
+                          .bodyText1
                           .copyWith(decoration: TextDecoration.lineThrough),
                     )
                   else
@@ -1058,10 +1091,9 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
                   const SizedBox(
                     height: ps_space_4,
                   ),
-                  if (widget.productProvider.productDetail.data.isDiscount ==
-                      ONE)
+                  if (widget.productPrice['price'] == ONE)
                     Text(
-                      '${widget.productProvider.productDetail.data.currencySymbol} ${Utils.getPriceFormat(Utils.getPriceFormat(widget.productProvider.productDetail.data.unitPrice))}',
+                      '₹${widget.productPrice["price"]}',
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
@@ -1070,7 +1102,7 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
                     )
                   else
                     Text(
-                      widget.productProvider.productDetail.data.unitPrice != '0'
+                      widget.productPrice["price"] != '0'
                           ? '₹${widget.productPrice["price"]}'
                           : Utils.getString(context, 'global_product__free'),
                       overflow: TextOverflow.ellipsis,
@@ -1084,7 +1116,7 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
               const SizedBox(
                 width: ps_space_10,
               ),
-              if (widget.productProvider.productDetail.data.isDiscount == ONE)
+              if (widget.productPrice['Discount'] != 0)
                 Card(
                   elevation: 0,
                   color: ps_ctheme__color_speical,
@@ -1099,7 +1131,7 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
                         left: ps_space_4, right: ps_space_4),
                     child: Align(
                       child: Text(
-                        '- ${widget.productProvider.productDetail.data.discountPercent} %',
+                        '- ${widget.productPrice['Discount'].toString().replaceAll(".", " ").substring(0, 2)} %',
                         style: Theme.of(context)
                             .textTheme
                             .subtitle
@@ -1223,8 +1255,9 @@ class _HeaderButtonWidget extends StatelessWidget {
   const _HeaderButtonWidget({
     Key key,
     @required this.productDetail,
+    @required this.productList,
   }) : super(key: key);
-
+  final DocumentSnapshot productList;
   final Product productDetail;
   @override
   Widget build(BuildContext context) {
@@ -1270,7 +1303,7 @@ class _HeaderButtonWidget extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    productDetail.touchCount ?? '',
+                    productList.data['views']?.toString() ?? '0',
                     style: Theme.of(context).textTheme.body1,
                   ),
                   const SizedBox(

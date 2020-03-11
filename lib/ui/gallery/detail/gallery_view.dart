@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/provider/gallery/gallery_provider.dart';
 import 'package:digitalproductstore/repository/gallery_repository.dart';
 import 'package:digitalproductstore/ui/common/base/ps_widget_with_appbar.dart';
@@ -15,11 +16,17 @@ class GalleryView extends StatefulWidget {
     @required this.selectedDefaultImage,
     // @required this.index,
     this.onImageTap,
+    @required this.productList,
+    @required this.productListss,
+    @required this.indexx,
   }) : super(key: key);
 
   // final List<DefaultPhoto> image;
   final DefaultPhoto selectedDefaultImage;
   final Function onImageTap;
+  final dynamic productList;
+  final dynamic productListss;
+  final int indexx;
 
   @override
   _GalleryViewState createState() => _GalleryViewState();
@@ -37,31 +44,29 @@ class _GalleryViewState extends State<GalleryView> {
       initProvider: () {
         return GalleryProvider(repo: galleryRepo);
       },
-      onProviderReady: (GalleryProvider provider) {
-        provider.loadImageList(
-          widget.selectedDefaultImage.imgParentId,
-        );
-      },
+      // onProviderReady: (GalleryProvider provider) {
+      //   provider.loadImageList(
+      //     widget.productList.imgParentId,
+      //   );
+      // },
       builder: (BuildContext context, GalleryProvider provider, Widget child) {
-        if (provider.galleryList != null &&
-            provider.galleryList.data != null &&
-            provider.galleryList.data.isNotEmpty) {
+        if (widget.productList != null && widget.productList != null) {
           int selectedIndex = 0;
-          for (int i = 0; i < provider.galleryList.data.length; i++) {
-            if (widget.selectedDefaultImage.imgId ==
-                provider.galleryList.data[i].imgId) {
-              selectedIndex = i;
-              break;
-            }
+          for (int i = 0;
+              i < widget.productListss['images'][widget.indexx].length;
+              i++) {
+            selectedIndex = i;
+            break;
           }
-
           return PhotoViewGallery.builder(
-            itemCount: provider.galleryList.data.length,
+            itemCount: widget.productListss['images'].length,
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions.customChild(
-                child: PsNetworkImage(
+                child: PsNetworkImage(boxfit: BoxFit.contain,
+                  firebasePhoto: widget.productListss['images']
+                      [(index == 0) ? widget.indexx : index],
                   photoKey: '',
-                  defaultPhoto: provider.galleryList.data[index],
+                  // defaultPhoto: provider.galleryList.data[index],
                   onTap: widget.onImageTap,
                 ),
                 childSize: MediaQuery.of(context).size,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/utils/utils.dart';
@@ -10,14 +11,17 @@ class GalleryGridItem extends StatelessWidget {
     Key key,
     @required this.image,
     this.onImageTap,
+    @required this.productList,
   }) : super(key: key);
 
   final DefaultPhoto image;
   final Function onImageTap;
+  final dynamic productList;
 
   @override
   Widget build(BuildContext context) {
     final Widget _imageWidget = PsNetworkImage(
+      firebasePhoto: productList,
       photoKey: '',
       defaultPhoto: image,
       width: MediaQuery.of(context).size.width,

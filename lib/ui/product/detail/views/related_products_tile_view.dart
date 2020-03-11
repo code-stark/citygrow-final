@@ -38,23 +38,23 @@ class _RelatedProductsTileViewState extends State<RelatedProductsTileView> {
         Utils.getString(context, 'related_product_tile__related_product'),
         style: Theme.of(context).textTheme.subhead.copyWith());
 
-    final List<String> tags =
-        widget.productDetail.productDetail.data.searchTag.split(',');
+    // final List<String> tags =
+    //     widget.productDetail.productDetail.data.searchTag.split(',');
 
-    final List<TagParameterHolder> tagObjectList = <TagParameterHolder>[
-      TagParameterHolder(
-          fieldName: CONST_CATEGORY,
-          tagId: widget.productDetail.productDetail.data.category.id,
-          tagName: widget.productDetail.productDetail.data.category.name),
-      TagParameterHolder(
-          fieldName: CONST_SUB_CATEGORY,
-          tagId: widget.productDetail.productDetail.data.subCategory.id,
-          tagName: widget.productDetail.productDetail.data.subCategory.name),
-      for (String tag in tags)
-        if (tag != null && tag != '')
-          TagParameterHolder(
-              fieldName: CONST_PRODUCT, tagId: tag, tagName: tag),
-    ];
+    // final List<TagParameterHolder> tagObjectList = <TagParameterHolder>[
+    //   TagParameterHolder(
+    //       fieldName: CONST_CATEGORY,
+    //       tagId: widget.productDetail.productDetail.data.category.id,
+    //       tagName: widget.productDetail.productDetail.data.category.name),
+    //   TagParameterHolder(
+    //       fieldName: CONST_SUB_CATEGORY,
+    //       tagId: widget.productDetail.productDetail.data.subCategory.id,
+    //       tagName: widget.productDetail.productDetail.data.subCategory.name),
+    //   for (String tag in tags)
+    //     if (tag != null && tag != '')
+    //       TagParameterHolder(
+    //           fieldName: CONST_PRODUCT, tagId: tag, tagName: tag),
+    // ];
 
     return Card(
       elevation: 0.0,
@@ -80,10 +80,10 @@ class _RelatedProductsTileViewState extends State<RelatedProductsTileView> {
                 const SizedBox(
                   height: ps_space_12,
                 ),
-                _RelatedTagsWidget(
-                  tagObjectList: tagObjectList,
-                  productDetailProvider: widget.productDetail,
-                ),
+                // _RelatedTagsWidget(
+                //   tagObjectList: tagObjectList,
+                //   productDetailProvider: widget.productDetail,
+                // ),
                 const SizedBox(
                   height: ps_space_12,
                 ),
