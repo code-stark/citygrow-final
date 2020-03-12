@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digitalproductstore/locator.dart';
 import 'package:digitalproductstore/model/product_model.dart';
 import 'package:digitalproductstore/ui/basket/list/basket_list_container.dart';
 import 'package:digitalproductstore/ui/blog/detail/blog_view.dart';
@@ -59,9 +60,11 @@ import 'package:digitalproductstore/ui/noti/list/noti_list_view.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/category.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'Service/auth/auth_service.dart';
 import 'config/ps_config.dart';
 import 'config/ps_constants.dart';
 import 'db/common/ps_shared_preferences.dart';
+import 'model/user_model.dart';
 import 'ui/category/filter_list/category_filter_list_view.dart';
 import 'ui/category/list/category_list_view_container.dart';
 import 'ui/category/trending_list/trending_category_list_view.dart';
@@ -93,10 +96,14 @@ Future<void> main() async {
     await prefs.setString('codeC', null);
     await prefs.setString('codeL', null);
   }
+  setupLocator();
   runApp(EasyLocalization(
       child: MultiProvider(providers: <SingleChildCloneableWidget>[
     Provider<ProductList>(
       create: (BuildContext context) => ProductList(),
+    ),
+    StreamProvider<Users>.value(
+      value: AuthService().users,
     ),
   ], child: PSApp())));
 }

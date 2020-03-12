@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/viewobject/default_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:digitalproductstore/api/common/ps_status.dart';
 import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/viewobject/default_photo.dart';
+import 'package:provider/provider.dart';
 
 class PsNetworkImage extends StatelessWidget {
   const PsNetworkImage(
@@ -376,13 +378,13 @@ class PsNetworkCircleImage extends StatelessWidget {
                         fit: boxfit,
                       );
                     },
-                    imageUrl: '$ps_app_image_thumbs_url$url',
+                    imageUrl: '$url',
                   );
                 },
                 width: width,
                 height: height,
                 fit: boxfit,
-                imageUrl: '$ps_app_image_url$url',
+                imageUrl: '$url',
                 errorWidget: (BuildContext context, String url, Object error) =>
                     Image.asset(
                   'assets/images/placeholder_image.png',
@@ -413,12 +415,12 @@ class PsNetworkCircleImage extends StatelessWidget {
                         fit: boxfit,
                       );
                     },
-                    imageUrl: '$ps_app_image_thumbs_url$url',
+                    imageUrl: '$url',
                   ),
                   width: width,
                   height: height,
                   fit: boxfit,
-                  imageUrl: '$ps_app_image_url$url',
+                  imageUrl: '$url',
                   errorWidget:
                       (BuildContext context, String url, Object error) =>
                           Image.asset(

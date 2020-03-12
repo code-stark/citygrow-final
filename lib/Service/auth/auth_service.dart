@@ -18,9 +18,9 @@ class AuthService {
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
 
-  User usersFromFirebase(FirebaseUser user) {
-    if (user != null) {
-      return User(
+  Users usersFromFirebase(FirebaseUser user) {
+    if (users != null) {
+      return Users(
           uid: user?.uid,
           imageUrl: user?.photoUrl,
           name: user?.displayName,
@@ -31,7 +31,7 @@ class AuthService {
   }
 
   // stream users
-  Stream<User> get user {
+  Stream<Users> get users {
     return auth.onAuthStateChanged.map(usersFromFirebase);
   }
 
@@ -111,7 +111,7 @@ class AuthService {
 
   //! gooogle signinnnn
 
-  Future<bool> signInWithGoogleeee() async {
+  Future<FirebaseUser> signInWithGoogleeee() async {
     try {
       final GoogleSignInAccount googleSignInAccount =
           await googleSignIn.signIn();
@@ -215,7 +215,7 @@ class AuthService {
       }
       final FirebaseUser currentUser = await auth.currentUser();
       assert(user.uid == currentUser.uid);
-      return true;
+      return user;
     } catch (e) {
       print(e.toString());
       switch (e.code) {
@@ -225,7 +225,7 @@ class AuthService {
         default:
           break;
       }
-      return false;
+      return null;
     }
   }
 

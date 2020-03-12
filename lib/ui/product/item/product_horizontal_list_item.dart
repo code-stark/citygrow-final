@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
-import 'package:digitalproductstore/config/ps_constants.dart';
-import 'package:digitalproductstore/model/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
@@ -68,7 +65,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                         child: Text(
                           productList['ProductName'],
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.body2,
+                          style: Theme.of(context).textTheme.subtitle2,
                           maxLines: 1,
                         ),
                       ),
@@ -87,17 +84,19 @@ class ProductHorizontalListItem extends StatelessWidget {
                                 textAlign: TextAlign.start,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .subtitle
+                                    .subtitle1
                                     .copyWith(color: ps_ctheme__color_speical)),
                             Padding(
                                 padding: const EdgeInsets.only(
                                     left: ps_space_8, right: ps_space_8),
-                                child: productList['Discount'] != null
+                                child: productList['Discount'] != null &&
+                                        productList['Orignal Price'] !=
+                                            productList['price']
                                     ? Text('₹${productList["Orignal Price"]}',
                                         textAlign: TextAlign.start,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .body1
+                                            .bodyText1
                                             .copyWith(
                                                 decoration:
                                                     TextDecoration.lineThrough))
@@ -183,7 +182,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                         padding: const EdgeInsets.all(ps_space_4),
                         child: Directionality(
                             textDirection: TextDirection.ltr,
-                            child: product.isFeatured == ONE
+                            child: productList['Featured Product'] == true
                                 ? Image.asset(
                                     'assets/images/baseline_feature_circle_24.png',
                                     width: ps_space_32,

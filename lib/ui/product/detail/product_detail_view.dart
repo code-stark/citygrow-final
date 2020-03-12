@@ -905,7 +905,7 @@ class _HeaderRatingWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                if (productDetail.productDetail.data.isFeatured == '0')
+                if (productref['Featured Product'] == false)
                   Container()
                 else
                   Row(

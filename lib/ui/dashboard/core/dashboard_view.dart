@@ -2,6 +2,7 @@ import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/provider/basket/basket_provider.dart';
 import 'package:digitalproductstore/provider/shop_info/shop_info_provider.dart';
 import 'package:digitalproductstore/provider/user/user_provider.dart';
@@ -43,6 +44,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:digitalproductstore/config/ps_colors.dart';
@@ -417,7 +419,7 @@ class _HomeViewState extends State<DashboardView>
                             title: Text(
                               Utils.getString(
                                   context, 'home__menu_drawer_logout'),
-                              style: Theme.of(context).textTheme.body1,
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                             onTap: () async {
                               Navigator.pop(context);
@@ -756,6 +758,7 @@ class _HomeViewState extends State<DashboardView>
               : null,
           body: Builder(
             builder: (BuildContext context) {
+            final Users users = Provider.of<Users>(context);
               if (_currentIndex == REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT) {
                 // 1 Way
                 //
@@ -819,13 +822,13 @@ class _HomeViewState extends State<DashboardView>
                   return provider;
                 }, child: Consumer<UserProvider>(builder: (BuildContext context,
                         UserProvider provider, Widget child) {
-                  if (provider == null ||
-                      provider.psValueHolder.userIdToVerify == null ||
-                      provider.psValueHolder.userIdToVerify == '') {
-                    if (provider == null ||
-                        provider.psValueHolder == null ||
-                        provider.psValueHolder.loginUserId == null ||
-                        provider.psValueHolder.loginUserId == '') {
+                  if (users != null ||
+                     users.uid != null ||
+                     users.uid != '') {
+                    if (users.uid == null ||
+                       users.uid == null ||
+                        users.uid == null ||
+                       users.uid == '') {
                       return _CallLoginWidget(
                           currentIndex: _currentIndex,
                           animationController: animationController,
@@ -1145,13 +1148,13 @@ class _HomeViewState extends State<DashboardView>
                   return provider;
                 }, child: Consumer<UserProvider>(builder: (BuildContext context,
                         UserProvider provider, Widget child) {
-                  if (provider == null ||
-                      provider.psValueHolder.userIdToVerify == null ||
-                      provider.psValueHolder.userIdToVerify == '') {
-                    if (provider == null ||
-                        provider.psValueHolder == null ||
-                        provider.psValueHolder.loginUserId == null ||
-                        provider.psValueHolder.loginUserId == '') {
+                  if (users == null ||
+                      users.uid == null ||
+                      users.uid == '') {
+                    if (users == null ||
+                        users.uid == null ||
+                        users.uid == null ||
+                        users.uid == '') {
                       return Stack(
                         children: <Widget>[
                           Image.asset(

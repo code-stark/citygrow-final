@@ -2,6 +2,7 @@ import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/provider/transaction/transaction_header_provider.dart';
 import 'package:digitalproductstore/provider/user/user_login_provider.dart';
 import 'package:digitalproductstore/repository/transaction_header_repository.dart';
@@ -250,7 +251,7 @@ class _JoinDateWidget extends StatelessWidget {
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle
+                      .subtitle2
                       .copyWith(fontWeight: FontWeight.normal),
                 ),
                 const SizedBox(
@@ -261,7 +262,7 @@ class _JoinDateWidget extends StatelessWidget {
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
-                      .body1
+                      .bodyText1
                       .copyWith(fontWeight: FontWeight.normal),
                 ),
               ],
@@ -304,7 +305,7 @@ class _FavAndSettingWidget extends StatelessWidget {
                     softWrap: false,
                     style: Theme.of(context)
                         .textTheme
-                        .body1
+                        .bodyText1
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -494,11 +495,13 @@ class _ImageAndTextWidget extends StatelessWidget {
   final UserLoginProvider userProvider;
   @override
   Widget build(BuildContext context) {
+    final Users user = Provider.of<Users>(context);
+
     final Widget _imageWidget = Padding(
       padding: const EdgeInsets.all(ps_space_16),
       child: PsNetworkCircleImage(
         photoKey: '',
-        url: userProvider.userLogin.data.user.userProfilePhoto,
+        url: user.imageUrl,
         width: ps_space_80,
         height: ps_space_80,
         boxfit: BoxFit.cover,
@@ -508,6 +511,7 @@ class _ImageAndTextWidget extends StatelessWidget {
     const Widget _spacingWidget = SizedBox(
       height: ps_space_4,
     );
+
     return Container(
       width: double.infinity,
       height: ps_space_120,
@@ -524,7 +528,7 @@ class _ImageAndTextWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    userProvider.userLogin.data.user.userName,
+                    user.name,
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.title,
                   ),

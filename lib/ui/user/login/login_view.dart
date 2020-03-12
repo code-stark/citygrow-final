@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:digitalproductstore/Service/auth/auth_service.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/locator.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/provider/user/user_provider.dart';
 import 'package:digitalproductstore/repository/user_repository.dart';
 import 'package:digitalproductstore/ui/common/dialog/error_dialog.dart';
@@ -274,6 +277,7 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
 
                   widget.provider.replaceVerifyUserData('', '', '', '');
                   widget.provider.replaceLoginUserId('_apiStatus.data.userId');
+                  ls.get<AuthService>();
 
                   //   if (widget.onProfileSelected != null) {
                   //     await widget.provider
@@ -589,6 +593,8 @@ class __LoginWithGoogleWidgetState extends State<_LoginWithGoogleWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final Users user = Provider.of<Users>(context);
+
     return Container(
       margin: const EdgeInsets.only(left: ps_space_16, right: ps_space_16),
       child: Stack(
@@ -601,60 +607,127 @@ class __LoginWithGoogleWidgetState extends State<_LoginWithGoogleWidget> {
               borderRadius: BorderRadius.all(Radius.circular(7.0)),
             ),
             onPressed: () async {
-              await _handleSignIn().then((FirebaseUser user) async {
-                if (user != null) {
-                  if (await utilsCheckInternetConnectivity()) {
-                    final GoogleLoginParameterHolder
-                        googleLoginParameterHolder = GoogleLoginParameterHolder(
-                            googleId: user.uid,
-                            userName: user.displayName,
-                            userEmail: user.email,
-                            profilePhotoUrl: user.photoUrl,
-                            deviceToken:
-                                widget.userProvider.psValueHolder.deviceToken);
+              // print(user.uid);
+               await ls.get<AuthService>().signInWithGoogleeee();
+              //     .then((FirebaseUser user) async {
+              //   if (user != null) {
+              //     if (await utilsCheckInternetConnectivity()) {
+              //       final GoogleLoginParameterHolder
+              //           googleLoginParameterHolder = GoogleLoginParameterHolder(
+              //               googleId: user.uid,
+              //               userName: user.displayName,
+              //               userEmail: user.email,
+              //               profilePhotoUrl: user.photoUrl,
+              //               deviceToken:
+              //                   widget.userProvider.psValueHolder.deviceToken);
 
-                    final ProgressDialog progressDialog = loadingDialog(
-                      context,
-                    );
-                    progressDialog.show();
-                    final PsResource<User> _apiStatus = await widget
-                        .userProvider
-                        .postGoogleLogin(googleLoginParameterHolder.toMap());
+              //       final ProgressDialog progressDialog = loadingDialog(
+              //         context,
+              //       );
+              //       progressDialog.show();
+              //       final PsResource<User> _apiStatus = await widget
+              //           .userProvider
+              //           .postGoogleLogin(googleLoginParameterHolder.toMap());
 
-                    if (_apiStatus.data != null) {
-                      widget.userProvider.replaceVerifyUserData('', '', '', '');
-                      widget.userProvider
-                          .replaceLoginUserId(_apiStatus.data.userId);
-                      progressDialog.dismiss();
+              //       if (_apiStatus.data != null) {
+              //         widget.userProvider.replaceVerifyUserData('', '', '', '');
+              //         widget.userProvider
+              //             .replaceLoginUserId(_apiStatus.data.userId);
+              //         progressDialog.dismiss();
 
-                      if (widget.onGoogleSignInSelected != null) {
-                        widget.onGoogleSignInSelected(_apiStatus.data.userId);
-                      } else {
-                        Navigator.pop(context, _apiStatus.data);
-                      }
-                    } else {
-                      progressDialog.dismiss();
+              //         if (widget.onGoogleSignInSelected != null) {
+              //           widget.onGoogleSignInSelected(_apiStatus.data.userId);
+              //         } else {
+              //           Navigator.pop(context, _apiStatus.data);
+              //         }
+              //       } else {
+              //         progressDialog.dismiss();
 
-                      showDialog<dynamic>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return ErrorDialog(
-                              message: _apiStatus.message,
-                            );
-                          });
-                    }
-                  } else {
-                    showDialog<dynamic>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ErrorDialog(
-                            message: Utils.getString(
-                                context, 'error_dialog__no_internet'),
-                          );
-                        });
-                  }
-                }
-              });
+              //         showDialog<dynamic>(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               return ErrorDialog(
+              //                 message: _apiStatus.message,
+              //               );
+              //             });
+              //       }
+              //       // if (user.uid != null) {
+              //       //   progressDialog.dismiss();
+              //       //   showDialog<dynamic>(
+              //       //       context: context,
+              //       //       builder: (BuildContext context) {
+              //       //         return ErrorDialog(
+              //       //           message: 'fdfdfd',
+              //       //         );
+              //       //       });
+              //       //   Navigator.pop(context, user);
+              //       // }
+              //     }
+              //   } else {
+              //     showDialog<dynamic>(
+              //         context: context,
+              //         builder: (BuildContext context) {
+              //           return ErrorDialog(
+              //             message: Utils.getString(
+              //                 context, 'error_dialog__no_internet'),
+              //           );
+              //         });
+              //   }
+              // });
+              // await _handleSignIn().then((FirebaseUser user) async {
+              //   if (user != null) {
+              //     if (await utilsCheckInternetConnectivity()) {
+              //       final GoogleLoginParameterHolder
+              //           googleLoginParameterHolder = GoogleLoginParameterHolder(
+              //               googleId: user.uid,
+              //               userName: user.displayName,
+              //               userEmail: user.email,
+              //               profilePhotoUrl: user.photoUrl,
+              //               deviceToken:
+              //                   widget.userProvider.psValueHolder.deviceToken);
+
+              //       final ProgressDialog progressDialog = loadingDialog(
+              //         context,
+              //       );
+              //       progressDialog.show();
+              //       final PsResource<User> _apiStatus = await widget
+              //           .userProvider
+              //           .postGoogleLogin(googleLoginParameterHolder.toMap());
+
+              //       if (_apiStatus.data != null) {
+              //         widget.userProvider.replaceVerifyUserData('', '', '', '');
+              //         widget.userProvider
+              //             .replaceLoginUserId(_apiStatus.data.userId);
+              //         progressDialog.dismiss();
+
+              //         if (widget.onGoogleSignInSelected != null) {
+              //           widget.onGoogleSignInSelected(_apiStatus.data.userId);
+              //         } else {
+              //           Navigator.pop(context, _apiStatus.data);
+              //         }
+              //       } else {
+              //         progressDialog.dismiss();
+
+              //         showDialog<dynamic>(
+              //             context: context,
+              //             builder: (BuildContext context) {
+              //               return ErrorDialog(
+              //                 message: _apiStatus.message,
+              //               );
+              //             });
+              //       }
+              //     } else {
+              //       showDialog<dynamic>(
+              //           context: context,
+              //           builder: (BuildContext context) {
+              //             return ErrorDialog(
+              //               message: Utils.getString(
+              //                   context, 'error_dialog__no_internet'),
+              //             );
+              //           });
+              //     }
+              //   }
+              // });
             },
             child: Text(
               Utils.getString(context, 'login__google_signin'),
