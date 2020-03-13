@@ -49,7 +49,7 @@ class AuthService {
   // }
 
 // ! Signin with email and password
-  Future<bool> signInWithEmailAndPassword(String email, String password) async {
+  Future<FirebaseUser> signInWithEmailAndPassword(String email, String password) async {
     try {
       final AuthResult result = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -74,7 +74,7 @@ class AuthService {
           'sdkVersion': androidInfo.version.sdkInt
         }
       };
-      firestore.collection('Sellers').document(user.uid).updateData(data);
+      firestore.collection('AppUsers').document(user.uid).updateData(data);
       final Map<String, String> data2 = {
         'Email': user.email,
         'Token': fcm,
@@ -83,12 +83,12 @@ class AuthService {
             user.uid.toString().substring(3, 8).toLowerCase(),
       };
       firestore
-          .collection('Sellers')
+          .collection('AppUsers')
           .document(user.uid)
           .collection('Token')
           .document(fcm)
           .setData(data2);
-      return true;
+      return user;
     } catch (e) {
       switch (e.code) {
         case 'ERROR_USER_NOT_FOUND':
@@ -105,7 +105,7 @@ class AuthService {
           break;
       }
       print(e.toString());
-      return false;
+      return null;
     }
   }
 
@@ -131,7 +131,7 @@ class AuthService {
       assert(user.photoUrl != null);
       if (authResult != null) {
         final QuerySnapshot results = await Firestore.instance
-            .collection('Sellers')
+            .collection('AppUsers')
             .where('id', isEqualTo: user.uid)
             .getDocuments();
         final List<DocumentSnapshot> documents = results.documents;
@@ -140,7 +140,7 @@ class AuthService {
         if (documents.isEmpty) {
           final Map<String, Object> data = {
             'TimeCreated': Timestamp.now(),
-            'Register By': 'Register Via Email Password',
+            'Register By': 'Register Via Google Sign In',
             'id': user.uid,
             'refercode': user.uid.toString().substring(0, 6).toLowerCase(),
             'name': user.displayName ??
@@ -161,7 +161,7 @@ class AuthService {
             }
           };
           Firestore.instance
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(user.uid)
               .setData(data);
           final Map<String, String> data2 = {
@@ -172,7 +172,7 @@ class AuthService {
                 user.uid.toString().substring(3, 8).toLowerCase()
           };
           firestore
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(user.uid)
               .collection('Token')
               .document(fcm)
@@ -195,7 +195,7 @@ class AuthService {
             }
           };
           Firestore.instance
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(user.uid)
               .updateData(data);
           final Map<String, String> data2 = {
@@ -206,7 +206,7 @@ class AuthService {
                 user.uid.toString().substring(3, 8).toLowerCase(),
           };
           firestore
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(user.uid)
               .collection('Token')
               .document(fcm)
@@ -242,7 +242,7 @@ class AuthService {
       // });
       // todo: add
       final QuerySnapshot results = await Firestore.instance
-          .collection('Sellers')
+          .collection('AppUsers')
           .where('refercode', isEqualTo: refercode)
           .getDocuments();
       final List<DocumentSnapshot> documents = results.documents;
@@ -254,7 +254,7 @@ class AuthService {
                 : null
           };
           firestore
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(documents[i].data['id'])
               .updateData(data2);
           final Map<String, Object> data3 = {
@@ -264,7 +264,7 @@ class AuthService {
             'id': user.uid,
           };
           firestore
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(documents[i].data['id'])
               .collection('joined User')
               .document(user.uid)
@@ -285,7 +285,7 @@ class AuthService {
       }
 
       // if (documents.length == 1) {
-      //   Firestore.instance.collection('Sellers').document(user.uid).collection('joined').document(user.displayName).updateData({
+      //   Firestore.instance.collection('AppUsers').document(user.uid).collection('joined').document(user.displayName).updateData({
       //     'TimeCreated': Timestamp.now(),
       //     'Register By': 'registerWithEmailAndPassword',
       //     'id': user.uid,
@@ -296,7 +296,7 @@ class AuthService {
       //     'Reward': (results.documents[0].data['refercode'] == refercode) ? FieldValue.increment(50) : null
       //   });
       // } else {
-      //   Firestore.instance.collection('Sellers').document(user.uid).updateData({
+      //   Firestore.instance.collection('AppUsers').document(user.uid).updateData({
       //     'TimeCreated': Timestamp.now(),
       //     'Register By': 'registerWithEmailAndPassword',
       //     'id': user.uid,
@@ -357,8 +357,8 @@ class AuthService {
   }
 
   // ! register with email and password
-  Future<bool> registerWithEmailAndPassword(
-      String email, String password) async {
+  Future<FirebaseUser> registerWithEmailAndPassword(
+      String email, String password, String username) async {
     try {
       final AuthResult result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -367,7 +367,7 @@ class AuthService {
       assert(await user.getIdToken() != null);
       if (result != null) {
         final QuerySnapshot results = await Firestore.instance
-            .collection('Sellers')
+            .collection('AppUsers')
             .where('id', isEqualTo: user.uid)
             .getDocuments();
         final List<DocumentSnapshot> documents = results.documents;
@@ -375,6 +375,7 @@ class AuthService {
         final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
         if (documents.isEmpty) {
           final Map<String, Object> data = {
+            'Username': username,
             'TimeCreated': Timestamp.now(),
             'Register By': 'Register Via Email Password',
             'id': user.uid,
@@ -385,8 +386,6 @@ class AuthService {
             'photo': user.isEmailVerified,
             'Verification': true,
             'Reward': 0,
-            'Verification': false,
-            'formstatus': false,
             'userToken': fcm,
             'Device': {
               'product': androidInfo.product,
@@ -397,7 +396,7 @@ class AuthService {
             }
           };
           Firestore.instance
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(user.uid)
               .setData(data);
           final data2 = {
@@ -408,7 +407,7 @@ class AuthService {
                 user.uid.toString().substring(3, 8).toLowerCase(),
           };
           firestore
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(user.uid)
               .collection('Token')
               .document(fcm)
@@ -431,7 +430,7 @@ class AuthService {
             }
           };
           Firestore.instance
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(user.uid)
               .updateData(data);
           final Map<String, String> data2 = {
@@ -442,14 +441,14 @@ class AuthService {
                 user.uid.toString().substring(3, 8).toLowerCase(),
           };
           firestore
-              .collection('Sellers')
+              .collection('AppUsers')
               .document(user.uid)
               .collection('Token')
               .document(fcm)
               .setData(data2);
         }
       }
-      return true;
+      return user;
     } catch (e) {
       print(e.toString());
 
@@ -457,7 +456,6 @@ class AuthService {
         case 'ERROR_INVALID_EMAIL':
           // authError = 'Invalid Email';
           Fluttertoast.showToast(msg: 'Invaild Email Id');
-          print('object');
           break;
         case 'ERROR_USER_NOT_FOUND':
           // authError = 'User Not Found';
@@ -469,7 +467,7 @@ class AuthService {
           // authError = 'Error';
           break;
       }
-      return false;
+      return null;
     }
   }
 

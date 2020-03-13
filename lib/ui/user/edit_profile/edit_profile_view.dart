@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 
@@ -7,6 +8,7 @@ import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/provider/user/user_provider.dart';
 import 'package:digitalproductstore/repository/user_repository.dart';
 import 'package:digitalproductstore/ui/common/base/ps_widget_with_appbar.dart';
@@ -26,7 +28,10 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class EditProfileView extends StatefulWidget {
+class EditProfileView extends StatefulWidget { final DocumentSnapshot snapshot;
+
+  const EditProfileView({Key key, @required this.snapshot}) : super(key: key);
+
   @override
   _EditProfileViewState createState() => _EditProfileViewState();
 }
@@ -42,7 +47,7 @@ class _EditProfileViewState extends State<EditProfileView>
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController aboutMeController = TextEditingController();
   bool bindDataFirstTime = true;
-
+ 
   @override
   void initState() {
     animationController =
@@ -73,6 +78,7 @@ class _EditProfileViewState extends State<EditProfileView>
       );
       return Future<bool>.value(false);
     }
+    final Users users = Provider.of<Users>(context);
 
     return WillPopScope(
         onWillPop: _requestPop,
@@ -88,19 +94,19 @@ class _EditProfileViewState extends State<EditProfileView>
             },
             builder:
                 (BuildContext context, UserProvider provider, Widget child) {
-              if (provider.user != null && provider.user.data != null) {
-                if (bindDataFirstTime) {
-                  userNameController.text = provider.user.data.userName;
-                  emailController.text = provider.user.data.userEmail;
-                  phoneController.text = provider.user.data.userPhone;
-                  aboutMeController.text = provider.user.data.userAboutMe;
-                  bindDataFirstTime = false;
-                }
+              if (users != null && users.uid != null) {
+                // if (bindDataFirstTime) {
+                //   userNameController.text = provider.user.data.userName;
+                //   emailController.text = provider.user.data.userEmail;
+                //   phoneController.text = provider.user.data.userPhone;
+                //   aboutMeController.text = provider.user.data.userAboutMe;
+                //   bindDataFirstTime = false;
+                // }
 
                 return SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      _ImageWidget(userProvider: provider),
+                      _ImageWidget(userProvider: provider,snapshot: widget.snapshot,),
                       _UserFirstCardWidget(
                         userProvider: provider,
                         userNameController: userNameController,
@@ -282,9 +288,9 @@ class _TwoButtonWidget extends StatelessWidget {
 }
 
 class _ImageWidget extends StatefulWidget {
-  const _ImageWidget({this.userProvider});
+  const _ImageWidget({this.userProvider,@required this.snapshot});
   final UserProvider userProvider;
-
+final DocumentSnapshot snapshot;
   @override
   __ImageWidgetState createState() => __ImageWidgetState();
 }
@@ -357,10 +363,12 @@ class __ImageWidgetState extends State<_ImageWidget> {
         }
       }
     }
-
+final Users users = Provider.of<Users>(context);
     final Widget _imageWidget = PsNetworkImageWithUrl(
       photoKey: '',
-      url: widget.userProvider.user.data.userProfilePhoto,
+      url: widget.snapshot['ProfileImage'] ??
+            users.imageUrl ??
+            'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png',
       width: double.infinity,
       height: ps_space_200,
       boxfit: BoxFit.cover,
@@ -414,7 +422,9 @@ class __ImageWidgetState extends State<_ImageWidget> {
                 child: CircleAvatar(
                   child: PsNetworkCircleImage(
                     photoKey: '',
-                    url: widget.userProvider.user.data.userProfilePhoto,
+                    url: widget.snapshot['ProfileImage'] ??
+            users.imageUrl ??
+            'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png',
                     width: double.infinity,
                     height: ps_space_200,
                     boxfit: BoxFit.cover,

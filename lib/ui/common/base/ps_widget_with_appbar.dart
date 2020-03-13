@@ -48,7 +48,7 @@ class _PsWidgetWithAppBarState<T extends ChangeNotifier>
               title: Text(widget.appBarTitle,
                   style: Theme.of(context)
                       .textTheme
-                      .title
+                      .subtitle2
                       .copyWith(fontWeight: FontWeight.bold)
                       .copyWith(
                           color: Utils.isLightMode(context)

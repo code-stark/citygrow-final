@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
@@ -186,7 +187,7 @@ class _ProfileDetailWidget extends StatelessWidget {
     PsValueHolder psValueHolder;
     userRepository = Provider.of<UserRepository>(context);
     psValueHolder = Provider.of<PsValueHolder>(context);
-
+    final Users users = Provider.of<Users>(context);
     return SliverToBoxAdapter(
       child: ChangeNotifierProvider<UserLoginProvider>(
           create: (BuildContext context) {
@@ -201,31 +202,52 @@ class _ProfileDetailWidget extends StatelessWidget {
         return provider;
       }, child: Consumer<UserLoginProvider>(builder:
               (BuildContext context, UserLoginProvider provider, Widget child) {
-        if (provider.userLogin != null && provider.userLogin.data != null) {
-          return AnimatedBuilder(
-              animation: animationController,
-              builder: (BuildContext context, Widget child) {
-                return FadeTransition(
-                    opacity: animation,
-                    child: Transform(
-                        transform: Matrix4.translationValues(
-                            0.0, 100 * (1.0 - animation.value), 0.0),
-                        child: Container(
-                          child: Column(
-                            children: <Widget>[
-                              _ImageAndTextWidget(userProvider: provider),
-                              _dividerWidget,
-                              _EditAndHistoryRowWidget(
-                                  userLoginProvider: provider),
-                              _dividerWidget,
-                              _FavAndSettingWidget(),
-                              _dividerWidget,
-                              _JoinDateWidget(userProvider: provider),
-                              _dividerWidget,
-                              _OrderAndSeeAllWidget(),
-                            ],
-                          ),
-                        )));
+        if (users != null && users.uid != null) {
+          return StreamBuilder<DocumentSnapshot>(
+              stream: Firestore.instance
+                  .collection('AppUsers')
+                  .document(users.uid)
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                final dynamic datas = snapshot.data;
+                return AnimatedBuilder(
+                    animation: animationController,
+                    builder: (BuildContext context, Widget child) {
+                      return FadeTransition(
+                          opacity: animation,
+                          child: Transform(
+                              transform: Matrix4.translationValues(
+                                  0.0, 100 * (1.0 - animation.value), 0.0),
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    _ImageAndTextWidget(
+                                      userProvider: provider,
+                                      usersData: datas,
+                                    ),
+                                    _dividerWidget,
+                                    _EditAndHistoryRowWidget(
+                                        usersData: datas,
+                                        userLoginProvider: provider),
+                                    _dividerWidget,
+                                    _FavAndSettingWidget(),
+                                    _dividerWidget,
+                                    _JoinDateWidget(
+                                      userProvider: provider,
+                                      usersData: datas,
+                                    ),
+                                    _dividerWidget,
+                                    _OrderAndSeeAllWidget(),
+                                  ],
+                                ),
+                              )));
+                    });
               });
         } else {
           return Container();
@@ -236,8 +258,10 @@ class _ProfileDetailWidget extends StatelessWidget {
 }
 
 class _JoinDateWidget extends StatelessWidget {
-  const _JoinDateWidget({this.userProvider});
+  const _JoinDateWidget({this.userProvider, @required this.usersData});
   final UserLoginProvider userProvider;
+  final DocumentSnapshot usersData;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -258,7 +282,8 @@ class _JoinDateWidget extends StatelessWidget {
                   width: ps_space_2,
                 ),
                 Text(
-                  userProvider.userLogin.data.user.addedDate,
+                  DateTime.parse(usersData['TimeCreated'].toDate().toString())
+                      .toString(),
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
@@ -340,7 +365,7 @@ class _FavAndSettingWidget extends StatelessWidget {
                     textAlign: TextAlign.start,
                     style: Theme.of(context)
                         .textTheme
-                        .body1
+                        .bodyText1
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ],
@@ -352,8 +377,10 @@ class _FavAndSettingWidget extends StatelessWidget {
 }
 
 class _EditAndHistoryRowWidget extends StatelessWidget {
-  const _EditAndHistoryRowWidget({@required this.userLoginProvider});
+  const _EditAndHistoryRowWidget(
+      {@required this.userLoginProvider, @required this.usersData});
   final UserLoginProvider userLoginProvider;
+  final DocumentSnapshot usersData;
   @override
   Widget build(BuildContext context) {
     final Widget _verticalLineWidget = Container(
@@ -365,16 +392,19 @@ class _EditAndHistoryRowWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         _EditAndHistoryTextWidget(
+          snapshot: usersData,
           userLoginProvider: userLoginProvider,
           checkText: 0,
         ),
         _verticalLineWidget,
         _EditAndHistoryTextWidget(
+          snapshot: usersData,
           userLoginProvider: userLoginProvider,
           checkText: 1,
         ),
         _verticalLineWidget,
         _EditAndHistoryTextWidget(
+          snapshot: usersData,
           userLoginProvider: userLoginProvider,
           checkText: 2,
         )
@@ -388,10 +418,12 @@ class _EditAndHistoryTextWidget extends StatelessWidget {
     Key key,
     @required this.userLoginProvider,
     @required this.checkText,
+    @required this.snapshot,
   }) : super(key: key);
 
   final UserLoginProvider userLoginProvider;
   final int checkText;
+  final DocumentSnapshot snapshot;
 
   @override
   Widget build(BuildContext context) {
@@ -403,9 +435,8 @@ class _EditAndHistoryTextWidget extends StatelessWidget {
             onPressed: () async {
               if (checkText == 0) {
                 final dynamic returnData = await Navigator.pushNamed(
-                  context,
-                  RoutePaths.editProfile,
-                );
+                    context, RoutePaths.editProfile,
+                    arguments: snapshot);
                 if (returnData)
                   userLoginProvider.getUserLogin(
                       userLoginProvider.psValueHolder.loginUserId);
@@ -427,7 +458,7 @@ class _EditAndHistoryTextWidget extends StatelessWidget {
                     softWrap: false,
                     style: Theme.of(context)
                         .textTheme
-                        .body1
+                        .bodyText1
                         .copyWith(fontWeight: FontWeight.bold),
                   )
                 : checkText == 1
@@ -436,7 +467,7 @@ class _EditAndHistoryTextWidget extends StatelessWidget {
                         softWrap: false,
                         style: Theme.of(context)
                             .textTheme
-                            .body1
+                            .bodyText1
                             .copyWith(fontWeight: FontWeight.bold),
                       )
                     : Text(
@@ -444,7 +475,7 @@ class _EditAndHistoryTextWidget extends StatelessWidget {
                         softWrap: false,
                         style: Theme.of(context)
                             .textTheme
-                            .body1
+                            .bodyText1
                             .copyWith(fontWeight: FontWeight.bold),
                       )));
   }
@@ -472,7 +503,7 @@ class _OrderAndSeeAllWidget extends StatelessWidget {
           children: <Widget>[
             Text(Utils.getString(context, 'profile__order'),
                 textAlign: TextAlign.start,
-                style: Theme.of(context).textTheme.subhead),
+                style: Theme.of(context).textTheme.subtitle1),
             InkWell(
               child: Text(
                 Utils.getString(context, 'profile__view_all'),
@@ -491,8 +522,9 @@ class _OrderAndSeeAllWidget extends StatelessWidget {
 }
 
 class _ImageAndTextWidget extends StatelessWidget {
-  const _ImageAndTextWidget({this.userProvider});
+  const _ImageAndTextWidget({this.userProvider, @required this.usersData});
   final UserLoginProvider userProvider;
+  final DocumentSnapshot usersData;
   @override
   Widget build(BuildContext context) {
     final Users user = Provider.of<Users>(context);
@@ -501,7 +533,9 @@ class _ImageAndTextWidget extends StatelessWidget {
       padding: const EdgeInsets.all(ps_space_16),
       child: PsNetworkCircleImage(
         photoKey: '',
-        url: user.imageUrl,
+        url: usersData['ProfileImage'] ??
+            user.imageUrl ??
+            'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png',
         width: ps_space_80,
         height: ps_space_80,
         boxfit: BoxFit.cover,
@@ -528,23 +562,27 @@ class _ImageAndTextWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    user.name,
+                    usersData['Username'] ?? user.name,
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   _spacingWidget,
+                  //!user Phone number
                   Text(
-                    userProvider.userLogin.data.user.userPhone != ''
-                        ? userProvider.userLogin.data.user.userPhone
+                    usersData['PhoneNumber'] != '' &&
+                            usersData['PhoneNumber'] != null
+                        ? usersData['PhoneNumber']
                         : Utils.getString(context, 'profile__phone_no'),
-                    style: Theme.of(context).textTheme.subtitle,
+                    style: Theme.of(context).textTheme.subtitle2,
                   ),
                   _spacingWidget,
+                  //!about me
                   Text(
-                    userProvider.userLogin.data.user.userAboutMe != ''
-                        ? userProvider.userLogin.data.user.userAboutMe
+                    usersData['AboutMe'] != '' &&
+                            usersData['PhoneNumber'] != null
+                        ? usersData['PhoneNumber']
                         : Utils.getString(context, 'profile__about_me'),
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

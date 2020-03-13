@@ -5,6 +5,7 @@ import 'package:digitalproductstore/Service/auth/auth_service.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 
 import 'package:digitalproductstore/config/ps_colors.dart';
+import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
 import 'package:digitalproductstore/locator.dart';
@@ -42,7 +43,7 @@ class LoginView extends StatefulWidget {
       this.onSignInSelected,
       this.onPhoneSignInSelected,
       this.onFbSignInSelected,
-      this.onGoogleSignInSelected})
+      this.onGoogleSignInSelected,@required this.buildContexts})
       : super(key: key);
 
   final AnimationController animationController;
@@ -53,6 +54,7 @@ class LoginView extends StatefulWidget {
       onPhoneSignInSelected,
       onFbSignInSelected,
       onGoogleSignInSelected;
+      final BuildContext buildContexts;
   @override
   _LoginViewState createState() => _LoginViewState();
 }
@@ -94,6 +96,7 @@ class _LoginViewState extends State<LoginView> {
                         children: <Widget>[
                           _HeaderIconAndTextWidget(),
                           _TextFieldAndSignInButtonWidget(
+                            animationController: widget.animationController,
                             provider: provider,
                             text: Utils.getString(context, 'login__submit'),
                             onProfileSelected: widget.onProfileSelected,
@@ -174,7 +177,9 @@ class _TextFieldAndSignInButtonWidget extends StatefulWidget {
     @required this.provider,
     @required this.text,
     this.onProfileSelected,
+    @required this.animationController,
   });
+  final AnimationController animationController;
 
   final UserProvider provider;
   final String text;
@@ -195,6 +200,10 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
         right: ps_space_16,
         top: ps_space_4,
         bottom: ps_space_4);
+
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    final int _currentIndex = REQUEST_CODE__MENU_HOME_FRAGMENT;
+
     return Column(
       children: <Widget>[
         Card(
@@ -206,12 +215,11 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                 margin: _marginEdgeInsetsforCard,
                 child: TextField(
                   controller: emailController,
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(),
+                  style: Theme.of(context).textTheme.button.copyWith(),
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: Utils.getString(context, 'login__email'),
-                      hintStyle:
-                          Theme.of(context).textTheme.bodyText1.copyWith(),
+                      hintStyle: Theme.of(context).textTheme.button.copyWith(),
                       icon: Icon(Icons.email,
                           color: Theme.of(context).iconTheme.color)),
                 ),
@@ -250,7 +258,8 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
               borderRadius: BorderRadius.all(Radius.circular(7.0)),
             ),
             onPressed: () async {
-              if (emailController.text.isEmpty) {
+              if (emailController.text.isEmpty &&
+                  emailController.text.contains('@') == true) {
                 callWarningDialog(context,
                     Utils.getString(context, 'warning_dialog__input_email'));
               } else if (passwordController.text.isEmpty) {
@@ -265,20 +274,37 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                   //   deviceToken: widget.provider.psValueHolder.deviceToken,
                   // );
 
-                  // final ProgressDialog progressDialog = loadingDialog(
-                  //   context,
-                  // );
+                  final ProgressDialog progressDialog = loadingDialog(
+                    context,
+                  );
                   // progressDialog.show();
                   // final PsResource<User> _apiStatus = await widget.provider
                   //     .postUserLogin(userLoginParameterHolder.toMap());
 
                   // if (_apiStatus.data != null) {
-                  //   progressDialog.dismiss();
+                  progressDialog.show();
 
-                  widget.provider.replaceVerifyUserData('', '', '', '');
-                  widget.provider.replaceLoginUserId('_apiStatus.data.userId');
-                  ls.get<AuthService>();
-
+                  // widget.provider.replaceVerifyUserData('', '', '', '');
+                  // widget.provider.replaceLoginUserId('_apiStatus.data.userId');
+                  final FirebaseUser result = await ls
+                      .get<AuthService>()
+                      .signInWithEmailAndPassword(
+                          emailController.text, passwordController.text);
+                  if (result == null) {
+                    progressDialog.hide();
+                  } else {
+                    progressDialog.hide();
+                    Navigator.of(context,rootNavigator: true).maybePop();
+                    // return Navigator.pushReplacement<dynamic, dynamic>(
+                    //     context,
+                    //     MaterialPageRoute<dynamic>(
+                    //         builder: (BuildContext context) => ProfileView(
+                    //               flag: _currentIndex,
+                    //               scaffoldKey: scaffoldKey,
+                    //               animationController:
+                    //                   widget.animationController,
+                    //             )));
+                  }
                   //   if (widget.onProfileSelected != null) {
                   //     await widget.provider
                   //         .replaceVerifyUserData('', '', '', '');
@@ -286,7 +312,7 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                   //         .replaceLoginUserId(_apiStatus.data.userId);
                   //     await widget.onProfileSelected(_apiStatus.data.userId);
                   //   } else {
-                  // Navigator.pop(context);
+
                   //   }
                   // } else {
                   //   progressDialog.dismiss();
@@ -298,11 +324,11 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                   //         );
                   //       });
                   // }
-                  Navigator.push<dynamic>(
-                      context,
-                      MaterialPageRoute<dynamic>(
-                          builder: (BuildContext context) =>
-                              const ProfileView(flag: 1, scaffoldKey: null)));
+                  // Navigator.push<dynamic>(
+                  //     context,
+                  //     MaterialPageRoute<dynamic>(
+                  //         builder: (BuildContext context) =>
+                  //             const ProfileView(flag: 1, scaffoldKey: null)));
                 } else {
                   showDialog<dynamic>(
                       context: context,
@@ -608,7 +634,7 @@ class __LoginWithGoogleWidgetState extends State<_LoginWithGoogleWidget> {
             ),
             onPressed: () async {
               // print(user.uid);
-               await ls.get<AuthService>().signInWithGoogleeee();
+              await ls.get<AuthService>().signInWithGoogleeee();
               //     .then((FirebaseUser user) async {
               //   if (user != null) {
               //     if (await utilsCheckInternetConnectivity()) {

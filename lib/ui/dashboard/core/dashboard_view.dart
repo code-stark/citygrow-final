@@ -137,6 +137,7 @@ class _HomeViewState extends State<DashboardView>
   }
 
   dynamic getIndexFromBottonNavigationIndex(int param) {
+    final Users users = Provider.of<Users>(context);
     int index = REQUEST_CODE__MENU_HOME_FRAGMENT;
     String title;
     final PsValueHolder psValueHolder = Provider.of<PsValueHolder>(context);
@@ -152,9 +153,7 @@ class _HomeViewState extends State<DashboardView>
         break;
       case 2:
         index = REQUEST_CODE__DASHBOARD_SELECT_WHICH_USER_FRAGMENT;
-        title = (psValueHolder == null ||
-                psValueHolder.userIdToVerify == null ||
-                psValueHolder.userIdToVerify == '')
+        title = (users != null || users.uid != null || users.uid != '')
             ? Utils.getString(context, 'home__bottom_app_bar_login')
             : Utils.getString(context, 'home__bottom_app_bar_verify_email');
         break;
@@ -231,7 +230,7 @@ class _HomeViewState extends State<DashboardView>
         .animate(CurvedAnimation(
             parent: animationController,
             curve: const Interval(0.5 * 1, 1.0, curve: Curves.fastOutSlowIn)));
-
+    final Users user = Provider.of<Users>(context);
     return EasyLocalizationProvider(
       data: data,
       child: WillPopScope(
@@ -325,6 +324,7 @@ class _HomeViewState extends State<DashboardView>
                       title: Text(Utils.getString(
                           context, 'home__menu_drawer_user_info')),
                     ),
+                    // TODO(Profile LogoOut): Profile LogoOut
                     _DrawerMenuWidget(
                         icon: Icons.person,
                         title: Utils.getString(
@@ -332,18 +332,17 @@ class _HomeViewState extends State<DashboardView>
                         index: REQUEST_CODE__MENU_SELECT_WHICH_USER_FRAGMENT,
                         onTap: (String title, int index) {
                           Navigator.pop(context);
-                          title = (valueHolder == null ||
-                                  valueHolder.userIdToVerify == null ||
-                                  valueHolder.userIdToVerify == '')
+                          title = (user != null ||
+                                  user.uid != null ||
+                                  user.uid != '')
                               ? Utils.getString(
                                   context, 'home__menu_drawer_profile')
                               : Utils.getString(
                                   context, 'home__bottom_app_bar_verify_email');
                           updateSelectedIndexWithAnimation(title, index);
                         }),
-                    if (provider != null)
-                      if (provider.psValueHolder.loginUserId != null &&
-                          provider.psValueHolder.loginUserId != '')
+                    if (user != null)
+                      if (user.uid != null && user.uid != '')
                         Visibility(
                           visible: true,
                           child: _DrawerMenuWidget(
@@ -356,9 +355,8 @@ class _HomeViewState extends State<DashboardView>
                                 updateSelectedIndexWithAnimation(title, index);
                               }),
                         ),
-                    if (provider != null)
-                      if (provider.psValueHolder.loginUserId != null &&
-                          provider.psValueHolder.loginUserId != '')
+                    if (user.uid != null)
+                      if (user.uid != null && user.uid != '')
                         Visibility(
                           visible: true,
                           child: _DrawerMenuWidget(
@@ -372,9 +370,8 @@ class _HomeViewState extends State<DashboardView>
                             },
                           ),
                         ),
-                    if (provider != null)
-                      if (provider.psValueHolder.loginUserId != null &&
-                          provider.psValueHolder.loginUserId != '')
+                    if (user.uid != null)
+                      if (user.uid != null && user.uid != '')
                         Visibility(
                           visible: true,
                           child: _DrawerMenuWidget(
@@ -388,9 +385,8 @@ class _HomeViewState extends State<DashboardView>
                                 updateSelectedIndexWithAnimation(title, index);
                               }),
                         ),
-                    if (provider != null)
-                      if (provider.psValueHolder.loginUserId != null &&
-                          provider.psValueHolder.loginUserId != '')
+                    if (user.uid != null)
+                      if (user.uid != null && user.uid != '')
                         Visibility(
                           visible: true,
                           child: _DrawerMenuWidget(
@@ -404,9 +400,8 @@ class _HomeViewState extends State<DashboardView>
                                 updateSelectedIndexWithAnimation(title, index);
                               }),
                         ),
-                    if (provider != null)
-                      if (provider.psValueHolder.loginUserId != null &&
-                          provider.psValueHolder.loginUserId != '')
+                    if (user.uid != null)
+                      if (user.uid != null && user.uid != '')
                         Visibility(
                           visible: true,
                           child: ListTile(
@@ -758,7 +753,7 @@ class _HomeViewState extends State<DashboardView>
               : null,
           body: Builder(
             builder: (BuildContext context) {
-            final Users users = Provider.of<Users>(context);
+              final Users users = Provider.of<Users>(context);
               if (_currentIndex == REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT) {
                 // 1 Way
                 //
@@ -822,13 +817,11 @@ class _HomeViewState extends State<DashboardView>
                   return provider;
                 }, child: Consumer<UserProvider>(builder: (BuildContext context,
                         UserProvider provider, Widget child) {
-                  if (users != null ||
-                     users.uid != null ||
-                     users.uid != '') {
+                  if (users != null || users.uid != null || users.uid != '') {
                     if (users.uid == null ||
-                       users.uid == null ||
                         users.uid == null ||
-                       users.uid == '') {
+                        users.uid == null ||
+                        users.uid == '') {
                       return _CallLoginWidget(
                           currentIndex: _currentIndex,
                           animationController: animationController,
@@ -855,26 +848,27 @@ class _HomeViewState extends State<DashboardView>
                         flag: _currentIndex,
                       );
                     }
-                  } else {
-                    return _CallVerifyEmailWidget(
-                        animationController: animationController,
-                        animation: animation,
-                        currentIndex: _currentIndex,
-                        updateCurrentIndex: (String title, int index) {
-                          updateSelectedIndexWithAnimation(title, index);
-                        },
-                        updateUserCurrentIndex:
-                            (String title, int index, String userId) async {
-                          if (userId != null) {
-                            _userId = userId;
-                            provider.psValueHolder.loginUserId = userId;
-                          }
-                          setState(() {
-                            appBarTitle = title;
-                            _currentIndex = index;
-                          });
-                        });
                   }
+                  // } else {
+                  //   return _CallVerifyEmailWidget(
+                  //       animationController: animationController,
+                  //       animation: animation,
+                  //       currentIndex: _currentIndex,
+                  //       updateCurrentIndex: (String title, int index) {
+                  //         updateSelectedIndexWithAnimation(title, index);
+                  //       },
+                  //       updateUserCurrentIndex:
+                  //           (String title, int index, String userId) async {
+                  //         if (userId != null) {
+                  //           _userId = userId;
+                  //           provider.psValueHolder.loginUserId = userId;
+                  //         }
+                  //         setState(() {
+                  //           appBarTitle = title;
+                  //           _currentIndex = index;
+                  //         });
+                  //       });
+                  // }
                 }));
               }
               if (_currentIndex == REQUEST_CODE__DASHBOARD_SEARCH_FRAGMENT) {
@@ -1057,7 +1051,7 @@ class _HomeViewState extends State<DashboardView>
                   ),
                   CustomScrollView(scrollDirection: Axis.vertical, slivers: <
                       Widget>[
-                    RegisterView(
+                    RegisterView(buildContexts: context,
                         animationController: animationController,
                         onRegisterSelected: () {
                           if (_currentIndex ==
@@ -1144,17 +1138,15 @@ class _HomeViewState extends State<DashboardView>
                     create: (BuildContext context) {
                   final UserProvider provider = UserProvider(
                       repo: userRepository, psValueHolder: valueHolder);
-
+//TODO: userlogin
                   return provider;
                 }, child: Consumer<UserProvider>(builder: (BuildContext context,
                         UserProvider provider, Widget child) {
-                  if (users == null ||
-                      users.uid == null ||
-                      users.uid == '') {
-                    if (users == null ||
-                        users.uid == null ||
-                        users.uid == null ||
-                        users.uid == '') {
+                  if (user != null || user.uid != null || user.uid != '') {
+                    if (user == null ||
+                        user.uid == null ||
+                        user.uid == null ||
+                        user.uid == '') {
                       return Stack(
                         children: <Widget>[
                           Image.asset(
@@ -1643,7 +1635,7 @@ class __DrawerMenuWidgetState extends State<_DrawerMenuWidget> {
             ),
         title: Text(
           widget.title,
-          style: Theme.of(context).textTheme.body1,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
         onTap: () {
           widget.onTap(widget.title, widget.index);

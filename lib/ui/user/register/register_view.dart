@@ -1,18 +1,27 @@
+import 'package:digitalproductstore/Service/auth/auth_service.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_config.dart';
+import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/locator.dart';
 import 'package:digitalproductstore/provider/user/user_provider.dart';
 import 'package:digitalproductstore/repository/user_repository.dart';
 import 'package:digitalproductstore/ui/common/dialog/error_dialog.dart';
+import 'package:digitalproductstore/ui/common/dialog/loading_dialog.dart';
 import 'package:digitalproductstore/ui/common/dialog/warning_dialog_view.dart';
+import 'package:digitalproductstore/ui/dashboard/core/dashboard_view.dart';
+import 'package:digitalproductstore/ui/user/profile/profile_view.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
 import 'package:digitalproductstore/viewobject/holder/user_register_parameter_holder.dart';
 import 'package:digitalproductstore/viewobject/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 
 class RegisterView extends StatefulWidget {
@@ -20,10 +29,13 @@ class RegisterView extends StatefulWidget {
       {Key key,
       this.animationController,
       this.onRegisterSelected,
-      this.goToLoginSelected})
+      this.goToLoginSelected,
+      @required this.buildContexts})
       : super(key: key);
   final AnimationController animationController;
   final Function onRegisterSelected, goToLoginSelected;
+  final BuildContext buildContexts;
+
   @override
   _RegisterViewState createState() => _RegisterViewState();
 }
@@ -108,6 +120,8 @@ class _RegisterViewState extends State<RegisterView>
                                     height: ps_space_8,
                                   ),
                                   _SignInButtonWidget(
+                                    buildContexts: widget.buildContexts,
+                                    animationController: animationController,
                                     provider: provider,
                                     nameTextEditingController: nameController,
                                     emailTextEditingController: emailController,
@@ -150,7 +164,10 @@ class __TextWidgetState extends State<_TextWidget> {
     return GestureDetector(
       child: Text(
         Utils.getString(context, 'register__login'),
-        style: Theme.of(context).textTheme.bodyText1.copyWith(color: Colors.orange),
+        style: Theme.of(context)
+            .textTheme
+            .bodyText1
+            .copyWith(color: Colors.orange),
       ),
       onTap: () {
         if (widget.goToLoginSelected != null) {
@@ -283,16 +300,23 @@ class _SignInButtonWidget extends StatefulWidget {
       @required this.nameTextEditingController,
       @required this.emailTextEditingController,
       @required this.passwordTextEditingController,
-      this.onRegisterSelected});
+      this.onRegisterSelected,
+      @required this.animationController,
+      @required this.buildContexts});
   final UserProvider provider;
   final Function onRegisterSelected;
   final TextEditingController nameTextEditingController,
       emailTextEditingController,
       passwordTextEditingController;
-
+  final AnimationController animationController;
+  final BuildContext buildContexts;
   @override
   __SignInButtonWidgetState createState() => __SignInButtonWidgetState();
 }
+
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+int _currentIndex = REQUEST_CODE__MENU_HOME_FRAGMENT;
 
 dynamic callWarningDialog(BuildContext context, String text) {
   showDialog<dynamic>(
@@ -328,6 +352,32 @@ class __SignInButtonWidgetState extends State<_SignInButtonWidget> {
                 Utils.getString(context, 'warning_dialog__input_password'));
           } else {
             if (await utilsCheckInternetConnectivity()) {
+              final ProgressDialog progressDialog = loadingDialog(
+                context,
+              );
+              progressDialog.show();
+              final FirebaseUser result = await ls
+                  .get<AuthService>()
+                  .registerWithEmailAndPassword(
+                      widget.emailTextEditingController.text,
+                      widget.passwordTextEditingController.text,
+                      widget.nameTextEditingController.text);
+              if (result == null) {
+                progressDialog.hide();
+              } else {
+                progressDialog.hide();
+                Navigator.of(widget.buildContexts, rootNavigator: true).pop();
+                return Navigator.pushReplacement<dynamic, dynamic>(
+                    context,
+                    MaterialPageRoute<dynamic>(
+                        builder: (BuildContext context) => DashboardView()
+                        // ProfileView(
+                        //       flag: _currentIndex,
+                        //       scaffoldKey: scaffoldKey,
+                        //       animationController: widget.animationController,
+                        //     )
+                        ));
+              }
               // final UserRegisterParameterHolder userRegisterParameterHolder =
               //     UserRegisterParameterHolder(
               //   userId: '',
@@ -362,34 +412,34 @@ class __SignInButtonWidgetState extends State<_SignInButtonWidget> {
               //   if (widget.onRegisterSelected != null) {
               //     await widget.onRegisterSelected();
               //   } else {
-                //   final dynamic returnData = await Navigator.pushNamed(
-                //     context,
-                //     RoutePaths.user_verify_email_container,
-                //   );
+              //   final dynamic returnData = await Navigator.pushNamed(
+              //     context,
+              //     RoutePaths.user_verify_email_container,
+              //   );
 
-                //   if (returnData != null && returnData is User) {
-                //     final User user = returnData;
-                //     if (Provider != null && Provider.of != null) {
-                //       widget.provider.psValueHolder =
-                //           Provider.of<PsValueHolder>(context);
-                //     }
-                //     widget.provider.psValueHolder.loginUserId = user.userId;
-                //     widget.provider.psValueHolder.userIdToVerify = '';
-                //     widget.provider.psValueHolder.userNameToVerify = '';
-                //     widget.provider.psValueHolder.userEmailToVerify = '';
-                //     widget.provider.psValueHolder.userPasswordToVerify = '';
-                //     print(user.userId);
-                    Navigator.of(context,rootNavigator: true).pop();
-                //   }
-                // }
+              //   if (returnData != null && returnData is User) {
+              //     final User user = returnData;
+              //     if (Provider != null && Provider.of != null) {
+              //       widget.provider.psValueHolder =
+              //           Provider.of<PsValueHolder>(context);
+              //     }
+              //     widget.provider.psValueHolder.loginUserId = user.userId;
+              //     widget.provider.psValueHolder.userIdToVerify = '';
+              //     widget.provider.psValueHolder.userNameToVerify = '';
+              //     widget.provider.psValueHolder.userEmailToVerify = '';
+              //     widget.provider.psValueHolder.userPasswordToVerify = '';
+              //     print(user.userId);
+              // Navigator.of(context,rootNavigator: true).pop();
+              //   }
+              // }
               // } else {
-              //   showDialog<dynamic>(
-              //       context: context,
-              //       builder: (BuildContext context) {
-              //         return ErrorDialog(
-              //           message: _apiStatus.message,
-              //         );
-              //       });
+              // showDialog<dynamic>(
+              //     context: context,
+              //     builder: (BuildContext context) {
+              //       return ErrorDialog(
+              //         message: _apiStatus.message,
+              //       );
+              //     });
               // }
             } else {
               showDialog<dynamic>(

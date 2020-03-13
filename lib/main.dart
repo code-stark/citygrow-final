@@ -29,6 +29,7 @@ import 'package:digitalproductstore/ui/transaction/list/transaction_list_contain
 import 'package:digitalproductstore/ui/user/phone/sign_in/phone_sign_in_container_view.dart';
 import 'package:digitalproductstore/ui/user/phone/verify_phone/verify_phone_container_view.dart';
 import 'package:digitalproductstore/ui/user/profile/profile_container_view.dart';
+import 'package:digitalproductstore/ui/user/profile/profile_view.dart';
 import 'package:digitalproductstore/ui/user/register/register_container_view.dart';
 import 'package:digitalproductstore/viewobject/blog.dart';
 import 'package:digitalproductstore/viewobject/comment_header.dart';
@@ -247,6 +248,8 @@ class _PSAppState extends State<PSApp> {
                       },
                       '${RoutePaths.user_update_password}':
                           (BuildContext context) => ChangePasswordView(),
+                      '${RoutePaths.profile}':
+                          (BuildContext context) => ProfileView(),
                       '${RoutePaths.profile_container}':
                           (BuildContext context) => ProfileContainerView(),
                       '${RoutePaths.languageList}': (BuildContext context) {
@@ -413,8 +416,10 @@ class _PSAppState extends State<PSApp> {
                         final String productDetailId = args ?? String;
                         return RatingListView(productDetailid: productDetailId);
                       },
-                      '${RoutePaths.editProfile}': (BuildContext context) {
-                        return EditProfileView();
+                      '${RoutePaths.editProfile}': (BuildContext context) {final Object args =
+                            ModalRoute.of(context).settings.arguments;
+                        final DocumentSnapshot editprofile = args ?? DocumentSnapshot;
+                        return EditProfileView(snapshot: editprofile,);
                       },
                       '${RoutePaths.galleryGrid}': (BuildContext context) {
                         final Object args =
