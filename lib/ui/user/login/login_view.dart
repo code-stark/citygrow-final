@@ -43,7 +43,8 @@ class LoginView extends StatefulWidget {
       this.onSignInSelected,
       this.onPhoneSignInSelected,
       this.onFbSignInSelected,
-      this.onGoogleSignInSelected,@required this.buildContexts})
+      this.onGoogleSignInSelected,
+      @required this.buildContexts})
       : super(key: key);
 
   final AnimationController animationController;
@@ -54,7 +55,7 @@ class LoginView extends StatefulWidget {
       onPhoneSignInSelected,
       onFbSignInSelected,
       onGoogleSignInSelected;
-      final BuildContext buildContexts;
+  final BuildContext buildContexts;
   @override
   _LoginViewState createState() => _LoginViewState();
 }
@@ -286,7 +287,7 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
 
                   // widget.provider.replaceVerifyUserData('', '', '', '');
                   // widget.provider.replaceLoginUserId('_apiStatus.data.userId');
-                  final FirebaseUser result = await ls
+                  final FirebaseUser result = await sl
                       .get<AuthService>()
                       .signInWithEmailAndPassword(
                           emailController.text, passwordController.text);
@@ -294,7 +295,7 @@ class __CardWidgetState extends State<_TextFieldAndSignInButtonWidget> {
                     progressDialog.hide();
                   } else {
                     progressDialog.hide();
-                    Navigator.of(context,rootNavigator: true).maybePop();
+                    Navigator.of(context, rootNavigator: true).maybePop();
                     // return Navigator.pushReplacement<dynamic, dynamic>(
                     //     context,
                     //     MaterialPageRoute<dynamic>(
@@ -634,7 +635,10 @@ class __LoginWithGoogleWidgetState extends State<_LoginWithGoogleWidget> {
             ),
             onPressed: () async {
               // print(user.uid);
-              await ls.get<AuthService>().signInWithGoogleeee();
+              await sl
+                  .get<AuthService>()
+                  .signInWithGoogleeee()
+                  .whenComplete(() => Navigator.pop(context));
               //     .then((FirebaseUser user) async {
               //   if (user != null) {
               //     if (await utilsCheckInternetConnectivity()) {

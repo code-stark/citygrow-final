@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digitalproductstore/Service/firestore_loc.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 import 'package:digitalproductstore/api/common/ps_status.dart';
 
@@ -9,6 +10,8 @@ import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/locator.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/provider/basket/basket_provider.dart';
 import 'package:digitalproductstore/provider/history/history_provider.dart';
 import 'package:digitalproductstore/provider/product/favourite_product_provider.dart';
@@ -25,12 +28,12 @@ import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/ui/common/dialog/error_dialog.dart';
 import 'package:digitalproductstore/ui/common/dialog/success_dialog.dart';
 import 'package:digitalproductstore/ui/gallery/grid/gallery_grid_view.dart';
+import 'package:digitalproductstore/ui/rating/list/rating_list_view.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/api_status.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
 import 'package:digitalproductstore/viewobject/download_product.dart';
 import 'package:digitalproductstore/viewobject/holder/download_product_holder.dart';
-import 'package:digitalproductstore/viewobject/holder/favourite_parameter_holder.dart';
 import 'package:digitalproductstore/viewobject/holder/touch_count_parameter_holder.dart';
 import 'package:digitalproductstore/viewobject/product.dart';
 import 'package:dio/dio.dart';
@@ -125,6 +128,7 @@ class _ProductDetailState extends State<ProductDetailView>
     relatedProductRepo = Provider.of<ProductRepository>(context);
     historyRepo = Provider.of<HistoryRepository>(context);
     basketRepository = Provider.of<BasketRepository>(context);
+    final Users users = Provider.of<Users>(context);
 
     return PsWidgetWithMultiProvider(
 
@@ -160,7 +164,9 @@ class _ProductDetailState extends State<ProductDetailView>
               utilsCheckUserLoginId(psValueHolder)
                   .then((String loginUserId) async {
                 productDetailProvider.loadProduct(
-                    widget.product.id, loginUserId);
+                    // widget.productList.data['images'],users.uid
+                    widget.product.id,
+                    loginUserId);
 
                 final TouchCountParameterHolder touchCountParameterHolder =
                     TouchCountParameterHolder(
@@ -542,14 +548,14 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
                   children: <Widget>[
                     _FavouriteWidget(
                         productList: widget.productList,
-                        productDetail: widget.productDetail,
+                        // productDetail: widget.productDetail,
                         product: widget.product),
                     const SizedBox(
                       height: ps_space_12,
                     ),
                     _HeaderPriceWidget(
                       productPrice: widget.productList,
-                      productProvider: widget.productDetail,
+                      // productProvider: widget.productDetail,
                     ),
                     const SizedBox(
                       height: ps_space_12,
@@ -649,148 +655,174 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
     favouriteRepo = Provider.of<ProductRepository>(context);
     psValueHolder = Provider.of<PsValueHolder>(context);
 
-    if (widget.product != null &&
-        widget.productDetail != null &&
-        widget.productDetail.productDetail != null &&
-        widget.productDetail.productDetail.data != null &&
-        widget.productDetail.productDetail.data.isFavourited != null) {
+    if (widget.productList != null &&
+        widget.productList.data != null &&
+        widget.productList.documentID != null) {
       return ChangeNotifierProvider<FavouriteProductProvider>(
           create: (BuildContext context) {
         final FavouriteProductProvider provider = FavouriteProductProvider(
             repo: favouriteRepo, psValueHolder: psValueHolder);
         // provider.loadFavouriteList('prd9a3bfa2b7ab0f0693e84d834e73224bb');
+
         return provider;
       }, child: Consumer<FavouriteProductProvider>(builder:
               (BuildContext context, FavouriteProductProvider provider,
                   Widget child) {
-        return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  widget.productList['ProductName'] ?? '',
-                  style: Theme.of(context).textTheme.headline.copyWith(),
-                ),
-              ),
-              GestureDetector(
-                  onTap: () async {
-                    if (await utilsCheckInternetConnectivity()) {
-                      utilsNavigateOnUserVerificationView(provider, context,
-                          () async {
-                        if (widget.productDetail.productDetail.data
-                                .isFavourited ==
-                            '0') {
-                          setState(() {
-                            widget.productDetail.productDetail.data
-                                .isFavourited = '1';
-                          });
-                        } else {
-                          setState(() {
-                            widget.productDetail.productDetail.data
-                                .isFavourited = '0';
-                          });
-                        }
+        final Users users = Provider.of<Users>(context);
+        return StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection('AppUsers')
+                .document(users.uid)
+                .collection('favorite')
+                .where('Reference', isEqualTo: widget.productList['Reference'])
+                .snapshots(),
+            builder: (context, favorite) {
+              final dynamic fav = favorite;
+              if (!favorite.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final List<DocumentSnapshot> documents = favorite.data.documents;
 
-                        final FavouriteParameterHolder
-                            favouriteParameterHolder = FavouriteParameterHolder(
-                          userId: provider.psValueHolder.loginUserId,
-                          productId: widget.product.id,
-                        );
+              return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        widget.productList['ProductName'] ?? '',
+                        style: Theme.of(context).textTheme.headline6.copyWith(),
+                      ),
+                    ),
+                    GestureDetector(
+                        onTap: () async {
+                          if (await utilsCheckInternetConnectivity()) {
+                            utilsNavigateOnUserVerificationView(
+                                provider, context, () async {
+                              // if (fav.toString().length == 0) {
+                              //   setState(() {
+                              //     widget.productDetail.productDetail.data
+                              //         .isFavourited = '1';
+                              //   });
+                              // } else {
+                              //   setState(() {
+                              //     widget.productDetail.productDetail.data
+                              //         .isFavourited = '0';
+                              //   });
+                              // }
 
-                        final PsResource<Product> _apiStatus = await provider
-                            .postFavourite(favouriteParameterHolder.toMap());
+                              // final FavouriteParameterHolder
+                              //     favouriteParameterHolder =
+                              //     FavouriteParameterHolder(
+                              //   userId: provider.psValueHolder.loginUserId,
+                              //   productId: widget.product.id,
+                              // );
 
-                        if (_apiStatus.data != null) {
-                          if (_apiStatus.status == PsStatus.SUCCESS) {
-                            await widget.productDetail.loadProductForFav(
-                                widget.product.id,
-                                provider.psValueHolder.loginUserId);
-                          }
-                          if (widget.productDetail != null &&
-                              widget.productDetail.productDetail != null &&
-                              widget.productDetail.productDetail.data != null &&
-                              widget.productDetail.productDetail.data
-                                      .isFavourited ==
-                                  '0') {
-                            icon = Container(
-                              padding: const EdgeInsets.only(
-                                  top: ps_space_8,
-                                  left: ps_space_8,
-                                  right: ps_space_8,
-                                  bottom: ps_space_6),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ps_ctheme__color_speical,
-                                      width: 1),
-                                  shape: BoxShape.circle),
-                              child: const Icon(Icons.favorite,
-                                  color: ps_ctheme__color_speical),
-                            );
+                              // final PsResource<Product> _apiStatus =
+                              //     await provider.postFavourite(
+                              //         favouriteParameterHolder.toMap());
+
+                              // if (_apiStatus.data != null) {
+                              // if (_apiStatus.status == PsStatus.SUCCESS) {
+                              //   await widget.productDetail.loadProductForFav(
+                              //       widget.product.id,
+                              //       provider.psValueHolder.loginUserId);
+                              // }
+                              if (documents.isEmpty) {
+                                sl.get<FirebaseBloc>().uploadFav(
+                                    widget.productList.data, users.uid);
+                              } else if (documents.isNotEmpty) {
+                                sl.get<FirebaseBloc>().deleteFav(
+                                    documents[0].documentID, users.uid);
+                              }
+
+                              // print(fav['Reference'].toString().length);
+                              if (documents.isNotEmpty) {
+                                if (documents != null &&
+                                    documents[0].data['Reference'] ==
+                                        widget.productList['Reference'] &&
+                                    documents[0].data['Reference'] != null &&
+                                    documents.length == 0) {
+                                  icon = Container(
+                                    padding: const EdgeInsets.only(
+                                        top: ps_space_8,
+                                        left: ps_space_8,
+                                        right: ps_space_8,
+                                        bottom: ps_space_6),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ps_ctheme__color_speical,
+                                            width: 1),
+                                        shape: BoxShape.circle),
+                                    child: const Icon(Icons.favorite,
+                                        color: ps_ctheme__color_speical),
+                                  );
+                                } else {
+                                  icon = Container(
+                                    padding: const EdgeInsets.only(
+                                        top: ps_space_8,
+                                        left: ps_space_8,
+                                        right: ps_space_8,
+                                        bottom: ps_space_6),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ps_ctheme__color_speical,
+                                            width: 1),
+                                        shape: BoxShape.circle),
+                                    child: const Icon(Icons.favorite_border,
+                                        color: ps_ctheme__color_speical),
+                                  );
+                                }
+                              }
+
+                              // } else {
+                              //   print('There is no comment');
+                              // }
+                            });
                           } else {
-                            icon = Container(
-                              padding: const EdgeInsets.only(
-                                  top: ps_space_8,
-                                  left: ps_space_8,
-                                  right: ps_space_8,
-                                  bottom: ps_space_6),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ps_ctheme__color_speical,
-                                      width: 1),
-                                  shape: BoxShape.circle),
-                              child: const Icon(Icons.favorite_border,
-                                  color: ps_ctheme__color_speical),
-                            );
+                            showDialog<dynamic>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ErrorDialog(
+                                    message: Utils.getString(
+                                        context, 'error_dialog__no_internet'),
+                                  );
+                                });
                           }
-                        } else {
-                          print('There is no comment');
-                        }
-                      });
-                    } else {
-                      showDialog<dynamic>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return ErrorDialog(
-                              message: Utils.getString(
-                                  context, 'error_dialog__no_internet'),
-                            );
-                          });
-                    }
-                  },
-                  child: widget.productDetail.productDetail.data.isFavourited !=
-                          null
-                      ? widget.productDetail.productDetail.data.isFavourited ==
-                              '0'
-                          ? icon = Container(
-                              padding: const EdgeInsets.only(
-                                  top: ps_space_8,
-                                  left: ps_space_8,
-                                  right: ps_space_8,
-                                  bottom: ps_space_6),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ps_ctheme__color_speical,
-                                      width: 1),
-                                  shape: BoxShape.circle),
-                              child: const Icon(Icons.favorite_border,
-                                  color: ps_ctheme__color_speical),
-                            )
-                          : icon = Container(
-                              padding: const EdgeInsets.only(
-                                  top: ps_space_8,
-                                  left: ps_space_8,
-                                  right: ps_space_8,
-                                  bottom: ps_space_6),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: ps_ctheme__color_speical,
-                                      width: 1),
-                                  shape: BoxShape.circle),
-                              child: const Icon(Icons.favorite,
-                                  color: ps_ctheme__color_speical),
-                            )
-                      : null)
-            ]);
+                        },
+                        child: favorite.data != null
+                            ? documents.length == 0
+                                ? icon = Container(
+                                    padding: const EdgeInsets.only(
+                                        top: ps_space_8,
+                                        left: ps_space_8,
+                                        right: ps_space_8,
+                                        bottom: ps_space_6),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ps_ctheme__color_speical,
+                                            width: 1),
+                                        shape: BoxShape.circle),
+                                    child: const Icon(Icons.favorite_border,
+                                        color: ps_ctheme__color_speical),
+                                  )
+                                : icon = Container(
+                                    padding: const EdgeInsets.only(
+                                        top: ps_space_8,
+                                        left: ps_space_8,
+                                        right: ps_space_8,
+                                        bottom: ps_space_6),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ps_ctheme__color_speical,
+                                            width: 1),
+                                        shape: BoxShape.circle),
+                                    child: const Icon(Icons.favorite,
+                                        color: ps_ctheme__color_speical),
+                                  )
+                            : null)
+                  ]);
+            });
       }));
     } else {
       return Container();
@@ -810,145 +842,166 @@ class _HeaderRatingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dynamic result;
-    if (productDetail != null &&
-        productDetail.productDetail != null &&
-        productDetail.productDetail.data != null &&
-        productDetail.productDetail.data.ratingDetail != null) {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SmoothStarRating(
-                  rating: double.parse(productDetail
-                      .productDetail.data.ratingDetail.totalRatingValue),
-                  allowHalfRating: false,
-                  starCount: 5,
-                  size: ps_space_16,
-                  color: Colors.yellow,
-                  borderColor: Colors.blueGrey[200],
-                  onRatingChanged: (double v) async {
-                    print('Click Rating');
-                    result = await Navigator.pushNamed(
-                        context, RoutePaths.ratingList,
-                        arguments: productDetail.productDetail.data.id);
+    if (productref != null &&
+        productref.data != null &&
+        productref.documentID != null &&
+        productref['price'] != null) {
+      return StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection('rating')
+              .where('reference', isEqualTo: productref['Reference'])
+              .snapshots(),
+          builder: (context, ratingsnap) {
+            if (!ratingsnap.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SmoothStarRating(
+                        rating:4.4,
+                        allowHalfRating: false,
+                        starCount: 5,
+                        size: ps_space_16,
+                        color: Colors.yellow,
+                        borderColor: Colors.blueGrey[200],
+                        onRatingChanged: (double v) async {
+                          print('Click Rating');
+                          Navigator.pushReplacement<dynamic, dynamic>(
+                              context,
+                              MaterialPageRoute<dynamic>(
+                                  builder: (BuildContext context) =>
+                                      RatingListView(
+                                        productDetailid:
+                                            productDetail.productDetail.data.id,
+                                        productList: productref,
+                                      )));
 
-                    if (result != null && result) {
-                      productDetail.loadProduct(
-                          productDetail.productDetail.data.id,
-                          productDetail.psValueHolder.loginUserId);
-                    }
-                  },
-                  spacing: 0.0),
-              const SizedBox(
-                height: ps_space_10,
-              ),
-              GestureDetector(
-                  onTap: () async {
-                    print('Click');
-                    result = await Navigator.pushNamed(
-                        context, RoutePaths.ratingList,
-                        arguments: productDetail.productDetail.data.id);
+                          // if (result != null && result) {
+                          //   productDetail.loadProduct(
+                          //       productDetail.productDetail.data.id,
+                          //       productDetail.psValueHolder.loginUserId);
+                          // }
+                        },
+                        spacing: 0.0),
+                    const SizedBox(
+                      height: ps_space_10,
+                    ),
+                    GestureDetector(
+                        onTap: () async {
+                          print('Click');
+                          result = await Navigator.pushNamed(
+                              context, RoutePaths.ratingList,
+                              arguments: productDetail.productDetail.data.id);
 
-                    if (result != null && result) {
-                      productDetail.loadProduct(
-                          productDetail.productDetail.data.id,
-                          productDetail.psValueHolder.loginUserId);
-                    }
-                  },
-                  child: (productDetail.productDetail.data.overallRating != '0')
-                      ? Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          if (result != null && result) {
+                            productDetail.loadProduct(
+                                productDetail.productDetail.data.id,
+                                productDetail.psValueHolder.loginUserId);
+                          }
+                        },
+                        child: (ratingsnap.data.documents.length !=
+                                0)
+                            ? Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  // Text(
+                                  //   productDetail.productDetail.data
+                                  //           .ratingDetail.totalRatingValue ??
+                                  //       '',
+                                  //   textAlign: TextAlign.left,
+                                  //   style: Theme.of(context)
+                                  //       .textTheme
+                                  //       .bodyText1
+                                  //       .copyWith(),
+                                  // ),
+                                  // const SizedBox(
+                                  //   width: ps_space_4,
+                                  // ),
+                                  Text(
+                                    '(' +
+                                        ratingsnap.data.documents.length.toString() +
+                                        ' ${Utils.getString(context, 'product_detail__reviews')})',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .copyWith(),
+                                  ),
+                                ],
+                              )
+                            : const Text('No Rating')),
+                    const SizedBox(
+                      height: ps_space_10,
+                    ),
+                    if (productDetail.productDetail.data.isAvailable == '1')
+                      Text(
+                        Utils.getString(context, 'product_detail__in_stock'),
+                        style: Theme.of(context)
+                            .textTheme
+                            .body1
+                            .copyWith(color: Colors.green),
+                      )
+                    else
+                      Container(),
+                  ],
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      if (productref['Featured Product'] == false)
+                        Container()
+                      else
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            Text(
-                              productDetail.productDetail.data.ratingDetail
-                                      .totalRatingValue ??
-                                  '',
-                              textAlign: TextAlign.left,
-                              style:
-                                  Theme.of(context).textTheme.body1.copyWith(),
+                            Image.asset(
+                              'assets/images/baseline_feature_circle_24.png',
+                              width: ps_space_32,
+                              height: ps_space_32,
                             ),
                             const SizedBox(
-                              width: ps_space_4,
+                              width: ps_space_8,
                             ),
                             Text(
-                              '${Utils.getString(context, 'product_detail__out_of_five_stars')}(' +
-                                  productDetail.productDetail.data.ratingDetail
-                                      .totalRatingCount +
-                                  ' ${Utils.getString(context, 'product_detail__reviews')})',
+                              // 'Featured \n Products',
+                              Utils.getString(
+                                  context, 'product_detail__featured_products'),
                               overflow: TextOverflow.ellipsis,
-                              style:
-                                  Theme.of(context).textTheme.body1.copyWith(),
+                              style: Theme.of(context).textTheme.body1.copyWith(
+                                    color: ps_ctheme__color_speical,
+                                  ),
                             ),
                           ],
-                        )
-                      : const Text('No Rating')),
-              const SizedBox(
-                height: ps_space_10,
-              ),
-              if (productDetail.productDetail.data.isAvailable == '1')
-                Text(
-                  Utils.getString(context, 'product_detail__in_stock'),
-                  style: Theme.of(context)
-                      .textTheme
-                      .body1
-                      .copyWith(color: Colors.green),
-                )
-              else
-                Container(),
-            ],
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                if (productref['Featured Product'] == false)
-                  Container()
-                else
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/images/baseline_feature_circle_24.png',
-                        width: ps_space_32,
-                        height: ps_space_32,
-                      ),
+                        ),
                       const SizedBox(
-                        width: ps_space_8,
+                        height: ps_space_8,
                       ),
-                      Text(
-                        // 'Featured \n Products',
-                        Utils.getString(
-                            context, 'product_detail__featured_products'),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.body1.copyWith(
-                              color: ps_ctheme__color_speical,
-                            ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          productref['Reference'] ?? '',
+                          textAlign: TextAlign.end,
+                          style: Theme.of(context)
+                              .textTheme
+                              .body1
+                              .copyWith(color: Colors.green),
+                        ),
                       ),
                     ],
                   ),
-                const SizedBox(
-                  height: ps_space_8,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    productref['Reference'] ?? '',
-                    textAlign: TextAlign.end,
-                    style: Theme.of(context)
-                        .textTheme
-                        .body1
-                        .copyWith(color: Colors.green),
-                  ),
                 ),
               ],
-            ),
-          ),
-        ],
-      );
+            );
+          });
     } else {
       return Container();
     }
@@ -1145,10 +1198,9 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
               const SizedBox(
                 width: ps_space_10,
               ),
-              if (widget.productProvider.productDetail.data.isPurchased != '' &&
-                      widget.productProvider.productDetail.data.isPurchased ==
-                          '1' ||
-                  widget.productProvider.productDetail.data.unitPrice == '0')
+              if (widget.productPrice['price'] != '' &&
+                      widget.productPrice['price'] == '1' ||
+                  widget.productPrice['price'] == '0')
                 Container(
                   height: 30,
                   // decoration: BoxDecoration(

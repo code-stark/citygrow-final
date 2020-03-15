@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,13 +15,15 @@ class ProductVeticalListItem extends StatelessWidget {
       @required this.product,
       this.onTap,
       this.animationController,
-      this.animation})
+      this.animation,
+      @required this.productList})
       : super(key: key);
 
   final Product product;
   final Function onTap;
   final AnimationController animationController;
   final Animation<double> animation;
+  final DocumentSnapshot productList;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,8 @@ class ProductVeticalListItem extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Container(
-                                      child: product.isDiscount == ONE
+                                      child: productList['Discount'] != null &&
+                                              productList['Discount'] != 0
                                           ? Container(
                                               width: ps_space_52,
                                               height: ps_space_24,
@@ -61,12 +65,12 @@ class ProductVeticalListItem extends StatelessWidget {
                                                           ps_ctheme__color_speical),
                                                   Center(
                                                     child: Text(
-                                                      '-${product.discountPercent}%',
+                                                      '-${productList["Discount"].toString().replaceAll(".", " ").substring(0, 2)}%',
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: Theme.of(context)
                                                           .textTheme
-                                                          .body1
+                                                          .bodyText1
                                                           .copyWith(
                                                               color:
                                                                   Colors.white),
@@ -80,13 +84,15 @@ class ProductVeticalListItem extends StatelessWidget {
                                     padding: const EdgeInsets.all(ps_space_4),
                                     child: Align(
                                         alignment: Alignment.topRight,
-                                        child: product.isFeatured == ONE
-                                            ? Image.asset(
-                                                'assets/images/baseline_feature_circle_24.png',
-                                                width: ps_space_32,
-                                                height: ps_space_32,
-                                              )
-                                            : Container()),
+                                        child:
+                                            productList['Featured Product'] ==
+                                                    true
+                                                ? Image.asset(
+                                                    'assets/images/baseline_feature_circle_24.png',
+                                                    width: ps_space_32,
+                                                    height: ps_space_32,
+                                                  )
+                                                : Container()),
                                   )
                                 ],
                               ),
@@ -98,8 +104,9 @@ class ProductVeticalListItem extends StatelessWidget {
                               children: <Widget>[
                                 Expanded(
                                   child: PsNetworkImage(
+                                    firebasePhoto: productList['images'][0],
                                     photoKey: '',
-                                    defaultPhoto: product.defaultPhoto,
+                                    // defaultPhoto: product.defaultPhoto,s
                                     // width: ps_space_200,
                                     // height: ps_space_160,
                                     width: MediaQuery.of(context).size.width,
@@ -107,8 +114,8 @@ class ProductVeticalListItem extends StatelessWidget {
 
                                     boxfit: BoxFit.fitHeight,
                                     onTap: () {
-                                      Utils.psPrint(
-                                          product.defaultPhoto.imgParentId);
+                                      // Utils.psPrint(
+                                      //     product.defaultPhoto.imgParentId);
                                       onTap();
                                     },
                                   ),
@@ -120,9 +127,10 @@ class ProductVeticalListItem extends StatelessWidget {
                                       right: ps_space_8,
                                       bottom: ps_space_4),
                                   child: Text(
-                                    product.name,
+                                    productList['ProductName'],
                                     overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context).textTheme.body2,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
                                     maxLines: 1,
                                   ),
                                 ),
@@ -134,14 +142,14 @@ class ProductVeticalListItem extends StatelessWidget {
                                   child: Row(
                                     children: <Widget>[
                                       Text(
-                                          product.unitPrice != '0'
-                                              ? '${product.currencySymbol}${Utils.getPriceFormat(product.unitPrice)}'
+                                           productList['price'] != '0'
+                                              ? '₹${productList["price"]}'
                                               : Utils.getString(context,
                                                   'global_product__free'),
                                           textAlign: TextAlign.start,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .subtitle
+                                              .subtitle1
                                               .copyWith(
                                                   color:
                                                       ps_ctheme__color_speical)),
@@ -149,13 +157,17 @@ class ProductVeticalListItem extends StatelessWidget {
                                           padding: const EdgeInsets.only(
                                               left: ps_space_8,
                                               right: ps_space_8),
-                                          child: product.isDiscount == ONE
+                                          child: productList['Discount'] !=
+                                                      null &&
+                                                  productList[
+                                                          'Orignal Price'] !=
+                                                      productList['price']
                                               ? Text(
-                                                  '${product.currencySymbol}${Utils.getPriceFormat(product.originalPrice)}',
+                                                  '₹${productList["Orignal Price"]}',
                                                   textAlign: TextAlign.start,
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .body1
+                                                      .bodyText1
                                                       .copyWith(
                                                           decoration:
                                                               TextDecoration
@@ -164,49 +176,50 @@ class ProductVeticalListItem extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: ps_space_8,
-                                      top: ps_space_8,
-                                      right: ps_space_4),
-                                  child: SmoothStarRating(
-                                      rating: double.parse(product
-                                          .ratingDetail.totalRatingValue),
-                                      allowHalfRating: false,
-                                      onRatingChanged: (double v) {
-                                        onTap();
-                                      },
-                                      starCount: 5,
-                                      size: 20.0,
-                                      color: Colors.orange,
-                                      borderColor: Colors.grey,
-                                      spacing: 0.0),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: ps_space_4,
-                                      bottom: ps_space_12,
-                                      left: ps_space_12,
-                                      right: ps_space_12),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                          '${product.ratingDetail.totalRatingValue} ${Utils.getString(context, 'feature_slider__rating')}',
-                                          textAlign: TextAlign.start,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption),
-                                      Expanded(
-                                        child: Text(
-                                            '( ${product.ratingDetail.totalRatingCount} ${Utils.getString(context, 'feature_slider__reviewer')} )',
-                                            textAlign: TextAlign.start,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption),
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                //TODO: Activate rating
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       left: ps_space_8,
+                                //       top: ps_space_8,
+                                //       right: ps_space_4),
+                                //   child: SmoothStarRating(
+                                //       rating: double.parse(product
+                                //           .ratingDetail.totalRatingValue),
+                                //       allowHalfRating: false,
+                                //       onRatingChanged: (double v) {
+                                //         onTap();
+                                //       },
+                                //       starCount: 5,
+                                //       size: 20.0,
+                                //       color: Colors.orange,
+                                //       borderColor: Colors.grey,
+                                //       spacing: 0.0),
+                                // ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       top: ps_space_4,
+                                //       bottom: ps_space_12,
+                                //       left: ps_space_12,
+                                //       right: ps_space_12),
+                                //   child: Row(
+                                //     children: <Widget>[
+                                //       Text(
+                                //           '${product.ratingDetail.totalRatingValue} ${Utils.getString(context, 'feature_slider__rating')}',
+                                //           textAlign: TextAlign.start,
+                                //           style: Theme.of(context)
+                                //               .textTheme
+                                //               .caption),
+                                //       Expanded(
+                                //         child: Text(
+                                //             '( ${product.ratingDetail.totalRatingCount} ${Utils.getString(context, 'feature_slider__reviewer')} )',
+                                //             textAlign: TextAlign.start,
+                                //             style: Theme.of(context)
+                                //                 .textTheme
+                                //                 .caption),
+                                //       )
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),

@@ -1,18 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/viewobject/rating.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class RatingListItem extends StatelessWidget {
   const RatingListItem({
     Key key,
     @required this.rating,
     this.onTap,
+    @required this.ratings,
   }) : super(key: key);
 
   final Rating rating;
   final Function onTap;
+  final DocumentSnapshot ratings;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +31,14 @@ class RatingListItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             _RatingListDataWidget(
+              ratings: ratings,
               rating: rating,
             ),
             const Divider(
               height: ps_space_1,
             ),
             ImageAndTextWidget(
+              ratings: ratings,
               rating: rating,
             ),
           ],
@@ -46,14 +52,16 @@ class _RatingListDataWidget extends StatelessWidget {
   const _RatingListDataWidget({
     Key key,
     @required this.rating,
+    @required this.ratings,
   }) : super(key: key);
+  final DocumentSnapshot ratings;
 
   final Rating rating;
 
   @override
   Widget build(BuildContext context) {
     final Widget _ratingStarsWidget = SmoothStarRating(
-        rating: double.parse(rating.rating),
+        rating: ratings['rating'] as double,
         allowHalfRating: false,
         starCount: 5,
         size: ps_space_16,
@@ -65,17 +73,17 @@ class _RatingListDataWidget extends StatelessWidget {
       height: ps_space_8,
     );
     final Widget _titleTextWidget = Text(
-      rating.title,
+      ratings['title'],
       style: Theme.of(context)
           .textTheme
-          .subhead
+          .subtitle1
           .copyWith(fontWeight: FontWeight.bold),
     );
     final Widget _descriptionTextWidget = Text(
-      rating.description,
+      ratings['description'],
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
-      style: Theme.of(context).textTheme.body1.copyWith(),
+      style: Theme.of(context).textTheme.bodyText1.copyWith(),
     );
     return Padding(
       padding: const EdgeInsets.all(ps_space_12),
@@ -99,8 +107,9 @@ class ImageAndTextWidget extends StatelessWidget {
   const ImageAndTextWidget({
     Key key,
     @required this.rating,
+    @required this.ratings,
   }) : super(key: key);
-
+  final DocumentSnapshot ratings;
   final Rating rating;
 
   @override
@@ -109,16 +118,17 @@ class ImageAndTextWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(ps_space_8),
       child: PsNetworkImageWithUrl(
         photoKey: '',
-        url: rating.user.userProfilePhoto,
+        url: ratings['image'],
         width: ps_space_40,
         height: ps_space_40,
       ),
     );
-    final Widget _personNameTextWidget = Text(rating.user.userName,
-        style: Theme.of(context).textTheme.subhead.copyWith());
+    final Widget _personNameTextWidget = Text(ratings['name'],
+        style: Theme.of(context).textTheme.subtitle2.copyWith());
 
     final Widget _timeWidget = Text(
-      rating.addedDateStr,
+      timeago.format(ratings['createdtime'].toDate()),
+
       style: Theme.of(context).textTheme.caption.copyWith(),
     );
     return Padding(

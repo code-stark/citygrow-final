@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digitalproductstore/Service/profileImageUpload.dart';
+import 'package:digitalproductstore/Service/uploadDetails.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 
@@ -8,6 +10,7 @@ import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/locator.dart';
 import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/provider/user/user_provider.dart';
 import 'package:digitalproductstore/repository/user_repository.dart';
@@ -28,8 +31,8 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class EditProfileView extends StatefulWidget { final DocumentSnapshot snapshot;
-
+class EditProfileView extends StatefulWidget {
+  final DocumentSnapshot snapshot;
   const EditProfileView({Key key, @required this.snapshot}) : super(key: key);
 
   @override
@@ -38,27 +41,27 @@ class EditProfileView extends StatefulWidget { final DocumentSnapshot snapshot;
 
 class _EditProfileViewState extends State<EditProfileView>
     with SingleTickerProviderStateMixin {
-  UserRepository userRepository;
-  UserProvider userProvider;
-  PsValueHolder psValueHolder;
+  final TextEditingController aboutMeController = TextEditingController();
   AnimationController animationController;
-  final TextEditingController userNameController = TextEditingController();
+  bool bindDataFirstTime = true;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController aboutMeController = TextEditingController();
-  bool bindDataFirstTime = true;
- 
-  @override
-  void initState() {
-    animationController =
-        AnimationController(duration: animation_duration, vsync: this);
-    super.initState();
-  }
+  PsValueHolder psValueHolder;
+  final TextEditingController userNameController = TextEditingController();
+  UserProvider userProvider;
+  UserRepository userRepository;
 
   @override
   void dispose() {
     animationController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    animationController =
+        AnimationController(duration: animation_duration, vsync: this);
+    super.initState();
   }
 
   @override
@@ -78,6 +81,7 @@ class _EditProfileViewState extends State<EditProfileView>
       );
       return Future<bool>.value(false);
     }
+
     final Users users = Provider.of<Users>(context);
 
     return WillPopScope(
@@ -106,7 +110,10 @@ class _EditProfileViewState extends State<EditProfileView>
                 return SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      _ImageWidget(userProvider: provider,snapshot: widget.snapshot,),
+                      _ImageWidget(
+                        userProvider: provider,
+                        snapshot: widget.snapshot,
+                      ),
                       _UserFirstCardWidget(
                         userProvider: provider,
                         userNameController: userNameController,
@@ -145,14 +152,15 @@ class _TwoButtonWidget extends StatelessWidget {
       @required this.phoneController,
       @required this.aboutMeController});
 
-  final TextEditingController userNameController;
+  final TextEditingController aboutMeController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
-  final TextEditingController aboutMeController;
+  final TextEditingController userNameController;
   final UserProvider userProvider;
 
   @override
   Widget build(BuildContext context) {
+    final Users users = Provider.of<Users>(context);
     return Column(
       children: <Widget>[
         Container(
@@ -176,7 +184,8 @@ class _TwoButtonWidget extends StatelessWidget {
                             context, 'edit_profile__name_error'),
                       );
                     });
-              } else if (emailController.text == '') {
+              } else if (emailController.text == '' &&
+                  emailController.text.contains('@') == true) {
                 showDialog<dynamic>(
                     context: context,
                     builder: (BuildContext context) {
@@ -185,65 +194,85 @@ class _TwoButtonWidget extends StatelessWidget {
                             context, 'edit_profile__email_error'),
                       );
                     });
+              } else if (phoneController.text == '') {showDialog<dynamic>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ErrorDialog(
+                        message: Utils.getString(
+                            context, 'edit_profile__phone_error'),
+                      );
+                    });
               } else {
                 if (await utilsCheckInternetConnectivity()) {
-                  final ProfileUpdateParameterHolder
-                      profileUpdateParameterHolder =
-                      ProfileUpdateParameterHolder(
-                    userId: userProvider.psValueHolder.loginUserId,
-                    userName: userNameController.text,
-                    userEmail: emailController.text,
-                    userPhone: phoneController.text,
-                    userAboutMe: aboutMeController.text,
-                    billingFirstName: '',
-                    billingLastName: '',
-                    billingCompany: '',
-                    billingAddress1: '',
-                    billingAddress2: '',
-                    billingCountry: '',
-                    billingState: '',
-                    billingCity: '',
-                    billingPostalCode: '',
-                    billingEmail: '',
-                    billingPhone: '',
-                    shippingFirstName: '',
-                    shippingLastName: '',
-                    shippingCompany: '',
-                    shippingAddress1: '',
-                    shippingAddress2: '',
-                    shippingCountry: '',
-                    shippingState: '',
-                    shippingCity: '',
-                    shippingPostalCode: '',
-                    shippingEmail: '',
-                    shippingPhone: '',
-                  );
+                  // final ProfileUpdateParameterHolder
+                  //     profileUpdateParameterHolder =
+                  //     ProfileUpdateParameterHolder(
+                  //   userId: userProvider.psValueHolder.loginUserId,
+                  //   userName: userNameController.text,
+                  //   userEmail: emailController.text,
+                  //   userPhone: phoneController.text,
+                  //   userAboutMe: aboutMeController.text,
+                  //   billingFirstName: '',
+                  //   billingLastName: '',
+                  //   billingCompany: '',
+                  //   billingAddress1: '',
+                  //   billingAddress2: '',
+                  //   billingCountry: '',
+                  //   billingState: '',
+                  //   billingCity: '',
+                  //   billingPostalCode: '',
+                  //   billingEmail: '',
+                  //   billingPhone: '',
+                  //   shippingFirstName: '',
+                  //   shippingLastName: '',
+                  //   shippingCompany: '',
+                  //   shippingAddress1: '',
+                  //   shippingAddress2: '',
+                  //   shippingCountry: '',
+                  //   shippingState: '',
+                  //   shippingCity: '',
+                  //   shippingPostalCode: '',
+                  //   shippingEmail: '',
+                  //   shippingPhone: '',
+                  // );
                   final ProgressDialog progressDialog = loadingDialog(context);
                   progressDialog.show();
-                  final PsResource<User> _apiStatus = await userProvider
-                      .postProfileUpdate(profileUpdateParameterHolder.toMap());
-                  if (_apiStatus.data != null) {
-                    progressDialog.dismiss();
+                  sl.get<UploadDetails>().uploadDetailsFun({
+                    'name': userNameController.text,
+                    'aboutme': aboutMeController.text,
+                    'phonenumber': phoneController.text,
+                    'email': emailController.text
+                  }, users.uid).whenComplete(() {
+                    emailController.clear();
+                    phoneController.clear();
+                    aboutMeController.clear();
+                    userNameController.clear();
+                    return progressDialog.hide();
+                  });
+                  // final PsResource<User> _apiStatus = await userProvider
+                  //     .postProfileUpdate(profileUpdateParameterHolder.toMap());
+                  // if (_apiStatus.data != null) {
+                  //   progressDialog.dismiss();
 
-                    showDialog<dynamic>(
-                        context: context,
-                        builder: (BuildContext contet) {
-                          return SuccessDialog(
-                            message: Utils.getString(
-                                context, 'edit_profile__success'),
-                          );
-                        });
-                  } else {
-                    progressDialog.dismiss();
+                  //   showDialog<dynamic>(
+                  //       context: context,
+                  //       builder: (BuildContext contet) {
+                  //         return SuccessDialog(
+                  //           message: Utils.getString(
+                  //               context, 'edit_profile__success'),
+                  //         );
+                  //       });
+                  // } else {
+                  // progressDialog.dismiss();
 
-                    showDialog<dynamic>(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ErrorDialog(
-                            message: _apiStatus.message,
-                          );
-                        });
-                  }
+                  // showDialog<dynamic>(
+                  //     context: context,
+                  //     builder: (BuildContext context) {
+                  //       return ErrorDialog(
+                  //         message: _apiStatus.message,
+                  //       );
+                  //     });
+                  // }
                 } else {
                   showDialog<dynamic>(
                       context: context,
@@ -288,9 +317,11 @@ class _TwoButtonWidget extends StatelessWidget {
 }
 
 class _ImageWidget extends StatefulWidget {
-  const _ImageWidget({this.userProvider,@required this.snapshot});
+  const _ImageWidget({this.userProvider, @required this.snapshot});
+
+  final DocumentSnapshot snapshot;
   final UserProvider userProvider;
-final DocumentSnapshot snapshot;
+
   @override
   __ImageWidgetState createState() => __ImageWidgetState();
 }
@@ -363,12 +394,13 @@ class __ImageWidgetState extends State<_ImageWidget> {
         }
       }
     }
-final Users users = Provider.of<Users>(context);
+
+    final Users users = Provider.of<Users>(context);
     final Widget _imageWidget = PsNetworkImageWithUrl(
       photoKey: '',
       url: widget.snapshot['ProfileImage'] ??
-            users.imageUrl ??
-            'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png',
+          users.imageUrl ??
+          'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png',
       width: double.infinity,
       height: ps_space_200,
       boxfit: BoxFit.cover,
@@ -388,7 +420,7 @@ final Users users = Provider.of<Users>(context);
           if (await utilsCheckInternetConnectivity()) {
             requestGalleryPermission().then((bool status) async {
               if (status) {
-                _pickImage();
+                await sl.get<ProfileImageUpload>().uploadProfileImage();
               }
             });
           } else {
@@ -414,47 +446,62 @@ final Users users = Provider.of<Users>(context);
 
     final Widget _imageInCenterWidget = Positioned(
         top: 110,
-        child: Stack(
-          children: <Widget>[
-            Container(
-                width: 90,
-                height: 90,
-                child: CircleAvatar(
-                  child: PsNetworkCircleImage(
-                    photoKey: '',
-                    url: widget.snapshot['ProfileImage'] ??
-            users.imageUrl ??
-            'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png',
-                    width: double.infinity,
-                    height: ps_space_200,
-                    boxfit: BoxFit.cover,
-                    onTap: () async {
-                      if (await utilsCheckInternetConnectivity()) {
-                        requestGalleryPermission().then((bool status) async {
-                          if (status) {
-                            _pickImage();
-                          }
-                        });
-                      } else {
-                        showDialog<dynamic>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return ErrorDialog(
-                                message: Utils.getString(
-                                    context, 'error_dialog__no_internet'),
-                              );
-                            });
-                      }
-                    },
+        child: StreamBuilder<DocumentSnapshot>(
+            stream: Firestore.instance
+                .collection('AppUsers')
+                .document(users.uid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Stack(
+                children: <Widget>[
+                  Container(
+                      width: 90,
+                      height: 90,
+                      child: CircleAvatar(
+                        child: PsNetworkCircleImage(
+                          photoKey: '',
+                          url: snapshot.data['ProfileImage'] ??
+                              users.imageUrl ??
+                              'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png',
+                          width: double.infinity,
+                          height: ps_space_200,
+                          boxfit: BoxFit.cover,
+                          onTap: () async {
+                            if (await utilsCheckInternetConnectivity()) {
+                              requestGalleryPermission()
+                                  .then((bool status) async {
+                                if (status) {
+                                  await sl
+                                      .get<ProfileImageUpload>()
+                                      .uploadProfileImage();
+                                }
+                              });
+                            } else {
+                              showDialog<dynamic>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ErrorDialog(
+                                      message: Utils.getString(
+                                          context, 'error_dialog__no_internet'),
+                                    );
+                                  });
+                            }
+                          },
+                        ),
+                      )),
+                  Positioned(
+                    top: 1,
+                    right: 1,
+                    child: _editWidget,
                   ),
-                )),
-            Positioned(
-              top: 1,
-              right: 1,
-              child: _editWidget,
-            ),
-          ],
-        ));
+                ],
+              );
+            }));
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
@@ -486,11 +533,12 @@ class _UserFirstCardWidget extends StatelessWidget {
       @required this.emailController,
       @required this.phoneController,
       @required this.aboutMeController});
-  final UserProvider userProvider;
-  final TextEditingController userNameController;
+
+  final TextEditingController aboutMeController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
-  final TextEditingController aboutMeController;
+  final TextEditingController userNameController;
+  final UserProvider userProvider;
 
   @override
   Widget build(BuildContext context) {

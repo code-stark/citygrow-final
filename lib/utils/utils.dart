@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:connectivity/connectivity.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
 import 'package:digitalproductstore/viewobject/user.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -84,25 +85,23 @@ dynamic utilsLaunchAppStoreURL({String iOSAppId}) async {
 
 dynamic utilsNavigateOnUserVerificationView(
     dynamic provider, BuildContext context, Function onLoginSuccess) async {
-  provider.psValueHolder = Provider.of<PsValueHolder>(context);
-
-  if (provider == null ||
-      provider.psValueHolder.userIdToVerify == null ||
-      provider.psValueHolder.userIdToVerify == '') {
-    if (provider == null ||
-        provider.psValueHolder == null ||
-        provider.psValueHolder.loginUserId == null ||
-        provider.psValueHolder.loginUserId == '') {
-      final dynamic returnData = await Navigator.pushNamed(
+  // provider.psValueHolder = Provider.of<PsValueHolder>(context);
+  final Users users = Provider.of<Users>(context);
+  if (users != null || users.uid != null || users.uid != '') {
+    if (users == null ||
+        users.uid == null ||
+        users.uid == null ||
+        users.uid == '') {
+      return await Navigator.pushNamed(
         context,
         RoutePaths.login_container,
       );
 
-      if (returnData != null && returnData is User) {
-        final User user = returnData;
-        provider.psValueHolder = Provider.of<PsValueHolder>(context);
-        provider.psValueHolder.loginUserId = user.userId;
-      }
+      // if (returnData != null && returnData is Users) {
+      //   final Users user = returnData;
+      //   provider.psValueHolder = Provider.of<PsValueHolder>(context);
+      //   provider.psValueHolder.loginUserId = user.uid;
+      // }
     } else {
       onLoginSuccess();
     }

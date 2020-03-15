@@ -356,7 +356,7 @@ class __SignInButtonWidgetState extends State<_SignInButtonWidget> {
                 context,
               );
               progressDialog.show();
-              final FirebaseUser result = await ls
+              final FirebaseUser result = await sl
                   .get<AuthService>()
                   .registerWithEmailAndPassword(
                       widget.emailTextEditingController.text,

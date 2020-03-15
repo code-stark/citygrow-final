@@ -283,7 +283,7 @@ class _JoinDateWidget extends StatelessWidget {
                 ),
                 Text(
                   DateTime.parse(usersData['TimeCreated'].toDate().toString())
-                      .toString(),
+                      .toString() ?? '',
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
@@ -533,7 +533,7 @@ class _ImageAndTextWidget extends StatelessWidget {
       padding: const EdgeInsets.all(ps_space_16),
       child: PsNetworkCircleImage(
         photoKey: '',
-        url: usersData['ProfileImage'] ??
+        url: usersData['ProfileImage'].toString() ??
             user.imageUrl ??
             'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon-715x715.png',
         width: ps_space_80,
@@ -562,25 +562,25 @@ class _ImageAndTextWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    usersData['Username'] ?? user.name,
+                    usersData['name'] ?? user.name,
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   _spacingWidget,
                   //!user Phone number
                   Text(
-                    usersData['PhoneNumber'] != '' &&
-                            usersData['PhoneNumber'] != null
-                        ? usersData['PhoneNumber']
+                    usersData['phonenumber'] != '' &&
+                            usersData['phonenumber'] != null
+                        ? usersData['phonenumber']
                         : Utils.getString(context, 'profile__phone_no'),
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                   _spacingWidget,
                   //!about me
                   Text(
-                    usersData['AboutMe'] != '' &&
-                            usersData['PhoneNumber'] != null
-                        ? usersData['PhoneNumber']
+                    usersData['aboutme'] != '' &&
+                            usersData['aboutme'] != null
+                        ? usersData['aboutme']
                         : Utils.getString(context, 'profile__about_me'),
                     style: Theme.of(context).textTheme.bodyText1,
                     maxLines: 2,

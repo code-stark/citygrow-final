@@ -177,48 +177,42 @@ class _RelatedProductWidget extends StatelessWidget {
   // final RelatedProductProvider provider;
   @override
   Widget build(BuildContext context) {
-    return
-        // ChangeNotifierProvider<RelatedProductProvider>(
-        //   create: (BuildContext context) {
-        //     provider.loadRelatedProductList(productDetail.productDetail.data.id,
-        //         productDetail.productDetail.data.catId);
-        //     return provider;
-        //   },
-        //   child:
-        Consumer<RelatedProductProvider>(
-      builder: (BuildContext context, RelatedProductProvider provider,
-          Widget child) {
-        return Container(
-          height: ps_space_300,
-          child: CustomScrollView(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      if (provider.relatedProductList.data != null ||
-                          provider.relatedProductList.data.isNotEmpty) {
-                        return ProductHorizontalListItem(
-                          product: provider.relatedProductList.data[index],
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, RoutePaths.productDetail,
-                                arguments:
-                                    provider.relatedProductList.data[index]);
-                          },
-                        );
-                      } else {
-                        return null;
-                      }
-                    },
-                    childCount: provider.relatedProductList.data.length,
-                  ),
-                ),
-              ]),
-        );
-      },
-      // ),
+    // ChangeNotifierProvider<RelatedProductProvider>(
+    //   create: (BuildContext context) {
+    //     provider.loadRelatedProductList(productDetail.productDetail.data.id,
+    //         productDetail.productDetail.data.catId);
+    //     return provider;
+    //   },
+    //   child:
+
+    return Container(
+      height: ps_space_300,
+      child: CustomScrollView(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          slivers: <Widget>[
+            //TODO: Related Post
+            // SliverList(
+            //   delegate: SliverChildBuilderDelegate(
+            //     (BuildContext context, int index) {
+            //       if (provider.relatedProductList.data != null ||
+            //           provider.relatedProductList.data.isNotEmpty) {
+            //         return ProductHorizontalListItem(
+            //           product: provider.relatedProductList.data[index],
+            //           onTap: () {
+            //             Navigator.pushNamed(context, RoutePaths.productDetail,
+            //                 arguments: provider.relatedProductList.data[index]);
+            //           },
+            //         );
+            //       } else {
+            //         return null;
+            //       }
+            //     },
+            //     childCount: provider.relatedProductList.data.length,
+            //   ),
+            // ),
+          ]),
     );
+    ;
   }
 }

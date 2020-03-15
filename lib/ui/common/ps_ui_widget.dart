@@ -190,13 +190,13 @@ class PsNetworkImageWithUrl extends StatelessWidget {
                     fit: boxfit,
                   );
                 },
-                imageUrl: '$ps_app_image_thumbs_url$url',
+                imageUrl: '$url',
               );
             },
             width: width,
             height: height,
             fit: boxfit,
-            imageUrl: '$ps_app_image_url$url',
+            imageUrl: '$url',
             errorWidget: (BuildContext context, String url, Object error) =>
                 Image.asset(
               'assets/images/placeholder_image.png',
@@ -225,12 +225,12 @@ class PsNetworkImageWithUrl extends StatelessWidget {
                   fit: boxfit,
                 );
               },
-              imageUrl: '$ps_app_image_thumbs_url$url',
+              imageUrl: '$url',
             ),
             width: width,
             height: height,
             fit: boxfit,
-            imageUrl: '$ps_app_image_url$url',
+            imageUrl: '$url',
             errorWidget: (BuildContext context, String url, Object error) =>
                 Image.asset(
               'assets/images/placeholder_image.png',
@@ -398,7 +398,7 @@ class PsNetworkCircleImage extends StatelessWidget {
         return GestureDetector(
           onTap: onTap,
           child: Hero(
-              tag: '$photoKey$url',
+              tag: '$url',
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10000.0),
                 child: CachedNetworkImage(

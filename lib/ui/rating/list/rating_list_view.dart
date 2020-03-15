@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
@@ -20,8 +21,9 @@ class RatingListView extends StatefulWidget {
   const RatingListView({
     Key key,
     @required this.productDetailid,
+    @required this.productList,
   }) : super(key: key);
-
+  final DocumentSnapshot productList;
   final String productDetailid;
   @override
   _RatingListViewState createState() => _RatingListViewState();
@@ -85,6 +87,7 @@ class _RatingListViewState extends State<RatingListView>
                           context: context,
                           builder: (BuildContext context) {
                             return RatingInputDialog(
+                                productList: widget.productList,
                                 productprovider: productDetailProvider);
                           });
 
@@ -129,37 +132,57 @@ class _RatingListViewState extends State<RatingListView>
             },
             child: Consumer<RatingProvider>(builder: (BuildContext context,
                 RatingProvider ratingProvider, Widget child) {
-              return CustomScrollView(
-                slivers: <Widget>[
-                  HeaderWidget(
-                      productDetailId: widget.productDetailid,
-                      ratingProvider: ratingProvider),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return RatingListItem(
-                          rating: ratingProvider.ratingList.data[index],
-                          onTap: () {
-                            // Navigator.pushNamed(context, RoutePaths.directory1__ratingList,
-                            //     arguments: product);
-                          },
-                        );
-                      },
-                      childCount: ratingProvider.ratingList.data.length,
-                    ),
-                  )
-                ],
-              );
+              return StreamBuilder<QuerySnapshot>(
+                  stream: Firestore.instance
+                      .collection('rating')
+                      .where('reference',
+                          isEqualTo: widget.productList['Reference'])
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return CustomScrollView(
+                      slivers: <Widget>[
+                        HeaderWidget(
+                            ratings: snapshot.data.documents,
+                            productList: widget.productList,
+                            productDetailId: widget.productDetailid,
+                            ratingProvider: ratingProvider),
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              return RatingListItem(
+                                ratings: snapshot.data.documents[index],
+                                // rating: ratingProvider.ratingList.data[index],
+                                onTap: () {
+                                  // Navigator.pushNamed(context, RoutePaths.directory1__ratingList,
+                                  //     arguments: product);
+                                },
+                              );
+                            },
+                            childCount: snapshot.data.documents.length,
+                          ),
+                        )
+                      ],
+                    );
+                  });
             })));
   }
 }
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget(
-      {Key key, @required this.productDetailId, @required this.ratingProvider})
+      {Key key,
+      @required this.productDetailId,
+      @required this.ratingProvider,
+      @required this.productList,
+      @required this.ratings})
       : super(key: key);
   final String productDetailId;
   final RatingProvider ratingProvider;
+  final DocumentSnapshot productList;
+  final List<DocumentSnapshot> ratings;
 
   @override
   _HeaderWidgetState createState() => _HeaderWidgetState();
@@ -180,9 +203,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     return SliverToBoxAdapter(
       child: Consumer<ProductDetailProvider>(builder: (BuildContext context,
           ProductDetailProvider productDetailProvider, Widget child) {
-        if (productDetailProvider.productDetail != null &&
-            productDetailProvider.productDetail.data != null &&
-            productDetailProvider.productDetail.data.ratingDetail != null) {
+        if (widget.ratings.toString().length != null &&
+          widget.ratings[0]['reference'] != null ) {
           return Card(
             elevation: 0.3,
             child: Padding(
@@ -194,71 +216,72 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 children: <Widget>[
                   _spacingWidget,
                   Text(
-                      '${productDetailProvider.productDetail.data.ratingDetail.totalRatingCount} ${Utils.getString(context, 'rating_list__customer_reviews')}'),
+                      '${  widget.ratings.length} ${Utils.getString(context, 'rating_list__customer_reviews')}'),
                   const SizedBox(
                     height: ps_space_4,
                   ),
                   Row(
                     children: <Widget>[
-                      SmoothStarRating(
-                          rating: double.parse(productDetailProvider
-                              .productDetail
-                              .data
-                              .ratingDetail
-                              .totalRatingValue),
-                          allowHalfRating: false,
-                          starCount: 5,
-                          size: ps_space_16,
-                          color: Colors.yellow,
-                          borderColor: Colors.blueGrey[200],
-                          spacing: 0.0),
-                      const SizedBox(
-                        width: ps_space_100,
-                      ),
-                      Text(
-                          '${productDetailProvider.productDetail.data.ratingDetail.totalRatingValue} ${Utils.getString(context, 'rating_list__out_of_five_stars')}'),
+                      // SmoothStarRating(
+                      //     rating: double.parse(productDetailProvider
+                      //         .productDetail
+                      //         .data
+                      //         .ratingDetail
+                      //         .totalRatingValue),
+                      //     allowHalfRating: false,
+                      //     starCount: 5,
+                      //     size: ps_space_16,
+                      //     color: Colors.yellow,
+                      //     borderColor: Colors.blueGrey[200],
+                      //     spacing: 0.0),
+                      // const SizedBox(
+                      //   width: ps_space_100,
+                      // ),
+                      // Text(
+                      //     '${productDetailProvider.productDetail.data.ratingDetail.totalRatingValue} ${Utils.getString(context, 'rating_list__out_of_five_stars')}'),
                     ],
                   ),
-                  _RatingWidget(
-                      starCount:
-                          Utils.getString(context, 'rating_list__five_star'),
-                      value: double.parse(productDetailProvider
-                          .productDetail.data.ratingDetail.fiveStarCount),
-                      percentage:
-                          '${productDetailProvider.productDetail.data.ratingDetail.fiveStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
-                  _RatingWidget(
-                      starCount:
-                          Utils.getString(context, 'rating_list__four_star'),
-                      value: double.parse(productDetailProvider
-                          .productDetail.data.ratingDetail.fourStarCount),
-                      percentage:
-                          '${productDetailProvider.productDetail.data.ratingDetail.fourStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
-                  _RatingWidget(
-                      starCount:
-                          Utils.getString(context, 'rating_list__three_star'),
-                      value: double.parse(productDetailProvider
-                          .productDetail.data.ratingDetail.threeStarCount),
-                      percentage:
-                          '${productDetailProvider.productDetail.data.ratingDetail.threeStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
-                  _RatingWidget(
-                      starCount:
-                          Utils.getString(context, 'rating_list__two_star'),
-                      value: double.parse(productDetailProvider
-                          .productDetail.data.ratingDetail.twoStarCount),
-                      percentage:
-                          '${productDetailProvider.productDetail.data.ratingDetail.twoStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
-                  _RatingWidget(
-                      starCount:
-                          Utils.getString(context, 'rating_list__one_star'),
-                      value: double.parse(productDetailProvider
-                          .productDetail.data.ratingDetail.oneStarCount),
-                      percentage:
-                          '${productDetailProvider.productDetail.data.ratingDetail.oneStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
-                  _spacingWidget,
+                  // _RatingWidget(
+                  //     starCount:
+                  //         Utils.getString(context, 'rating_list__five_star'),
+                  //     value: double.parse(productDetailProvider
+                  //         .productDetail.data.ratingDetail.fiveStarCount),
+                  //     percentage:
+                  //         '${productDetailProvider.productDetail.data.ratingDetail.fiveStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
+                  // _RatingWidget(
+                  //     starCount:
+                  //         Utils.getString(context, 'rating_list__four_star'),
+                  //     value: double.parse(productDetailProvider
+                  //         .productDetail.data.ratingDetail.fourStarCount),
+                  //     percentage:
+                  //         '${productDetailProvider.productDetail.data.ratingDetail.fourStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
+                  // _RatingWidget(
+                  //     starCount:
+                  //         Utils.getString(context, 'rating_list__three_star'),
+                  //     value: double.parse(productDetailProvider
+                  //         .productDetail.data.ratingDetail.threeStarCount),
+                  //     percentage:
+                  //         '${productDetailProvider.productDetail.data.ratingDetail.threeStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
+                  // _RatingWidget(
+                  //     starCount:
+                  //         Utils.getString(context, 'rating_list__two_star'),
+                  //     value: double.parse(productDetailProvider
+                  //         .productDetail.data.ratingDetail.twoStarCount),
+                  //     percentage:
+                  //         '${productDetailProvider.productDetail.data.ratingDetail.twoStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
+                  // _RatingWidget(
+                  //     starCount:
+                  //         Utils.getString(context, 'rating_list__one_star'),
+                  //     value: double.parse(productDetailProvider
+                  //         .productDetail.data.ratingDetail.oneStarCount),
+                  //     percentage:
+                  //         '${productDetailProvider.productDetail.data.ratingDetail.oneStarPercent} ${Utils.getString(context, 'rating_list__percent')}'),
+                  // _spacingWidget,
                   const Divider(
                     height: ps_space_1,
                   ),
                   _WriteReviewButtonWidget(
+                    productList: widget.productList,
                     productprovider: productDetailProvider,
                     ratingProvider: widget.ratingProvider,
                     productId: widget.productDetailId,
@@ -334,12 +357,14 @@ class _WriteReviewButtonWidget extends StatelessWidget {
     @required this.productprovider,
     @required this.ratingProvider,
     @required this.productId,
+    @required this.productList,
     // @required this.loginUserId,
   }) : super(key: key);
 
   final ProductDetailProvider productprovider;
   final RatingProvider ratingProvider;
   final String productId;
+  final DocumentSnapshot productList;
   // final String loginUserId;
 
   @override
@@ -367,6 +392,7 @@ class _WriteReviewButtonWidget extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return RatingInputDialog(
+                          productList: productList,
                           productprovider: productprovider);
                     });
 

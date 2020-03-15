@@ -26,14 +26,14 @@ class PsTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget _productTextWidget =
-        Text(titleText, style: Theme.of(context).textTheme.body2);
+        Text(titleText, style: Theme.of(context).textTheme.bodyText2);
 
     final Widget _productTextFieldWidget = TextField(
         keyboardType:
             phoneInputType ? TextInputType.number : TextInputType.text,
         maxLines: null,
         controller: textEditingController,
-        style: Theme.of(context).textTheme.body1,
+        style: Theme.of(context).textTheme.bodyText1,
         decoration: textAboutMe
             ? InputDecoration(
                 contentPadding: const EdgeInsets.only(
