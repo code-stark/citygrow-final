@@ -71,13 +71,7 @@ class _RatingInputDialogState extends State<RatingInputDialog> {
             ),
           ],
         ));
-    return ChangeNotifierProvider<RatingProvider>(create:
-        (BuildContext context) {
-      final RatingProvider provider = RatingProvider(repo: ratingRepo);
-      provider.loadRatingList(widget.productprovider.productDetail.data.id);
-      return provider;
-    }, child: Consumer<RatingProvider>(
-        builder: (BuildContext context, RatingProvider provider, Widget child) {
+   
       return Dialog(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)), //this right here
@@ -143,7 +137,7 @@ class _RatingInputDialogState extends State<RatingInputDialog> {
                   _ButtonWidget(
                     productList: widget.productList,
                     descriptionController: descriptionController,
-                    provider: provider,
+                    // provider: provider,
                     productProvider: widget.productprovider,
                     titleController: titleController,
                     rating: rating,
@@ -157,7 +151,8 @@ class _RatingInputDialogState extends State<RatingInputDialog> {
           ),
         ),
       );
-    }));
+  
+    
   }
 }
 

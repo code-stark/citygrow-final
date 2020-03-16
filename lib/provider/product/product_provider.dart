@@ -53,16 +53,16 @@ class ProductDetailProvider extends PsProvider {
     super.dispose();
   }
 
-  Future<dynamic> loadProduct(
-    String productId,
-    String loginUserId,
-  ) async {
-    isLoading = true;
-    isConnectedToInternet = await utilsCheckInternetConnectivity();
+  // Future<dynamic> loadProduct(
+  //   String productId,
+  //   String loginUserId,
+  // ) async {
+  //   isLoading = true;
+  //   isConnectedToInternet = await utilsCheckInternetConnectivity();
 
-    await _repo.getProductDetail(productDetailStream, productId, loginUserId,
-        isConnectedToInternet, PsStatus.PROGRESS_LOADING);
-  }
+  //   await _repo.getProductDetail(productDetailStream, productId, loginUserId,
+  //       isConnectedToInternet, PsStatus.PROGRESS_LOADING);
+  // }
 
   Future<dynamic> loadProductForFav(
     String productId,

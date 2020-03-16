@@ -278,7 +278,7 @@ class _EditTextAndButtonWidgetState extends State<EditTextAndButtonWidget> {
                         } else {
                           if (await utilsCheckInternetConnectivity()) {
                             utilsNavigateOnUserVerificationView(
-                                widget.provider, context, () async {
+                               context, () async {
                               final CommentHeaderParameterHolder
                                   commentHeaderParameterHolder =
                                   CommentHeaderParameterHolder(

@@ -131,8 +131,7 @@ class _FavouriteProductListView extends State<FavouriteProductListView>
                                               //     arguments: provider
                                               //         .favouriteProductList
                                               //         .data[index]);
-                                              Navigator.pushReplacement<dynamic,
-                                                      dynamic>(
+                                              Navigator.push(
                                                   context,
                                                   MaterialPageRoute<dynamic>(
                                                       builder: (BuildContext
@@ -142,9 +141,8 @@ class _FavouriteProductListView extends State<FavouriteProductListView>
                                                             //     .favouriteProductList
                                                             //     .data[index],
                                                             productList: favData
-                                                                .documents[
-                                                                    index]
-                                                                .data[index],
+                                                                    .documents[
+                                                                index],
                                                           )));
                                               // await provider
                                               //     .resetFavouriteProductList();
@@ -159,7 +157,7 @@ class _FavouriteProductListView extends State<FavouriteProductListView>
                                   ),
                                 ]),
                             onRefresh: () {
-                              return provider.resetFavouriteProductList();
+                              // return provider.resetFavouriteProductList();
                             },
                           )),
                       PSProgressIndicator(provider.favouriteProductList.status)

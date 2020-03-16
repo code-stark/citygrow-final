@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/api/common/ps_status.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/provider/product/search_product_provider.dart';
 import 'package:digitalproductstore/repository/product_repository.dart';
+import 'package:digitalproductstore/ui/product/detail/product_detail_view.dart';
 import 'package:digitalproductstore/ui/product/item/product_vertical_list_item.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
@@ -21,9 +23,10 @@ class ProductListWithFilterView extends StatefulWidget {
   const ProductListWithFilterView(
       {Key key,
       @required this.productParameterHolder,
-      @required this.animationController})
+      @required this.animationController,
+      @required this.productList})
       : super(key: key);
-
+  final List<DocumentSnapshot> productList;
   final ProductParameterHolder productParameterHolder;
   final AnimationController animationController;
 
@@ -125,9 +128,9 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
                             (BuildContext context, int index) {
                               if (provider.productList.data != null ||
                                   provider.productList.data.isNotEmpty) {
-                                final int count =
-                                    provider.productList.data.length;
+                                final int count = widget.productList.length;
                                 return ProductVeticalListItem(
+                                  productList: widget.productList[index],
                                   animationController:
                                       widget.animationController,
                                   animation: Tween<double>(begin: 0.0, end: 1.0)
@@ -140,17 +143,24 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
                                   ),
                                   product: provider.productList.data[index],
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, RoutePaths.productDetail,
-                                        arguments:
-                                            provider.productList.data[index]);
+                                    // Navigator.pushNamed(
+                                    //     context, RoutePaths.productDetail,
+                                    //     arguments:
+                                    //         provider.productList.data[index]);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                ProductDetailView(
+                                                    productList: widget
+                                                        .productList[index])));
                                   },
                                 );
                               } else {
                                 return null;
                               }
                             },
-                            childCount: provider.productList.data.length,
+                            childCount: widget.productList.length,
                           ),
                         ),
                       ]),

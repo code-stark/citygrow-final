@@ -235,7 +235,7 @@ class _CheckoutButtonWidget extends StatelessWidget {
               color: ps_ctheme__color_speical,
               onPressed: () async {
                 if (await utilsCheckInternetConnectivity()) {
-                  utilsNavigateOnUserVerificationView(provider, context,
+                  utilsNavigateOnUserVerificationView(context,
                       () async {
                     await Navigator.pushNamed(context, RoutePaths.checkout,
                         arguments: CheckoutIntentHolder(

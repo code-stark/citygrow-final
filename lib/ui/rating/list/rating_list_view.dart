@@ -81,21 +81,21 @@ class _RatingListViewState extends State<RatingListView>
                 ),
                 onPressed: () async {
                   if (await utilsCheckInternetConnectivity()) {
-                    utilsNavigateOnUserVerificationView(
-                        productDetailProvider, context, () async {
+                    utilsNavigateOnUserVerificationView(context, () async {
                       await showDialog<dynamic>(
                           context: context,
                           builder: (BuildContext context) {
                             return RatingInputDialog(
-                                productList: widget.productList,
-                                productprovider: productDetailProvider);
+                              productList: widget.productList,
+                              // productprovider: productDetailProvider
+                            );
                           });
 
-                      ratingProvider.refreshRatingList(widget.productDetailid);
+                      // ratingProvider.refreshRatingList(widget.productDetailid);
 
-                      await productDetailProvider.loadProduct(
-                          widget.productDetailid,
-                          productDetailProvider.psValueHolder.loginUserId);
+                      // await productDetailProvider.loadProduct(
+                      //     widget.productDetailid,
+                      //     productDetailProvider.psValueHolder.loginUserId);
 
                       // product = productDetailProvider.productDetail.data;
 
@@ -118,18 +118,18 @@ class _RatingListViewState extends State<RatingListView>
               ratingProvider = RatingProvider(repo: ratingRepo);
               return ratingProvider;
             },
-            onProviderReady1: (RatingProvider provider) {
-              provider.loadRatingList(widget.productDetailid);
-            },
+            // onProviderReady1: (RatingProvider provider) {
+            //   provider.loadRatingList(widget.productDetailid);
+            // },
             initProvider2: () {
               productDetailProvider = ProductDetailProvider(
                   repo: productRepository, psValueHolder: psValueHolder);
               return productDetailProvider;
             },
-            onProviderReady2: (ProductDetailProvider productDetailProvider) {
-              productDetailProvider.loadProduct(
-                  widget.productDetailid, psValueHolder.loginUserId);
-            },
+            // onProviderReady2: (ProductDetailProvider productDetailProvider) {
+            //   productDetailProvider.loadProduct(
+            //       widget.productDetailid, psValueHolder.loginUserId);
+            // },
             child: Consumer<RatingProvider>(builder: (BuildContext context,
                 RatingProvider ratingProvider, Widget child) {
               return StreamBuilder<QuerySnapshot>(
@@ -147,7 +147,7 @@ class _RatingListViewState extends State<RatingListView>
                         HeaderWidget(
                             ratings: snapshot.data.documents,
                             productList: widget.productList,
-                            productDetailId: widget.productDetailid,
+                            // productDetailId: widget.productDetailid,
                             ratingProvider: ratingProvider),
                         SliverList(
                           delegate: SliverChildBuilderDelegate(
@@ -204,7 +204,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
       child: Consumer<ProductDetailProvider>(builder: (BuildContext context,
           ProductDetailProvider productDetailProvider, Widget child) {
         if (widget.ratings.toString().length != null &&
-          widget.ratings[0]['reference'] != null ) {
+            widget.ratings != null) {
           return Card(
             elevation: 0.3,
             child: Padding(
@@ -216,7 +216,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                 children: <Widget>[
                   _spacingWidget,
                   Text(
-                      '${  widget.ratings.length} ${Utils.getString(context, 'rating_list__customer_reviews')}'),
+                      '${widget.ratings.length} ${Utils.getString(context, 'rating_list__customer_reviews')}'),
                   const SizedBox(
                     height: ps_space_4,
                   ),
@@ -282,9 +282,9 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   ),
                   _WriteReviewButtonWidget(
                     productList: widget.productList,
-                    productprovider: productDetailProvider,
+                    // productprovider: productDetailProvider,
                     ratingProvider: widget.ratingProvider,
-                    productId: widget.productDetailId,
+                    // productId: widget.productDetailId,
                   ),
                   const SizedBox(
                     height: ps_space_12,
@@ -386,19 +386,20 @@ class _WriteReviewButtonWidget extends StatelessWidget {
           ),
           onPressed: () async {
             if (await utilsCheckInternetConnectivity()) {
-              utilsNavigateOnUserVerificationView(productprovider, context,
+              utilsNavigateOnUserVerificationView( context,
                   () async {
                 await showDialog<dynamic>(
                     context: context,
                     builder: (BuildContext context) {
                       return RatingInputDialog(
                           productList: productList,
-                          productprovider: productprovider);
+                          // productprovider: productprovider
+                          );
                     });
 
-                ratingProvider.refreshRatingList(productId);
-                await productprovider.loadProduct(
-                    productId, productprovider.psValueHolder.loginUserId);
+                // ratingProvider.refreshRatingList(productId);
+                // await productprovider.loadProduct(
+                    // productId, productprovider.psValueHolder.loginUserId);
               });
             } else {
               showDialog<dynamic>(

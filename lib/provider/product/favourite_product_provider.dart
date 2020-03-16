@@ -93,22 +93,22 @@ class FavouriteProductProvider extends PsProvider {
     }
   }
 
-  Future<void> resetFavouriteProductList() async {
-    isConnectedToInternet = await utilsCheckInternetConnectivity();
-    isLoading = true;
+  // Future<void> resetFavouriteProductList() async {
+  //   isConnectedToInternet = await utilsCheckInternetConnectivity();
+  //   isLoading = true;
 
-    updateOffset(0);
+  //   updateOffset(0);
 
-    await _repo.getAllFavouritesList(
-        favouriteListStream,
-        psValueHolder.loginUserId,
-        isConnectedToInternet,
-        limit,
-        offset,
-        PsStatus.PROGRESS_LOADING);
+  //   await _repo.getAllFavouritesList(
+  //       favouriteListStream,
+  //       psValueHolder.loginUserId,
+  //       isConnectedToInternet,
+  //       limit,
+  //       offset,
+  //       PsStatus.PROGRESS_LOADING);
 
-    isLoading = false;
-  }
+  //   isLoading = false;
+  // }
 
   Future<dynamic> postFavourite(
     Map<dynamic, dynamic> jsonMap,

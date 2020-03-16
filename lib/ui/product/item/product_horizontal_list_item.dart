@@ -46,12 +46,12 @@ class ProductHorizontalListItem extends StatelessWidget {
                         child: PsNetworkImage(
                           firebasePhoto: productList['images'],
                           photoKey: '',
-                          defaultPhoto: product.defaultPhoto,
+                          // defaultPhoto: product.defaultPhoto,
                           width: ps_space_180,
                           height: double.infinity,
                           boxfit: BoxFit.fitHeight,
                           onTap: () {
-                            Utils.psPrint(product.defaultPhoto.imgParentId);
+                            // Utils.psPrint(product.defaultPhoto.imgParentId);
                             onTap();
                           },
                         ),
@@ -110,8 +110,10 @@ class ProductHorizontalListItem extends StatelessWidget {
                             top: ps_space_8,
                             right: ps_space_8),
                         child: SmoothStarRating(
-                            rating: double.parse(
-                                product.ratingDetail.totalRatingValue),
+                            rating: 3.6,
+                            // double.parse(
+                            //     // product.ratingDetail.totalRatingValue
+                            //     ),
                             allowHalfRating: false,
                             onRatingChanged: (double v) {
                               onTap();
@@ -129,21 +131,21 @@ class ProductHorizontalListItem extends StatelessWidget {
                           left: ps_space_12,
                           right: ps_space_8,
                         ),
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                                '${product.ratingDetail.totalRatingValue} ${Utils.getString(context, 'feature_slider__rating')}',
-                                textAlign: TextAlign.start,
-                                style: Theme.of(context).textTheme.caption),
-                            Expanded(
-                              child: Text(
-                                  '( ${product.ratingDetail.totalRatingCount} ${Utils.getString(context, 'feature_slider__reviewer')} )',
-                                  textAlign: TextAlign.start,
-                                  softWrap: false,
-                                  style: Theme.of(context).textTheme.caption),
-                            )
-                          ],
-                        ),
+                        // child: Row(
+                        //   children: <Widget>[
+                        //     Text(
+                        //         '${product.ratingDetail.totalRatingValue} ${Utils.getString(context, 'feature_slider__rating')}',
+                        //         textAlign: TextAlign.start,
+                        //         style: Theme.of(context).textTheme.caption),
+                        //     Expanded(
+                        //       child: Text(
+                        //           '( ${product.ratingDetail.totalRatingCount} ${Utils.getString(context, 'feature_slider__reviewer')} )',
+                        //           textAlign: TextAlign.start,
+                        //           softWrap: false,
+                        //           style: Theme.of(context).textTheme.caption),
+                        //     )
+                        //   ],
+                        // ),
                       ),
                     ],
                   ),

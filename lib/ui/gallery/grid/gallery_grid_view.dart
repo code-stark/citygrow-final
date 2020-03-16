@@ -38,11 +38,11 @@ class _GalleryGridViewState extends State<GalleryGridView>
         initProvider: () {
           return GalleryProvider(repo: productRepo);
         },
-        onProviderReady: (GalleryProvider provider) {
-          provider.loadImageList(
-            widget.product.defaultPhoto.imgParentId,
-          );
-        },
+        // onProviderReady: (GalleryProvider provider) {
+        //   provider.loadImageList(
+        //     widget.product.defaultPhoto.imgParentId,
+        //   );
+        // },
         builder:
             (BuildContext context, GalleryProvider provider, Widget child) {
           if (widget.productList['images'] != null &&

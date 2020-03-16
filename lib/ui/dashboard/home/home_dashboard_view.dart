@@ -23,6 +23,7 @@ import 'package:digitalproductstore/ui/common/dialog/noti_dialog.dart';
 import 'package:digitalproductstore/ui/product/collection_product/product_list_by_collection_id_view.dart';
 import 'package:digitalproductstore/ui/product/detail/product_detail_view.dart';
 import 'package:digitalproductstore/ui/product/item/product_horizontal_list_item.dart';
+import 'package:digitalproductstore/ui/product/list_with_filter/product_list_with_filter_container.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
 import 'package:digitalproductstore/viewobject/holder/category_parameter_holder.dart';
@@ -283,15 +284,15 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
                             curve: Curves.fastOutSlowIn))), //animation
               ),
 
-              _HomeTrendingProductHorizontalListWidget(
-                animationController:
-                    widget.animationController, //animationController,
-                animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
-                        parent: widget.animationController,
-                        curve: Interval((1 / count) * 4, 1.0,
-                            curve: Curves.fastOutSlowIn))), //animation
-              ),
+              // _HomeTrendingProductHorizontalListWidget(
+              //   animationController:
+              //       widget.animationController, //animationController,
+              //   animation: Tween<double>(begin: 0.0, end: 1.0).animate(
+              //       CurvedAnimation(
+              //           parent: widget.animationController,
+              //           curve: Interval((1 / count) * 4, 1.0,
+              //               curve: Curves.fastOutSlowIn))), //animation
+              // ),
               _HomeSelectingProductTypeWidget(
                 animationController:
                     widget.animationController, //animationController,
@@ -364,125 +365,155 @@ class _HomeLatestProductHorizontalListWidget extends StatelessWidget {
       child: Consumer<SearchProductProvider>(
         builder: (BuildContext context, SearchProductProvider productProvider,
             Widget child) {
-          return AnimatedBuilder(
-              animation: animationController,
-              builder: (BuildContext context, Widget child) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: Transform(
-                    transform: Matrix4.translationValues(
-                        0.0, 100 * (1.0 - animation.value), 0.0),
-                    child: (productProvider.productList.data != null &&
-                            productProvider.productList.data.isNotEmpty)
-                        ? Column(children: <Widget>[
-                            _MyHeaderWidget(
-                              headerName: Utils.getString(
-                                  context, 'dashboard__latest_product'),
-                              viewAllClicked: () {
-                                Navigator.pushNamed(
-                                    context, RoutePaths.filterProductList,
-                                    arguments: ProductListIntentHolder(
-                                      appBarTitle: Utils.getString(
-                                          context, 'dashboard__latest_product'),
-                                      productParameterHolder:
-                                          ProductParameterHolder()
-                                              .getLatestParameterHolder(),
-                                    ));
-                              },
-                            ),
-                            StreamBuilder<QuerySnapshot>(
-                                stream: Firestore.instance
-                                    .collection('ProductListID')
-                                    .snapshots(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Container(
-                                        height: ps_space_300,
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount:
-                                                snapshot.data.documents.length
-                                            // productProvider
-                                            //     .productList.data.length
-                                            ,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              if (productProvider
-                                                      .productList.status ==
-                                                  PsStatus.BLOCK_LOADING) {
-                                                return Shimmer.fromColors(
-                                                    baseColor: Colors.grey[300],
-                                                    highlightColor:
-                                                        Colors.white,
-                                                    child: Row(children: const <
-                                                        Widget>[
-                                                      PsFrameUIForLoading(),
-                                                    ]));
-                                              } else {
-                                                return ProductHorizontalListItem(
-                                                  productList: snapshot
-                                                      .data.documents[index],
-                                                  product: productProvider
-                                                      .productList.data[index],
-                                                  onTap: () {
-                                                    print(productProvider
-                                                        .productList
-                                                        .data[index]
-                                                        .defaultPhoto
-                                                        .imgPath);
-                                                    print(snapshot.data
-                                                            .documents[index]
-                                                        ['ProductName']);
-                                                    Navigator.pushNamed(
-                                                        context,
-                                                        RoutePaths
-                                                            .productDetail,
-                                                        arguments:
-                                                            productProvider
-                                                                .productList
-                                                                .data[index]);
-                                                    Navigator.pushReplacement<
-                                                            dynamic, dynamic>(
-                                                        context,
-                                                        MaterialPageRoute<
-                                                                dynamic>(
-                                                            builder: (BuildContext
-                                                                    context) =>
-                                                                ProductDetailView(
-                                                                  product: productProvider
+          return StreamBuilder<QuerySnapshot>(
+              stream:
+                  Firestore.instance.collection('ProductListID').snapshots(),
+              builder: (context, latestProduct) {
+                if (!latestProduct.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return AnimatedBuilder(
+                    animation: animationController,
+                    builder: (BuildContext context, Widget child) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: Transform(
+                          transform: Matrix4.translationValues(
+                              0.0, 100 * (1.0 - animation.value), 0.0),
+                          child: (productProvider.productList.data != null &&
+                                  productProvider.productList.data.isNotEmpty)
+                              ? Column(children: <Widget>[
+                                  _MyHeaderWidget(
+                                    headerName: Utils.getString(
+                                        context, 'dashboard__latest_product'),
+                                    viewAllClicked: () {
+                                      // Navigator.pushNamed(
+                                      //     context, RoutePaths.filterProductList,
+                                      //     arguments: ProductListIntentHolder(
+                                      //       appBarTitle: Utils.getString(
+                                      //           context,
+                                      //           'dashboard__latest_product'),
+                                      //       productParameterHolder:
+                                      //           ProductParameterHolder()
+                                      //               .getLatestParameterHolder(),
+                                      //     ));
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  ProductListWithFilterContainerView(
+                                                      productParameterHolder:
+                                                          ProductParameterHolder()
+                                                              .getLatestParameterHolder(),
+                                                      appBarTitle: Utils.getString(
+                                                          context,
+                                                          'dashboard__latest_product'),
+                                                      productList: latestProduct
+                                                          .data.documents)));
+                                    },
+                                  ),
+                                  StreamBuilder<QuerySnapshot>(
+                                      stream: Firestore.instance
+                                          .collection('ProductListID')
+                                          .snapshots(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot snapshot) {
+                                        if (snapshot.hasData) {
+                                          return Container(
+                                              height: ps_space_300,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: ListView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: snapshot
+                                                      .data.documents.length
+                                                  // productProvider
+                                                  //     .productList.data.length
+                                                  ,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int index) {
+                                                    if (productProvider
+                                                            .productList
+                                                            .status ==
+                                                        PsStatus
+                                                            .BLOCK_LOADING) {
+                                                      return Shimmer.fromColors(
+                                                          baseColor:
+                                                              Colors.grey[300],
+                                                          highlightColor:
+                                                              Colors.white,
+                                                          child: Row(
+                                                              children: const <
+                                                                  Widget>[
+                                                                PsFrameUIForLoading(),
+                                                              ]));
+                                                    } else {
+                                                      return ProductHorizontalListItem(
+                                                        productList: snapshot
+                                                            .data
+                                                            .documents[index],
+                                                        // product: productProvider
+                                                        //     .productList.data[index],
+                                                        onTap: () {
+                                                          print(productProvider
+                                                              .productList
+                                                              .data[index]
+                                                              .defaultPhoto
+                                                              .imgPath);
+                                                          print(snapshot.data
+                                                                      .documents[
+                                                                  index]
+                                                              ['ProductName']);
+                                                          Navigator.pushNamed(
+                                                              context,
+                                                              RoutePaths
+                                                                  .productDetail,
+                                                              arguments:
+                                                                  productProvider
                                                                       .productList
-                                                                      .data[index],
-                                                                  productList:
-                                                                      snapshot
-                                                                          .data
-                                                                          .documents[index],
-                                                                )));
-                                                    // Navigator.pushNamed(
-                                                    //     context,
-                                                    //     RoutePaths
-                                                    //         .productDetail,
-                                                    //     arguments: <dynamic>[
-                                                    //       productProvider
-                                                    //           .productList
-                                                    //           .data[index],
-                                                    //       snapshot.data
-                                                    //           .documents[index]
-                                                    //     ]);
-                                                  },
-                                                );
-                                              }
-                                            }));
-                                  } else {
-                                    return const CircularProgressIndicator();
-                                  }
-                                })
-                          ])
-                        : Container(),
-                  ),
-                );
+                                                                      .data[index]);
+                                                          Navigator
+                                                              .pushReplacement(
+                                                                  context,
+                                                                  MaterialPageRoute<
+                                                                          dynamic>(
+                                                                      builder: (BuildContext
+                                                                              context) =>
+                                                                          ProductDetailView(
+                                                                            product:
+                                                                                productProvider.productList.data[index],
+                                                                            productList:
+                                                                                snapshot.data.documents[index],
+                                                                          )));
+                                                          // Navigator.pushNamed(
+                                                          //     context,
+                                                          //     RoutePaths
+                                                          //         .productDetail,
+                                                          //     arguments: <dynamic>[
+                                                          //       productProvider
+                                                          //           .productList
+                                                          //           .data[index],
+                                                          //       snapshot.data
+                                                          //           .documents[index]
+                                                          //     ]);
+                                                        },
+                                                      );
+                                                    }
+                                                  }));
+                                        } else {
+                                          return const CircularProgressIndicator();
+                                        }
+                                      })
+                                ])
+                              : Container(),
+                        ),
+                      );
+                    });
               });
         },
       ),
@@ -1074,68 +1105,107 @@ class _DiscountProductHorizontalListWidget extends StatelessWidget {
         // fdfdf
         child: Consumer<DiscountProductProvider>(builder: (BuildContext context,
             DiscountProductProvider productProvider, Widget child) {
-      return AnimatedBuilder(
-          animation: animationController,
-          builder: (BuildContext context, Widget child) {
-            return FadeTransition(
-                opacity: animation,
-                child: Transform(
-                    transform: Matrix4.translationValues(
-                        0.0, 100 * (1.0 - animation.value), 0.0),
-                    child: (productProvider.productList.data != null &&
-                            productProvider.productList.data.isNotEmpty)
-                        ? Column(children: <Widget>[
-                            _MyHeaderWidget(
-                              headerName: Utils.getString(
-                                  context, 'dashboard__discount_product'),
-                              viewAllClicked: () {
-                                Navigator.pushNamed(
-                                    context, RoutePaths.filterProductList,
-                                    arguments: ProductListIntentHolder(
-                                        appBarTitle: Utils.getString(context,
-                                            'dashboard__discount_product'),
-                                        productParameterHolder:
-                                            ProductParameterHolder()
-                                                .getDiscountParameterHolder()));
-                              },
-                            ),
-                            Container(
-                                height: ps_space_300,
-                                width: MediaQuery.of(context).size.width,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        productProvider.productList.data.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      if (productProvider.productList.status ==
-                                          PsStatus.BLOCK_LOADING) {
-                                        return Shimmer.fromColors(
-                                            baseColor: Colors.grey[300],
-                                            highlightColor: Colors.white,
-                                            child: Row(children: const <Widget>[
-                                              PsFrameUIForLoading(),
-                                            ]));
-                                      } else {
-                                        return ProductHorizontalListItem(
-                                          product: productProvider
-                                              .productList.data[index],
-                                          onTap: () {
-                                            print(productProvider
-                                                .productList
-                                                .data[index]
-                                                .defaultPhoto
-                                                .imgPath);
-                                            Navigator.pushNamed(context,
-                                                RoutePaths.productDetail,
-                                                arguments: productProvider
-                                                    .productList.data[index]);
-                                          },
-                                        );
-                                      }
-                                    }))
-                          ])
-                        : Container()));
+      return StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance.collection('ProductListID').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return AnimatedBuilder(
+                animation: animationController,
+                builder: (BuildContext context, Widget child) {
+                  return FadeTransition(
+                      opacity: animation,
+                      child: Transform(
+                          transform: Matrix4.translationValues(
+                              0.0, 100 * (1.0 - animation.value), 0.0),
+                          child: (productProvider.productList.data != null &&
+                                  productProvider.productList.data.isNotEmpty)
+                              ? Column(children: <Widget>[
+                                  _MyHeaderWidget(
+                                    headerName: Utils.getString(
+                                        context, 'dashboard__discount_product'),
+                                    viewAllClicked: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  ProductListWithFilterContainerView(
+                                                      productParameterHolder:
+                                                          ProductParameterHolder()
+                                                              .getLatestParameterHolder(),
+                                                      appBarTitle: Utils.getString(
+                                                          context,
+                                                          'dashboard__latest_product'),
+                                                      productList: snapshot
+                                                          .data.documents)));
+                                      // Navigator.pushNamed(
+                                      //     context, RoutePaths.filterProductList,
+                                      //     arguments: ProductListIntentHolder(
+                                      //         appBarTitle: Utils.getString(
+                                      //             context,
+                                      //             'dashboard__discount_product'),
+                                      //         productParameterHolder:
+                                      //             ProductParameterHolder()
+                                      //                 .getDiscountParameterHolder()));
+                                    },
+                                  ),
+                                  Container(
+                                      height: ps_space_300,
+                                      width: MediaQuery.of(context).size.width,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount:
+                                              snapshot.data.documents.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            if (productProvider
+                                                    .productList.status ==
+                                                PsStatus.BLOCK_LOADING) {
+                                              return Shimmer.fromColors(
+                                                  baseColor: Colors.grey[300],
+                                                  highlightColor: Colors.white,
+                                                  child: Row(
+                                                      children: const <Widget>[
+                                                        PsFrameUIForLoading(),
+                                                      ]));
+                                            } else {
+                                              return ProductHorizontalListItem(
+                                                productList: snapshot
+                                                    .data.documents[index],
+                                                // product: productProvider
+                                                //     .productList.data[index],
+                                                onTap: () {
+                                                  // print(productProvider
+                                                  //     .productList
+                                                  //     .data[index]
+                                                  //     .defaultPhoto
+                                                  //     .imgPath);
+                                                  Navigator.pushNamed(context,
+                                                      RoutePaths.productDetail,
+                                                      arguments: productProvider
+                                                          .productList
+                                                          .data[index]);
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              ProductDetailView(
+                                                                productList: snapshot
+                                                                        .data
+                                                                        .documents[
+                                                                    index],
+                                                              )));
+                                                },
+                                              );
+                                            }
+                                          }))
+                                ])
+                              : Container()));
+                });
           });
     }));
   }

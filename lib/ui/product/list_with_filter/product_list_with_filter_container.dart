@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
@@ -12,9 +13,10 @@ import 'package:provider/provider.dart';
 
 class ProductListWithFilterContainerView extends StatefulWidget {
   const ProductListWithFilterContainerView(
-      {@required this.productParameterHolder, @required this.appBarTitle});
+      {@required this.productParameterHolder, @required this.appBarTitle,@required this.productList});
   final ProductParameterHolder productParameterHolder;
   final String appBarTitle;
+  final List<DocumentSnapshot> productList;
   @override
   _ProductListWithFilterContainerViewState createState() =>
       _ProductListWithFilterContainerViewState();
@@ -151,7 +153,7 @@ class _ProductListWithFilterContainerViewState
             )
           ],
         ),
-        body: ProductListWithFilterView(
+        body: ProductListWithFilterView(productList: widget.productList,
           animationController: animationController,
           productParameterHolder: widget.productParameterHolder,
         ),

@@ -37,6 +37,7 @@ import 'package:digitalproductstore/viewobject/holder/download_product_holder.da
 import 'package:digitalproductstore/viewobject/holder/touch_count_parameter_holder.dart';
 import 'package:digitalproductstore/viewobject/product.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -97,6 +98,8 @@ class _ProductDetailState extends State<ProductDetailView>
   }
 
   Future<dynamic> viewcounter() async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
     // final QuerySnapshot results = await Firestore.instance
     //     .collection("ProductListID")
     //     .where("id", isEqualTo: widget.productList.documentID)
@@ -108,7 +111,7 @@ class _ProductDetailState extends State<ProductDetailView>
       return const Center(
         child: CircularProgressIndicator(),
       );
-    } else {
+    } else if (widget.productList['productUid'] == null) {
       final Map<String, FieldValue> data = {
         'views': FieldValue.increment(1),
       };
@@ -116,7 +119,25 @@ class _ProductDetailState extends State<ProductDetailView>
           .collection('ProductListID')
           .document(widget.productList.documentID)
           .updateData(data);
+    } else if (widget.productList['productUid'] != null) {
+      return viewCountFirebase(user.uid);
     }
+  }
+
+  void viewCountFirebase(uid) async {
+    final Map<String, FieldValue> data = {
+      'views': FieldValue.increment(1),
+    };
+    await Firestore.instance
+        .collection('ProductListID')
+        .document(widget.productList['productUid'])
+        .updateData(data);
+    await Firestore.instance
+        .collection('AppUsers')
+        .document(uid)
+        .collection('favorite')
+        .document(widget.productList.documentID)
+        .updateData(data);
   }
 
   List<Product> basketList = <Product>[];
@@ -161,28 +182,28 @@ class _ProductDetailState extends State<ProductDetailView>
                   ProductDetailProvider(
                       repo: productRepo, psValueHolder: psValueHolder);
 
-              utilsCheckUserLoginId(psValueHolder)
-                  .then((String loginUserId) async {
-                productDetailProvider.loadProduct(
-                    // widget.productList.data['images'],users.uid
-                    widget.product.id,
-                    loginUserId);
+              // utilsCheckUserLoginId(psValueHolder)
+              //     .then((String loginUserId) async {
+              //   // productDetailProvider.loadProduct(
+              //   //     // widget.productList.data['images'],users.uid
+              //   //     widget.product.id,
+              //   //     loginUserId);
 
-                final TouchCountParameterHolder touchCountParameterHolder =
-                    TouchCountParameterHolder(
-                        typeId: widget.product.id,
-                        typeName: FILTERING_TYPE_NAME_PRODUCT,
-                        userId: touchCountProvider.psValueHolder.loginUserId);
-                final PsResource<ApiStatus> _apiStatus =
-                    await touchCountProvider
-                        .postTouchCount(touchCountParameterHolder.toMap());
-                if (_apiStatus.status == PsStatus.SUCCESS) {
-                  // productDetailProvider.loadProduct(
-                  //     widget.product.id, loginUserId);
-                }
-              });
+              //   final TouchCountParameterHolder touchCountParameterHolder =
+              //       TouchCountParameterHolder(
+              //           typeId: widget.product.id,
+              //           typeName: FILTERING_TYPE_NAME_PRODUCT,
+              //           userId: touchCountProvider.psValueHolder.loginUserId);
+              //   final PsResource<ApiStatus> _apiStatus =
+              //       await touchCountProvider
+              //           .postTouchCount(touchCountParameterHolder.toMap());
+              //   if (_apiStatus.status == PsStatus.SUCCESS) {
+              //     // productDetailProvider.loadProduct(
+              //     //     widget.product.id, loginUserId);
+              //   }
+              // });
 
-              return productDetailProvider;
+              // return productDetailProvider;
             },
           ),
           ChangeNotifierProvider<RelatedProductProvider>(
@@ -334,12 +355,12 @@ class _ProductDetailState extends State<ProductDetailView>
                                 child: PsNetworkImage(
                                   firebasePhoto: widget.productList['images'],
                                   photoKey: '',
-                                  defaultPhoto: widget.product.defaultPhoto,
+                                  // defaultPhoto: widget.product.defaultPhoto,
                                   width: double.infinity,
                                   height: double.infinity,
                                   boxfit: BoxFit.fitHeight,
                                   onTap: () {
-                                    Navigator.pushReplacement<dynamic, dynamic>(
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute<dynamic>(
                                             builder: (BuildContext context) =>
@@ -365,7 +386,7 @@ class _ProductDetailState extends State<ProductDetailView>
                                 child: Column(children: <Widget>[
                                   _HeaderBoxWidget(
                                     productList: widget.productList,
-                                    productDetail: provider,
+                                    // productDetail: provider,
                                     product: widget.product,
                                   ),
                                   DetailInfoTileView(
@@ -389,6 +410,7 @@ class _ProductDetailState extends State<ProductDetailView>
                         ]),
                         if (widget.productList['price'] != '0')
                           _AddToBasketAndBuyButtonWidget(
+                            productList: widget.productList,
                             productProvider: provider,
                             basketProvider: basketProvider,
                             product: widget.product,
@@ -435,9 +457,9 @@ class UserCommentTileView extends StatelessWidget {
                         arguments: productDetail.productDetail.data);
 
                     if (returnData != null && returnData) {
-                      productDetail.loadProduct(
-                          productDetail.productDetail.data.id,
-                          productDetail.psValueHolder.loginUserId);
+                      // productDetail.loadProduct(
+                      //     productDetail.productDetail.data.id,
+                      //     productDetail.psValueHolder.loginUserId);
                     }
                   },
                   child: Padding(
@@ -462,9 +484,9 @@ class UserCommentTileView extends StatelessWidget {
                                           productDetail.productDetail.data);
 
                               if (returnData) {
-                                productDetail.loadProduct(
-                                    productDetail.productDetail.data.id,
-                                    productDetail.psValueHolder.loginUserId);
+                                // productDetail.loadProduct(
+                                //     productDetail.productDetail.data.id,
+                                //     productDetail.psValueHolder.loginUserId);
                               }
                             },
                             child: Icon(
@@ -482,9 +504,9 @@ class UserCommentTileView extends StatelessWidget {
                           arguments: productDetail.productDetail.data);
 
                       if (returnData != null && returnData) {
-                        productDetail.loadProduct(
-                            productDetail.productDetail.data.id,
-                            productDetail.psValueHolder.loginUserId);
+                        // productDetail.loadProduct(
+                        //     productDetail.productDetail.data.id,
+                        //     productDetail.psValueHolder.loginUserId);
                       }
                     },
                     child: Padding(
@@ -495,7 +517,10 @@ class UserCommentTileView extends StatelessWidget {
                             child: Text(
                               Utils.getString(
                                   context, 'user_comment_tile__write_comment'),
-                              style: Theme.of(context).textTheme.body1.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
                                     color: ps_ctheme__color_speical,
                                   ),
                               textAlign: TextAlign.left,
@@ -534,10 +559,10 @@ class _HeaderBoxWidget extends StatefulWidget {
 class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
   @override
   Widget build(BuildContext context) {
-    if (widget.product != null &&
-        widget.productDetail != null &&
-        widget.productDetail.productDetail != null &&
-        widget.productDetail.productDetail.data != null) {
+    if (widget.productList != null &&
+        widget.productList.toString() != null &&
+        widget.productList.data != null &&
+        widget.productList.documentID != null) {
       return Card(
         elevation: 0.0,
         child: Column(
@@ -569,7 +594,7 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
                           top: ps_space_16, bottom: ps_space_4),
                       child: _HeaderRatingWidget(
                         productref: widget.productList,
-                        productDetail: widget.productDetail,
+                        // productDetail: widget.productDetail,
                       ),
                     ),
                   ],
@@ -588,12 +613,12 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
-                    widget.productDetail.productDetail.data
-                            .highlightInformation ??
-                        '',
+                    // widget.productDetail.productDetail.data
+                    //         .highlightInformation ??
+                    'ontrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source',
                     // maxLines: 3,
                     // overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.body1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
                         letterSpacing: 0.8,
                         fontSize: 16,
                         color: Utils.isLightMode(context)
@@ -606,19 +631,19 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
             ),
             DescriptionTileView(
               productDescription: widget.productList,
-              productDetail: widget.productDetail.productDetail.data,
+              // productDetail: widget.productDetail.productDetail.data,
             ),
             Container(
                 color: Utils.isLightMode(context)
                     ? Colors.grey[100]
                     : Colors.black87,
                 height: ps_space_8),
-            // const SizedBox(
-            //   height: ps_space_10,
-            // ),
+            const SizedBox(
+              height: ps_space_10,
+            ),
             _HeaderButtonWidget(
               productList: widget.productList,
-              productDetail: widget.productDetail.productDetail.data,
+              // productDetail: widget.productDetail.productDetail.data,
             ),
           ],
         ),
@@ -697,8 +722,8 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                     GestureDetector(
                         onTap: () async {
                           if (await utilsCheckInternetConnectivity()) {
-                            utilsNavigateOnUserVerificationView(
-                                provider, context, () async {
+                            utilsNavigateOnUserVerificationView(context,
+                                () async {
                               // if (fav.toString().length == 0) {
                               //   setState(() {
                               //     widget.productDetail.productDetail.data
@@ -730,7 +755,9 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                               // }
                               if (documents.isEmpty) {
                                 sl.get<FirebaseBloc>().uploadFav(
-                                    widget.productList.data, users.uid);
+                                    widget.productList.data,
+                                    users.uid,
+                                    widget.productList.documentID);
                               } else if (documents.isNotEmpty) {
                                 sl.get<FirebaseBloc>().deleteFav(
                                     documents[0].documentID, users.uid);
@@ -865,7 +892,7 @@ class _HeaderRatingWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SmoothStarRating(
-                        rating:4.4,
+                        rating: 4.4,
                         allowHalfRating: false,
                         starCount: 5,
                         size: ps_space_16,
@@ -873,13 +900,13 @@ class _HeaderRatingWidget extends StatelessWidget {
                         borderColor: Colors.blueGrey[200],
                         onRatingChanged: (double v) async {
                           print('Click Rating');
-                          Navigator.pushReplacement<dynamic, dynamic>(
+                          Navigator.push(
                               context,
                               MaterialPageRoute<dynamic>(
                                   builder: (BuildContext context) =>
                                       RatingListView(
-                                        productDetailid:
-                                            productDetail.productDetail.data.id,
+                                        // productDetailid:
+                                        //     productDetail.productDetail.data.id,
                                         productList: productref,
                                       )));
 
@@ -901,13 +928,12 @@ class _HeaderRatingWidget extends StatelessWidget {
                               arguments: productDetail.productDetail.data.id);
 
                           if (result != null && result) {
-                            productDetail.loadProduct(
-                                productDetail.productDetail.data.id,
-                                productDetail.psValueHolder.loginUserId);
+                            // productDetail.loadProduct(
+                            //     productDetail.productDetail.data.id,
+                            //     productDetail.psValueHolder.loginUserId);
                           }
                         },
-                        child: (ratingsnap.data.documents.length !=
-                                0)
+                        child: (ratingsnap.data.documents.length != 0)
                             ? Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
@@ -926,7 +952,8 @@ class _HeaderRatingWidget extends StatelessWidget {
                                   // ),
                                   Text(
                                     '(' +
-                                        ratingsnap.data.documents.length.toString() +
+                                        ratingsnap.data.documents.length
+                                            .toString() +
                                         ' ${Utils.getString(context, 'product_detail__reviews')})',
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
@@ -940,16 +967,23 @@ class _HeaderRatingWidget extends StatelessWidget {
                     const SizedBox(
                       height: ps_space_10,
                     ),
-                    if (productDetail.productDetail.data.isAvailable == '1')
+                    if (productref['quantity'] > 0)
                       Text(
                         Utils.getString(context, 'product_detail__in_stock'),
                         style: Theme.of(context)
                             .textTheme
-                            .body1
+                            .bodyText1
                             .copyWith(color: Colors.green),
                       )
                     else
-                      Container(),
+                      Text(
+                        'Out Of Stock',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .copyWith(color: Colors.red),
+                      )
+                    // Container(),
                   ],
                 ),
                 Expanded(
@@ -1230,8 +1264,7 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
                       //   size: ps_space_20,
                       // ),
                       onPressed: () async {
-                        utilsNavigateOnUserVerificationView(
-                            widget.productProvider, context, () async {
+                        utilsNavigateOnUserVerificationView(context, () async {
                           final DownloadProductParameterHolder
                               downloadProductParameterHolder =
                               DownloadProductParameterHolder(
@@ -1313,7 +1346,7 @@ class _HeaderButtonWidget extends StatelessWidget {
   final Product productDetail;
   @override
   Widget build(BuildContext context) {
-    if (productDetail != null) {
+    if (productList != null) {
       return Card(
         elevation: 0.0,
         child: Padding(
@@ -1325,8 +1358,9 @@ class _HeaderButtonWidget extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    productDetail.commentHeaderCount ?? '',
-                    style: Theme.of(context).textTheme.body1,
+                    // productDetail.commentHeaderCount ??
+                    '',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   const SizedBox(
                     height: ps_space_8,
@@ -1340,8 +1374,9 @@ class _HeaderButtonWidget extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    productDetail.favouriteCount ?? '',
-                    style: Theme.of(context).textTheme.body1,
+                    // productDetail.favouriteCount ??
+                    '',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   const SizedBox(
                     height: ps_space_8,
@@ -1356,7 +1391,7 @@ class _HeaderButtonWidget extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     productList.data['views']?.toString() ?? '0',
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   const SizedBox(
                     height: ps_space_8,
@@ -1384,12 +1419,14 @@ class _AddToBasketAndBuyButtonWidget extends StatefulWidget {
     @required this.basketProvider,
     @required this.product,
     @required this.psValueHolder,
+    @required this.productList,
   }) : super(key: key);
 
   final ProductDetailProvider productProvider;
   final BasketProvider basketProvider;
   final Product product;
   final PsValueHolder psValueHolder;
+  final DocumentSnapshot productList;
   @override
   __AddToBasketAndBuyButtonWidgetState createState() =>
       __AddToBasketAndBuyButtonWidgetState();
@@ -1403,12 +1440,13 @@ class __AddToBasketAndBuyButtonWidgetState
   Widget build(BuildContext context) {
     // basketRepo = Provider.of<BasketRepository>(context);
 
-    if (widget.productProvider != null &&
-        widget.productProvider.productDetail != null &&
-        widget.productProvider.productDetail.data != null &&
-        widget.basketProvider != null &&
-        widget.basketProvider.basketList != null &&
-        widget.basketProvider.basketList.data != null) {
+    if (widget.productList != null &&
+        widget.productList.data != null &&
+         widget.productList.documentID != null 
+        // widget.basketProvider != null &&
+        // widget.basketProvider.basketList != null &&
+        // widget.basketProvider.basketList.data != null
+        ) {
       // return
       // ChangeNotifierProvider<BasketProvider>(
       //     create: (BuildContext context) {
@@ -1531,8 +1569,8 @@ class __AddToBasketAndBuyButtonWidgetState
                             arguments:
                                 widget.productProvider.productDetail.data);
                         if (result) {
-                          widget.productProvider.loadProduct(widget.product.id,
-                              widget.psValueHolder.loginUserId);
+                          // widget.productProvider.loadProduct(widget.product.id,
+                          //     widget.psValueHolder.loginUserId);
                         }
                       },
                     ),

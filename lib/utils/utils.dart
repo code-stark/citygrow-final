@@ -84,7 +84,7 @@ dynamic utilsLaunchAppStoreURL({String iOSAppId}) async {
 }
 
 dynamic utilsNavigateOnUserVerificationView(
-    dynamic provider, BuildContext context, Function onLoginSuccess) async {
+   BuildContext context, Function onLoginSuccess) async {
   // provider.psValueHolder = Provider.of<PsValueHolder>(context);
   final Users users = Provider.of<Users>(context);
   if (users != null || users.uid != null || users.uid != '') {
