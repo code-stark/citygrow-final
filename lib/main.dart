@@ -248,8 +248,8 @@ class _PSAppState extends State<PSApp> {
                       },
                       '${RoutePaths.user_update_password}':
                           (BuildContext context) => ChangePasswordView(),
-                      '${RoutePaths.profile}':
-                          (BuildContext context) => ProfileView(),
+                      '${RoutePaths.profile}': (BuildContext context) =>
+                          ProfileView(),
                       '${RoutePaths.profile_container}':
                           (BuildContext context) => ProfileContainerView(),
                       '${RoutePaths.languageList}': (BuildContext context) {
@@ -350,9 +350,11 @@ class _PSAppState extends State<PSApp> {
                       '${RoutePaths.productDetail}': (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final Product product = args ?? Product;
+                        final DocumentSnapshot product =
+                            args ?? DocumentSnapshot;
                         return ProductDetailView(
-                          product: product,
+                          productList: product,
+                          // product: product,
                         );
                       },
                       '${RoutePaths.filterExpantion}': (BuildContext context) {
@@ -364,8 +366,8 @@ class _PSAppState extends State<PSApp> {
                       '${RoutePaths.commentList}': (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final Product product = args ?? Product;
-                        return CommentListView(product: product);
+                        final List<DocumentSnapshot> product = args ?? DocumentSnapshot;
+                        return CommentListView(commentsList: product,);
                       },
                       '${RoutePaths.itemSearch}': (BuildContext context) {
                         final Object args =
@@ -416,10 +418,14 @@ class _PSAppState extends State<PSApp> {
                         final String productDetailId = args ?? String;
                         return RatingListView(productDetailid: productDetailId);
                       },
-                      '${RoutePaths.editProfile}': (BuildContext context) {final Object args =
+                      '${RoutePaths.editProfile}': (BuildContext context) {
+                        final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final DocumentSnapshot editprofile = args ?? DocumentSnapshot;
-                        return EditProfileView(snapshot: editprofile,);
+                        final DocumentSnapshot editprofile =
+                            args ?? DocumentSnapshot;
+                        return EditProfileView(
+                          snapshot: editprofile,
+                        );
                       },
                       '${RoutePaths.galleryGrid}': (BuildContext context) {
                         final Object args =

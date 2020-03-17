@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/comment_header.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CommetListItem extends StatelessWidget {
   const CommetListItem({
@@ -12,8 +14,9 @@ class CommetListItem extends StatelessWidget {
     this.animationController,
     this.animation,
     this.onTap,
+    @required this.comments,
   }) : super(key: key);
-
+  final DocumentSnapshot comments;
   final CommentHeader comment;
   final Function onTap;
   final AnimationController animationController;
@@ -21,7 +24,7 @@ class CommetListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (comment != null) {
+    if (comments != null) {
       return AnimatedBuilder(
           animation: animationController,
           builder: (BuildContext context, Widget child) {
@@ -39,6 +42,7 @@ class CommetListItem extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: _ImageAndTextWidget(
+                            comments: comments,
                             comment: comment,
                           ),
                         ),
@@ -55,10 +59,11 @@ class _ImageAndTextWidget extends StatelessWidget {
   const _ImageAndTextWidget({
     Key key,
     @required this.comment,
+    @required this.comments,
   }) : super(key: key);
 
   final CommentHeader comment;
-
+  final DocumentSnapshot comments;
   @override
   Widget build(BuildContext context) {
     final Widget _iconWidget = Icon(
@@ -67,18 +72,19 @@ class _ImageAndTextWidget extends StatelessWidget {
       color: Colors.grey,
     );
 
-    final Widget _textWidget = Text(comment.addedDateStr,
+    final Widget _textWidget = Text(
+        timeago.format(comments['createdtime'].toDate()).toString(),
         style:
             Theme.of(context).textTheme.caption.copyWith(color: Colors.grey));
 
-    if (comment != null && comment.user != null) {
+    if (comments != null && comments.documentID != null) {
       return Row(
         children: <Widget>[
           PsNetworkImageWithUrl(
             photoKey: '',
             width: ps_space_40,
             height: ps_space_40,
-            url: comment.user.userProfilePhoto,
+            url: comments['image'],
           ),
           const SizedBox(
             width: ps_space_8,
@@ -93,7 +99,7 @@ class _ImageAndTextWidget extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          comment.user.userName,
+                          comments['name'],
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
@@ -108,30 +114,30 @@ class _ImageAndTextWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: ps_space_8),
                   child: Text(
-                    comment.headerComment,
-                    style: Theme.of(context).textTheme.body1,
+                    comments['Comments'],
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        width: ps_space_180,
-                        child: Text(
-                          comment.commentReplyCount == '0'
-                              ? ''
-                              : '- ${comment.commentReplyCount} ${Utils.getString(context, 'comment_list__replies')}',
-                          maxLines: 2,
-                          style: Theme.of(context)
-                              .textTheme
-                              .caption
-                              .copyWith(color: ps_ctheme__color_application),
-                        ),
-                      ),
-                    ),
-                    _textWidget
-                  ],
-                )
+                // Row(
+                //   children: <Widget>[
+                //     Expanded(
+                //       child: Container(
+                //         width: ps_space_180,
+                //         child: Text(
+                //           comment.commentReplyCount == '0'
+                //               ? ''
+                //               : '- ${comment.commentReplyCount} ${Utils.getString(context, 'comment_list__replies')}',
+                //           maxLines: 2,
+                //           style: Theme.of(context)
+                //               .textTheme
+                //               .caption
+                //               .copyWith(color: ps_ctheme__color_application),
+                //         ),
+                //       ),
+                //     ),
+                //     _textWidget
+                //   ],
+                // )
               ],
             ),
           )

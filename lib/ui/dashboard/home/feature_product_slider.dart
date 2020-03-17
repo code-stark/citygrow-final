@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 
 import 'package:digitalproductstore/config/ps_constants.dart';
@@ -15,9 +16,12 @@ class FeatureProductSliderView extends StatefulWidget {
     Key key,
     @required this.featuredProductList,
     this.onTap,
+    @required this.productList,
   }) : super(key: key);
 
   final Function onTap;
+
+  final List<DocumentSnapshot> productList;
   final List<Product> featuredProductList;
 
   @override
@@ -30,14 +34,13 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        if (widget.featuredProductList != null &&
-            widget.featuredProductList.isNotEmpty)
+        if (widget.productList != null && widget.productList.isNotEmpty)
           CarouselSlider(
             enlargeCenterPage: true,
             autoPlay: true,
             viewportFraction: 0.9,
             autoPlayInterval: const Duration(seconds: 5),
-            items: widget.featuredProductList.map((Product product) {
+            items: widget.productList.map((DocumentSnapshot product) {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
@@ -52,8 +55,9 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(ps_space_4),
                           child: PsNetworkImage(
+                              firebasePhoto: product['images'][0],
                               photoKey: '',
-                              defaultPhoto: product.defaultPhoto,
+                              // defaultPhoto: product.defaultPhoto,
                               width: MediaQuery.of(context).size.width,
                               height: ps_space_300,
                               boxfit: BoxFit.fitHeight,
@@ -67,7 +71,8 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                child: product.isDiscount == ONE
+                                child: product['Discount'] != null &&
+                                  product['Discount'] != 0
                                     ? Container(
                                         width: ps_space_52,
                                         height: ps_space_24,
@@ -80,11 +85,11 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                                                     ps_ctheme__color_speical),
                                             Center(
                                               child: Text(
-                                                '-${product.discountPercent}%',
+                                          '-${product["Discount"].toString().replaceAll(".", " ").substring(0, 2)}%',
                                                 textAlign: TextAlign.start,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .body1
+                                                    .bodyText1
                                                     .copyWith(
                                                         color: Colors.white),
                                               ),
@@ -97,7 +102,7 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                               padding: const EdgeInsets.all(ps_space_4),
                               child: Align(
                                 alignment: Alignment.topRight,
-                                child: product.isFeatured == ONE
+                                child: product['Featured Product'] == true
                                     ? Image.asset(
                                         'assets/images/baseline_feature_circle_24.png',
                                         width: ps_space_32,
@@ -133,11 +138,11 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                                       top: ps_space_4,
                                     ),
                                     child: Text(
-                                      product.name,
+                                      product['ProductName'],
                                       textAlign: TextAlign.left,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .body2
+                                          .bodyText2
                                           .copyWith(
                                               fontSize: ps_space_16,
                                               color: Colors.white),
@@ -150,8 +155,8 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                                     child: Row(
                                       children: <Widget>[
                                         Text(
-                                            product.unitPrice != '0'
-                                                ? '${product.currencySymbol}${Utils.getPriceFormat(product.unitPrice)}'
+                                            product['price'] != 0
+                                                ? '₹${product['price']}'
                                                 : Utils.getString(context,
                                                     'global_product__free'),
                                             textAlign: TextAlign.start,
@@ -164,9 +169,12 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                                         Padding(
                                             padding: const EdgeInsets.only(
                                                 left: ps_space_4, right: 4),
-                                            child: product.isDiscount == ONE
+                                            child: product['Discount'] !=
+                                                        null &&
+                                                    product['Orignal Price'] !=
+                                                        product['price']
                                                 ? Text(
-                                                    '${product.currencySymbol}${Utils.getPriceFormat(product.originalPrice)}',
+                                                    '₹${product["Orignal Price"]}',
                                                     textAlign: TextAlign.start,
                                                     style: Theme.of(context)
                                                         .textTheme
@@ -185,8 +193,10 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                                       top: ps_space_4,
                                     ),
                                     child: SmoothStarRating(
-                                        rating: double.parse(product
-                                            .ratingDetail.totalRatingValue),
+                                        rating: 3
+                                        // double.parse(product
+                                        //     .ratingDetail.totalRatingValue)
+                                            ,
                                         allowHalfRating: false,
                                         onRatingChanged: (double v) {
                                           widget.onTap(product);
@@ -197,31 +207,31 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                                         borderColor: Colors.grey,
                                         spacing: 0.0),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: ps_space_4,
-                                        bottom: ps_space_4,
-                                        left: ps_space_8),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Text(
-                                            '${product.ratingDetail.totalRatingValue} ${Utils.getString(context, 'feature_slider__rating')}',
-                                            textAlign: TextAlign.start,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption),
-                                        Expanded(
-                                          child: Text(
-                                              '( ${product.ratingDetail.totalRatingCount} ${Utils.getString(context, 'feature_slider__reviewer')} )',
-                                              textAlign: TextAlign.start,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(
+                                  //       top: ps_space_4,
+                                  //       bottom: ps_space_4,
+                                  //       left: ps_space_8),
+                                  //   child: Row(
+                                  //     mainAxisSize: MainAxisSize.min,
+                                  //     children: <Widget>[
+                                  //       Text(
+                                  //           '${product.ratingDetail.totalRatingValue} ${Utils.getString(context, 'feature_slider__rating')}',
+                                  //           textAlign: TextAlign.start,
+                                  //           style: Theme.of(context)
+                                  //               .textTheme
+                                  //               .caption),
+                                  //       Expanded(
+                                  //         child: Text(
+                                  //             '( ${product.ratingDetail.totalRatingCount} ${Utils.getString(context, 'feature_slider__reviewer')} )',
+                                  //             textAlign: TextAlign.start,
+                                  //             style: Theme.of(context)
+                                  //                 .textTheme
+                                  //                 .caption),
+                                  //       )
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -236,7 +246,7 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
             }).toList(),
             onPageChanged: (int i) {
               setState(() {
-                _currentId = widget.featuredProductList[i].id;
+                _currentId = widget.productList[i]['Reference'];
               });
             },
           )
@@ -249,9 +259,9 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: widget.featuredProductList != null &&
-                      widget.featuredProductList.isNotEmpty
-                  ? widget.featuredProductList.map((Product product) {
+              children: widget.productList != null &&
+                      widget.productList.isNotEmpty
+                  ? widget.productList.map((DocumentSnapshot product) {
                       return Builder(builder: (BuildContext context) {
                         return Container(
                             width: 8.0,
@@ -260,7 +270,7 @@ class _FeatureProductSliderState extends State<FeatureProductSliderView> {
                                 vertical: 10.0, horizontal: 2.0),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: _currentId == product.id
+                                color: _currentId == product.data['Reference']
                                     ? Colors.yellow[800]
                                     : Colors.yellow[100]));
                       });

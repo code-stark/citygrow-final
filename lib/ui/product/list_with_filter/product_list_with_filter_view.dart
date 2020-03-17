@@ -324,10 +324,10 @@ class _BottomNavigationImageAndTextState
                       : Colors.grey,
                 ),
                 Text(Utils.getString(context, 'search__category'),
-                    style: Theme.of(context).textTheme.body2.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: isClickBaseLineList
                             ? ps_ctheme__color_speical
-                            : Theme.of(context).textTheme.body2.color)),
+                            : Theme.of(context).textTheme.bodyText2.color)),
               ],
             ),
             onTap: () async {
@@ -368,10 +368,10 @@ class _BottomNavigationImageAndTextState
                       : Colors.grey,
                 ),
                 Text(Utils.getString(context, 'search__filter'),
-                    style: Theme.of(context).textTheme.body2.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: isClickBaseLineTune
                             ? ps_ctheme__color_speical
-                            : Theme.of(context).textTheme.body2.color))
+                            : Theme.of(context).textTheme.bodyText2.color))
               ],
             ),
             onTap: () async {
@@ -402,10 +402,10 @@ class _BottomNavigationImageAndTextState
                   color: ps_ctheme__color_speical,
                 ),
                 Text(Utils.getString(context, 'search__sort'),
-                    style: Theme.of(context).textTheme.body2.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: isClickBaseLineTune
                             ? ps_ctheme__color_speical
-                            : Theme.of(context).textTheme.body2.color))
+                            : Theme.of(context).textTheme.bodyText2.color))
               ],
             ),
             onTap: () async {

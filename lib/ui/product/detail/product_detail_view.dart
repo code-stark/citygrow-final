@@ -21,6 +21,7 @@ import 'package:digitalproductstore/provider/product/touch_count_provider.dart';
 import 'package:digitalproductstore/repository/basket_repository.dart';
 import 'package:digitalproductstore/repository/history_repsitory.dart';
 import 'package:digitalproductstore/repository/product_repository.dart';
+import 'package:digitalproductstore/ui/comment/list/comment_list_view.dart';
 import 'package:digitalproductstore/ui/common/base/ps_widget_with_multi_provider.dart';
 import 'package:digitalproductstore/ui/common/ps_back_button_with_circle_bg_widget.dart';
 import 'package:digitalproductstore/ui/common/ps_expansion_tile.dart';
@@ -394,6 +395,7 @@ class _ProductDetailState extends State<ProductDetailView>
                                   ),
                                   TermsAndPolicyTileView(),
                                   UserCommentTileView(
+                                    productList: widget.productList,
                                     productDetail: provider,
                                   ),
                                   RelatedProductsTileView(
@@ -433,107 +435,129 @@ class UserCommentTileView extends StatelessWidget {
   const UserCommentTileView({
     Key key,
     @required this.productDetail,
+    @required this.productList,
   }) : super(key: key);
-
+  final DocumentSnapshot productList;
   final ProductDetailProvider productDetail;
   @override
   Widget build(BuildContext context) {
     final Widget _expansionTileTitleWidget = Text(
         Utils.getString(context, 'user_comment_tile__user_comment'),
         style: Theme.of(context).textTheme.subhead);
-    if (productDetail != null) {
-      return Card(
-        elevation: 0.0,
-        child: PsExpansionTile(
-          initiallyExpanded: true,
-          title: _expansionTileTitleWidget,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                InkWell(
-                  onTap: () async {
-                    final dynamic returnData = await Navigator.pushNamed(
-                        context, RoutePaths.commentList,
-                        arguments: productDetail.productDetail.data);
+    if (productList.documentID != null) {
+      return StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection('comments')
+              .where('reference', isEqualTo: productList['Reference'])
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Card(
+              elevation: 0.0,
+              child: PsExpansionTile(
+                initiallyExpanded: true,
+                title: _expansionTileTitleWidget,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () async {
+                          // final dynamic returnData = await Navigator.pushNamed(
+                          //     context, RoutePaths.commentList,
+                          //     arguments: snapshot.data.documents);
 
-                    if (returnData != null && returnData) {
-                      // productDetail.loadProduct(
-                      //     productDetail.productDetail.data.id,
-                      //     productDetail.psValueHolder.loginUserId);
-                    }
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(ps_space_16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          Utils.getString(
-                              context, 'user_comment_tile__view_all_comment'),
-                          style: Theme.of(context)
-                              .textTheme
-                              .body1
-                              .copyWith(color: ps_ctheme__color_speical),
-                        ),
-                        GestureDetector(
-                            onTap: () async {
-                              final dynamic returnData =
-                                  await Navigator.pushNamed(
-                                      context, RoutePaths.commentList,
-                                      arguments:
-                                          productDetail.productDetail.data);
+                          // if (returnData != null && returnData) {
+                          //   // productDetail.loadProduct(
+                          //   //     productDetail.productDetail.data.id,
+                          //   //     productDetail.psValueHolder.loginUserId);
+                          // }
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      CommentListView(productList: productList,
+                                        commentsList: snapshot.data.documents,
+                                      )));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(ps_space_16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                Utils.getString(context,
+                                    'user_comment_tile__view_all_comment'),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .body1
+                                    .copyWith(color: ps_ctheme__color_speical),
+                              ),
+                              GestureDetector(
+                                  onTap: () async {
+                                    final dynamic returnData =
+                                        await Navigator.pushNamed(
+                                            context, RoutePaths.commentList,
+                                            arguments: productDetail
+                                                .productDetail.data);
 
-                              if (returnData) {
-                                // productDetail.loadProduct(
-                                //     productDetail.productDetail.data.id,
-                                //     productDetail.psValueHolder.loginUserId);
-                              }
-                            },
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              size: ps_space_16,
-                            )),
-                      ],
-                    ),
-                  ),
-                ),
-                InkWell(
-                    onTap: () async {
-                      final dynamic returnData = await Navigator.pushNamed(
-                          context, RoutePaths.commentList,
-                          arguments: productDetail.productDetail.data);
-
-                      if (returnData != null && returnData) {
-                        // productDetail.loadProduct(
-                        //     productDetail.productDetail.data.id,
-                        //     productDetail.psValueHolder.loginUserId);
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(ps_space_16),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              Utils.getString(
-                                  context, 'user_comment_tile__write_comment'),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(
-                                    color: ps_ctheme__color_speical,
-                                  ),
-                              textAlign: TextAlign.left,
-                            ),
+                                    if (returnData) {
+                                      // productDetail.loadProduct(
+                                      //     productDetail.productDetail.data.id,
+                                      //     productDetail.psValueHolder.loginUserId);
+                                    }
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: ps_space_16,
+                                  )),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ))
-              ],
-            ),
-          ],
-        ),
-      );
+                      InkWell(
+                          onTap: () async {
+                            final dynamic returnData =
+                                await Navigator.pushNamed(
+                                    context, RoutePaths.commentList,
+                                    arguments:
+                                        productDetail.productDetail.data);
+
+                            if (returnData != null && returnData) {
+                              // productDetail.loadProduct(
+                              //     productDetail.productDetail.data.id,
+                              //     productDetail.psValueHolder.loginUserId);
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(ps_space_16),
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    Utils.getString(context,
+                                        'user_comment_tile__write_comment'),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .copyWith(
+                                          color: ps_ctheme__color_speical,
+                                        ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ))
+                    ],
+                  ),
+                ],
+              ),
+            );
+          });
     } else {
       return const Card();
     }
@@ -1371,22 +1395,22 @@ class _HeaderButtonWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    // productDetail.favouriteCount ??
-                    '',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(
-                    height: ps_space_8,
-                  ),
-                  Text(
-                    Utils.getString(context, 'product_detail__whih_list'),
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
-              ),
+              // Column(
+              //   children: <Widget>[
+              //     Text(
+              //       // productDetail.favouriteCount ??
+              //       '',
+              //       style: Theme.of(context).textTheme.bodyText1,
+              //     ),
+              //     const SizedBox(
+              //       height: ps_space_8,
+              //     ),
+              //     Text(
+              //       Utils.getString(context, 'product_detail__whih_list'),
+              //       style: Theme.of(context).textTheme.caption,
+              //     ),
+              //   ],
+              // ),
               Column(
                 children: <Widget>[
                   Text(
@@ -1441,8 +1465,8 @@ class __AddToBasketAndBuyButtonWidgetState
     // basketRepo = Provider.of<BasketRepository>(context);
 
     if (widget.productList != null &&
-        widget.productList.data != null &&
-         widget.productList.documentID != null 
+            widget.productList.data != null &&
+            widget.productList.documentID != null
         // widget.basketProvider != null &&
         // widget.basketProvider.basketList != null &&
         // widget.basketProvider.basketList.data != null

@@ -252,7 +252,8 @@ class ImageAndTextWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 data.name,
-                style: Theme.of(context).textTheme.subhead.copyWith(
+                // 'aditya jha',
+                style: Theme.of(context).textTheme.subtitle2.copyWith(
                       color: ps_ctheme__color_speical,
                     ),
               ),
@@ -260,7 +261,8 @@ class ImageAndTextWidget extends StatelessWidget {
               InkWell(
                 child: Text(
                   data.aboutPhone1,
-                  style: Theme.of(context).textTheme.body1.copyWith(),
+                  // '8999855914',
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(),
                 ),
                 onTap: () async {
                   if (await canLaunch('tel://${data.aboutPhone1}')) {

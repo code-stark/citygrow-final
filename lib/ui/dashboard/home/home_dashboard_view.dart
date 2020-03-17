@@ -473,23 +473,23 @@ class _HomeLatestProductHorizontalListWidget extends StatelessWidget {
                                                               context,
                                                               RoutePaths
                                                                   .productDetail,
-                                                              arguments:
-                                                                  productProvider
-                                                                      .productList
-                                                                      .data[index]);
-                                                          Navigator
-                                                              .pushReplacement(
-                                                                  context,
-                                                                  MaterialPageRoute<
-                                                                          dynamic>(
-                                                                      builder: (BuildContext
-                                                                              context) =>
-                                                                          ProductDetailView(
-                                                                            product:
-                                                                                productProvider.productList.data[index],
-                                                                            productList:
-                                                                                snapshot.data.documents[index],
-                                                                          )));
+                                                              arguments: snapshot
+                                                                      .data
+                                                                      .documents[
+                                                                  index]);
+                                                          // Navigator
+                                                          //     .pushReplacement(
+                                                          //         context,
+                                                          //         MaterialPageRoute<
+                                                          //                 dynamic>(
+                                                          //             builder: (BuildContext
+                                                          //                     context) =>
+                                                          //                 ProductDetailView(
+                                                          //                   product:
+                                                          //                       productProvider.productList.data[index],
+                                                          //                   productList:
+                                                          //                       snapshot.data.documents[index],
+                                                          //                 )));
                                                           // Navigator.pushNamed(
                                                           //     context,
                                                           //     RoutePaths
@@ -1138,7 +1138,7 @@ class _DiscountProductHorizontalListWidget extends StatelessWidget {
                                                               .getLatestParameterHolder(),
                                                       appBarTitle: Utils.getString(
                                                           context,
-                                                          'dashboard__latest_product'),
+                                                          'dashboard__discount_product'),
                                                       productList: snapshot
                                                           .data.documents)));
                                       // Navigator.pushNamed(
@@ -1185,20 +1185,19 @@ class _DiscountProductHorizontalListWidget extends StatelessWidget {
                                                   //     .imgPath);
                                                   Navigator.pushNamed(context,
                                                       RoutePaths.productDetail,
-                                                      arguments: productProvider
-                                                          .productList
-                                                          .data[index]);
-                                                  Navigator.pushReplacement(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (BuildContext
-                                                                  context) =>
-                                                              ProductDetailView(
-                                                                productList: snapshot
-                                                                        .data
-                                                                        .documents[
-                                                                    index],
-                                                              )));
+                                                      arguments: snapshot.data
+                                                          .documents[index]);
+                                                  // Navigator.pushReplacement(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //         builder: (BuildContext
+                                                  //                 context) =>
+                                                  //             ProductDetailView(
+                                                  //               productList: snapshot
+                                                  //                       .data
+                                                  //                       .documents[
+                                                  //                   index],
+                                                  //             )));
                                                 },
                                               );
                                             }
@@ -1233,67 +1232,86 @@ class _HomeFeatureProductSliderListWidget extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Consumer<FeaturedProductProvider>(builder: (BuildContext context,
           FeaturedProductProvider productProvider, Widget child) {
-        return AnimatedBuilder(
-            animation: animationController,
-            builder: (BuildContext context, Widget child) {
-              return FadeTransition(
-                  opacity: animation,
-                  child: Transform(
-                      transform: Matrix4.translationValues(
-                          0.0, 100 * (1.0 - animation.value), 0.0),
-                      child: (productProvider.productList.data != null &&
-                              productProvider.productList.data.isNotEmpty)
-                          ? Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                _MyHeaderWidget(
-                                  headerName: Utils.getString(
-                                      context, 'dashboard__feature_product'),
-                                  viewAllClicked: () {
-                                    Navigator.pushNamed(
-                                        context, RoutePaths.filterProductList,
-                                        arguments: ProductListIntentHolder(
-                                            appBarTitle: Utils.getString(
-                                                context,
-                                                'dashboard__feature_product'),
-                                            productParameterHolder:
-                                                ProductParameterHolder()
-                                                    .getFeaturedParameterHolder()));
-                                  },
-                                ),
-                                Container(
-                                    decoration: BoxDecoration(
-                                      //color: Colors.grey[200],
-                                      boxShadow: <BoxShadow>[
-                                        BoxShadow(
-                                            color: Utils.isLightMode(context)
-                                                ? Colors.grey.withOpacity(0.5)
-                                                : Colors.black.withOpacity(0.5),
-                                            offset: const Offset(1.1, 1.1),
-                                            blurRadius: 15.0),
-                                      ],
-                                    ),
-                                    margin: const EdgeInsets.only(
-                                        top: ps_space_8, bottom: ps_space_20),
-                                    width: double.infinity,
-                                    child:
-                                        // Column(
-                                        //   mainAxisSize: MainAxisSize.max,
-                                        //   children: <Widget>[
-                                        FeatureProductSliderView(
-                                      featuredProductList:
-                                          productProvider.productList.data,
-                                      onTap: (Product product) {
-                                        Navigator.pushNamed(
-                                            context, RoutePaths.productDetail,
-                                            arguments: product);
-                                      },
-                                      //   ),
-                                      // ],
-                                    ))
-                              ],
-                            )
-                          : Container()));
+        return StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection('ProductListID')
+                .where('Featured Product', isEqualTo: true)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return AnimatedBuilder(
+                  animation: animationController,
+                  builder: (BuildContext context, Widget child) {
+                    return FadeTransition(
+                        opacity: animation,
+                        child: Transform(
+                            transform: Matrix4.translationValues(
+                                0.0, 100 * (1.0 - animation.value), 0.0),
+                            child: (productProvider.productList.data != null &&
+                                    productProvider.productList.data.isNotEmpty)
+                                ? Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      _MyHeaderWidget(
+                                        headerName: Utils.getString(context,
+                                            'dashboard__feature_product'),
+                                        viewAllClicked: () {
+                                          Navigator.pushNamed(context,
+                                              RoutePaths.filterProductList,
+                                              arguments: ProductListIntentHolder(
+                                                  appBarTitle: Utils.getString(
+                                                      context,
+                                                      'dashboard__feature_product'),
+                                                  productParameterHolder:
+                                                      ProductParameterHolder()
+                                                          .getFeaturedParameterHolder()));
+                                        },
+                                      ),
+                                      Container(
+                                          decoration: BoxDecoration(
+                                            //color: Colors.grey[200],
+                                            boxShadow: <BoxShadow>[
+                                              BoxShadow(
+                                                  color:
+                                                      Utils.isLightMode(context)
+                                                          ? Colors.grey
+                                                              .withOpacity(0.5)
+                                                          : Colors.black
+                                                              .withOpacity(0.5),
+                                                  offset:
+                                                      const Offset(1.1, 1.1),
+                                                  blurRadius: 15.0),
+                                            ],
+                                          ),
+                                          margin: const EdgeInsets.only(
+                                              top: ps_space_8,
+                                              bottom: ps_space_20),
+                                          width: double.infinity,
+                                          child:
+                                              // Column(
+                                              //   mainAxisSize: MainAxisSize.max,
+                                              //   children: <Widget>[
+                                              FeatureProductSliderView(
+                                            productList:
+                                                snapshot.data.documents,
+                                            featuredProductList: productProvider
+                                                .productList.data,
+                                            onTap: (DocumentSnapshot product) {
+                                              Navigator.pushNamed(context,
+                                                  RoutePaths.productDetail,
+                                                  arguments: product);
+                                            },
+                                            //   ),
+                                            // ],
+                                          ))
+                                    ],
+                                  )
+                                : Container()));
+                  });
             });
       }),
     );

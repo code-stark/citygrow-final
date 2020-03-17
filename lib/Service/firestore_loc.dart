@@ -36,4 +36,9 @@ class FirebaseBloc {
     final String uuid = Uuid().v1();
     firestore.collection("rating").document(uuid).setData(data);
   }
+
+  void commentData(data) {
+    final String uuid = Uuid().v1();
+    firestore.collection("comments").document(uuid).setData(data);
+  }
 }
