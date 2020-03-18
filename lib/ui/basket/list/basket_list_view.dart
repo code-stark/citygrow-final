@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digitalproductstore/Service/firestore_loc.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
+import 'package:digitalproductstore/locator.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/provider/basket/basket_provider.dart';
 import 'package:digitalproductstore/repository/basket_repository.dart';
 import 'package:digitalproductstore/ui/common/dialog/error_dialog.dart';
@@ -31,6 +35,7 @@ class _BasketListViewState extends State<BasketListView>
   Widget build(BuildContext context) {
     data = EasyLocalizationProvider.of(context).data;
     basketRepo = Provider.of<BasketRepository>(context);
+    final Users users = Provider.of<Users>(context);
     return EasyLocalizationProvider(
         data: data,
         child: ChangeNotifierProvider<BasketProvider>(
@@ -39,117 +44,141 @@ class _BasketListViewState extends State<BasketListView>
             provider.loadBasketList();
             return provider;
           },
-          child: Consumer<BasketProvider>(builder:
-              (BuildContext context, BasketProvider provider, Widget child) {
-            if (provider.basketList != null &&
-                provider.basketList.data != null) {
-              if (provider.basketList.data.isNotEmpty) {
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                          child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: provider.basketList.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final int count = provider.basketList.data.length;
-                          widget.animationController.forward();
-                          return BasketListItemView(
-                              animationController: widget.animationController,
-                              animation:
-                                  Tween<double>(begin: 0.0, end: 1.0).animate(
-                                CurvedAnimation(
-                                  parent: widget.animationController,
-                                  curve: Interval((1 / count) * index, 1.0,
-                                      curve: Curves.fastOutSlowIn),
-                                ),
-                              ),
-                              basket: provider.basketList.data[index],
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, RoutePaths.productDetail,
-                                    arguments: provider.basketList.data[index]);
-                              },
-                              onDeleteTap: () {
-                                provider.deleteBasketByProduct(
-                                    provider.basketList.data[index]);
-                              });
-                        },
-                      )),
-                    ),
-                    _CheckoutButtonWidget(provider: provider),
-                  ],
-                );
-              } else {
-                widget.animationController.forward();
-                final Animation<double> animation =
-                    Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-                        parent: widget.animationController,
-                        curve: const Interval(0.5 * 1, 1.0,
-                            curve: Curves.fastOutSlowIn)));
-                return AnimatedBuilder(
-                  animation: widget.animationController,
-                  builder: (BuildContext context, Widget child) {
-                    return FadeTransition(
-                        opacity: animation,
-                        child: Transform(
-                          transform: Matrix4.translationValues(
-                              0.0, 100 * (1.0 - animation.value), 0.0),
-                          child: SingleChildScrollView(
+          child: StreamBuilder<QuerySnapshot>(
+              stream: Firestore.instance
+                  .collection('AppUsers')
+                  .document(users.uid)
+                  .collection('cart')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                return Consumer<BasketProvider>(builder: (BuildContext context,
+                    BasketProvider provider, Widget child) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.data.documents != null &&
+                      snapshot.data.documents.length != null) {
+                    if (snapshot.data.documents.isNotEmpty) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Expanded(
                             child: Container(
-                              height: MediaQuery.of(context).size.height,
-                              padding:
-                                  const EdgeInsets.only(bottom: ps_space_120),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Image.asset(
-                                    'assets/images/empty_basket.png',
-                                    height: 150,
-                                    width: 200,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  const SizedBox(
-                                    height: ps_space_32,
-                                  ),
-                                  Text(
-                                    Utils.getString(context,
-                                        'basket_list__empty_cart_title'),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .body2
-                                        .copyWith(),
-                                  ),
-                                  const SizedBox(
-                                    height: ps_space_20,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                        Utils.getString(context,
-                                            'basket_list__empty_cart_description'),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .body1
-                                            .copyWith(),
-                                        textAlign: TextAlign.center),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.documents.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final int count =
+                                    snapshot.data.documents.length;
+                                widget.animationController.forward();
+                                return BasketListItemView(
+                                    cartList: snapshot.data.documents[index],
+                                    animationController:
+                                        widget.animationController,
+                                    animation:
+                                        Tween<double>(begin: 0.0, end: 1.0)
+                                            .animate(
+                                      CurvedAnimation(
+                                        parent: widget.animationController,
+                                        curve: Interval(
+                                            (1 / count) * index, 1.0,
+                                            curve: Curves.fastOutSlowIn),
+                                      ),
+                                    ),
+                                    // basket: provider.basketList.data[index],
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, RoutePaths.productDetail,
+                                          arguments:
+                                              snapshot.data.documents[index]);
+                                    },
+                                    onDeleteTap: () {
+                                      sl.get<FirebaseBloc>().deleteBasket(
+                                          snapshot
+                                              .data.documents[index].documentID,
+                                          users.uid);
+                                    });
+                              },
+                            )),
                           ),
-                        ));
-                  },
-                );
-              }
-            } else {
-              return Container();
-            }
-          }),
+                          _CheckoutButtonWidget(provider: provider),
+                        ],
+                      );
+                    } else {
+                      widget.animationController.forward();
+                      final Animation<double> animation =
+                          Tween<double>(begin: 0.0, end: 1.0).animate(
+                              CurvedAnimation(
+                                  parent: widget.animationController,
+                                  curve: const Interval(0.5 * 1, 1.0,
+                                      curve: Curves.fastOutSlowIn)));
+                      return AnimatedBuilder(
+                        animation: widget.animationController,
+                        builder: (BuildContext context, Widget child) {
+                          return FadeTransition(
+                              opacity: animation,
+                              child: Transform(
+                                transform: Matrix4.translationValues(
+                                    0.0, 100 * (1.0 - animation.value), 0.0),
+                                child: SingleChildScrollView(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height,
+                                    padding: const EdgeInsets.only(
+                                        bottom: ps_space_120),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Image.asset(
+                                          'assets/images/empty_basket.png',
+                                          height: 150,
+                                          width: 200,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        const SizedBox(
+                                          height: ps_space_32,
+                                        ),
+                                        Text(
+                                          Utils.getString(context,
+                                              'basket_list__empty_cart_title'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .body2
+                                              .copyWith(),
+                                        ),
+                                        const SizedBox(
+                                          height: ps_space_20,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                              Utils.getString(context,
+                                                  'basket_list__empty_cart_description'),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .body1
+                                                  .copyWith(),
+                                              textAlign: TextAlign.center),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ));
+                        },
+                      );
+                    }
+                  } else {
+                    return Container();
+                  }
+                });
+              }),
         ));
   }
 }
@@ -235,8 +264,7 @@ class _CheckoutButtonWidget extends StatelessWidget {
               color: ps_ctheme__color_speical,
               onPressed: () async {
                 if (await utilsCheckInternetConnectivity()) {
-                  utilsNavigateOnUserVerificationView(context,
-                      () async {
+                  utilsNavigateOnUserVerificationView(context, () async {
                     await Navigator.pushNamed(context, RoutePaths.checkout,
                         arguments: CheckoutIntentHolder(
                             productList: provider.basketList.data,

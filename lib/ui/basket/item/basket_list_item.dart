@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/utils/utils.dart';
@@ -11,7 +12,8 @@ class BasketListItemView extends StatelessWidget {
       this.onTap,
       this.onDeleteTap,
       this.animationController,
-      this.animation})
+      this.animation,
+      @required this.cartList})
       : super(key: key);
 
   final Product basket;
@@ -19,10 +21,10 @@ class BasketListItemView extends StatelessWidget {
   final Function onDeleteTap;
   final AnimationController animationController;
   final Animation<double> animation;
-
+  final DocumentSnapshot cartList;
   @override
   Widget build(BuildContext context) {
-    if (basket != null) {
+    if (cartList.data != null) {
       return AnimatedBuilder(
           animation: animationController,
           builder: (BuildContext context, Widget child) {
@@ -37,7 +39,7 @@ class BasketListItemView extends StatelessWidget {
                     elevation: 0.3,
                     margin: const EdgeInsets.symmetric(
                         horizontal: ps_space_12, vertical: ps_space_4),
-                    child: _ImageAndTextWidget(
+                    child: _ImageAndTextWidget(cartList: cartList,
                       basket: basket,
                       onDeleteTap: onDeleteTap,
                     ),
@@ -57,20 +59,22 @@ class _ImageAndTextWidget extends StatelessWidget {
     Key key,
     @required this.basket,
     @required this.onDeleteTap,
+    @required this.cartList,
   }) : super(key: key);
-
+  final DocumentSnapshot cartList;
   final Product basket;
   final Function onDeleteTap;
   @override
   Widget build(BuildContext context) {
-    if (basket != null && basket != null) {
+    if (cartList.data != null && cartList.data.length != null) {
       return Row(
         children: <Widget>[
           PsNetworkImage(
+            firebasePhoto: cartList.data['images'][0],
             photoKey: '',
             width: ps_space_60,
             height: ps_space_60,
-            defaultPhoto: basket.defaultPhoto,
+            // defaultPhoto: basket.defaultPhoto,
             boxfit: BoxFit.fitHeight,
           ),
           const SizedBox(
@@ -85,14 +89,14 @@ class _ImageAndTextWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: ps_space_8),
                   child: Text(
-                    basket.name,
+                   cartList.data['ProductName'],
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.subhead.copyWith(),
                   ),
                 ),
                 Text(
-                  'Price  ${basket.currencySymbol} ${Utils.getPriceFormat(basket.unitPrice)}',
-                  style: Theme.of(context).textTheme.body1.copyWith(),
+                  'Price   ₹ ${cartList.data['price']}',
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(),
                 ),
               ],
             ),

@@ -36,9 +36,30 @@ class FirebaseBloc {
     final String uuid = Uuid().v1();
     firestore.collection("rating").document(uuid).setData(data);
   }
+//! Comments data
 
   void commentData(data) {
     final String uuid = Uuid().v1();
     firestore.collection("comments").document(uuid).setData(data);
   }
+
+  //! basketStore
+  void uploadBasket(data, String uid, String productUid) async {
+    final String uuid = Uuid().v1();
+    await firestore
+        .collection("AppUsers")
+        .document(uid)
+        .collection('cart')
+        .document(uuid)
+        .setData(data);
+  }
+    void deleteBasket(uuids, String uid) {
+    firestore
+        .collection("AppUsers")
+        .document(uid)
+        .collection('cart')
+        .document(uuids)
+        .delete();
+  }
+
 }

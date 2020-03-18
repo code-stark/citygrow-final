@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
@@ -577,63 +578,80 @@ class _HomeViewState extends State<DashboardView>
                 return provider;
               }, child: Consumer<BasketProvider>(builder: (BuildContext context,
                       BasketProvider basketProvider, Widget child) {
-                return Stack(
-                  children: <Widget>[
-                    Container(
-                      width: ps_space_40,
-                      height: ps_space_40,
-                      margin: const EdgeInsets.only(
-                          top: ps_space_8, left: ps_space_8, right: ps_space_8),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black38,
-                      ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Icon(
-                          Icons.shopping_basket,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Container(
-                          width: ps_space_40,
-                          height: ps_space_40,
-                          margin: const EdgeInsets.only(
-                              top: ps_space_8,
-                              left: ps_space_8,
-                              right: ps_space_8),
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.black54,
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              basketProvider.basketList.data.length > 99
-                                  ? '99+'
-                                  : basketProvider.basketList.data.length
-                                      .toString(),
-                              textAlign: TextAlign.left,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline
-                                  .copyWith(
-                                      fontSize: ps_space_16,
-                                      color: Colors.white),
-                              maxLines: 1,
+                final Users users = Provider.of<Users>(context);
+
+                return StreamBuilder<QuerySnapshot>(
+                    stream: Firestore.instance
+                        .collection('AppUsers')
+                        .document(users.uid)
+                        .collection('cart')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return Stack(
+                        children: <Widget>[
+                          Container(
+                            width: ps_space_40,
+                            height: ps_space_40,
+                            margin: const EdgeInsets.only(
+                                top: ps_space_8,
+                                left: ps_space_8,
+                                right: ps_space_8),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.black38,
+                            ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.shopping_basket,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RoutePaths.basketList,
-                          );
-                        }),
-                  ],
-                );
+                          InkWell(
+                              child: Container(
+                                width: ps_space_40,
+                                height: ps_space_40,
+                                margin: const EdgeInsets.only(
+                                    top: ps_space_8,
+                                    left: ps_space_8,
+                                    right: ps_space_8),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black54,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    snapshot.data.documents.length > 99
+                                        ? '99+'
+                                        : snapshot.data.documents.length
+                                            .toString(),
+                                    textAlign: TextAlign.left,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline
+                                        .copyWith(
+                                            fontSize: ps_space_16,
+                                            color: Colors.white),
+                                    maxLines: 1,
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RoutePaths.basketList,
+                                );
+                              }),
+                        ],
+                      );
+                    });
               })),
             ],
           ),
@@ -1051,7 +1069,8 @@ class _HomeViewState extends State<DashboardView>
                   ),
                   CustomScrollView(scrollDirection: Axis.vertical, slivers: <
                       Widget>[
-                    RegisterView(buildContexts: context,
+                    RegisterView(
+                        buildContexts: context,
                         animationController: animationController,
                         onRegisterSelected: () {
                           if (_currentIndex ==

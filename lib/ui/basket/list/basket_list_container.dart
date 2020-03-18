@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/utils/utils.dart';
@@ -9,7 +10,7 @@ class BasketListContainerView extends StatefulWidget {
   _CityBasketListContainerViewState createState() =>
       _CityBasketListContainerViewState();
 }
-
+// final DocumentSnapshot productSnapshot;
 class _CityBasketListContainerViewState extends State<BasketListContainerView>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -269,159 +270,175 @@ class _ProductDetailState extends State<ProductDetailView>
                   return Consumer<BasketProvider>(builder:
                       (BuildContext context, BasketProvider basketProvider,
                           Widget child) {
-                    return Stack(
-                      children: <Widget>[
-                        CustomScrollView(slivers: <Widget>[
-                          SliverAppBar(
-                            automaticallyImplyLeading: true,
-                            brightness: Utils.getBrightnessForAppBar(context),
-                            expandedHeight: ps_space_300,
-                            iconTheme: Theme.of(context).iconTheme,
-                            leading: const PsBackButtonWithCircleBgWidget(),
-                            floating: false,
-                            pinned: false,
-                            stretch: true,
-                            actions: <Widget>[
-                              Stack(
-                                children: <Widget>[
-                                  Container(
-                                    width: ps_space_40,
-                                    height: ps_space_40,
-                                    margin: const EdgeInsets.only(
-                                        top: ps_space_8,
-                                        left: ps_space_8,
-                                        right: ps_space_8),
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.black38,
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Icon(
-                                        Icons.shopping_basket,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                      child: Container(
-                                        width: ps_space_40,
-                                        height: ps_space_40,
-                                        margin: const EdgeInsets.only(
-                                            top: ps_space_8,
-                                            left: ps_space_8,
-                                            right: ps_space_8),
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.black54,
-                                        ),
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            basketProvider.basketList.data
-                                                        .length >
-                                                    99
-                                                ? '99+'
-                                                : basketProvider
-                                                    .basketList.data.length
-                                                    .toString(),
-                                            textAlign: TextAlign.left,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline
-                                                .copyWith(
-                                                    fontSize: ps_space_16,
-                                                    color: Colors.white),
-                                            maxLines: 1,
+                    return StreamBuilder<QuerySnapshot>(
+                        stream: Firestore.instance
+                            .collection('AppUsers')
+                            .document(users.uid)
+                            .collection('cart')
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return Stack(
+                            children: <Widget>[
+                              CustomScrollView(slivers: <Widget>[
+                                SliverAppBar(
+                                  automaticallyImplyLeading: true,
+                                  brightness:
+                                      Utils.getBrightnessForAppBar(context),
+                                  expandedHeight: ps_space_300,
+                                  iconTheme: Theme.of(context).iconTheme,
+                                  leading:
+                                      const PsBackButtonWithCircleBgWidget(),
+                                  floating: false,
+                                  pinned: false,
+                                  stretch: true,
+                                  actions: <Widget>[
+                                    Stack(
+                                      children: <Widget>[
+                                        Container(
+                                          width: ps_space_40,
+                                          height: ps_space_40,
+                                          margin: const EdgeInsets.only(
+                                              top: ps_space_8,
+                                              left: ps_space_8,
+                                              right: ps_space_8),
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.black38,
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Icon(
+                                              Icons.shopping_basket,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
+                                        InkWell(
+                                            child: Container(
+                                              width: ps_space_40,
+                                              height: ps_space_40,
+                                              margin: const EdgeInsets.only(
+                                                  top: ps_space_8,
+                                                  left: ps_space_8,
+                                                  right: ps_space_8),
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.black54,
+                                              ),
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                 snapshot.data.documents.length >
+                                                          99
+                                                      ? '99+'
+                                                      : snapshot.data.documents.length
+                                                          .toString(),
+                                                  textAlign: TextAlign.left,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headline
+                                                      .copyWith(
+                                                          fontSize: ps_space_16,
+                                                          color: Colors.white),
+                                                  maxLines: 1,
+                                                ),
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                context,
+                                                RoutePaths.basketList,
+                                              );
+                                            }),
+                                      ],
+                                    )
+                                  ],
+                                  backgroundColor: Utils.isLightMode(context)
+                                      ? ps_ctheme__color_speical
+                                      : Colors.black,
+                                  flexibleSpace: FlexibleSpaceBar(
+                                    background: Container(
+                                      color: Utils.isLightMode(context)
+                                          ? Colors.grey[100]
+                                          : Colors.grey[900],
+                                      child: PsNetworkImage(
+                                        firebasePhoto:
+                                            widget.productList['images'],
+                                        photoKey: '',
+                                        // defaultPhoto: widget.product.defaultPhoto,
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        boxfit: BoxFit.fitHeight,
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute<dynamic>(
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          GalleryGridView(
+                                                            product:
+                                                                widget.product,
+                                                            productList: widget
+                                                                .productList,
+                                                          )));
+                                          // Navigator.pushNamed(
+                                          //     context, RoutePaths.galleryGrid,
+                                          //     arguments: widget.product);
+                                        },
                                       ),
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          RoutePaths.basketList,
-                                        );
-                                      }),
-                                ],
-                              )
-                            ],
-                            backgroundColor: Utils.isLightMode(context)
-                                ? ps_ctheme__color_speical
-                                : Colors.black,
-                            flexibleSpace: FlexibleSpaceBar(
-                              background: Container(
-                                color: Utils.isLightMode(context)
-                                    ? Colors.grey[100]
-                                    : Colors.grey[900],
-                                child: PsNetworkImage(
-                                  firebasePhoto: widget.productList['images'],
-                                  photoKey: '',
-                                  // defaultPhoto: widget.product.defaultPhoto,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  boxfit: BoxFit.fitHeight,
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute<dynamic>(
-                                            builder: (BuildContext context) =>
-                                                GalleryGridView(
-                                                  product: widget.product,
-                                                  productList:
-                                                      widget.productList,
-                                                )));
-                                    // Navigator.pushNamed(
-                                    //     context, RoutePaths.galleryGrid,
-                                    //     arguments: widget.product);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                          SliverList(
-                            delegate: SliverChildListDelegate(<Widget>[
-                              Container(
-                                color: Utils.isLightMode(context)
-                                    ? Colors.grey[100]
-                                    : Colors.black87,
-                                child: Column(children: <Widget>[
-                                  _HeaderBoxWidget(
-                                    productList: widget.productList,
-                                    // productDetail: provider,
-                                    product: widget.product,
-                                  ),
-                                  DetailInfoTileView(
-                                    productDetail: provider,
-                                  ),
-                                  TermsAndPolicyTileView(),
-                                  UserCommentTileView(
-                                    productList: widget.productList,
-                                    productDetail: provider,
-                                  ),
-                                  RelatedProductsTileView(
-                                    productDetail: provider,
-                                  ),
-                                  if (widget.productList['images'] != '0')
-                                    const SizedBox(
-                                      height: ps_space_40,
                                     ),
-                                ]),
-                              ) //)
-                            ]),
-                          )
-                        ]),
-                        if (widget.productList['price'] != '0')
-                          _AddToBasketAndBuyButtonWidget(
-                            productList: widget.productList,
-                            productProvider: provider,
-                            basketProvider: basketProvider,
-                            product: widget.product,
-                            psValueHolder: psValueHolder,
-                          )
-                        else
-                          Container(),
-                      ],
-                    );
+                                  ),
+                                ),
+                                SliverList(
+                                  delegate: SliverChildListDelegate(<Widget>[
+                                    Container(
+                                      color: Utils.isLightMode(context)
+                                          ? Colors.grey[100]
+                                          : Colors.black87,
+                                      child: Column(children: <Widget>[
+                                        _HeaderBoxWidget(
+                                          productList: widget.productList,
+                                          // productDetail: provider,
+                                          product: widget.product,
+                                        ),
+                                        DetailInfoTileView(
+                                          productDetail: provider,
+                                        ),
+                                        TermsAndPolicyTileView(),
+                                        UserCommentTileView(
+                                          productList: widget.productList,
+                                          productDetail: provider,
+                                        ),
+                                        RelatedProductsTileView(
+                                          productDetail: provider,
+                                        ),
+                                        if (widget.productList['images'] != '0')
+                                          const SizedBox(
+                                            height: ps_space_40,
+                                          ),
+                                      ]),
+                                    ) //)
+                                  ]),
+                                )
+                              ]),
+                              if (widget.productList['price'] != '0')
+                                _AddToBasketAndBuyButtonWidget(
+                                  productList: widget.productList,
+                                  productProvider: provider,
+                                  basketProvider: basketProvider,
+                                  product: widget.product,
+                                  psValueHolder: psValueHolder,
+                                )
+                              else
+                                Container(),
+                            ],
+                          );
+                        });
                   });
                 } else {
                   return Container();
@@ -479,7 +496,8 @@ class UserCommentTileView extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      CommentListView(productList: productList,
+                                      CommentListView(
+                                        productList: productList,
                                         commentsList: snapshot.data.documents,
                                       )));
                         },
@@ -518,40 +536,41 @@ class UserCommentTileView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      InkWell(
-                          onTap: () async {
-                            final dynamic returnData =
-                                await Navigator.pushNamed(
-                                    context, RoutePaths.commentList,
-                                    arguments:
-                                        productDetail.productDetail.data);
+                      // InkWell(
+                      //     onTap: () async {
+                      //       final dynamic returnData =
+                      //           await Navigator.pushNamed(
+                      //               context, RoutePaths.commentList,
+                      //               arguments:
+                      //                   productDetail.productDetail.data);
 
-                            if (returnData != null && returnData) {
-                              // productDetail.loadProduct(
-                              //     productDetail.productDetail.data.id,
-                              //     productDetail.psValueHolder.loginUserId);
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(ps_space_16),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  child: Text(
-                                    Utils.getString(context,
-                                        'user_comment_tile__write_comment'),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .copyWith(
-                                          color: ps_ctheme__color_speical,
-                                        ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ))
+                      //       if (returnData != null && returnData) {
+                      //         // productDetail.loadProduct(
+                      //         //     productDetail.productDetail.data.id,
+                      //         //     productDetail.psValueHolder.loginUserId);
+                      //       }
+                      //     },
+                      //     // child: Padding(
+                      //     //   padding: const EdgeInsets.all(ps_space_16),
+                      //     //   child: Row(
+                      //     //     children: <Widget>[
+                      //     //       Container(
+                      //     //         child: Text(
+                      //     //           Utils.getString(context,
+                      //     //               'user_comment_tile__write_comment'),
+                      //     //           style: Theme.of(context)
+                      //     //               .textTheme
+                      //     //               .bodyText1
+                      //     //               .copyWith(
+                      //     //                 color: ps_ctheme__color_speical,
+                      //     //               ),
+                      //     //           textAlign: TextAlign.left,
+                      //     //         ),
+                      //     //       ),
+                      //     //     ],
+                      //     //   ),
+                      //     // )
+                      //     )
                     ],
                   ),
                 ],
@@ -882,14 +901,18 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
 }
 
 class _HeaderRatingWidget extends StatelessWidget {
-  const _HeaderRatingWidget({
+  _HeaderRatingWidget({
     Key key,
     @required this.productDetail,
     @required this.productref,
   }) : super(key: key);
   final DocumentSnapshot productref;
   final ProductDetailProvider productDetail;
-
+  List<double> onestar = [];
+  List<double> twostar = [];
+  List<double> threestar = [];
+  List<double> fourstar = [];
+  List<double> fivestar = [];
   @override
   Widget build(BuildContext context) {
     dynamic result;
@@ -897,6 +920,46 @@ class _HeaderRatingWidget extends StatelessWidget {
         productref.data != null &&
         productref.documentID != null &&
         productref['price'] != null) {
+      Firestore.instance
+          .collection('rating')
+          .where('reference', isEqualTo: productref['Reference'])
+          .where('rating', isEqualTo: 1)
+          .snapshots()
+          .listen((event) =>
+              event.documents.forEach((e) => onestar.add(e['rating'])));
+
+      Firestore.instance
+          .collection('rating')
+          .where('reference', isEqualTo: productref['Reference'])
+          .where('rating', isEqualTo: 2)
+          .snapshots()
+          .listen((event) =>
+              event.documents.forEach((e) => twostar.add(e['rating'])));
+
+      Firestore.instance
+          .collection('rating')
+          .where('reference', isEqualTo: productref['Reference'])
+          .where('rating', isEqualTo: 3)
+          .snapshots()
+          .listen((event) =>
+              event.documents.forEach((e) => threestar.add(e['rating'])));
+
+      Firestore.instance
+          .collection('rating')
+          .where('reference', isEqualTo: productref['Reference'])
+          .where('rating', isEqualTo: 4)
+          .snapshots()
+          .listen((event) =>
+              event.documents.forEach((e) => fourstar.add(e['rating'])));
+
+      Firestore.instance
+          .collection('rating')
+          .where('reference', isEqualTo: productref['Reference'])
+          .where('rating', isEqualTo: 5)
+          .snapshots()
+          .listen((event) =>
+              event.documents.forEach((e) => fivestar.add(e['rating'])));
+      int hi;
       return StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance
               .collection('rating')
@@ -908,6 +971,47 @@ class _HeaderRatingWidget extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
+            stars(i) {
+              final numbers = (5 * fivestar.length +
+                      4 * fourstar.length +
+                      3 * threestar.length +
+                      2 * twostar.length +
+                      1 * onestar.length) /
+                  (fivestar.length +
+                          fourstar.length +
+                          threestar.length +
+                          twostar.length +
+                          onestar.length)
+                      .toDouble();
+              return numbers;
+            }
+            // stars(i) {
+            //   return (fivestar[i] * fivestar.length +
+            //           fourstar[i] * fourstar.length +
+            //           threestar[i] * threestar.length +
+            //           twostar[i] * twostar.length +
+            //           onestar[i] * onestar.length) /
+            //       (fivestar.length +
+            //           fourstar.length +
+            //           threestar.length +
+            //           twostar.length +
+            //           onestar.length).toDouble();
+            // }
+            // final ratinf =
+            //     ratingsnap.data.documents.map((e) => e.data['rating']).toList();
+            // final List<double> values = [];
+            // ratinf.forEach((element) => values.add(element));
+
+            // for (var i = 0; i < values.length; i++) {
+            //   print(values[i]);
+            // ;
+            //   print(list);
+            // }
+            // final list = List.filled(ratingsnap.data.documents.length, 1);
+            // print(list);
+            List.generate(
+                ratingsnap.data.documents.length, (index) => index = hi);
+
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -915,8 +1019,19 @@ class _HeaderRatingWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    // for (var i = 0; i < ratingsnap.data.documents.length; i++)
                     SmoothStarRating(
-                        rating: 4.4,
+                        rating: stars(hi).isNaN ? 0 : stars(hi),
+                        // rating: (fivestar[i] * fivestar.length +
+                        //         fourstar[i] * fourstar.length +
+                        //         threestar[i] * threestar.length +
+                        //         twostar[i] * twostar.length +
+                        //         onestar[i] * onestar.length) /
+                        //     (fivestar.length +
+                        //         fourstar.length +
+                        //         threestar.length +
+                        //         twostar.length +
+                        //         onestar.length),
                         allowHalfRating: false,
                         starCount: 5,
                         size: ps_space_16,
@@ -947,15 +1062,20 @@ class _HeaderRatingWidget extends StatelessWidget {
                     GestureDetector(
                         onTap: () async {
                           print('Click');
-                          result = await Navigator.pushNamed(
-                              context, RoutePaths.ratingList,
-                              arguments: productDetail.productDetail.data.id);
-
-                          if (result != null && result) {
-                            // productDetail.loadProduct(
-                            //     productDetail.productDetail.data.id,
-                            //     productDetail.psValueHolder.loginUserId);
-                          }
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute<dynamic>(
+                                  builder: (BuildContext context) =>
+                                      RatingListView(
+                                        // productDetailid:
+                                        //     productDetail.productDetail.data.id,
+                                        productList: productref,
+                                      )));
+                          // if (result != null && result) {
+                          //   // productDetail.loadProduct(
+                          //   //     productDetail.productDetail.data.id,
+                          //   //     productDetail.psValueHolder.loginUserId);
+                          // }
                         },
                         child: (ratingsnap.data.documents.length != 0)
                             ? Row(
@@ -1371,65 +1491,77 @@ class _HeaderButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (productList != null) {
-      return Card(
-        elevation: 0.0,
-        child: Padding(
-          padding: const EdgeInsets.only(top: ps_space_10, bottom: ps_space_10),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    // productDetail.commentHeaderCount ??
-                    '',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(
-                    height: ps_space_8,
-                  ),
-                  Text(
-                    Utils.getString(context, 'product_detail__comments'),
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
+      return StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection('comments')
+              .where('reference', isEqualTo: productList['Reference'])
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Card(
+              elevation: 0.0,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: ps_space_10, bottom: ps_space_10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          snapshot.data.documents.length.toString() ?? '',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        const SizedBox(
+                          height: ps_space_8,
+                        ),
+                        Text(
+                          Utils.getString(context, 'product_detail__comments'),
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      ],
+                    ),
+                    // Column(
+                    //   children: <Widget>[
+                    //     Text(
+                    //       // productDetail.favouriteCount ??
+                    //       '',
+                    //       style: Theme.of(context).textTheme.bodyText1,
+                    //     ),
+                    //     const SizedBox(
+                    //       height: ps_space_8,
+                    //     ),
+                    //     Text(
+                    //       Utils.getString(context, 'product_detail__whih_list'),
+                    //       style: Theme.of(context).textTheme.caption,
+                    //     ),
+                    //   ],
+                    // ),
+                    Column(
+                      children: <Widget>[
+                        Text(
+                          productList.data['views']?.toString() ?? '0',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        const SizedBox(
+                          height: ps_space_8,
+                        ),
+                        Text(
+                          Utils.getString(context, 'product_detail__seen'),
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-              // Column(
-              //   children: <Widget>[
-              //     Text(
-              //       // productDetail.favouriteCount ??
-              //       '',
-              //       style: Theme.of(context).textTheme.bodyText1,
-              //     ),
-              //     const SizedBox(
-              //       height: ps_space_8,
-              //     ),
-              //     Text(
-              //       Utils.getString(context, 'product_detail__whih_list'),
-              //       style: Theme.of(context).textTheme.caption,
-              //     ),
-              //   ],
-              // ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    productList.data['views']?.toString() ?? '0',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(
-                    height: ps_space_8,
-                  ),
-                  Text(
-                    Utils.getString(context, 'product_detail__seen'),
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      );
+            );
+          });
     } else {
       return const Card();
     }
@@ -1463,7 +1595,7 @@ class __AddToBasketAndBuyButtonWidgetState
   @override
   Widget build(BuildContext context) {
     // basketRepo = Provider.of<BasketRepository>(context);
-
+    final Users users = Provider.of<Users>(context);
     if (widget.productList != null &&
             widget.productList.data != null &&
             widget.productList.documentID != null
@@ -1586,16 +1718,19 @@ class __AddToBasketAndBuyButtonWidgetState
                           .copyWith(color: Colors.white)
                           .color,
                       onPressed: () async {
-                        await widget.basketProvider.addBasketList(
-                            widget.productProvider.productDetail.data);
-                        final dynamic result = await Navigator.pushNamed(
+                        // await widget.basketProvider.addBasketList(
+                        //     widget.productProvider.productDetail.data);
+                        sl.get<FirebaseBloc>().uploadBasket(
+                            widget.productList.data,
+                            users.uid,
+                            widget.productList.documentID);
+                        await Navigator.pushNamed(
                             context, RoutePaths.basketList,
-                            arguments:
-                                widget.productProvider.productDetail.data);
-                        if (result) {
-                          // widget.productProvider.loadProduct(widget.product.id,
-                          //     widget.psValueHolder.loginUserId);
-                        }
+                            arguments: widget.productList);
+                        // if (result) {
+                        //   // widget.productProvider.loadProduct(widget.product.id,
+                        //   //     widget.psValueHolder.loginUserId);
+                        // }
                       },
                     ),
                   ),
