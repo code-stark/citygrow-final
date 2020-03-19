@@ -1260,15 +1260,21 @@ class _HomeFeatureProductSliderListWidget extends StatelessWidget {
                                         headerName: Utils.getString(context,
                                             'dashboard__feature_product'),
                                         viewAllClicked: () {
-                                          Navigator.pushNamed(context,
-                                              RoutePaths.filterProductList,
-                                              arguments: ProductListIntentHolder(
-                                                  appBarTitle: Utils.getString(
-                                                      context,
-                                                      'dashboard__feature_product'),
-                                                  productParameterHolder:
-                                                      ProductParameterHolder()
-                                                          .getFeaturedParameterHolder()));
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (BuildContext context) =>
+                                                      ProductListWithFilterContainerView(
+                                                          productParameterHolder:
+                                                              ProductParameterHolder()
+                                                                  .getLatestParameterHolder(),
+                                                          appBarTitle:
+                                                              Utils.getString(
+                                                                  context,
+                                                                  'dashboard__feature_product'),
+                                                          productList: snapshot
+                                                              .data
+                                                              .documents)));
                                         },
                                       ),
                                       Container(
@@ -1298,8 +1304,8 @@ class _HomeFeatureProductSliderListWidget extends StatelessWidget {
                                               FeatureProductSliderView(
                                             productList:
                                                 snapshot.data.documents,
-                                            featuredProductList: productProvider
-                                                .productList.data,
+                                            // featuredProductList: productProvider
+                                            //     .productList.data,
                                             onTap: (DocumentSnapshot product) {
                                               Navigator.pushNamed(context,
                                                   RoutePaths.productDetail,

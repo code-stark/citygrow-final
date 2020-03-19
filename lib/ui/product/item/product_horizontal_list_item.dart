@@ -8,7 +8,7 @@ import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/product.dart';
 
-class ProductHorizontalListItem extends StatelessWidget {
+class ProductHorizontalListItem extends StatefulWidget {
   ProductHorizontalListItem({
     Key key,
     @required this.productList,
@@ -19,21 +19,32 @@ class ProductHorizontalListItem extends StatelessWidget {
   final Product product;
   final DocumentSnapshot productList;
   final Function onTap;
+
+  @override
+  _ProductHorizontalListItemState createState() => _ProductHorizontalListItemState();
+}
+
+class _ProductHorizontalListItemState extends State<ProductHorizontalListItem> {
   List<double> onestar = [];
+
   List<double> twostar = [];
+
   List<double> threestar = [];
+
   List<double> fourstar = [];
+
   List<double> fivestar = [];
+
   @override
   Widget build(BuildContext context) {
-    if (productList == null) {
+    if (widget.productList == null) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
     Firestore.instance
         .collection('rating')
-        .where('reference', isEqualTo: productList['Reference'])
+        .where('reference', isEqualTo: widget.productList['Reference'])
         .where('rating', isEqualTo: 1)
         .snapshots()
         .listen((event) =>
@@ -41,7 +52,7 @@ class ProductHorizontalListItem extends StatelessWidget {
 
     Firestore.instance
         .collection('rating')
-        .where('reference', isEqualTo: productList['Reference'])
+        .where('reference', isEqualTo: widget.productList['Reference'])
         .where('rating', isEqualTo: 2)
         .snapshots()
         .listen((event) =>
@@ -49,7 +60,7 @@ class ProductHorizontalListItem extends StatelessWidget {
 
     Firestore.instance
         .collection('rating')
-        .where('reference', isEqualTo: productList['Reference'])
+        .where('reference', isEqualTo: widget.productList['Reference'])
         .where('rating', isEqualTo: 3)
         .snapshots()
         .listen((event) =>
@@ -57,7 +68,7 @@ class ProductHorizontalListItem extends StatelessWidget {
 
     Firestore.instance
         .collection('rating')
-        .where('reference', isEqualTo: productList['Reference'])
+        .where('reference', isEqualTo: widget.productList['Reference'])
         .where('rating', isEqualTo: 4)
         .snapshots()
         .listen((event) =>
@@ -65,7 +76,7 @@ class ProductHorizontalListItem extends StatelessWidget {
 
     Firestore.instance
         .collection('rating')
-        .where('reference', isEqualTo: productList['Reference'])
+        .where('reference', isEqualTo: widget.productList['Reference'])
         .where('rating', isEqualTo: 5)
         .snapshots()
         .listen((event) =>
@@ -83,7 +94,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                 onestar.length)
             .toDouble();
     return GestureDetector(
-        onTap: onTap,
+        onTap: widget.onTap,
         child: Card(
           elevation: 0.3,
           child: ClipPath(
@@ -93,7 +104,7 @@ class ProductHorizontalListItem extends StatelessWidget {
               child: StreamBuilder<QuerySnapshot>(
                   stream: Firestore.instance
                       .collection('rating')
-                      .where('reference', isEqualTo: productList['Reference'])
+                      .where('reference', isEqualTo: widget.productList['Reference'])
                       .snapshots(),
                   builder: (context, ratingss) {
                     if (!ratingss.hasData) {
@@ -101,7 +112,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       );
                     }
-                    stars(i) {
+                    stars() {
                       final numbers = (5 * fivestar.length +
                               4 * fourstar.length +
                               3 * threestar.length +
@@ -127,7 +138,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                           children: <Widget>[
                             Expanded(
                               child: PsNetworkImage(
-                                firebasePhoto: productList['images'],
+                                firebasePhoto: widget.productList['images'],
                                 photoKey: '',
                                 // defaultPhoto: product.defaultPhoto,
                                 width: ps_space_180,
@@ -135,7 +146,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                                 boxfit: BoxFit.fitHeight,
                                 onTap: () {
                                   // Utils.psPrint(product.defaultPhoto.imgParentId);
-                                  onTap();
+                                  widget.onTap();
                                 },
                               ),
                             ),
@@ -146,7 +157,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                                   right: ps_space_8,
                                   bottom: ps_space_4),
                               child: Text(
-                                productList['ProductName'],
+                                widget.productList['ProductName'],
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.subtitle2,
                                 maxLines: 1,
@@ -160,8 +171,8 @@ class ProductHorizontalListItem extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   Text(
-                                      productList['price'] != '0'
-                                          ? '₹${productList["price"]}'
+                                      widget.productList['price'] != '0'
+                                          ? '₹${widget.productList["price"]}'
                                           : Utils.getString(
                                               context, 'global_product__free'),
                                       textAlign: TextAlign.start,
@@ -173,11 +184,11 @@ class ProductHorizontalListItem extends StatelessWidget {
                                   Padding(
                                       padding: const EdgeInsets.only(
                                           left: ps_space_8, right: ps_space_8),
-                                      child: productList['Discount'] != null &&
-                                              productList['Orignal Price'] !=
-                                                  productList['price']
+                                      child: widget.productList['Discount'] != null &&
+                                              widget.productList['Orignal Price'] !=
+                                                  widget.productList['price']
                                           ? Text(
-                                              '₹${productList["Orignal Price"]}',
+                                              '₹${widget.productList["Orignal Price"]}',
                                               textAlign: TextAlign.start,
                                               style: Theme.of(context)
                                                   .textTheme
@@ -195,13 +206,13 @@ class ProductHorizontalListItem extends StatelessWidget {
                                   top: ps_space_8,
                                   right: ps_space_8),
                               child: SmoothStarRating(
-                                  rating: stars(hi).isNaN ? 0 : stars(hi),
+                                  rating: stars().isNaN ? 0 : stars(),
                                   // double.parse(
                                   //     // product.ratingDetail.totalRatingValue
                                   //     ),
                                   allowHalfRating: false,
                                   onRatingChanged: (double v) {
-                                    onTap();
+                                    widget.onTap();
                                   },
                                   starCount: 5,
                                   size: 20.0,
@@ -219,13 +230,13 @@ class ProductHorizontalListItem extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   Text(
-                                      '${stars(hi).isNaN ? 'No' : stars(hi)} ${Utils.getString(context, 'feature_slider__rating')}',
+                                      '${stars().isNaN ? 'No' : stars()} ${Utils.getString(context, 'feature_slider__rating')}',
                                       textAlign: TextAlign.start,
                                       style:
                                           Theme.of(context).textTheme.caption),
                                   Expanded(
                                     child: Text(
-                                        '( ${ratingss.data.documents.length} ${Utils.getString(context, 'feature_slider__reviewer')} )',
+                                        '(${ratingss.data.documents.length} ${Utils.getString(context, 'feature_slider__reviewer')})',
                                         textAlign: TextAlign.start,
                                         softWrap: false,
                                         style: Theme.of(context)
@@ -243,8 +254,8 @@ class ProductHorizontalListItem extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                                child: productList['Discount'] != null &&
-                                        productList['Discount'] != 0
+                                child: widget.productList['Discount'] != null &&
+                                        widget.productList['Discount'] != 0
                                     ? Container(
                                         width: ps_space_52,
                                         height: ps_space_24,
@@ -257,7 +268,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                                                     ps_ctheme__color_speical),
                                             Center(
                                               child: Text(
-                                                '-${productList["Discount"].toString().replaceAll(".", " ").substring(0, 2)}%',
+                                                '-${widget.productList["Discount"].toString().replaceAll(".", " ").substring(0, 2)}%',
                                                 textAlign: TextAlign.start,
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -274,7 +285,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                               padding: const EdgeInsets.all(ps_space_4),
                               child: Directionality(
                                   textDirection: TextDirection.ltr,
-                                  child: productList['Featured Product'] == true
+                                  child: widget.productList['Featured Product'] == true
                                       ? Image.asset(
                                           'assets/images/baseline_feature_circle_24.png',
                                           width: ps_space_32,

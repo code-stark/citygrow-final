@@ -234,7 +234,7 @@ class _CheckoutButtonWidget extends StatelessWidget {
               '${Utils.getString(context, 'checkout__price')} \$ ${Utils.getPriceFormat(totalPrice.toString())}',
               style: Theme.of(context)
                   .textTheme
-                  .subhead
+                  .subtitle1
                   .copyWith(color: ps_ctheme__color_speical),
             ),
             const SizedBox(height: ps_space_8),

@@ -43,7 +43,7 @@ class FirebaseBloc {
     firestore.collection("comments").document(uuid).setData(data);
   }
 
-  //! basketStore
+  //! Add basketStore
   void uploadBasket(data, String uid, String productUid) async {
     final String uuid = Uuid().v1();
     await firestore
@@ -53,6 +53,7 @@ class FirebaseBloc {
         .document(uuid)
         .setData(data);
   }
+    //! Delete basketStore
     void deleteBasket(uuids, String uid) {
     firestore
         .collection("AppUsers")

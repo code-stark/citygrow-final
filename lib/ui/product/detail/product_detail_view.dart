@@ -333,10 +333,12 @@ class _ProductDetailState extends State<ProductDetailView>
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                 snapshot.data.documents.length >
+                                                  snapshot.data.documents
+                                                              .length >
                                                           99
                                                       ? '99+'
-                                                      : snapshot.data.documents.length
+                                                      : snapshot
+                                                          .data.documents.length
                                                           .toString(),
                                                   textAlign: TextAlign.left,
                                                   style: Theme.of(context)
@@ -1675,8 +1677,10 @@ class __AddToBasketAndBuyButtonWidgetState
                           .copyWith(color: Colors.white)
                           .color,
                       onPressed: () async {
-                        await widget.basketProvider.addBasketList(
-                            widget.productProvider.productDetail.data);
+                        sl.get<FirebaseBloc>().uploadBasket(
+                            widget.productList.data,
+                            users.uid,
+                            widget.productList.documentID);
                         await showDialog<dynamic>(
                             context: context,
                             builder: (BuildContext context) {
