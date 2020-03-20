@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:braintree_payment/braintree_payment.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 import 'package:digitalproductstore/api/common/ps_status.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
@@ -41,7 +42,9 @@ class CheckoutView extends StatefulWidget {
     Key key,
     @required this.productList,
     @required this.publishKey,
+    @required this.cartList,
   }) : super(key: key);
+  final List<DocumentSnapshot> cartList;
 
   final List<Product> productList;
   final String publishKey;
@@ -63,10 +66,10 @@ class _CheckoutViewState extends State<CheckoutView> {
 
   @override
   void initState() {
-    StripePayment.setOptions(StripeOptions(
-        publishableKey: widget.publishKey,
-        merchantId: 'Test',
-        androidPayMode: 'test'));
+    // StripePayment.setOptions(StripeOptions(
+    //     publishableKey: widget.publishKey,
+    //     merchantId: 'Test',
+    //     androidPayMode: 'test'));
     super.initState();
   }
 

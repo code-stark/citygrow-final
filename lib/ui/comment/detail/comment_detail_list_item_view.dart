@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/viewobject/comment_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CommetDetailListItemView extends StatelessWidget {
   const CommetDetailListItemView({
@@ -10,18 +12,21 @@ class CommetDetailListItemView extends StatelessWidget {
     this.animationController,
     this.animation,
     this.onTap,
+    @required this.comments,
   }) : super(key: key);
 
   final CommentDetail comment;
   final Function onTap;
   final AnimationController animationController;
   final Animation<double> animation;
+  final DocumentSnapshot comments;
 
   @override
   Widget build(BuildContext context) {
-    final Widget _textWidget = Text(comment.addedDateStr,
+    final Widget _textWidget = Text(
+        timeago.format(comments['createdtime'].toDate()).toString(),
         style: Theme.of(context).textTheme.caption.copyWith());
-    if (comment != null) {
+    if (comments != null) {
       return AnimatedBuilder(
           animation: animationController,
           builder: (BuildContext context, Widget child) {
@@ -44,6 +49,7 @@ class CommetDetailListItemView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
                               _ImageAndTextWidget(
+                                comments: comments,
                                 comment: comment,
                               ),
                               _textWidget
@@ -63,20 +69,21 @@ class _ImageAndTextWidget extends StatelessWidget {
   const _ImageAndTextWidget({
     Key key,
     @required this.comment,
+    @required this.comments,
   }) : super(key: key);
-
+  final DocumentSnapshot comments;
   final CommentDetail comment;
 
   @override
   Widget build(BuildContext context) {
-    if (comment != null && comment.user != null) {
+    if (comments != null && comments.documentID != null) {
       return Row(
         children: <Widget>[
           PsNetworkImageWithUrl(
             width: ps_space_40,
             height: ps_space_40,
             photoKey: '',
-            url: comment.user.userProfilePhoto,
+            url: comments['image'],
           ),
           const SizedBox(
             width: ps_space_8,
@@ -89,15 +96,15 @@ class _ImageAndTextWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: ps_space_8),
                 child: Text(
-                  comment.user.userName,
+                  comments['name'],
                   style: Theme.of(context).textTheme.caption,
                 ),
               ),
               Container(
                 width: ps_space_180,
                 child: Text(
-                  comment.detailComment,
-                  style: Theme.of(context).textTheme.body1,
+                  comments['Comments'],
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
               )
             ],

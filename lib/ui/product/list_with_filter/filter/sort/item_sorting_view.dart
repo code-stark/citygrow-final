@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/provider/product/search_product_provider.dart';
@@ -50,110 +51,118 @@ class _ItemSortingViewState extends State<ItemSortingView> {
       },
       builder:
           (BuildContext context, SearchProductProvider provider, Widget child) {
-        return Column(
-          children: <Widget>[
-            GestureDetector(
-              child: SortingView(
-                  image: 'assets/images/baesline_access_time_black_24.png',
-                  titleText: Utils.getString(context, 'item_filter__latest'),
-                  checkImage:
-                      _searchProductProvider.productParameterHolder.orderBy ==
-                              FILTERING__ADDED_DATE
-                          ? 'assets/images/baseline_check_green_24.png'
-                          : ''),
-              onTap: () {
-                print('sort by latest product');
-                _searchProductProvider.productParameterHolder.orderBy =
-                    FILTERING__ADDED_DATE;
-                _searchProductProvider.productParameterHolder.orderType =
-                    FILTERING__DESC;
+        return StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance.collection('ProductListID').snapshots(),
+            builder: (context, snapshot) {
+              
+              return Column(
+                children: <Widget>[
+                  GestureDetector(
+                    child: SortingView(
+                        image:
+                            'assets/images/baesline_access_time_black_24.png',
+                        titleText:
+                            Utils.getString(context, 'item_filter__latest'),
+                        checkImage: _searchProductProvider
+                                    .productParameterHolder.orderBy ==
+                                FILTERING__ADDED_DATE
+                            ? 'assets/images/baseline_check_green_24.png'
+                            : ''),
+                    onTap: () {
+                      print('sort by latest product');
+                      _searchProductProvider.productParameterHolder.orderBy =
+                          FILTERING__ADDED_DATE;
+                      _searchProductProvider.productParameterHolder.orderType =
+                          FILTERING__DESC;
 
-                Navigator.pop(
-                    context, _searchProductProvider.productParameterHolder);
-              },
-            ),
-            const Divider(
-              height: ps_space_1,
-            ),
-            GestureDetector(
-              child: SortingView(
-                  image: 'assets/images/baseline_graph_black_24.png',
-                  titleText: Utils.getString(context, 'item_filter__popular'),
-                  checkImage:
-                      _searchProductProvider.productParameterHolder.orderBy ==
-                              FILTERING__TRENDING
-                          ? 'assets/images/baseline_check_green_24.png'
-                          : ''),
-              onTap: () {
-                print('sort by popular product');
-                _searchProductProvider.productParameterHolder.orderBy =
-                    FILTERING_TRENDING;
-                _searchProductProvider.productParameterHolder.orderType =
-                    FILTERING__DESC;
+                      Navigator.pop(context,
+                          _searchProductProvider.productParameterHolder);
+                    },
+                  ),
+                  const Divider(
+                    height: ps_space_1,
+                  ),
+                  GestureDetector(
+                    child: SortingView(
+                        image: 'assets/images/baseline_graph_black_24.png',
+                        titleText:
+                            Utils.getString(context, 'item_filter__popular'),
+                        checkImage: _searchProductProvider
+                                    .productParameterHolder.orderBy ==
+                                FILTERING__TRENDING
+                            ? 'assets/images/baseline_check_green_24.png'
+                            : ''),
+                    onTap: () {
+                      print('sort by popular product');
+                      _searchProductProvider.productParameterHolder.orderBy =
+                          FILTERING_TRENDING;
+                      _searchProductProvider.productParameterHolder.orderType =
+                          FILTERING__DESC;
 
-                Navigator.pop(
-                    context, _searchProductProvider.productParameterHolder);
-              },
-            ),
-            const Divider(
-              height: ps_space_1,
-            ),
-            GestureDetector(
-              child: SortingView(
-                  image: 'assets/images/baseline_price_down_black_24.png',
-                  titleText:
-                      Utils.getString(context, 'item_filter__lowest_price'),
-                  checkImage:
-                      _searchProductProvider.productParameterHolder.orderBy ==
-                                  FILTERING_PRICE &&
-                              _searchProductProvider
-                                      .productParameterHolder.orderType ==
-                                  FILTERING__ASC
-                          ? 'assets/images/baseline_check_green_24.png'
-                          : ''),
-              onTap: () {
-                print('sort by lowest price');
-                _searchProductProvider.productParameterHolder.orderBy =
-                    FILTERING_PRICE;
-                _searchProductProvider.productParameterHolder.orderType =
-                    FILTERING__ASC;
+                      Navigator.pop(context,
+                          _searchProductProvider.productParameterHolder);
+                    },
+                  ),
+                  const Divider(
+                    height: ps_space_1,
+                  ),
+                  GestureDetector(
+                    child: SortingView(
+                        image: 'assets/images/baseline_price_down_black_24.png',
+                        titleText: Utils.getString(
+                            context, 'item_filter__lowest_price'),
+                        checkImage: _searchProductProvider
+                                        .productParameterHolder.orderBy ==
+                                    FILTERING_PRICE &&
+                                _searchProductProvider
+                                        .productParameterHolder.orderType ==
+                                    FILTERING__ASC
+                            ? 'assets/images/baseline_check_green_24.png'
+                            : ''),
+                    onTap: () {
+                      print('sort by lowest price');
+                      _searchProductProvider.productParameterHolder.orderBy =
+                          FILTERING_PRICE;
+                      _searchProductProvider.productParameterHolder.orderType =
+                          FILTERING__ASC;
 
-                Navigator.pop(
-                    context, _searchProductProvider.productParameterHolder);
-              },
-            ),
-            const Divider(
-              height: ps_space_1,
-            ),
-            GestureDetector(
-              child: SortingView(
-                  image: 'assets/images/baseline_price_up_black_24.png',
-                  titleText:
-                      Utils.getString(context, 'item_filter__highest_price'),
-                  checkImage:
-                      _searchProductProvider.productParameterHolder.orderBy ==
-                                  FILTERING_PRICE &&
-                              _searchProductProvider
-                                      .productParameterHolder.orderType ==
-                                  FILTERING__DESC
-                          ? 'assets/images/baseline_check_green_24.png'
-                          : ''),
-              onTap: () {
-                print('sort by highest price ');
-                _searchProductProvider.productParameterHolder.orderBy =
-                    FILTERING_PRICE;
-                _searchProductProvider.productParameterHolder.orderType =
-                    FILTERING__DESC;
+                      Navigator.pop(context,
+                          _searchProductProvider.productParameterHolder);
+                    },
+                  ),
+                  const Divider(
+                    height: ps_space_1,
+                  ),
+                  GestureDetector(
+                    child: SortingView(
+                        image: 'assets/images/baseline_price_up_black_24.png',
+                        titleText: Utils.getString(
+                            context, 'item_filter__highest_price'),
+                        checkImage: _searchProductProvider
+                                        .productParameterHolder.orderBy ==
+                                    FILTERING_PRICE &&
+                                _searchProductProvider
+                                        .productParameterHolder.orderType ==
+                                    FILTERING__DESC
+                            ? 'assets/images/baseline_check_green_24.png'
+                            : ''),
+                    onTap: () {
+                      print('sort by highest price ');
+                      _searchProductProvider.productParameterHolder.orderBy =
+                          FILTERING_PRICE;
+                      _searchProductProvider.productParameterHolder.orderType =
+                          FILTERING__DESC;
 
-                Navigator.pop(
-                    context, _searchProductProvider.productParameterHolder);
-              },
-            ),
-            const Divider(
-              height: ps_space_1,
-            ),
-          ],
-        );
+                      Navigator.pop(context,
+                          _searchProductProvider.productParameterHolder);
+                    },
+                  ),
+                  const Divider(
+                    height: ps_space_1,
+                  ),
+                ],
+              );
+            });
       },
     );
   }

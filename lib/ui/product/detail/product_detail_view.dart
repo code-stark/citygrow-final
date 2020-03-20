@@ -109,35 +109,67 @@ class _ProductDetailState extends State<ProductDetailView>
     // final List<DocumentSnapshot> documents = results.documents;
 
     // await Future<DocumentSnapshot>.delayed(const Duration(seconds: 5));
-    if (widget.productList == null) {
+
+    if (widget.productList.data == null) {
       return const Center(
         child: CircularProgressIndicator(),
       );
-    } else if (widget.productList['productUid'] == null) {
+    } else if (widget.productList.data['selection'] == 'cart') {
+      viewCountFirebase1(user.uid);
+    } else if (widget.productList.data['selection'] == 'favorite') {
+      viewCountFirebase(user.uid);
+    } else if (widget.productList.data['selection'] == null) {
       final Map<String, FieldValue> data = {
         'views': FieldValue.increment(1),
       };
-      return await Firestore.instance
-          .collection('ProductListID')
-          .document(widget.productList.documentID)
-          .updateData(data);
-    } else if (widget.productList['productUid'] != null) {
-      return viewCountFirebase(user.uid);
+      return Firestore.instance
+              .collection('ProductListID')
+              .document(widget.productList.documentID)
+              .updateData(data);
     }
+    // else if (widget.productList != null) {
+    //   final Map<String, FieldValue> data = {
+    //     'views': FieldValue.increment(1),
+    //   };
+    //   return  Firestore.instance
+    //       .collection('ProductListID')
+    //       .document(widget.productList.documentID)
+    //       .updateData(data)??viewCountFirebase1(user.uid);
+    // } else if (widget.productList['productUid'] != null) {
+    //   return viewCountFirebase(user.uid);
+    // } else if (widget.productList['productUid'] == null) {
+    //   viewCountFirebase1(user.uid);
+    // }
   }
 
   void viewCountFirebase(uid) async {
     final Map<String, FieldValue> data = {
       'views': FieldValue.increment(1),
     };
-    await Firestore.instance
-        .collection('ProductListID')
-        .document(widget.productList['productUid'])
-        .updateData(data);
+    // await Firestore.instance
+    //     .collection('ProductListID')
+    //     .document(widget.productList.data['productUid'])
+    //     .updateData(data);
     await Firestore.instance
         .collection('AppUsers')
         .document(uid)
         .collection('favorite')
+        .document(widget.productList.documentID)
+        .updateData(data);
+  }
+
+  void viewCountFirebase1(uid) async {
+    final Map<String, FieldValue> data = {
+      'views': FieldValue.increment(1),
+    };
+    // await Firestore.instance
+    //     .collection('ProductListID')
+    //     .document(widget.productList['productUid'])
+    //     .updateData(data);
+    await Firestore.instance
+        .collection('AppUsers')
+        .document(uid)
+        .collection('cart')
         .document(widget.productList.documentID)
         .updateData(data);
   }
@@ -1677,18 +1709,20 @@ class __AddToBasketAndBuyButtonWidgetState
                           .copyWith(color: Colors.white)
                           .color,
                       onPressed: () async {
-                        sl.get<FirebaseBloc>().uploadBasket(
-                            widget.productList.data,
-                            users.uid,
-                            widget.productList.documentID);
-                        await showDialog<dynamic>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SuccessDialog(
-                                message: Utils.getString(context,
-                                    'product_detail__success_add_to_basket'),
-                              );
-                            });
+                        utilsNavigateOnUserVerificationView(context, () async {
+                          sl.get<FirebaseBloc>().uploadBasket(
+                              widget.productList.data,
+                              users.uid,
+                              widget.productList.documentID);
+                          await showDialog<dynamic>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SuccessDialog(
+                                  message: Utils.getString(context,
+                                      'product_detail__success_add_to_basket'),
+                                );
+                              });
+                        });
                       },
                     ),
                   ),
@@ -1724,13 +1758,16 @@ class __AddToBasketAndBuyButtonWidgetState
                       onPressed: () async {
                         // await widget.basketProvider.addBasketList(
                         //     widget.productProvider.productDetail.data);
-                        sl.get<FirebaseBloc>().uploadBasket(
-                            widget.productList.data,
-                            users.uid,
-                            widget.productList.documentID);
-                        await Navigator.pushNamed(
-                            context, RoutePaths.basketList,
-                            arguments: widget.productList);
+                        utilsNavigateOnUserVerificationView(context, () async {
+                          sl.get<FirebaseBloc>().uploadBasket(
+                              widget.productList.data,
+                              users.uid,
+                              widget.productList.documentID);
+                          await Navigator.pushNamed(
+                              context, RoutePaths.basketList,
+                              arguments: widget.productList);
+                        });
+
                         // if (result) {
                         //   // widget.productProvider.loadProduct(widget.product.id,
                         //   //     widget.psValueHolder.loginUserId);

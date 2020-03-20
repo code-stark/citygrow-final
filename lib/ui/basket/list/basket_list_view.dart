@@ -104,7 +104,10 @@ class _BasketListViewState extends State<BasketListView>
                               },
                             )),
                           ),
-                          _CheckoutButtonWidget(provider: provider),
+                          _CheckoutButtonWidget(
+                            provider: provider,
+                            productList: snapshot.data.documents,
+                          ),
                         ],
                       );
                     } else {
@@ -187,14 +190,15 @@ class _CheckoutButtonWidget extends StatelessWidget {
   const _CheckoutButtonWidget({
     Key key,
     @required this.provider,
+    @required this.productList,
   }) : super(key: key);
-
+  final List<DocumentSnapshot> productList;
   final BasketProvider provider;
   @override
   Widget build(BuildContext context) {
     double totalPrice = 0.0;
-    for (int i = 0; i < provider.basketList.data.length; i++) {
-      totalPrice += double.parse(provider.basketList.data[i].unitPrice);
+    for (int i = 0; i < productList.length; i++) {
+      totalPrice += productList[i]['price'] as double;
     }
 
     return Container(
@@ -231,7 +235,7 @@ class _CheckoutButtonWidget extends StatelessWidget {
           children: <Widget>[
             const SizedBox(height: ps_space_4),
             Text(
-              '${Utils.getString(context, 'checkout__price')} \$ ${Utils.getPriceFormat(totalPrice.toString())}',
+              '${Utils.getString(context, 'checkout__price')} \₹ ${Utils.getPriceFormat(totalPrice.toString())}',
               style: Theme.of(context)
                   .textTheme
                   .subtitle1
@@ -267,8 +271,10 @@ class _CheckoutButtonWidget extends StatelessWidget {
                   utilsNavigateOnUserVerificationView(context, () async {
                     await Navigator.pushNamed(context, RoutePaths.checkout,
                         arguments: CheckoutIntentHolder(
-                            productList: provider.basketList.data,
-                            publishKey: provider.psValueHolder.publishKey));
+                          cartList: productList,
+                          productList: provider.basketList.data,
+                          // publishKey: provider.psValueHolder.publishKey
+                        ));
                     provider.loadBasketList();
                   });
                 } else {

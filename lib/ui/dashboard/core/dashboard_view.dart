@@ -644,10 +644,13 @@ class _HomeViewState extends State<DashboardView>
                                 ),
                               ),
                               onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  RoutePaths.basketList,
-                                );
+                                utilsNavigateOnUserVerificationView(context,
+                                    () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RoutePaths.basketList,
+                                  );
+                                });
                               }),
                         ],
                       );

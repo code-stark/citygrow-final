@@ -406,15 +406,16 @@ class _CommentListWidgetState extends State<CommentListWidget> {
                     curve: Curves.fastOutSlowIn),
               ),
             ),
-            comment: widget.commentsList[index][''],
+            // comment: widget.commentsList[index][''],
             onTap: () async {
               final dynamic data = await Navigator.pushNamed(
                   context, RoutePaths.commentDetail,
-                  arguments: widget.provider.commentHeaderList.data[index]);
+                  arguments: widget.commentsList[index]);
 
               if (data != null) {
-                await widget.provider.refreshCommentList(
-                    widget.provider.commentHeaderList.data[index].productId);
+                await widget.provider.refreshCommentList(''
+                    // widget.provider.commentHeaderList.data[index].productId
+                    );
               }
             },
           );

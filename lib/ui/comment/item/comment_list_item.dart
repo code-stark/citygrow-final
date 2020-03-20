@@ -118,26 +118,26 @@ class _ImageAndTextWidget extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
-                // Row(
-                //   children: <Widget>[
-                //     Expanded(
-                //       child: Container(
-                //         width: ps_space_180,
-                //         child: Text(
-                //           comment.commentReplyCount == '0'
-                //               ? ''
-                //               : '- ${comment.commentReplyCount} ${Utils.getString(context, 'comment_list__replies')}',
-                //           maxLines: 2,
-                //           style: Theme.of(context)
-                //               .textTheme
-                //               .caption
-                //               .copyWith(color: ps_ctheme__color_application),
-                //         ),
-                //       ),
-                //     ),
-                //     _textWidget
-                //   ],
-                // )
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        width: ps_space_180,
+                        child: Text(
+                          comments.data.length == 0
+                              ? ''
+                              : '- ${comments.data.length} ${Utils.getString(context, 'comment_list__replies')}',
+                          maxLines: 2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption
+                              .copyWith(color: ps_ctheme__color_application),
+                        ),
+                      ),
+                    ),
+                    _textWidget
+                  ],
+                )
               ],
             ),
           )

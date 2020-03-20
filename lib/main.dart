@@ -366,8 +366,11 @@ class _PSAppState extends State<PSApp> {
                       '${RoutePaths.commentList}': (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final List<DocumentSnapshot> product = args ?? DocumentSnapshot;
-                        return CommentListView(commentsList: product,);
+                        final List<DocumentSnapshot> product =
+                            args ?? DocumentSnapshot;
+                        return CommentListView(
+                          commentsList: product,
+                        );
                       },
                       '${RoutePaths.itemSearch}': (BuildContext context) {
                         final Object args =
@@ -388,10 +391,11 @@ class _PSAppState extends State<PSApp> {
                       '${RoutePaths.commentDetail}': (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final CommentHeader commentHeader =
-                            args ?? CommentHeader;
+                        final DocumentSnapshot commentHeader =
+                            args ?? DocumentSnapshot;
                         return CommentDetailListView(
-                          commentHeader: commentHeader,
+                          commentsS: commentHeader,
+                          // commentHeader: commentHeader,
                         );
                       },
                       '${RoutePaths.favouriteProductList}':
@@ -451,7 +455,6 @@ class _PSAppState extends State<PSApp> {
                         return SubCategorySearchListView(categoryId: category);
                       },
                       '${RoutePaths.basketList}': (BuildContext context) {
-                        
                         return BasketListContainerView();
                       },
                       '${RoutePaths.checkout}': (BuildContext context) {
@@ -460,6 +463,7 @@ class _PSAppState extends State<PSApp> {
                         final CheckoutIntentHolder checkoutIntentHolder =
                             args ?? CheckoutIntentHolder;
                         return CheckoutView(
+                            cartList: checkoutIntentHolder.cartList,
                             productList: checkoutIntentHolder.productList,
                             publishKey: checkoutIntentHolder.publishKey);
                       },
