@@ -13,6 +13,7 @@ import 'package:digitalproductstore/ui/transaction/item/transaction_list_item.da
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ProfileView extends StatefulWidget {
@@ -282,8 +283,13 @@ class _JoinDateWidget extends StatelessWidget {
                   width: ps_space_2,
                 ),
                 Text(
-                  DateTime.parse(usersData['TimeCreated'].toDate().toString())
-                      .toString() ?? '',
+                  // DateTime.parse(usersData['TimeCreated'].toDate().toString())
+                  //
+                  DateFormat.yMMMMEEEEd()
+                          .format(usersData['TimeCreated'].toDate())
+                          .toString() ??
+                      '',
+
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
@@ -578,8 +584,7 @@ class _ImageAndTextWidget extends StatelessWidget {
                   _spacingWidget,
                   //!about me
                   Text(
-                    usersData['aboutme'] != '' &&
-                            usersData['aboutme'] != null
+                    usersData['aboutme'] != '' && usersData['aboutme'] != null
                         ? usersData['aboutme']
                         : Utils.getString(context, 'profile__about_me'),
                     style: Theme.of(context).textTheme.bodyText1,

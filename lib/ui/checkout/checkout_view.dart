@@ -55,7 +55,8 @@ class CheckoutView extends StatefulWidget {
 GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
 class _CheckoutViewState extends State<CheckoutView> {
-  final TextEditingController couponController = TextEditingController();
+  final TextEditingController couponController =
+      TextEditingController();
   CouponDiscountRepository couponDiscountRepo;
   TransactionHeaderRepository transactionHeaderRepo;
   BasketRepository basketRepository;
@@ -81,12 +82,14 @@ class _CheckoutViewState extends State<CheckoutView> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.productList.isNotEmpty) {
+    if (widget.cartList.isNotEmpty) {
       const Widget spacingWidget = SizedBox(
         height: ps_space_10,
       );
-      couponDiscountRepo = Provider.of<CouponDiscountRepository>(context);
-      transactionHeaderRepo = Provider.of<TransactionHeaderRepository>(context);
+      couponDiscountRepo =
+          Provider.of<CouponDiscountRepository>(context);
+      transactionHeaderRepo =
+          Provider.of<TransactionHeaderRepository>(context);
       basketRepository = Provider.of<BasketRepository>(context);
       valueHolder = Provider.of<PsValueHolder>(context);
       userRepository = Provider.of<UserRepository>(context);
@@ -111,14 +114,16 @@ class _CheckoutViewState extends State<CheckoutView> {
                 create: (BuildContext context) {
               final UserLoginProvider provider = UserLoginProvider(
                   repo: userRepository, psValueHolder: valueHolder);
-              provider.getUserLogin(provider.psValueHolder.loginUserId);
+              provider
+                  .getUserLogin(provider.psValueHolder.loginUserId);
               return provider;
             }),
             ChangeNotifierProvider<TransactionHeaderProvider>(
                 create: (BuildContext context) {
               final TransactionHeaderProvider provider =
                   TransactionHeaderProvider(
-                      repo: transactionHeaderRepo, psValueHolder: valueHolder);
+                      repo: transactionHeaderRepo,
+                      psValueHolder: valueHolder);
 
               return provider;
             }),
@@ -158,11 +163,12 @@ class _CheckoutViewState extends State<CheckoutView> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              Utils.getString(
-                                  context, 'checkout__coupon_discount'),
+                              Utils.getString(context,
+                                  'checkout__coupon_discount'),
                               textAlign: TextAlign.start,
                               style: Theme.of(context)
                                   .textTheme
@@ -176,21 +182,24 @@ class _CheckoutViewState extends State<CheckoutView> {
                             spacingWidget,
                             Row(
                               mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Expanded(
                                     child: PsTextFieldWidget(
-                                  hintText: Utils.getString(
-                                      context, 'checkout__coupon_code'),
-                                  textEditingController: couponController,
+                                  hintText: Utils.getString(context,
+                                      'checkout__coupon_code'),
+                                  textEditingController:
+                                      couponController,
                                   showTitle: false,
                                 )),
                                 Container(
-                                  margin:
-                                      const EdgeInsets.only(right: ps_space_8),
+                                  margin: const EdgeInsets.only(
+                                      right: ps_space_8),
                                   child: RaisedButton(
                                     color: ps_ctheme__color_speical,
-                                    shape: const BeveledRectangleBorder(
+                                    shape:
+                                        const BeveledRectangleBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(7.0)),
                                     ),
@@ -210,69 +219,86 @@ class _CheckoutViewState extends State<CheckoutView> {
                                           style: Theme.of(context)
                                               .textTheme
                                               .button
-                                              .copyWith(color: Colors.white),
+                                              .copyWith(
+                                                  color:
+                                                      Colors.white),
                                         ),
                                       ],
                                     ),
                                     onPressed: () async {
-                                      if (couponController.text.isNotEmpty) {
+                                      if (couponController
+                                          .text.isNotEmpty) {
                                         final CouponDiscountParameterHolder
                                             couponDiscountParameterHolder =
                                             CouponDiscountParameterHolder(
-                                          couponCode: couponController.text,
+                                          couponCode:
+                                              couponController.text,
                                         );
 
-                                        final PsResource<CouponDiscount>
+                                        final PsResource<
+                                                CouponDiscount>
                                             _apiStatus =
-                                            await provider.postCouponDiscount(
-                                                couponDiscountParameterHolder
-                                                    .toMap());
+                                            await provider
+                                                .postCouponDiscount(
+                                                    couponDiscountParameterHolder
+                                                        .toMap());
 
                                         if (_apiStatus.data != null &&
                                             couponController.text ==
-                                                _apiStatus.data.couponCode) {
-                                          final BasketProvider basketProvider =
-                                              Provider.of<BasketProvider>(
+                                                _apiStatus.data
+                                                    .couponCode) {
+                                          final BasketProvider
+                                              basketProvider =
+                                              Provider.of<
+                                                      BasketProvider>(
                                                   context);
 
                                           basketProvider
                                               .checkoutCalculationHelper
                                               .calculate(
-                                                  productList:
-                                                      widget.productList,
+                                                  productList: widget
+                                                      .productList,
                                                   couponDiscountString:
-                                                      _apiStatus
-                                                          .data.couponAmount,
-                                                  psValueHolder: valueHolder);
+                                                      _apiStatus.data
+                                                          .couponAmount,
+                                                  psValueHolder:
+                                                      valueHolder);
                                           showDialog<dynamic>(
                                               context: context,
-                                              builder: (BuildContext context) {
+                                              builder: (BuildContext
+                                                  context) {
                                                 return SuccessDialog(
-                                                  message: Utils.getString(
-                                                      context,
-                                                      'checkout__couponcode_add_dialog_message'),
+                                                  message:
+                                                      Utils.getString(
+                                                          context,
+                                                          'checkout__couponcode_add_dialog_message'),
                                                 );
                                               });
 
                                           couponController.clear();
-                                          print(_apiStatus.data.couponAmount);
+                                          print(_apiStatus
+                                              .data.couponAmount);
                                           setState(() {
                                             couponDiscount =
-                                                _apiStatus.data.couponAmount;
+                                                _apiStatus.data
+                                                    .couponAmount;
                                           });
                                         } else {
                                           showDialog<dynamic>(
                                               context: context,
-                                              builder: (BuildContext context) {
+                                              builder: (BuildContext
+                                                  context) {
                                                 return ErrorDialog(
-                                                  message: _apiStatus.message,
+                                                  message: _apiStatus
+                                                      .message,
                                                 );
                                               });
                                         }
                                       } else {
                                         showDialog<dynamic>(
                                             context: context,
-                                            builder: (BuildContext context) {
+                                            builder: (BuildContext
+                                                context) {
                                               return WarningDialog(
                                                 message: Utils.getString(
                                                     context,
@@ -287,24 +313,30 @@ class _CheckoutViewState extends State<CheckoutView> {
                             ),
                             spacingWidget,
                             Text(
-                              Utils.getString(context, 'checkout__description'),
+                              Utils.getString(
+                                  context, 'checkout__description'),
                               textAlign: TextAlign.start,
-                              style: Theme.of(context).textTheme.body1,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1,
                             ),
                           ],
                         ),
                       ),
                     ),
                     _OrderSummaryWidget(
+                      cartList: widget.cartList,
                       psValueHolder: valueHolder,
                       productList: widget.productList,
                       couponDiscount: couponDiscount ?? '-',
                     ),
                     Consumer<TransactionHeaderProvider>(builder:
                         (BuildContext context,
-                            TransactionHeaderProvider provider, Widget child) {
+                            TransactionHeaderProvider provider,
+                            Widget child) {
                       return Consumer<BasketProvider>(builder:
-                          (BuildContext context, BasketProvider basketProvider,
+                          (BuildContext context,
+                              BasketProvider basketProvider,
                               Widget child) {
                         return Consumer<UserLoginProvider>(builder:
                             (BuildContext context,
@@ -317,9 +349,12 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   ONE)
                                 Pay(
                                     productList: widget.productList,
-                                    couponDiscount: couponDiscount ?? '0.0',
-                                    transactionSubmitProvider: provider,
-                                    userLoginProvider: userLoginProvider,
+                                    couponDiscount:
+                                        couponDiscount ?? '0.0',
+                                    transactionSubmitProvider:
+                                        provider,
+                                    userLoginProvider:
+                                        userLoginProvider,
                                     basketProvider: basketProvider,
                                     psValueHolder: valueHolder)
                               else
@@ -329,14 +364,18 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   ONE)
                                 Stripe(
                                     productList: widget.productList,
-                                    couponDiscount: couponDiscount ?? '0.0',
-                                    transactionSubmitProvider: provider,
-                                    userLoginProvider: userLoginProvider,
+                                    couponDiscount:
+                                        couponDiscount ?? '0.0',
+                                    transactionSubmitProvider:
+                                        provider,
+                                    userLoginProvider:
+                                        userLoginProvider,
                                     basketProvider: basketProvider,
                                     psValueHolder: valueHolder,
                                     name: Utils.getString(context,
                                         'checkout__master_button_name'),
-                                    iconData: FontAwesome.cc_mastercard)
+                                    iconData:
+                                        FontAwesome.cc_mastercard)
                               else
                                 Container(),
                               if (userLoginProvider
@@ -344,13 +383,16 @@ class _CheckoutViewState extends State<CheckoutView> {
                                   ONE)
                                 Stripe(
                                     productList: widget.productList,
-                                    couponDiscount: couponDiscount ?? '0.0',
-                                    transactionSubmitProvider: provider,
-                                    userLoginProvider: userLoginProvider,
+                                    couponDiscount:
+                                        couponDiscount ?? '0.0',
+                                    transactionSubmitProvider:
+                                        provider,
+                                    userLoginProvider:
+                                        userLoginProvider,
                                     basketProvider: basketProvider,
                                     psValueHolder: valueHolder,
-                                    name: Utils.getString(
-                                        context, 'checkout__visa_button_name'),
+                                    name: Utils.getString(context,
+                                        'checkout__visa_button_name'),
                                     iconData: FontAwesome.cc_visa)
                               else
                                 Container(),
@@ -374,11 +416,12 @@ class _CheckoutViewState extends State<CheckoutView> {
             iconTheme: const IconThemeData(),
             automaticallyImplyLeading: true,
             title: Text(
-              Utils.getString(context, 'checkout__app_bar_name') ?? '',
+              Utils.getString(context, 'checkout__app_bar_name') ??
+                  '',
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
-                  .title
+                  .headline6
                   .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
@@ -402,14 +445,16 @@ class _OrderSummaryWidget extends StatelessWidget {
     @required this.productList,
     @required this.couponDiscount,
     @required this.psValueHolder,
+    @required this.cartList,
   }) : super(key: key);
-
+  final List<DocumentSnapshot> cartList;
   final List<Product> productList;
   final String couponDiscount;
   final PsValueHolder psValueHolder;
   @override
   Widget build(BuildContext context) {
-    final BasketProvider basketProvider = Provider.of<BasketProvider>(context);
+    final BasketProvider basketProvider =
+        Provider.of<BasketProvider>(context);
 
     String currencySymbol;
 
@@ -429,7 +474,21 @@ class _OrderSummaryWidget extends StatelessWidget {
     const Widget _spacingWidget = SizedBox(
       height: ps_space_12,
     );
+    double totalPrice = 0.0;
 
+    for (int i = 0; i < cartList.length; i++) {
+      totalPrice += cartList[i]['Orignal Price'] as int;
+    }
+    int totalDiscountPrice;
+    for (int i = 0; i < cartList.length; i++) {
+      totalDiscountPrice = (cartList[i].data['Orignal Price'] -
+                  totalPrice.toInt() ==
+              0.0)
+          ? totalPrice.toInt()
+          : cartList[i].data['Orignal Price'] - totalPrice.toInt();
+    }
+    final dicount = totalDiscountPrice;
+    print(totalPrice - totalDiscountPrice * 100 / 100);
     return Card(
         elevation: 0.3,
         child: Column(
@@ -440,27 +499,25 @@ class _OrderSummaryWidget extends StatelessWidget {
               child: Text(
                 Utils.getString(context, 'checkout__order_summary'),
                 textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.subtitle2,
               ),
             ),
             _dividerWidget,
             _OrderSummeryTextWidget(
-              transationInfoText: basketProvider
-                  .checkoutCalculationHelper.totalItemCount
-                  .toString(),
+              transationInfoText: cartList.length.toString(),
               title:
                   '${Utils.getString(context, 'checkout__total_item_count')} :',
             ),
             _OrderSummeryTextWidget(
-              transationInfoText:
-                  '${productList[0].currencySymbol} ${basketProvider.checkoutCalculationHelper.totalOriginalPriceFormattedString}',
+              transationInfoText: '₹$totalPrice',
               title:
                   '${Utils.getString(context, 'checkout__total_item_price')} :',
             ),
             _OrderSummeryTextWidget(
               transationInfoText:
-                  '$currencySymbol ${basketProvider.checkoutCalculationHelper.totalDiscountFormattedString}',
-              title: '${Utils.getString(context, 'checkout__discount')} :',
+                  '-' + dicount.toString().replaceAll('-', ''),
+              title:
+                  '${Utils.getString(context, 'checkout__discount')} :',
             ),
             _OrderSummeryTextWidget(
               transationInfoText: couponDiscount == '-'
@@ -473,9 +530,11 @@ class _OrderSummaryWidget extends StatelessWidget {
             _dividerWidget,
             _OrderSummeryTextWidget(
               transationInfoText: basketProvider
-                  .checkoutCalculationHelper.subTotalPriceFormattedString
+                  .checkoutCalculationHelper
+                  .subTotalPriceFormattedString
                   .toString(),
-              title: '${Utils.getString(context, 'checkout__sub_total')} :',
+              title:
+                  '${Utils.getString(context, 'checkout__sub_total')} :',
             ),
             _OrderSummeryTextWidget(
               transationInfoText:
@@ -502,10 +561,12 @@ class _OrderSummeryTextWidget extends StatelessWidget {
     Key key,
     @required this.transationInfoText,
     this.title,
+    @required this.productList,
   }) : super(key: key);
 
   final String transationInfoText;
   final String title;
+  final DocumentSnapshot productList;
 
   @override
   Widget build(BuildContext context) {
@@ -520,14 +581,14 @@ class _OrderSummeryTextWidget extends StatelessWidget {
             title,
             style: Theme.of(context)
                 .textTheme
-                .body1
+                .bodyText1
                 .copyWith(fontWeight: FontWeight.normal),
           ),
           Text(
             transationInfoText ?? '-',
             style: Theme.of(context)
                 .textTheme
-                .body1
+                .bodyText1
                 .copyWith(fontWeight: FontWeight.normal),
           )
         ],
@@ -574,11 +635,12 @@ class _StripeState extends State<Stripe> {
     psApiService = Provider.of<PsApiService>(context);
     return ChangeNotifierProvider<TokenProvider>(create:
         (BuildContext context) {
-      final TokenProvider provider = TokenProvider(psApiService: psApiService);
+      final TokenProvider provider =
+          TokenProvider(psApiService: psApiService);
       provider.loadToken();
       return provider;
-    }, child: Consumer<TokenProvider>(
-        builder: (BuildContext context, TokenProvider provider, Widget child) {
+    }, child: Consumer<TokenProvider>(builder:
+        (BuildContext context, TokenProvider provider, Widget child) {
       if (provider.tokenData != null &&
           provider.tokenData.data != null &&
           provider.tokenData.data.message != null) {
@@ -586,11 +648,14 @@ class _StripeState extends State<Stripe> {
           width: double.infinity,
           child: Container(
               padding: const EdgeInsets.only(
-                  left: ps_space_16, top: ps_space_8, right: ps_space_16),
+                  left: ps_space_16,
+                  top: ps_space_8,
+                  right: ps_space_16),
               child: MaterialButton(
                 minWidth: MediaQuery.of(context).size.width,
                 shape: const BeveledRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(7.0)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -611,18 +676,21 @@ class _StripeState extends State<Stripe> {
                 ),
                 color: Colors.blue,
                 onPressed: () async {
-                  final dynamic returnData = await Navigator.pushNamed(
-                      context, RoutePaths.creditCard,
-                      arguments: CreditCardIntentHolder(
-                          productList: widget.productList,
-                          couponDiscount: widget.couponDiscount ?? '0.0',
-                          transactionSubmitProvider:
-                              widget.transactionSubmitProvider,
-                          userLoginProvider: widget.userLoginProvider,
-                          basketProvider: widget.basketProvider,
-                          psValueHolder: widget.psValueHolder,
-                          name: widget.name,
-                          iconData: widget.iconData));
+                  final dynamic returnData =
+                      await Navigator.pushNamed(
+                          context, RoutePaths.creditCard,
+                          arguments: CreditCardIntentHolder(
+                              productList: widget.productList,
+                              couponDiscount:
+                                  widget.couponDiscount ?? '0.0',
+                              transactionSubmitProvider:
+                                  widget.transactionSubmitProvider,
+                              userLoginProvider:
+                                  widget.userLoginProvider,
+                              basketProvider: widget.basketProvider,
+                              psValueHolder: widget.psValueHolder,
+                              name: widget.name,
+                              iconData: widget.iconData));
                   if (returnData != null && returnData) {
                     Navigator.pop(
                       context,
@@ -662,7 +730,8 @@ class Pay extends StatefulWidget {
 
 class _PayState extends State<Pay> {
   dynamic payNow(String clientNonce) async {
-    final BasketProvider basketProvider = Provider.of<BasketProvider>(context);
+    final BasketProvider basketProvider =
+        Provider.of<BasketProvider>(context);
 
     basketProvider.checkoutCalculationHelper.calculate(
         productList: widget.productList,
@@ -672,10 +741,11 @@ class _PayState extends State<Pay> {
     final BraintreePayment braintreePayment = BraintreePayment();
     final dynamic data = await braintreePayment.showDropIn(
         nonce: clientNonce,
-        amount:
-            basketProvider.checkoutCalculationHelper.totalPriceFormattedString,
+        amount: basketProvider
+            .checkoutCalculationHelper.totalPriceFormattedString,
         enableGooglePay: true);
-    print('${Utils.getString(context, 'checkout__payment_response')} $data');
+    print(
+        '${Utils.getString(context, 'checkout__payment_response')} $data');
 
     final ProgressDialog progressDialog = loadingDialog(
       context,
@@ -688,20 +758,23 @@ class _PayState extends State<Pay> {
 
       if (widget.userLoginProvider.userLogin != null &&
           widget.userLoginProvider.userLogin.data != null) {
-        final PsResource<TransactionHeader> _apiStatus =
-            await widget.transactionSubmitProvider.postTransactionSubmit(
+        final PsResource<TransactionHeader> _apiStatus = await widget
+            .transactionSubmitProvider
+            .postTransactionSubmit(
                 widget.userLoginProvider.userLogin.data.user.userName,
-                widget.userLoginProvider.userLogin.data.user.userPhone,
+                widget
+                    .userLoginProvider.userLogin.data.user.userPhone,
                 widget.productList,
                 Platform.isIOS ? data : data['paymentNonce'],
                 widget.couponDiscount.toString(),
-                basketProvider.checkoutCalculationHelper.taxFormattedString,
                 basketProvider
-                    .checkoutCalculationHelper.totalDiscountFormattedString,
-                basketProvider
-                    .checkoutCalculationHelper.subTotalPriceFormattedString,
-                basketProvider
-                    .checkoutCalculationHelper.totalPriceFormattedString,
+                    .checkoutCalculationHelper.taxFormattedString,
+                basketProvider.checkoutCalculationHelper
+                    .totalDiscountFormattedString,
+                basketProvider.checkoutCalculationHelper
+                    .subTotalPriceFormattedString,
+                basketProvider.checkoutCalculationHelper
+                    .totalPriceFormattedString,
                 basketProvider.checkoutCalculationHelper
                     .totalOriginalPriceFormattedString,
                 ONE,
@@ -753,23 +826,25 @@ class _PayState extends State<Pay> {
     psApiService = Provider.of<PsApiService>(context);
     return ChangeNotifierProvider<TokenProvider>(create:
         (BuildContext context) {
-      final TokenProvider provider = TokenProvider(psApiService: psApiService);
+      final TokenProvider provider =
+          TokenProvider(psApiService: psApiService);
       provider.loadToken();
       return provider;
-    }, child: Consumer<TokenProvider>(
-        builder: (BuildContext context, TokenProvider provider, Widget child) {
+    }, child: Consumer<TokenProvider>(builder:
+        (BuildContext context, TokenProvider provider, Widget child) {
       if (provider.tokenData != null &&
           provider.tokenData.data != null &&
           provider.tokenData.data.message != null) {
         return SizedBox(
           width: double.infinity,
           child: Container(
-              padding:
-                  const EdgeInsets.only(left: ps_space_16, right: ps_space_16),
+              padding: const EdgeInsets.only(
+                  left: ps_space_16, right: ps_space_16),
               child: MaterialButton(
                 minWidth: MediaQuery.of(context).size.width,
                 shape: const BeveledRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(7.0)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -780,7 +855,8 @@ class _PayState extends State<Pay> {
                       width: ps_space_8,
                     ),
                     Text(
-                      Utils.getString(context, 'checkout__paypal_button_name'),
+                      Utils.getString(
+                          context, 'checkout__paypal_button_name'),
                       style: Theme.of(context)
                           .textTheme
                           .button

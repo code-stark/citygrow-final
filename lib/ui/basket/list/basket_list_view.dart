@@ -268,14 +268,14 @@ class _CheckoutButtonWidget extends StatelessWidget {
               color: ps_ctheme__color_speical,
               onPressed: () async {
                 if (await utilsCheckInternetConnectivity()) {
-                  utilsNavigateOnUserVerificationView(context, () async {
+                  utilsNavigateOnUserVerificationView(context, () async { 
                     await Navigator.pushNamed(context, RoutePaths.checkout,
                         arguments: CheckoutIntentHolder(
                           cartList: productList,
                           productList: provider.basketList.data,
                           // publishKey: provider.psValueHolder.publishKey
                         ));
-                    provider.loadBasketList();
+                    // provider.loadBasketList();
                   });
                 } else {
                   showDialog<dynamic>(
