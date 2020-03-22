@@ -35,7 +35,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:stripe_payment/stripe_payment.dart';
 
 class CheckoutView extends StatefulWidget {
   const CheckoutView({
@@ -71,6 +70,7 @@ class _CheckoutViewState extends State<CheckoutView> {
     //     publishableKey: widget.publishKey,
     //     merchantId: 'Test',
     //     androidPayMode: 'test'));
+
     super.initState();
   }
 
@@ -86,6 +86,34 @@ class _CheckoutViewState extends State<CheckoutView> {
       const Widget spacingWidget = SizedBox(
         height: ps_space_10,
       );
+
+      List<String> promocode = [];
+      List<String> promoprice = [];
+      int length = 0;
+      for (int i = 0; i < widget.cartList.length; i++) {
+        promocode.add(widget.cartList[i]['Promocode']);
+      }
+      // for (int i = 0; i < widget.cartList.length; i++) {
+      //   promoprice.add(widget.cartList[i]['PromoPrice']);
+      // }
+      promocodeValidator(prmo) {
+        for (var i = 0; i < promocode.length; i++) {
+          if (promocode[i].contains(prmo)) {
+            length = i;
+            promoprice.add(widget.cartList[i]['PromoPrice']);
+            print('validate');
+            print(promoprice[0]);
+            return true;
+          }
+          //  else if (promocode[i] == '') {
+          //   print('error');
+          //   return false;
+          // }
+        }
+      }
+
+      // print(promocodeValidator('12345'));
+
       couponDiscountRepo =
           Provider.of<CouponDiscountRepository>(context);
       transactionHeaderRepo =
@@ -228,41 +256,14 @@ class _CheckoutViewState extends State<CheckoutView> {
                                     onPressed: () async {
                                       if (couponController
                                           .text.isNotEmpty) {
-                                        final CouponDiscountParameterHolder
-                                            couponDiscountParameterHolder =
-                                            CouponDiscountParameterHolder(
-                                          couponCode:
-                                              couponController.text,
-                                        );
-
-                                        final PsResource<
-                                                CouponDiscount>
-                                            _apiStatus =
-                                            await provider
-                                                .postCouponDiscount(
-                                                    couponDiscountParameterHolder
-                                                        .toMap());
-
-                                        if (_apiStatus.data != null &&
-                                            couponController.text ==
-                                                _apiStatus.data
-                                                    .couponCode) {
-                                          final BasketProvider
-                                              basketProvider =
-                                              Provider.of<
-                                                      BasketProvider>(
-                                                  context);
-
-                                          basketProvider
-                                              .checkoutCalculationHelper
-                                              .calculate(
-                                                  productList: widget
-                                                      .productList,
-                                                  couponDiscountString:
-                                                      _apiStatus.data
-                                                          .couponAmount,
-                                                  psValueHolder:
-                                                      valueHolder);
+                                        if (widget.cartList != null) {
+                                          final result =
+                                              promocodeValidator(
+                                                  couponController
+                                                      .text);
+                                          print(result);
+                                          print(length);
+                                          if (result == true) {}
                                           showDialog<dynamic>(
                                               context: context,
                                               builder: (BuildContext
@@ -276,21 +277,14 @@ class _CheckoutViewState extends State<CheckoutView> {
                                               });
 
                                           couponController.clear();
-                                          print(_apiStatus
-                                              .data.couponAmount);
-                                          setState(() {
-                                            couponDiscount =
-                                                _apiStatus.data
-                                                    .couponAmount;
-                                          });
                                         } else {
                                           showDialog<dynamic>(
                                               context: context,
                                               builder: (BuildContext
                                                   context) {
                                                 return ErrorDialog(
-                                                  message: _apiStatus
-                                                      .message,
+                                                  message:
+                                                      '_apiStatus',
                                                 );
                                               });
                                         }
@@ -477,18 +471,14 @@ class _OrderSummaryWidget extends StatelessWidget {
     double totalPrice = 0.0;
 
     for (int i = 0; i < cartList.length; i++) {
-      totalPrice += cartList[i]['Orignal Price'] as int;
+      totalPrice += cartList[i]['price'] as double;
     }
-    int totalDiscountPrice;
+    int totalDiscountPrice = 0;
     for (int i = 0; i < cartList.length; i++) {
-      totalDiscountPrice = (cartList[i].data['Orignal Price'] -
-                  totalPrice.toInt() ==
-              0.0)
-          ? totalPrice.toInt()
-          : cartList[i].data['Orignal Price'] - totalPrice.toInt();
+      totalDiscountPrice += cartList[i].data['Orignal Price'].toInt();
     }
-    final dicount = totalDiscountPrice;
-    print(totalPrice - totalDiscountPrice * 100 / 100);
+    // final dicount = totalDiscountPrice;
+    // print(totalPrice - totalDiscountPrice * 100 / 100);
     return Card(
         elevation: 0.3,
         child: Column(
@@ -509,13 +499,17 @@ class _OrderSummaryWidget extends StatelessWidget {
                   '${Utils.getString(context, 'checkout__total_item_count')} :',
             ),
             _OrderSummeryTextWidget(
-              transationInfoText: '₹$totalPrice',
+              transationInfoText: '₹$totalDiscountPrice',
               title:
                   '${Utils.getString(context, 'checkout__total_item_price')} :',
             ),
             _OrderSummeryTextWidget(
-              transationInfoText:
-                  '-' + dicount.toString().replaceAll('-', ''),
+              transationInfoText: '-' +
+                  '₹' +
+                  (totalDiscountPrice - totalPrice)
+                      .toString()
+                      .replaceAll('-', ''),
+              // '',
               title:
                   '${Utils.getString(context, 'checkout__discount')} :',
             ),
@@ -529,24 +523,20 @@ class _OrderSummaryWidget extends StatelessWidget {
             _spacingWidget,
             _dividerWidget,
             _OrderSummeryTextWidget(
-              transationInfoText: basketProvider
-                  .checkoutCalculationHelper
-                  .subTotalPriceFormattedString
-                  .toString(),
+              transationInfoText: '₹' + (totalPrice).toString(),
               title:
                   '${Utils.getString(context, 'checkout__sub_total')} :',
             ),
-            _OrderSummeryTextWidget(
-              transationInfoText:
-                  '$currencySymbol ${basketProvider.checkoutCalculationHelper.taxFormattedString}',
-              title:
-                  '${Utils.getString(context, 'checkout__tax')} (${psValueHolder.overAllTaxLabel} %) :',
-            ),
+            // _OrderSummeryTextWidget(
+            //   transationInfoText:
+            //       '$currencySymbol ${basketProvider.checkoutCalculationHelper.taxFormattedString}',
+            //   title:
+            //       '${Utils.getString(context, 'checkout__tax')} (${psValueHolder.overAllTaxLabel} %) :',
+            // ),
             _spacingWidget,
             _dividerWidget,
             _OrderSummeryTextWidget(
-              transationInfoText:
-                  '$currencySymbol ${basketProvider.checkoutCalculationHelper.totalPriceFormattedString}',
+              transationInfoText: '₹' + (totalPrice).toString(),
               title:
                   '${Utils.getString(context, 'transaction_detail__total')} :',
             ),
