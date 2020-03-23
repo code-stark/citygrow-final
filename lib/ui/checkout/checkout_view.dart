@@ -62,7 +62,7 @@ class _CheckoutViewState extends State<CheckoutView> {
   UserRepository userRepository;
 
   PsValueHolder valueHolder;
-  String couponDiscount;
+  // String couponDiscount;
 
   @override
   void initState() {
@@ -89,6 +89,7 @@ class _CheckoutViewState extends State<CheckoutView> {
 
       List<String> promocode = [];
       List<String> promoprice = [];
+      String promocodePrice;
       int length = 0;
       for (int i = 0; i < widget.cartList.length; i++) {
         promocode.add(widget.cartList[i]['Promocode']);
@@ -100,9 +101,13 @@ class _CheckoutViewState extends State<CheckoutView> {
         for (var i = 0; i < promocode.length; i++) {
           if (promocode[i].contains(prmo)) {
             length = i;
-            promoprice.add(widget.cartList[i]['PromoPrice']);
-            print('validate');
-            print(promoprice[0]);
+
+            setState(() {
+              promocodePrice = widget.cartList[i]['PromoPrice'];
+              print('validate');
+              print(promocodePrice);
+            });
+
             return true;
           }
           //  else if (promocode[i] == '') {
@@ -170,11 +175,14 @@ class _CheckoutViewState extends State<CheckoutView> {
                 title: Text(
                   Utils.getString(context, 'checkout__app_bar_name'),
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.title.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Utils.isLightMode(context)
-                          ? ps_ctheme__color_speical
-                          : Colors.white),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Utils.isLightMode(context)
+                              ? ps_ctheme__color_speical
+                              : Colors.white),
                 ),
                 elevation: 0,
               ),
@@ -200,7 +208,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                               textAlign: TextAlign.start,
                               style: Theme.of(context)
                                   .textTheme
-                                  .subhead
+                                  .subtitle1
                                   .copyWith(),
                             ),
                             spacingWidget,
@@ -262,21 +270,26 @@ class _CheckoutViewState extends State<CheckoutView> {
                                                   couponController
                                                       .text);
                                           print(result);
-                                          print(length);
-                                          if (result == true) {}
-                                          showDialog<dynamic>(
-                                              context: context,
-                                              builder: (BuildContext
-                                                  context) {
-                                                return SuccessDialog(
-                                                  message:
-                                                      Utils.getString(
-                                                          context,
-                                                          'checkout__couponcode_add_dialog_message'),
-                                                );
-                                              });
+                                          setState(() {
+                                            print(promocodePrice);
+                                          });
 
-                                          couponController.clear();
+                                          print(length);
+                                          if (result == true) {
+                                            showDialog<dynamic>(
+                                                context: context,
+                                                builder: (BuildContext
+                                                    context) {
+                                                  return SuccessDialog(
+                                                    message: Utils
+                                                        .getString(
+                                                            context,
+                                                            'checkout__couponcode_add_dialog_message'),
+                                                  );
+                                                });
+                                          }
+
+                                          // couponController.clear();
                                         } else {
                                           showDialog<dynamic>(
                                               context: context,
@@ -322,7 +335,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                       cartList: widget.cartList,
                       psValueHolder: valueHolder,
                       productList: widget.productList,
-                      couponDiscount: couponDiscount ?? '-',
+                      couponDiscount: promocodePrice ?? '-',
                     ),
                     Consumer<TransactionHeaderProvider>(builder:
                         (BuildContext context,
@@ -344,7 +357,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                 Pay(
                                     productList: widget.productList,
                                     couponDiscount:
-                                        couponDiscount ?? '0.0',
+                                        'couponDiscount' ?? '0.0',
                                     transactionSubmitProvider:
                                         provider,
                                     userLoginProvider:
@@ -359,7 +372,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                 Stripe(
                                     productList: widget.productList,
                                     couponDiscount:
-                                        couponDiscount ?? '0.0',
+                                        'couponDiscount' ?? '0.0',
                                     transactionSubmitProvider:
                                         provider,
                                     userLoginProvider:
@@ -378,7 +391,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                 Stripe(
                                     productList: widget.productList,
                                     couponDiscount:
-                                        couponDiscount ?? '0.0',
+                                        'couponDiscount' ?? '0.0',
                                     transactionSubmitProvider:
                                         provider,
                                     userLoginProvider:
@@ -433,7 +446,7 @@ class _CheckoutViewState extends State<CheckoutView> {
   }
 }
 
-class _OrderSummaryWidget extends StatelessWidget {
+class _OrderSummaryWidget extends StatefulWidget {
   const _OrderSummaryWidget({
     Key key,
     @required this.productList,
@@ -445,6 +458,13 @@ class _OrderSummaryWidget extends StatelessWidget {
   final List<Product> productList;
   final String couponDiscount;
   final PsValueHolder psValueHolder;
+
+  @override
+  __OrderSummaryWidgetState createState() =>
+      __OrderSummaryWidgetState();
+}
+
+class __OrderSummaryWidgetState extends State<_OrderSummaryWidget> {
   @override
   Widget build(BuildContext context) {
     final BasketProvider basketProvider =
@@ -452,13 +472,13 @@ class _OrderSummaryWidget extends StatelessWidget {
 
     String currencySymbol;
 
-    if (productList.isNotEmpty) {
-      currencySymbol = productList[0].currencySymbol;
+    if (widget.productList.isNotEmpty) {
+      currencySymbol = widget.productList[0].currencySymbol;
     }
     basketProvider.checkoutCalculationHelper.calculate(
-        productList: productList,
-        couponDiscountString: couponDiscount,
-        psValueHolder: psValueHolder);
+        productList: widget.productList,
+        couponDiscountString: widget.couponDiscount,
+        psValueHolder: widget.psValueHolder);
 
     const Widget _dividerWidget = Divider(
       height: ps_space_2,
@@ -470,12 +490,13 @@ class _OrderSummaryWidget extends StatelessWidget {
     );
     double totalPrice = 0.0;
 
-    for (int i = 0; i < cartList.length; i++) {
-      totalPrice += cartList[i]['price'] as double;
+    for (int i = 0; i < widget.cartList.length; i++) {
+      totalPrice += widget.cartList[i]['price'] as double;
     }
     int totalDiscountPrice = 0;
-    for (int i = 0; i < cartList.length; i++) {
-      totalDiscountPrice += cartList[i].data['Orignal Price'].toInt();
+    for (int i = 0; i < widget.cartList.length; i++) {
+      totalDiscountPrice +=
+          widget.cartList[i].data['Orignal Price'].toInt();
     }
     // final dicount = totalDiscountPrice;
     // print(totalPrice - totalDiscountPrice * 100 / 100);
@@ -494,7 +515,7 @@ class _OrderSummaryWidget extends StatelessWidget {
             ),
             _dividerWidget,
             _OrderSummeryTextWidget(
-              transationInfoText: cartList.length.toString(),
+              transationInfoText: widget.cartList.length.toString(),
               title:
                   '${Utils.getString(context, 'checkout__total_item_count')} :',
             ),
@@ -514,9 +535,9 @@ class _OrderSummaryWidget extends StatelessWidget {
                   '${Utils.getString(context, 'checkout__discount')} :',
             ),
             _OrderSummeryTextWidget(
-              transationInfoText: couponDiscount == '-'
+              transationInfoText: widget.couponDiscount == null
                   ? '-'
-                  : '$currencySymbol ${basketProvider.checkoutCalculationHelper.couponDiscountFormattedString}',
+                  : widget.couponDiscount,
               title:
                   '${Utils.getString(context, 'checkout__coupon_discount')} :',
             ),
@@ -551,12 +572,12 @@ class _OrderSummeryTextWidget extends StatelessWidget {
     Key key,
     @required this.transationInfoText,
     this.title,
-    @required this.productList,
+    // @required this.productList,
   }) : super(key: key);
 
   final String transationInfoText;
   final String title;
-  final DocumentSnapshot productList;
+  // final DocumentSnapshot productList;
 
   @override
   Widget build(BuildContext context) {
