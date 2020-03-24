@@ -37,7 +37,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutView extends StatefulWidget {
-  const CheckoutView({
+  CheckoutView({
     Key key,
     @required this.productList,
     @required this.publishKey,
@@ -47,6 +47,9 @@ class CheckoutView extends StatefulWidget {
 
   final List<Product> productList;
   final String publishKey;
+  String promocodePrice = '0';
+  int length = 0;
+  List<String> promoprice = [];
   @override
   _CheckoutViewState createState() => _CheckoutViewState();
 }
@@ -88,8 +91,7 @@ class _CheckoutViewState extends State<CheckoutView> {
       );
 
       List<String> promocode = [];
-      List<String> promoprice = [];
-      String promocodePrice;
+      // List<String> promoprice = [];
       int length = 0;
       for (int i = 0; i < widget.cartList.length; i++) {
         promocode.add(widget.cartList[i]['Promocode']);
@@ -99,17 +101,23 @@ class _CheckoutViewState extends State<CheckoutView> {
       // }
       promocodeValidator(prmo) {
         for (var i = 0; i < promocode.length; i++) {
-          if (promocode[i].contains(prmo)) {
-            length = i;
+          try {
+            if (promocode[i].contains(prmo)) {
+              length = i;
 
-            setState(() {
-              promocodePrice = widget.cartList[i]['PromoPrice'];
-              print('validate');
-              print(promocodePrice);
-            });
-
-            return true;
+              setState(() {
+                widget.promocodePrice =
+                    widget.cartList[i]['PromoPrice'];
+                print('validate');
+                widget.promoprice.add(widget.cartList[i]['PromoPrice']);
+                // print(widget.promocodePrice);
+              });
+            }
+            return widget.cartList[i]['PromoPrice'];
+          } catch (e) {
+            return null;
           }
+
           //  else if (promocode[i] == '') {
           //   print('error');
           //   return false;
@@ -269,13 +277,13 @@ class _CheckoutViewState extends State<CheckoutView> {
                                               promocodeValidator(
                                                   couponController
                                                       .text);
-                                          print(result);
-                                          setState(() {
-                                            print(promocodePrice);
-                                          });
+                                          // print(result);
+
+                                          // print(promoprice[0]);
 
                                           print(length);
-                                          if (result == true) {
+                                          if (result != null) {
+                                            setState(() {});
                                             showDialog<dynamic>(
                                                 context: context,
                                                 builder: (BuildContext
@@ -333,9 +341,9 @@ class _CheckoutViewState extends State<CheckoutView> {
                     ),
                     _OrderSummaryWidget(
                       cartList: widget.cartList,
-                      psValueHolder: valueHolder,
+                      // psValueHolder: valueHolder,
                       productList: widget.productList,
-                      couponDiscount: promocodePrice ?? '-',
+                      couponDiscount: (widget.promoprice.isEmpty) ? '-' : widget.promoprice[0].toString() ,
                     ),
                     Consumer<TransactionHeaderProvider>(builder:
                         (BuildContext context,
