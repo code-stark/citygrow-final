@@ -88,10 +88,12 @@ Future<void> main() async {
 
   final FirebaseMessaging _fcm = FirebaseMessaging();
   if (Platform.isIOS) {
-    _fcm.requestNotificationPermissions(const IosNotificationSettings());
+    _fcm.requestNotificationPermissions(
+        const IosNotificationSettings());
   }
 
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final SharedPreferences prefs =
+      await SharedPreferences.getInstance();
 
   if (prefs.getString('codeC') == null) {
     await prefs.setString('codeC', null);
@@ -144,7 +146,8 @@ class _PSAppState extends State<PSApp> {
 
         Utils.psPrint('init theme provider');
         final PsThemeProvider psThemeProvider = PsThemeProvider(
-            repo: PsThemeRepository(psSharedPreferences: psSharedPreferences));
+            repo: PsThemeRepository(
+                psSharedPreferences: psSharedPreferences));
 
         Utils.psPrint('get theme');
         final ThemeData themeData = psThemeProvider.getTheme();
@@ -158,9 +161,11 @@ class _PSAppState extends State<PSApp> {
     return themeDataCompleter.future;
   }
 
-  Future<dynamic> getCurrentLang(EasyLocalizationProvider provider) async {
+  Future<dynamic> getCurrentLang(
+      EasyLocalizationProvider provider) async {
     if (!_isLanguageLoaded) {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final SharedPreferences prefs =
+          await SharedPreferences.getInstance();
       provider.data.changeLocale(Locale(
           prefs.getString(LANGUAGE__LANGUAGE_CODE_KEY) ??
               defaultLanguage.languageCode,
@@ -199,7 +204,8 @@ class _PSAppState extends State<PSApp> {
                 return themeData(ThemeData.dark());
               }
             },
-            themedWidgetBuilder: (BuildContext context, ThemeData theme) {
+            themedWidgetBuilder:
+                (BuildContext context, ThemeData theme) {
               return EasyLocalizationProvider(
                   data: data,
                   child: MaterialApp(
@@ -212,16 +218,21 @@ class _PSAppState extends State<PSApp> {
                       },
                       '${RoutePaths.home}': (BuildContext context) =>
                           DashboardView(),
-                      '${RoutePaths.force_update}': (BuildContext context) {
+                      '${RoutePaths.force_update}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final PSAppVersion psAppVersion = args ?? PSAppVersion;
-                        return ForceUpdateView(psAppVersion: psAppVersion);
+                        final PSAppVersion psAppVersion =
+                            args ?? PSAppVersion;
+                        return ForceUpdateView(
+                            psAppVersion: psAppVersion);
                       },
                       '${RoutePaths.user_register_container}':
-                          (BuildContext context) => RegisterContainerView(),
-                      '${RoutePaths.login_container}': (BuildContext context) =>
-                          LoginContainerView(),
+                          (BuildContext context) =>
+                              RegisterContainerView(),
+                      '${RoutePaths.login_container}':
+                          (BuildContext context) =>
+                              LoginContainerView(),
                       '${RoutePaths.user_verify_email_container}':
                           (BuildContext context) {
                         return VerifyEmailContainerView();
@@ -230,7 +241,8 @@ class _PSAppState extends State<PSApp> {
                           (BuildContext context) =>
                               ForgotPasswordContainerView(),
                       '${RoutePaths.user_phone_signin_container}':
-                          (BuildContext context) => PhoneSignInContainerView(),
+                          (BuildContext context) =>
+                              PhoneSignInContainerView(),
                       '${RoutePaths.user_phone_verify_container}':
                           (BuildContext context) {
                         final Object args =
@@ -240,59 +252,77 @@ class _PSAppState extends State<PSApp> {
                             verifyPhoneIntentParameterHolder =
                             args ?? VerifyPhoneIntentHolder;
                         return VerifyPhoneContainerView(
-                          userName: verifyPhoneIntentParameterHolder.userName,
+                          userName: verifyPhoneIntentParameterHolder
+                              .userName,
                           phoneNumber:
-                              verifyPhoneIntentParameterHolder.phoneNumber,
-                          phoneId: verifyPhoneIntentParameterHolder.phoneId,
+                              verifyPhoneIntentParameterHolder
+                                  .phoneNumber,
+                          phoneId: verifyPhoneIntentParameterHolder
+                              .phoneId,
                         );
                       },
                       '${RoutePaths.user_update_password}':
-                          (BuildContext context) => ChangePasswordView(),
-                      '${RoutePaths.profile}': (BuildContext context) =>
-                          ProfileView(),
+                          (BuildContext context) =>
+                              ChangePasswordView(),
+                      '${RoutePaths.profile}':
+                          (BuildContext context) => ProfileView(),
                       '${RoutePaths.profile_container}':
-                          (BuildContext context) => ProfileContainerView(),
-                      '${RoutePaths.languageList}': (BuildContext context) {
+                          (BuildContext context) =>
+                              ProfileContainerView(),
+                      '${RoutePaths.languageList}':
+                          (BuildContext context) {
                         return LanguageListView();
                       },
-                      '${RoutePaths.categoryList}': (BuildContext context) {
+                      '${RoutePaths.categoryList}':
+                          (BuildContext context) {
                         return CategoryListViewContainerView(
                           appBarTitle: Utils.getString(
                               context, 'dashboard__category_list'),
                         );
                       },
-                      '${RoutePaths.notiList}': (BuildContext context) =>
-                          const NotiListView(),
-                      '${RoutePaths.creditCard}': (BuildContext context) {
+                      '${RoutePaths.notiList}':
+                          (BuildContext context) =>
+                              const NotiListView(),
+                      '${RoutePaths.creditCard}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
 
-                        final CreditCardIntentHolder creditCardParameterHolder =
+                        final CreditCardIntentHolder
+                            creditCardParameterHolder =
                             args ?? CreditCardIntentHolder;
                         return CreditCardView(
-                            productList: creditCardParameterHolder.productList,
-                            couponDiscount:
-                                creditCardParameterHolder.couponDiscount,
-                            transactionSubmitProvider: creditCardParameterHolder
-                                .transactionSubmitProvider,
+                            productList:
+                                creditCardParameterHolder.productList,
+                            couponDiscount: creditCardParameterHolder
+                                .couponDiscount,
+                            transactionSubmitProvider:
+                                creditCardParameterHolder
+                                    .transactionSubmitProvider,
                             userLoginProvider:
-                                creditCardParameterHolder.userLoginProvider,
-                            basketProvider:
-                                creditCardParameterHolder.basketProvider,
-                            psValueHolder:
-                                creditCardParameterHolder.psValueHolder,
+                                creditCardParameterHolder
+                                    .userLoginProvider,
+                            basketProvider: creditCardParameterHolder
+                                .basketProvider,
+                            psValueHolder: creditCardParameterHolder
+                                .psValueHolder,
                             name: creditCardParameterHolder.name,
-                            iconData: creditCardParameterHolder.iconData);
+                            iconData:
+                                creditCardParameterHolder.iconData);
                       },
-                      '${RoutePaths.notiSetting}': (BuildContext context) =>
-                          NotificationSettingView(),
-                      '${RoutePaths.setting}': (BuildContext context) =>
-                          SettingContainerView(),
-                      '${RoutePaths.subCategoryList}': (BuildContext context) {
+                      '${RoutePaths.notiSetting}':
+                          (BuildContext context) =>
+                              NotificationSettingView(),
+                      '${RoutePaths.setting}':
+                          (BuildContext context) =>
+                              SettingContainerView(),
+                      '${RoutePaths.subCategoryList}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final Category category = args ?? Category;
-                        return SubCategoryListView(category: category);
+                        return SubCategoryListView(
+                            category: category);
                       },
                       '${RoutePaths.noti}': (BuildContext context) {
                         final Object args =
@@ -304,16 +334,18 @@ class _PSAppState extends State<PSApp> {
                           (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final ProductListIntentHolder productListIntentHolder =
-                            args ?? ProductListIntentHolder;
+                        final List<DocumentSnapshot>
+                            productListIntentHolder =
+                            args ?? DocumentSnapshot;
                         return ProductListWithFilterContainerView(
-                            appBarTitle: productListIntentHolder.appBarTitle,
-                            productParameterHolder:
-                                productListIntentHolder.productParameterHolder);
+                          productList: productListIntentHolder,
+                        );
                       },
-                      '${RoutePaths.checkoutSuccess}': (BuildContext context) =>
-                          CheckoutSuccessView(),
-                      '${RoutePaths.privacyPolicy}': (BuildContext context) {
+                      '${RoutePaths.checkoutSuccess}':
+                          (BuildContext context) =>
+                              CheckoutSuccessView(),
+                      '${RoutePaths.privacyPolicy}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final int checkPolicyType = args ?? int;
@@ -324,17 +356,21 @@ class _PSAppState extends State<PSApp> {
                       '${RoutePaths.purchasedProduct}':
                           (BuildContext context) =>
                               PurchasedProductContainerView(),
-                      '${RoutePaths.blogList}': (BuildContext context) =>
-                          BlogListContainerView(),
-                      '${RoutePaths.blogDetail}': (BuildContext context) {
+                      '${RoutePaths.blogList}':
+                          (BuildContext context) =>
+                              BlogListContainerView(),
+                      '${RoutePaths.blogDetail}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final Blog blog = args ?? Blog;
                         return BlogView(blog: blog);
                       },
-                      '${RoutePaths.transactionList}': (BuildContext context) =>
-                          TransactionListContainerView(),
-                      '${RoutePaths.historyList}': (BuildContext context) {
+                      '${RoutePaths.transactionList}':
+                          (BuildContext context) =>
+                              TransactionListContainerView(),
+                      '${RoutePaths.historyList}':
+                          (BuildContext context) {
                         return HistoryListContainerView();
                       },
                       '${RoutePaths.transactionDetail}':
@@ -347,7 +383,8 @@ class _PSAppState extends State<PSApp> {
                           transaction: transaction,
                         );
                       },
-                      '${RoutePaths.productDetail}': (BuildContext context) {
+                      '${RoutePaths.productDetail}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final DocumentSnapshot product =
@@ -357,13 +394,15 @@ class _PSAppState extends State<PSApp> {
                           // product: product,
                         );
                       },
-                      '${RoutePaths.filterExpantion}': (BuildContext context) {
+                      '${RoutePaths.filterExpantion}':
+                          (BuildContext context) {
                         final dynamic args =
                             ModalRoute.of(context).settings.arguments;
 
                         return FilterListView(selectedData: args);
                       },
-                      '${RoutePaths.commentList}': (BuildContext context) {
+                      '${RoutePaths.commentList}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final List<DocumentSnapshot> product =
@@ -372,23 +411,29 @@ class _PSAppState extends State<PSApp> {
                           commentsList: product,
                         );
                       },
-                      '${RoutePaths.itemSearch}': (BuildContext context) {
+                      '${RoutePaths.itemSearch}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final ProductParameterHolder productParameterHolder =
+                        final ProductParameterHolder
+                            productParameterHolder =
                             args ?? ProductParameterHolder;
                         return ItemSearchView(
-                            productParameterHolder: productParameterHolder);
+                            productParameterHolder:
+                                productParameterHolder);
                       },
-                      '${RoutePaths.itemSort}': (BuildContext context) {
+                      '${RoutePaths.itemSort}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final ProductParameterHolder productParameterHolder =
-                            args ?? ProductParameterHolder;
+                        final String productParameterHolder =
+                            args ?? String;
                         return ItemSortingView(
-                            productParameterHolder: productParameterHolder);
+                          catergory: productParameterHolder,
+                        );
                       },
-                      '${RoutePaths.commentDetail}': (BuildContext context) {
+                      '${RoutePaths.commentDetail}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final DocumentSnapshot commentHeader =
@@ -411,18 +456,22 @@ class _PSAppState extends State<PSApp> {
 
                         return ProductListByCollectionIdView(
                           productCollectionHeader:
-                              productCollectionIdView.productCollectionHeader,
-                          appBarTitle: Utils.getString(
-                              context, productCollectionIdView.appBarTitle),
+                              productCollectionIdView
+                                  .productCollectionHeader,
+                          appBarTitle: Utils.getString(context,
+                              productCollectionIdView.appBarTitle),
                         );
                       },
-                      '${RoutePaths.ratingList}': (BuildContext context) {
+                      '${RoutePaths.ratingList}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final String productDetailId = args ?? String;
-                        return RatingListView(productDetailid: productDetailId);
+                        return RatingListView(
+                            productDetailid: productDetailId);
                       },
-                      '${RoutePaths.editProfile}': (BuildContext context) {
+                      '${RoutePaths.editProfile}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final DocumentSnapshot editprofile =
@@ -431,41 +480,51 @@ class _PSAppState extends State<PSApp> {
                           snapshot: editprofile,
                         );
                       },
-                      '${RoutePaths.galleryGrid}': (BuildContext context) {
+                      '${RoutePaths.galleryGrid}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final Product product = args ?? Product;
                         return GalleryGridView(product: product);
                       },
-                      '${RoutePaths.galleryDetail}': (BuildContext context) {
+                      '${RoutePaths.galleryDetail}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final DefaultPhoto selectedDefaultImage =
                             args ?? DefaultPhoto;
                         return GalleryView(
-                            selectedDefaultImage: selectedDefaultImage);
+                            selectedDefaultImage:
+                                selectedDefaultImage);
                       },
-                      '${RoutePaths.searchCategory}': (BuildContext context) =>
-                          CategoryFilterListView(),
+                      '${RoutePaths.searchCategory}':
+                          (BuildContext context) =>
+                              CategoryFilterListView(),
                       '${RoutePaths.searchSubCategory}':
                           (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
                         final String category = args ?? String;
-                        return SubCategorySearchListView(categoryId: category);
+                        return SubCategorySearchListView(
+                            categoryId: category);
                       },
-                      '${RoutePaths.basketList}': (BuildContext context) {
+                      '${RoutePaths.basketList}':
+                          (BuildContext context) {
                         return BasketListContainerView();
                       },
-                      '${RoutePaths.checkout}': (BuildContext context) {
+                      '${RoutePaths.checkout}':
+                          (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final CheckoutIntentHolder checkoutIntentHolder =
+                        final CheckoutIntentHolder
+                            checkoutIntentHolder =
                             args ?? CheckoutIntentHolder;
                         return CheckoutView(
                             cartList: checkoutIntentHolder.cartList,
-                            productList: checkoutIntentHolder.productList,
-                            publishKey: checkoutIntentHolder.publishKey);
+                            productList:
+                                checkoutIntentHolder.productList,
+                            publishKey:
+                                checkoutIntentHolder.publishKey);
                       },
                       '${RoutePaths.trendingCategoryList}':
                           (BuildContext context) {
@@ -475,7 +534,8 @@ class _PSAppState extends State<PSApp> {
 
                     // initialRoute: RoutePaths.appLoading,
                     // onGenerateRoute: Router.generateRoute,
-                    localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+                    localizationsDelegates: <
+                        LocalizationsDelegate<dynamic>>[
                       GlobalMaterialLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
                       //app-specific localization

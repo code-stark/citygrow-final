@@ -17,7 +17,8 @@ class FirebaseBloc {
         .document(uid)
         .collection('favorite')
         .document(uuid)
-        .updateData({'productUid': productUid,'selection': 'favorite'});
+        .updateData(
+            {'productUid': productUid, 'selection': 'favorite'});
   }
 //! Fav remover
 
@@ -78,5 +79,24 @@ class FirebaseBloc {
         .collection('cart')
         .document(uuids)
         .delete();
+  }
+
+  //! order
+  void orderProduct(uid, List<DocumentSnapshot> data) async {
+    for (var i = 0; i < data.length; i++) {
+      final String uuid = Uuid().v1();
+      await firestore
+          .collection("AppUsers")
+          .document(uid)
+          .collection('order')
+          .document(uuid)
+          .setData(data[i].data);
+      await firestore
+          .collection("Sellers")
+          .document(data[i].data['PersonID'])
+          .collection('order')
+          .document(uuid)
+          .setData(data[i].data);
+    }
   }
 }

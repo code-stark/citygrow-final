@@ -11,10 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ItemSortingView extends StatefulWidget {
-  const ItemSortingView({@required this.productParameterHolder});
+  const ItemSortingView(
+      {@required this.productParameterHolder,
+      @required this.catergory});
 
   final ProductParameterHolder productParameterHolder;
-
+  final dynamic catergory;
   @override
   _ItemSortingViewState createState() => _ItemSortingViewState();
 }
@@ -33,14 +35,15 @@ class _ItemSortingViewState extends State<ItemSortingView> {
     super.dispose();
   }
 
+  bool checked = false;
   @override
   Widget build(BuildContext context) {
     repo1 = Provider.of<ProductRepository>(context);
 
     return PsWidgetWithAppBar<SearchProductProvider>(
-      appBarTitle:
-          Utils.getString(context, 'item_filter__filtered_by_product_type') ??
-              '',
+      appBarTitle: Utils.getString(
+              context, 'item_filter__filtered_by_product_type') ??
+          '',
       initProvider: () {
         return SearchProductProvider(repo: repo1);
       },
@@ -49,120 +52,123 @@ class _ItemSortingViewState extends State<ItemSortingView> {
         _searchProductProvider.productParameterHolder =
             widget.productParameterHolder;
       },
-      builder:
-          (BuildContext context, SearchProductProvider provider, Widget child) {
-        return StreamBuilder<QuerySnapshot>(
-            stream: Firestore.instance.collection('ProductListID').snapshots(),
-            builder: (context, snapshot) {
-              
-              return Column(
-                children: <Widget>[
-                  GestureDetector(
+      builder: (BuildContext context, SearchProductProvider provider,
+          Widget child) {
+        return Column(
+          children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection('ProductListID')
+                    .where('UserService', isEqualTo: widget.catergory)
+                    .orderBy('TimeStamp', descending: false)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return GestureDetector(
                     child: SortingView(
                         image:
                             'assets/images/baesline_access_time_black_24.png',
-                        titleText:
-                            Utils.getString(context, 'item_filter__latest'),
-                        checkImage: _searchProductProvider
-                                    .productParameterHolder.orderBy ==
-                                FILTERING__ADDED_DATE
+                        titleText: Utils.getString(
+                            context, 'item_filter__latest'),
+                        checkImage: checked
                             ? 'assets/images/baseline_check_green_24.png'
                             : ''),
                     onTap: () {
                       print('sort by latest product');
-                      _searchProductProvider.productParameterHolder.orderBy =
-                          FILTERING__ADDED_DATE;
-                      _searchProductProvider.productParameterHolder.orderType =
-                          FILTERING__DESC;
 
-                      Navigator.pop(context,
-                          _searchProductProvider.productParameterHolder);
+                      Navigator.pop(context, snapshot.data.documents);
                     },
-                  ),
-                  const Divider(
-                    height: ps_space_1,
-                  ),
-                  GestureDetector(
-                    child: SortingView(
-                        image: 'assets/images/baseline_graph_black_24.png',
-                        titleText:
-                            Utils.getString(context, 'item_filter__popular'),
-                        checkImage: _searchProductProvider
-                                    .productParameterHolder.orderBy ==
-                                FILTERING__TRENDING
-                            ? 'assets/images/baseline_check_green_24.png'
-                            : ''),
-                    onTap: () {
-                      print('sort by popular product');
-                      _searchProductProvider.productParameterHolder.orderBy =
-                          FILTERING_TRENDING;
-                      _searchProductProvider.productParameterHolder.orderType =
-                          FILTERING__DESC;
+                  );
+                }),
+            const Divider(
+              height: ps_space_1,
+            ),
+            // GestureDetector(
+            //   child: SortingView(
+            //       image: 'assets/images/baseline_graph_black_24.png',
+            //       titleText: Utils.getString(
+            //           context, 'item_filter__popular'),
+            //       checkImage: _searchProductProvider
+            //                   .productParameterHolder.orderBy ==
+            //               FILTERING__TRENDING
+            //           ? 'assets/images/baseline_check_green_24.png'
+            //           : ''),
+            //   onTap: () {
+            //     print('sort by popular product');
+            //     _searchProductProvider.productParameterHolder
+            //         .orderBy = FILTERING_TRENDING;
+            //     _searchProductProvider.productParameterHolder
+            //         .orderType = FILTERING__DESC;
 
-                      Navigator.pop(context,
-                          _searchProductProvider.productParameterHolder);
-                    },
-                  ),
-                  const Divider(
-                    height: ps_space_1,
-                  ),
-                  GestureDetector(
-                    child: SortingView(
-                        image: 'assets/images/baseline_price_down_black_24.png',
-                        titleText: Utils.getString(
-                            context, 'item_filter__lowest_price'),
-                        checkImage: _searchProductProvider
-                                        .productParameterHolder.orderBy ==
-                                    FILTERING_PRICE &&
-                                _searchProductProvider
-                                        .productParameterHolder.orderType ==
-                                    FILTERING__ASC
-                            ? 'assets/images/baseline_check_green_24.png'
-                            : ''),
-                    onTap: () {
-                      print('sort by lowest price');
-                      _searchProductProvider.productParameterHolder.orderBy =
-                          FILTERING_PRICE;
-                      _searchProductProvider.productParameterHolder.orderType =
-                          FILTERING__ASC;
+            //     Navigator.pop(context,
+            //         _searchProductProvider.productParameterHolder);
+            //   },
+            // ),
+            const Divider(
+              height: ps_space_1,
+            ),
+            // GestureDetector(
+            //   child: SortingView(
+            //       image:
+            //           'assets/images/baseline_price_down_black_24.png',
+            //       titleText: Utils.getString(
+            //           context, 'item_filter__lowest_price'),
+            //       checkImage: _searchProductProvider
+            //                       .productParameterHolder.orderBy ==
+            //                   FILTERING_PRICE &&
+            //               _searchProductProvider
+            //                       .productParameterHolder.orderType ==
+            //                   FILTERING__ASC
+            //           ? 'assets/images/baseline_check_green_24.png'
+            //           : ''),
+            //   onTap: () {
+            //     print('sort by lowest price');
+            //     _searchProductProvider
+            //         .productParameterHolder.orderBy = FILTERING_PRICE;
+            //     _searchProductProvider.productParameterHolder
+            //         .orderType = FILTERING__ASC;
 
-                      Navigator.pop(context,
-                          _searchProductProvider.productParameterHolder);
-                    },
-                  ),
-                  const Divider(
-                    height: ps_space_1,
-                  ),
-                  GestureDetector(
-                    child: SortingView(
-                        image: 'assets/images/baseline_price_up_black_24.png',
-                        titleText: Utils.getString(
-                            context, 'item_filter__highest_price'),
-                        checkImage: _searchProductProvider
-                                        .productParameterHolder.orderBy ==
-                                    FILTERING_PRICE &&
-                                _searchProductProvider
-                                        .productParameterHolder.orderType ==
-                                    FILTERING__DESC
-                            ? 'assets/images/baseline_check_green_24.png'
-                            : ''),
-                    onTap: () {
-                      print('sort by highest price ');
-                      _searchProductProvider.productParameterHolder.orderBy =
-                          FILTERING_PRICE;
-                      _searchProductProvider.productParameterHolder.orderType =
-                          FILTERING__DESC;
+            //     Navigator.pop(context,
+            //         _searchProductProvider.productParameterHolder);
+            //   },
+            // ),
+            const Divider(
+              height: ps_space_1,
+            ),
+            // GestureDetector(
+            //   child: SortingView(
+            //       image:
+            //           'assets/images/baseline_price_up_black_24.png',
+            //       titleText: Utils.getString(
+            //           context, 'item_filter__highest_price'),
+            //       checkImage: _searchProductProvider
+            //                       .productParameterHolder.orderBy ==
+            //                   FILTERING_PRICE &&
+            //               _searchProductProvider
+            //                       .productParameterHolder.orderType ==
+            //                   FILTERING__DESC
+            //           ? 'assets/images/baseline_check_green_24.png'
+            //           : ''),
+            //   onTap: () {
+            //     print('sort by highest price ');
+            //     _searchProductProvider
+            //         .productParameterHolder.orderBy = FILTERING_PRICE;
+            //     _searchProductProvider.productParameterHolder
+            //         .orderType = FILTERING__DESC;
 
-                      Navigator.pop(context,
-                          _searchProductProvider.productParameterHolder);
-                    },
-                  ),
-                  const Divider(
-                    height: ps_space_1,
-                  ),
-                ],
-              );
-            });
+            //     Navigator.pop(context,
+            //         _searchProductProvider.productParameterHolder);
+            //   },
+            // ),
+            const Divider(
+              height: ps_space_1,
+            ),
+          ],
+        );
       },
     );
   }
@@ -209,12 +215,12 @@ class _SortingViewState extends State<SortingView> {
                 width: ps_space_10,
               ),
               Text(widget.titleText,
-                  style: Theme.of(context).textTheme.subtitle),
+                  style: Theme.of(context).textTheme.subtitle2),
             ],
           ),
           Padding(
-            padding:
-                const EdgeInsets.only(right: ps_space_20, left: ps_space_20),
+            padding: const EdgeInsets.only(
+                right: ps_space_20, left: ps_space_20),
             child: Image.asset(
               widget.checkImage,
               width: ps_space_16,

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:braintree_payment/braintree_payment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digitalproductstore/Service/firestore_loc.dart';
 import 'package:digitalproductstore/api/common/ps_resource.dart';
 import 'package:digitalproductstore/api/common/ps_status.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
@@ -9,6 +10,8 @@ import 'package:digitalproductstore/config/route_paths.dart';
 import 'package:digitalproductstore/api/ps_api_service.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
+import 'package:digitalproductstore/locator.dart';
+import 'package:digitalproductstore/model/user_model.dart';
 import 'package:digitalproductstore/provider/basket/basket_provider.dart';
 import 'package:digitalproductstore/provider/coupon_discount/coupon_discount_provider.dart';
 import 'package:digitalproductstore/provider/token/token_provider.dart';
@@ -50,6 +53,7 @@ class CheckoutView extends StatefulWidget {
   String promocodePrice = '0';
   int length = 0;
   List<String> promoprice = [];
+  bool promoBool = false;
   @override
   _CheckoutViewState createState() => _CheckoutViewState();
 }
@@ -99,29 +103,27 @@ class _CheckoutViewState extends State<CheckoutView> {
       // for (int i = 0; i < widget.cartList.length; i++) {
       //   promoprice.add(widget.cartList[i]['PromoPrice']);
       // }
+      //! Promocode Validator
       promocodeValidator(prmo) {
         for (var i = 0; i < promocode.length; i++) {
-          try {
-            if (promocode[i].contains(prmo)) {
-              length = i;
-
-              setState(() {
-                widget.promocodePrice =
-                    widget.cartList[i]['PromoPrice'];
-                print('validate');
-                widget.promoprice.add(widget.cartList[i]['PromoPrice']);
-                // print(widget.promocodePrice);
-              });
-            }
-            return widget.cartList[i]['PromoPrice'];
-          } catch (e) {
-            return null;
+          Future.delayed(Duration(seconds: 3));
+          if (promocode.contains(prmo)) {
+            print(promocode.indexOf(prmo));
+            length = i;
+            setState(() {
+              widget.promocodePrice = widget
+                  .cartList[promocode.indexOf(prmo)]['PromoPrice'];
+              print('validate');
+              widget.promoprice.clear();
+              widget.promoprice.add(widget
+                  .cartList[promocode.indexOf(prmo)]['PromoPrice']);
+              widget.promoBool = true;
+              // print(widget.promocodePrice);
+            });
+          } else {
+            widget.promoBool = false;
           }
-
-          //  else if (promocode[i] == '') {
-          //   print('error');
-          //   return false;
-          // }
+          return null;
         }
       }
 
@@ -273,16 +275,13 @@ class _CheckoutViewState extends State<CheckoutView> {
                                       if (couponController
                                           .text.isNotEmpty) {
                                         if (widget.cartList != null) {
-                                          final result =
-                                              promocodeValidator(
-                                                  couponController
-                                                      .text);
+                                          promocodeValidator(
+                                              couponController.text);
                                           // print(result);
-
+                                          couponController.clear();
                                           // print(promoprice[0]);
 
-                                          print(length);
-                                          if (result != null) {
+                                          if (widget.promoBool) {
                                             setState(() {});
                                             showDialog<dynamic>(
                                                 context: context,
@@ -293,6 +292,16 @@ class _CheckoutViewState extends State<CheckoutView> {
                                                         .getString(
                                                             context,
                                                             'checkout__couponcode_add_dialog_message'),
+                                                  );
+                                                });
+                                          } else {
+                                            showDialog<dynamic>(
+                                                context: context,
+                                                builder: (BuildContext
+                                                    context) {
+                                                  return WarningDialog(
+                                                    message:
+                                                        'Invalid Promocode',
                                                   );
                                                 });
                                           }
@@ -343,7 +352,9 @@ class _CheckoutViewState extends State<CheckoutView> {
                       cartList: widget.cartList,
                       // psValueHolder: valueHolder,
                       productList: widget.productList,
-                      couponDiscount: (widget.promoprice.isEmpty) ? '-' : widget.promoprice[0].toString() ,
+                      couponDiscount: (widget.promoprice.isEmpty)
+                          ? '-'
+                          : widget.promoprice[0].toString(),
                     ),
                     Consumer<TransactionHeaderProvider>(builder:
                         (BuildContext context,
@@ -363,6 +374,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                                       .psValueHolder.paypalEnabled ==
                                   ONE)
                                 Pay(
+                                    orderList: widget.cartList,
                                     productList: widget.productList,
                                     couponDiscount:
                                         'couponDiscount' ?? '0.0',
@@ -374,43 +386,43 @@ class _CheckoutViewState extends State<CheckoutView> {
                                     psValueHolder: valueHolder)
                               else
                                 Container(),
-                              if (userLoginProvider
-                                      .psValueHolder.stripeEnabled ==
-                                  ONE)
-                                Stripe(
-                                    productList: widget.productList,
-                                    couponDiscount:
-                                        'couponDiscount' ?? '0.0',
-                                    transactionSubmitProvider:
-                                        provider,
-                                    userLoginProvider:
-                                        userLoginProvider,
-                                    basketProvider: basketProvider,
-                                    psValueHolder: valueHolder,
-                                    name: Utils.getString(context,
-                                        'checkout__master_button_name'),
-                                    iconData:
-                                        FontAwesome.cc_mastercard)
-                              else
-                                Container(),
-                              if (userLoginProvider
-                                      .psValueHolder.stripeEnabled ==
-                                  ONE)
-                                Stripe(
-                                    productList: widget.productList,
-                                    couponDiscount:
-                                        'couponDiscount' ?? '0.0',
-                                    transactionSubmitProvider:
-                                        provider,
-                                    userLoginProvider:
-                                        userLoginProvider,
-                                    basketProvider: basketProvider,
-                                    psValueHolder: valueHolder,
-                                    name: Utils.getString(context,
-                                        'checkout__visa_button_name'),
-                                    iconData: FontAwesome.cc_visa)
-                              else
-                                Container(),
+                              // if (userLoginProvider
+                              //         .psValueHolder.stripeEnabled ==
+                              //     ONE)
+                              //   Stripe(
+                              //       productList: widget.productList,
+                              //       couponDiscount:
+                              //           'couponDiscount' ?? '0.0',
+                              //       transactionSubmitProvider:
+                              //           provider,
+                              //       userLoginProvider:
+                              //           userLoginProvider,
+                              //       basketProvider: basketProvider,
+                              //       psValueHolder: valueHolder,
+                              //       name: Utils.getString(context,
+                              //           'checkout__master_button_name'),
+                              //       iconData:
+                              //           FontAwesome.cc_mastercard)
+                              // else
+                              //   Container(),
+                              // if (userLoginProvider
+                              //         .psValueHolder.stripeEnabled ==
+                              //     ONE)
+                              //   Stripe(
+                              //       productList: widget.productList,
+                              //       couponDiscount:
+                              //           'couponDiscount' ?? '0.0',
+                              //       transactionSubmitProvider:
+                              //           provider,
+                              //       userLoginProvider:
+                              //           userLoginProvider,
+                              //       basketProvider: basketProvider,
+                              //       psValueHolder: valueHolder,
+                              //       name: Utils.getString(context,
+                              //           'checkout__visa_button_name'),
+                              //       iconData: FontAwesome.cc_visa)
+                              // else
+                              //   Container(),
                             ],
                           );
                         });
@@ -533,26 +545,38 @@ class __OrderSummaryWidgetState extends State<_OrderSummaryWidget> {
                   '${Utils.getString(context, 'checkout__total_item_price')} :',
             ),
             _OrderSummeryTextWidget(
-              transationInfoText: '-' +
-                  '₹' +
-                  (totalDiscountPrice - totalPrice)
-                      .toString()
-                      .replaceAll('-', ''),
+              transationInfoText: (widget.couponDiscount == '-')
+                  ? '-' +
+                      '₹' +
+                      (totalDiscountPrice - totalPrice)
+                          .toString()
+                          .replaceAll('-', '')
+                  : '-' +
+                      '₹' +
+                      (totalDiscountPrice - totalPrice)
+                          .toString()
+                          .replaceAll('-', ''),
               // '',
               title:
                   '${Utils.getString(context, 'checkout__discount')} :',
             ),
             _OrderSummeryTextWidget(
-              transationInfoText: widget.couponDiscount == null
+              transationInfoText: widget.couponDiscount == '-'
                   ? '-'
-                  : widget.couponDiscount,
+                  : '-' + '₹' + widget.couponDiscount,
               title:
                   '${Utils.getString(context, 'checkout__coupon_discount')} :',
             ),
             _spacingWidget,
             _dividerWidget,
             _OrderSummeryTextWidget(
-              transationInfoText: '₹' + (totalPrice).toString(),
+              transationInfoText: (widget.couponDiscount == '-')
+                  ? '-' +
+                      '₹' +
+                      (totalPrice).toString().replaceAll('-', '')
+                  : '-' +
+                      '₹' +
+                      (totalPrice).toString().replaceAll('-', ''),
               title:
                   '${Utils.getString(context, 'checkout__sub_total')} :',
             ),
@@ -565,7 +589,15 @@ class __OrderSummaryWidgetState extends State<_OrderSummaryWidget> {
             _spacingWidget,
             _dividerWidget,
             _OrderSummeryTextWidget(
-              transationInfoText: '₹' + (totalPrice).toString(),
+              transationInfoText: (widget.couponDiscount == '-')
+                  ? '-' +
+                      '₹' +
+                      (totalPrice).toString().replaceAll('-', '')
+                  : '-' +
+                      '₹' +
+                      (int.parse(widget.couponDiscount) - totalPrice)
+                          .toString()
+                          .replaceAll('-', ''),
               title:
                   '${Utils.getString(context, 'transaction_detail__total')} :',
             ),
@@ -685,7 +717,7 @@ class _StripeState extends State<Stripe> {
                       width: ps_space_8,
                     ),
                     Text(
-                      ' ' + widget.name,
+                      ' ' + 'Cash On Delivery',
                       style: Theme.of(context)
                           .textTheme
                           .button
@@ -734,8 +766,9 @@ class Pay extends StatefulWidget {
     @required this.transactionSubmitProvider,
     @required this.userLoginProvider,
     @required this.basketProvider,
+    @required this.orderList,
   }) : super(key: key);
-
+  final List<DocumentSnapshot> orderList;
   final List<Product> productList;
   final String couponDiscount;
   final PsValueHolder psValueHolder;
@@ -843,6 +876,7 @@ class _PayState extends State<Pay> {
   Widget build(BuildContext context) {
     PsApiService psApiService;
     psApiService = Provider.of<PsApiService>(context);
+    final Users users = Provider.of<Users>(context);
     return ChangeNotifierProvider<TokenProvider>(create:
         (BuildContext context) {
       final TokenProvider provider =
@@ -869,13 +903,13 @@ class _PayState extends State<Pay> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(FontAwesome.paypal, color: Colors.white),
+                    Icon(FontAwesome.truck, color: Colors.white),
                     const SizedBox(
                       width: ps_space_8,
                     ),
                     Text(
-                      Utils.getString(
-                          context, 'checkout__paypal_button_name'),
+                      Utils.getString(context, 'Cash On Delivery')
+                          .toUpperCase(),
                       style: Theme.of(context)
                           .textTheme
                           .button
@@ -885,7 +919,15 @@ class _PayState extends State<Pay> {
                 ),
                 color: Colors.blue,
                 onPressed: () async {
-                  await payNow(provider.tokenData.data.message);
+                  // await payNow(provider.tokenData.data.message);
+                  sl.get<FirebaseBloc>().orderProduct(
+                    users.uid,
+                   widget.orderList,
+                  );
+                  await Navigator.pushNamed(
+                    context,
+                    RoutePaths.checkoutSuccess,
+                  );
                 },
               )),
         );

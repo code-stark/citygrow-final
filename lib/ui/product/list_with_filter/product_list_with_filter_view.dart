@@ -35,7 +35,8 @@ class ProductListWithFilterView extends StatefulWidget {
       _ProductListWithFilterViewState();
 }
 
-class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
+class _ProductListWithFilterViewState
+    extends State<ProductListWithFilterView>
     with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
 
@@ -92,18 +93,22 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
         //     child:
         ChangeNotifierProvider<SearchProductProvider>(
             create: (BuildContext context) {
-      final SearchProductProvider provider = SearchProductProvider(repo: repo1);
+      final SearchProductProvider provider =
+          SearchProductProvider(repo: repo1);
       provider.loadProductListByKey(widget.productParameterHolder);
       _searchProductProvider = provider;
       _searchProductProvider.productParameterHolder =
           widget.productParameterHolder;
       return _searchProductProvider;
-    }, child: Consumer<SearchProductProvider>(builder: (BuildContext context,
-                SearchProductProvider provider, Widget child) {
+    }, child: Consumer<SearchProductProvider>(builder:
+                (BuildContext context, SearchProductProvider provider,
+                    Widget child) {
       // print(provider.productList.data.isEmpty);
       // if (provider.productList.data.isNotEmpty) {
       return Container(
-        color: Utils.isLightMode(context) ? Colors.grey[100] : Colors.grey[900],
+        color: Utils.isLightMode(context)
+            ? Colors.grey[100]
+            : Colors.grey[900],
         child: Stack(children: <Widget>[
           if (provider.productList.data.isNotEmpty &&
               provider.productList.data != null)
@@ -127,21 +132,29 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
                           delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
                               if (provider.productList.data != null ||
-                                  provider.productList.data.isNotEmpty) {
-                                final int count = widget.productList.length;
+                                  provider
+                                      .productList.data.isNotEmpty) {
+                                final int count =
+                                    widget.productList.length;
                                 return ProductVeticalListItem(
-                                  productList: widget.productList[index],
+                                  productList:
+                                      widget.productList[index],
                                   animationController:
                                       widget.animationController,
-                                  animation: Tween<double>(begin: 0.0, end: 1.0)
+                                  animation: Tween<double>(
+                                          begin: 0.0, end: 1.0)
                                       .animate(
                                     CurvedAnimation(
-                                      parent: widget.animationController,
-                                      curve: Interval((1 / count) * index, 1.0,
-                                          curve: Curves.fastOutSlowIn),
+                                      parent:
+                                          widget.animationController,
+                                      curve: Interval(
+                                          (1 / count) * index, 1.0,
+                                          curve:
+                                              Curves.fastOutSlowIn),
                                     ),
                                   ),
-                                  product: provider.productList.data[index],
+                                  product: provider
+                                      .productList.data[index],
                                   onTap: () {
                                     // Navigator.pushNamed(
                                     //     context, RoutePaths.productDetail,
@@ -150,10 +163,12 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (BuildContext context) =>
+                                            builder: (BuildContext
+                                                    context) =>
                                                 ProductDetailView(
                                                     productList: widget
-                                                        .productList[index])));
+                                                            .productList[
+                                                        index])));
                                   },
                                 );
                               } else {
@@ -166,10 +181,12 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
                       ]),
                   onRefresh: () {
                     return provider.resetLatestProductList(
-                        _searchProductProvider.productParameterHolder);
+                        _searchProductProvider
+                            .productParameterHolder);
                   },
                 ))
-          else if (provider.productList.status != PsStatus.PROGRESS_LOADING &&
+          else if (provider.productList.status !=
+                  PsStatus.PROGRESS_LOADING &&
               provider.productList.status != PsStatus.BLOCK_LOADING &&
               provider.productList.status != PsStatus.NOACTION)
             Align(
@@ -195,7 +212,10 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
                         Utils.getString(
                             context, 'procuct_list__no_result_data'),
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.title.copyWith(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .title
+                            .copyWith(),
                       ),
                     ),
                     const SizedBox(
@@ -218,6 +238,8 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
                   width: double.infinity,
                   height: _containerMaxHeight,
                   child: BottomNavigationImageAndText(
+                      category:
+                          widget.productList[0].data['UserService'],
                       searchProductProvider: _searchProductProvider)),
             ),
           ),
@@ -265,9 +287,10 @@ class _ProductListWithFilterViewState extends State<ProductListWithFilterView>
 }
 
 class BottomNavigationImageAndText extends StatefulWidget {
-  const BottomNavigationImageAndText({this.searchProductProvider});
+  const BottomNavigationImageAndText(
+      {this.searchProductProvider, @required this.category});
   final SearchProductProvider searchProductProvider;
-
+  final dynamic category;
   @override
   _BottomNavigationImageAndTextState createState() =>
       _BottomNavigationImageAndTextState();
@@ -280,7 +303,8 @@ class _BottomNavigationImageAndTextState
 
   @override
   Widget build(BuildContext context) {
-    if (widget.searchProductProvider.productParameterHolder.isFiltered()) {
+    if (widget.searchProductProvider.productParameterHolder
+        .isFiltered()) {
       isClickBaseLineTune = true;
     }
 
@@ -308,8 +332,11 @@ class _BottomNavigationImageAndTextState
               ),
             )
           ],
-          color: Utils.isLightMode(context) ? Colors.grey[200] : Colors.black,
-          borderRadius: const BorderRadius.all(Radius.circular(ps_space_8))),
+          color: Utils.isLightMode(context)
+              ? Colors.grey[200]
+              : Colors.black,
+          borderRadius:
+              const BorderRadius.all(Radius.circular(ps_space_8))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -318,35 +345,46 @@ class _BottomNavigationImageAndTextState
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 PsIconWithCheck(
-                  icon: MaterialCommunityIcons.format_list_bulleted_type,
+                  icon: MaterialCommunityIcons
+                      .format_list_bulleted_type,
                   color: isClickBaseLineList
                       ? ps_ctheme__color_speical
                       : Colors.grey,
                 ),
                 Text(Utils.getString(context, 'search__category'),
-                    style: Theme.of(context).textTheme.bodyText2.copyWith(
-                        color: isClickBaseLineList
-                            ? ps_ctheme__color_speical
-                            : Theme.of(context).textTheme.bodyText2.color)),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(
+                            color: isClickBaseLineList
+                                ? ps_ctheme__color_speical
+                                : Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .color)),
               ],
             ),
             onTap: () async {
-              final Map<String, String> dataHolder = <String, String>{};
-              dataHolder[CATEGORY_ID] =
-                  widget.searchProductProvider.productParameterHolder.catId;
-              dataHolder[SUB_CATEGORY_ID] =
-                  widget.searchProductProvider.productParameterHolder.subCatId;
+              final Map<String, String> dataHolder =
+                  <String, String>{};
+              dataHolder[CATEGORY_ID] = widget
+                  .searchProductProvider.productParameterHolder.catId;
+              dataHolder[SUB_CATEGORY_ID] = widget
+                  .searchProductProvider
+                  .productParameterHolder
+                  .subCatId;
               final dynamic result = await Navigator.pushNamed(
                   context, RoutePaths.filterExpantion,
                   arguments: dataHolder);
 
               if (result != null) {
-                widget.searchProductProvider.productParameterHolder.catId =
-                    result[CATEGORY_ID];
-                widget.searchProductProvider.productParameterHolder.subCatId =
-                    result[SUB_CATEGORY_ID];
+                widget.searchProductProvider.productParameterHolder
+                    .catId = result[CATEGORY_ID];
+                widget.searchProductProvider.productParameterHolder
+                    .subCatId = result[SUB_CATEGORY_ID];
                 widget.searchProductProvider.resetLatestProductList(
-                    widget.searchProductProvider.productParameterHolder);
+                    widget.searchProductProvider
+                        .productParameterHolder);
 
                 if (result[CATEGORY_ID] == '' &&
                     result[SUB_CATEGORY_ID] == '') {
@@ -368,23 +406,32 @@ class _BottomNavigationImageAndTextState
                       : Colors.grey,
                 ),
                 Text(Utils.getString(context, 'search__filter'),
-                    style: Theme.of(context).textTheme.bodyText2.copyWith(
-                        color: isClickBaseLineTune
-                            ? ps_ctheme__color_speical
-                            : Theme.of(context).textTheme.bodyText2.color))
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(
+                            color: isClickBaseLineTune
+                                ? ps_ctheme__color_speical
+                                : Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .color))
               ],
             ),
             onTap: () async {
               final dynamic result = await Navigator.pushNamed(
                   context, RoutePaths.itemSearch,
-                  arguments:
-                      widget.searchProductProvider.productParameterHolder);
+                  arguments: widget
+                      .searchProductProvider.productParameterHolder);
               if (result != null) {
-                widget.searchProductProvider.productParameterHolder = result;
+                widget.searchProductProvider.productParameterHolder =
+                    result;
                 widget.searchProductProvider.resetLatestProductList(
-                    widget.searchProductProvider.productParameterHolder);
+                    widget.searchProductProvider
+                        .productParameterHolder);
 
-                if (widget.searchProductProvider.productParameterHolder
+                if (widget
+                    .searchProductProvider.productParameterHolder
                     .isFiltered()) {
                   isClickBaseLineTune = true;
                 } else {
@@ -402,22 +449,30 @@ class _BottomNavigationImageAndTextState
                   color: ps_ctheme__color_speical,
                 ),
                 Text(Utils.getString(context, 'search__sort'),
-                    style: Theme.of(context).textTheme.bodyText2.copyWith(
-                        color: isClickBaseLineTune
-                            ? ps_ctheme__color_speical
-                            : Theme.of(context).textTheme.bodyText2.color))
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2
+                        .copyWith(
+                            color: isClickBaseLineTune
+                                ? ps_ctheme__color_speical
+                                : Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .color))
               ],
             ),
             onTap: () async {
-              final dynamic result = await Navigator.pushNamed(
+              // final dynamic result = 
+              await Navigator.pushNamed(
                   context, RoutePaths.itemSort,
-                  arguments:
-                      widget.searchProductProvider.productParameterHolder);
-              if (result != null) {
-                widget.searchProductProvider.productParameterHolder = result;
-                widget.searchProductProvider.resetLatestProductList(
-                    widget.searchProductProvider.productParameterHolder);
-              }
+                  arguments: widget.category);
+              // if (result != null) {
+              //   widget.searchProductProvider.productParameterHolder =
+              //       result;
+              //   widget.searchProductProvider.resetLatestProductList(
+              //       widget.searchProductProvider
+              //           .productParameterHolder);
+              // }
             },
           ),
         ],
@@ -427,7 +482,8 @@ class _BottomNavigationImageAndTextState
 }
 
 class PsIconWithCheck extends StatelessWidget {
-  const PsIconWithCheck({Key key, this.icon, this.color = Colors.grey})
+  const PsIconWithCheck(
+      {Key key, this.icon, this.color = Colors.grey})
       : super(key: key);
   final IconData icon;
   final Color color;
