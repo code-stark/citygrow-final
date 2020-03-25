@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
+import 'package:digitalproductstore/config/route_paths.dart';
 import 'package:digitalproductstore/provider/product/search_product_provider.dart';
 import 'package:digitalproductstore/repository/product_repository.dart';
 import 'package:digitalproductstore/ui/common/base/ps_widget_with_appbar.dart';
+import 'package:digitalproductstore/ui/product/list_with_filter/product_list_with_filter_container.dart';
+import 'package:digitalproductstore/ui/product/list_with_filter/product_list_with_filter_view.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/holder/product_parameter_holder.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,10 +16,12 @@ import 'package:provider/provider.dart';
 class ItemSortingView extends StatefulWidget {
   const ItemSortingView(
       {@required this.productParameterHolder,
-      @required this.catergory});
+      @required this.catergory,
+      @required this.appBar});
 
   final ProductParameterHolder productParameterHolder;
   final dynamic catergory;
+  final String appBar;
   @override
   _ItemSortingViewState createState() => _ItemSortingViewState();
 }
@@ -60,7 +65,7 @@ class _ItemSortingViewState extends State<ItemSortingView> {
                 stream: Firestore.instance
                     .collection('ProductListID')
                     .where('UserService', isEqualTo: widget.catergory)
-                    .orderBy('TimeStamp', descending: false)
+                    .orderBy('TimeStamp', descending: true)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -78,92 +83,122 @@ class _ItemSortingViewState extends State<ItemSortingView> {
                             ? 'assets/images/baseline_check_green_24.png'
                             : ''),
                     onTap: () {
+                      setState(() {
+                        checked = true;
+                      });
                       print('sort by latest product');
-
-                      Navigator.pop(context, snapshot.data.documents);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  ProductListWithFilterContainerView(
+                                    appBarTitle: widget.appBar,
+                                    productList:
+                                        snapshot.data.documents,
+                                  )));
+                      // Navigator.pop(context, snapshot.data.documents);
                     },
                   );
                 }),
             const Divider(
               height: ps_space_1,
             ),
-            // GestureDetector(
-            //   child: SortingView(
-            //       image: 'assets/images/baseline_graph_black_24.png',
-            //       titleText: Utils.getString(
-            //           context, 'item_filter__popular'),
-            //       checkImage: _searchProductProvider
-            //                   .productParameterHolder.orderBy ==
-            //               FILTERING__TRENDING
-            //           ? 'assets/images/baseline_check_green_24.png'
-            //           : ''),
-            //   onTap: () {
-            //     print('sort by popular product');
-            //     _searchProductProvider.productParameterHolder
-            //         .orderBy = FILTERING_TRENDING;
-            //     _searchProductProvider.productParameterHolder
-            //         .orderType = FILTERING__DESC;
-
-            //     Navigator.pop(context,
-            //         _searchProductProvider.productParameterHolder);
-            //   },
-            // ),
+            StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection('ProductListID')
+                    .where('UserService', isEqualTo: widget.catergory)
+                    .orderBy('views', descending: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  return GestureDetector(
+                    child: SortingView(
+                        image:
+                            'assets/images/baseline_graph_black_24.png',
+                        titleText: Utils.getString(
+                            context, 'item_filter__popular'),
+                        checkImage: checked
+                            ? 'assets/images/baseline_check_green_24.png'
+                            : ''),
+                    onTap: () {
+                      print('sort by popular product');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  ProductListWithFilterContainerView(
+                                    appBarTitle: widget.appBar,
+                                    productList:
+                                        snapshot.data.documents,
+                                  )));
+                    },
+                  );
+                }),
             const Divider(
               height: ps_space_1,
             ),
-            // GestureDetector(
-            //   child: SortingView(
-            //       image:
-            //           'assets/images/baseline_price_down_black_24.png',
-            //       titleText: Utils.getString(
-            //           context, 'item_filter__lowest_price'),
-            //       checkImage: _searchProductProvider
-            //                       .productParameterHolder.orderBy ==
-            //                   FILTERING_PRICE &&
-            //               _searchProductProvider
-            //                       .productParameterHolder.orderType ==
-            //                   FILTERING__ASC
-            //           ? 'assets/images/baseline_check_green_24.png'
-            //           : ''),
-            //   onTap: () {
-            //     print('sort by lowest price');
-            //     _searchProductProvider
-            //         .productParameterHolder.orderBy = FILTERING_PRICE;
-            //     _searchProductProvider.productParameterHolder
-            //         .orderType = FILTERING__ASC;
-
-            //     Navigator.pop(context,
-            //         _searchProductProvider.productParameterHolder);
-            //   },
-            // ),
+            StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection('ProductListID')
+                    .where('UserService', isEqualTo: widget.catergory)
+                    .orderBy('price', descending: false)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  return GestureDetector(
+                    child: SortingView(
+                        image:
+                            'assets/images/baseline_price_down_black_24.png',
+                        titleText: Utils.getString(
+                            context, 'item_filter__lowest_price'),
+                        checkImage: checked
+                            ? 'assets/images/baseline_check_green_24.png'
+                            : ''),
+                    onTap: () {
+                      print('sort by lowest price');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  ProductListWithFilterContainerView(
+                                    appBarTitle: widget.appBar,
+                                    productList:
+                                        snapshot.data.documents,
+                                  )));
+                    },
+                  );
+                }),
             const Divider(
               height: ps_space_1,
             ),
-            // GestureDetector(
-            //   child: SortingView(
-            //       image:
-            //           'assets/images/baseline_price_up_black_24.png',
-            //       titleText: Utils.getString(
-            //           context, 'item_filter__highest_price'),
-            //       checkImage: _searchProductProvider
-            //                       .productParameterHolder.orderBy ==
-            //                   FILTERING_PRICE &&
-            //               _searchProductProvider
-            //                       .productParameterHolder.orderType ==
-            //                   FILTERING__DESC
-            //           ? 'assets/images/baseline_check_green_24.png'
-            //           : ''),
-            //   onTap: () {
-            //     print('sort by highest price ');
-            //     _searchProductProvider
-            //         .productParameterHolder.orderBy = FILTERING_PRICE;
-            //     _searchProductProvider.productParameterHolder
-            //         .orderType = FILTERING__DESC;
-
-            //     Navigator.pop(context,
-            //         _searchProductProvider.productParameterHolder);
-            //   },
-            // ),
+            StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection('ProductListID')
+                    .where('UserService', isEqualTo: widget.catergory)
+                    .orderBy('price', descending: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  return GestureDetector(
+                    child: SortingView(
+                        image:
+                            'assets/images/baseline_price_up_black_24.png',
+                        titleText: Utils.getString(
+                            context, 'item_filter__highest_price'),
+                        checkImage: checked
+                            ? 'assets/images/baseline_check_green_24.png'
+                            : ''),
+                    onTap: () {
+                      print('sort by highest price ');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  ProductListWithFilterContainerView(
+                                    appBarTitle: widget.appBar,
+                                    productList:
+                                        snapshot.data.documents,
+                                  )));
+                    },
+                  );
+                }),
             const Divider(
               height: ps_space_1,
             ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/utils/utils.dart';
@@ -14,6 +15,7 @@ class TransactionListItem extends StatelessWidget {
     this.animation,
     this.onTap,
     @required this.scaffoldKey,
+    @required this.transactionList,
   }) : super(key: key);
 
   final TransactionHeader transaction;
@@ -21,11 +23,13 @@ class TransactionListItem extends StatelessWidget {
   final AnimationController animationController;
   final Animation<double> animation;
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final DocumentSnapshot transactionList;
 
   @override
   Widget build(BuildContext context) {
     animationController.forward();
-    if (transaction != null && transaction.transCode != null) {
+    if (transactionList != null &&
+        transactionList.documentID != null) {
       return AnimatedBuilder(
           animation: animationController,
           builder: (BuildContext context, Widget child) {
@@ -44,6 +48,7 @@ class TransactionListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         _TransactionNoWidget(
+                          transactionList: transactionList,
                           transaction: transaction,
                           scaffoldKey: scaffoldKey,
                         ),
@@ -52,6 +57,7 @@ class TransactionListItem extends StatelessWidget {
                           color: ps_ctheme__color_line,
                         ),
                         _TransactionTextWidget(
+                          transactionID: transactionList,
                           transaction: transaction,
                         ),
                       ],
@@ -72,17 +78,19 @@ class _TransactionNoWidget extends StatelessWidget {
     Key key,
     @required this.transaction,
     @required this.scaffoldKey,
+    @required this.transactionList,
   }) : super(key: key);
 
   final TransactionHeader transaction;
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final DocumentSnapshot transactionList;
 
   @override
   Widget build(BuildContext context) {
     final Widget _textWidget = Text(
-      'Transaction No : ${transaction.transCode}' ?? '-',
+      'Transaction No : ${transactionList['transactionID']}' ?? '-',
       textAlign: TextAlign.left,
-      style: Theme.of(context).textTheme.subtitle,
+      style: Theme.of(context).textTheme.subtitle2,
     );
 
     final Widget _iconWidget = Icon(
@@ -114,16 +122,19 @@ class _TransactionNoWidget extends StatelessWidget {
             icon: Icon(Icons.content_copy),
             iconSize: 24,
             onPressed: () {
-              Clipboard.setData(ClipboardData(text: transaction.transCode));
+              Clipboard.setData(ClipboardData(
+                  text: transactionList['transactionID']));
               scaffoldKey.currentState.showSnackBar(SnackBar(
                 backgroundColor: Theme.of(context).iconTheme.color,
                 content: Tooltip(
-                  message: Utils.getString(context, 'transaction_detail__copy'),
+                  message: Utils.getString(
+                      context, 'transaction_detail__copy'),
                   child: Text(
-                    Utils.getString(context, 'transaction_detail__copied_data'),
+                    Utils.getString(
+                        context, 'transaction_detail__copied_data'),
                     style: Theme.of(context)
                         .textTheme
-                        .title
+                        .bodyText1
                         .copyWith(color: Colors.orange),
                   ),
                   showDuration: const Duration(seconds: 5),
@@ -141,10 +152,11 @@ class _TransactionTextWidget extends StatelessWidget {
   const _TransactionTextWidget({
     Key key,
     @required this.transaction,
+    @required this.transactionID,
   }) : super(key: key);
 
   final TransactionHeader transaction;
-
+  final DocumentSnapshot transactionID;
   @override
   Widget build(BuildContext context) {
     const EdgeInsets _paddingEdgeInsetWidget = EdgeInsets.only(
@@ -161,14 +173,14 @@ class _TransactionTextWidget extends StatelessWidget {
           Utils.getString(context, 'transaction_list__total_amount'),
           style: Theme.of(context)
               .textTheme
-              .body1
+              .bodyText1
               .copyWith(fontWeight: FontWeight.normal),
         ),
         Text(
-          '${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.balanceAmount)}' ??
-              '-',
-          style: Theme.of(context).textTheme.body1.copyWith(
-              color: ps_ctheme__color_speical, fontWeight: FontWeight.normal),
+          ' ${transactionID['price']}' ?? '-',
+          style: Theme.of(context).textTheme.bodyText1.copyWith(
+              color: ps_ctheme__color_speical,
+              fontWeight: FontWeight.normal),
         )
       ],
     );
@@ -181,14 +193,14 @@ class _TransactionTextWidget extends StatelessWidget {
           Utils.getString(context, 'transaction_detail__status'),
           style: Theme.of(context)
               .textTheme
-              .body1
+              .bodyText1
               .copyWith(fontWeight: FontWeight.normal),
         ),
         Text(
-          transaction.transStatusTitle ?? '-',
+          transactionID['status']  ?? '-',
           style: Theme.of(context)
               .textTheme
-              .body1
+              .bodyText1
               .copyWith(fontWeight: FontWeight.normal),
         )
       ],
@@ -196,11 +208,12 @@ class _TransactionTextWidget extends StatelessWidget {
 
     final Widget _viewDetailTextWidget = Text(
       Utils.getString(context, 'transaction_detail__view_details'),
-      style: Theme.of(context).textTheme.body1.copyWith(
-          color: ps_ctheme__color_application, fontWeight: FontWeight.normal),
+      style: Theme.of(context).textTheme.bodyText1.copyWith(
+          color: ps_ctheme__color_application,
+          fontWeight: FontWeight.normal),
       // textAlign: TextAlign.left,
     );
-    if (transaction != null && transaction.transCode != null) {
+    if (transactionID != null && transactionID.data != null) {
       return Column(
         children: <Widget>[
           Padding(

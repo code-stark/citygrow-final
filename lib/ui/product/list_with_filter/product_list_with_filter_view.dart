@@ -7,6 +7,7 @@ import 'package:digitalproductstore/provider/product/search_product_provider.dar
 import 'package:digitalproductstore/repository/product_repository.dart';
 import 'package:digitalproductstore/ui/product/detail/product_detail_view.dart';
 import 'package:digitalproductstore/ui/product/item/product_vertical_list_item.dart';
+import 'package:digitalproductstore/ui/product/list_with_filter/filter/filter/item_search_view.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
 import 'package:digitalproductstore/viewobject/holder/product_parameter_holder.dart';
@@ -17,18 +18,21 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
-import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
+
+import 'filter/sort/item_sorting_view.dart';
 
 class ProductListWithFilterView extends StatefulWidget {
   const ProductListWithFilterView(
       {Key key,
       @required this.productParameterHolder,
       @required this.animationController,
-      @required this.productList})
+      @required this.productList,
+      @required this.appBarTitle})
       : super(key: key);
   final List<DocumentSnapshot> productList;
   final ProductParameterHolder productParameterHolder;
   final AnimationController animationController;
+  final String appBarTitle;
 
   @override
   _ProductListWithFilterViewState createState() =>
@@ -54,10 +58,7 @@ class _ProductListWithFilterViewState
     _offset = 0;
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _searchProductProvider.nextProductListByKey(
-            _searchProductProvider.productParameterHolder);
-      }
+          _scrollController.position.maxScrollExtent) {}
       setState(() {
         final double offset = _scrollController.offset;
         _delta += offset - _oldOffset;
@@ -96,9 +97,9 @@ class _ProductListWithFilterViewState
       final SearchProductProvider provider =
           SearchProductProvider(repo: repo1);
       provider.loadProductListByKey(widget.productParameterHolder);
-      _searchProductProvider = provider;
-      _searchProductProvider.productParameterHolder =
-          widget.productParameterHolder;
+      // _searchProductProvider = provider;
+      // _searchProductProvider.productParameterHolder =
+      //     widget.productParameterHolder;
       return _searchProductProvider;
     }, child: Consumer<SearchProductProvider>(builder:
                 (BuildContext context, SearchProductProvider provider,
@@ -110,8 +111,8 @@ class _ProductListWithFilterViewState
             ? Colors.grey[100]
             : Colors.grey[900],
         child: Stack(children: <Widget>[
-          if (provider.productList.data.isNotEmpty &&
-              provider.productList.data != null)
+          if (widget.productList.isNotEmpty &&
+              widget.productList.length != null)
             Container(
                 margin: const EdgeInsets.only(
                     left: ps_space_4,
@@ -131,9 +132,8 @@ class _ProductListWithFilterViewState
                                   childAspectRatio: 0.6),
                           delegate: SliverChildBuilderDelegate(
                             (BuildContext context, int index) {
-                              if (provider.productList.data != null ||
-                                  provider
-                                      .productList.data.isNotEmpty) {
+                              if (widget.productList.length != null ||
+                                  widget.productList.isNotEmpty) {
                                 final int count =
                                     widget.productList.length;
                                 return ProductVeticalListItem(
@@ -153,22 +153,22 @@ class _ProductListWithFilterViewState
                                               Curves.fastOutSlowIn),
                                     ),
                                   ),
-                                  product: provider
-                                      .productList.data[index],
+                                  // product: provider
+                                  //     .productList.data[index],
                                   onTap: () {
-                                    // Navigator.pushNamed(
-                                    //     context, RoutePaths.productDetail,
-                                    //     arguments:
-                                    //         provider.productList.data[index]);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext
-                                                    context) =>
-                                                ProductDetailView(
-                                                    productList: widget
-                                                            .productList[
-                                                        index])));
+                                    Navigator.pushNamed(context,
+                                        RoutePaths.productDetail,
+                                        arguments: widget
+                                            .productList[index]);
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (BuildContext
+                                    //                 context) =>
+                                    //             ProductDetailView(
+                                    //                 productList: widget
+                                    //                         .productList[
+                                    //                     index])));
                                   },
                                 );
                               } else {
@@ -180,9 +180,9 @@ class _ProductListWithFilterViewState
                         ),
                       ]),
                   onRefresh: () {
-                    return provider.resetLatestProductList(
-                        _searchProductProvider
-                            .productParameterHolder);
+                    // return provider.resetLatestProductList(
+                    //     _searchProductProvider
+                    //         .productParameterHolder);
                   },
                 ))
           else if (provider.productList.status !=
@@ -238,12 +238,13 @@ class _ProductListWithFilterViewState
                   width: double.infinity,
                   height: _containerMaxHeight,
                   child: BottomNavigationImageAndText(
+                      appBar: widget.appBarTitle,
                       category:
                           widget.productList[0].data['UserService'],
                       searchProductProvider: _searchProductProvider)),
             ),
           ),
-          PSProgressIndicator(provider.productList.status),
+          // PSProgressIndicator(provider.productList.status),
         ]),
       );
       // }
@@ -287,10 +288,13 @@ class _ProductListWithFilterViewState
 }
 
 class BottomNavigationImageAndText extends StatefulWidget {
-  const BottomNavigationImageAndText(
-      {this.searchProductProvider, @required this.category});
+  BottomNavigationImageAndText(
+      {this.searchProductProvider,
+      @required this.category,
+      @required this.appBar});
   final SearchProductProvider searchProductProvider;
-  final dynamic category;
+  dynamic category;
+  final String appBar;
   @override
   _BottomNavigationImageAndTextState createState() =>
       _BottomNavigationImageAndTextState();
@@ -303,15 +307,16 @@ class _BottomNavigationImageAndTextState
 
   @override
   Widget build(BuildContext context) {
-    if (widget.searchProductProvider.productParameterHolder
-        .isFiltered()) {
-      isClickBaseLineTune = true;
-    }
+    // if (widget.searchProductProvider.productParameterHolder
+    //     .isFiltered()) {
+    //   isClickBaseLineTune = true;
+    // }
 
-    if (widget.searchProductProvider.productParameterHolder
-        .isCatAndSubCatFiltered()) {
-      isClickBaseLineList = true;
-    }
+    // if (widget.searchProductProvider.productParameterHolder
+    //     .isCatAndSubCatFiltered()) {
+    //   isClickBaseLineList = true;
+    // }
+    print(widget.category);
 
     return Container(
       decoration: BoxDecoration(
@@ -365,34 +370,35 @@ class _BottomNavigationImageAndTextState
               ],
             ),
             onTap: () async {
-              final Map<String, String> dataHolder =
-                  <String, String>{};
-              dataHolder[CATEGORY_ID] = widget
-                  .searchProductProvider.productParameterHolder.catId;
-              dataHolder[SUB_CATEGORY_ID] = widget
-                  .searchProductProvider
-                  .productParameterHolder
-                  .subCatId;
-              final dynamic result = await Navigator.pushNamed(
-                  context, RoutePaths.filterExpantion,
-                  arguments: dataHolder);
+              // final Map<String, String> dataHolder =
+              //     <String, String>{};
+              // dataHolder[CATEGORY_ID] = widget
+              //     .searchProductProvider.productParameterHolder.catId;
+              // dataHolder[SUB_CATEGORY_ID] = widget
+              //     .searchProductProvider
+              //     .productParameterHolder
+              //     .subCatId;
+              await Navigator.pushNamed(
+                context,
+                RoutePaths.filterExpantion,
+              );
 
-              if (result != null) {
-                widget.searchProductProvider.productParameterHolder
-                    .catId = result[CATEGORY_ID];
-                widget.searchProductProvider.productParameterHolder
-                    .subCatId = result[SUB_CATEGORY_ID];
-                widget.searchProductProvider.resetLatestProductList(
-                    widget.searchProductProvider
-                        .productParameterHolder);
+              // if (result != null) {
+              //   widget.searchProductProvider.productParameterHolder
+              //       .catId = result[CATEGORY_ID];
+              //   widget.searchProductProvider.productParameterHolder
+              //       .subCatId = result[SUB_CATEGORY_ID];
+              //   widget.searchProductProvider.resetLatestProductList(
+              //       widget.searchProductProvider
+              //           .productParameterHolder);
 
-                if (result[CATEGORY_ID] == '' &&
-                    result[SUB_CATEGORY_ID] == '') {
-                  isClickBaseLineList = false;
-                } else {
-                  isClickBaseLineList = true;
-                }
-              }
+              //   if (result[CATEGORY_ID] == '' &&
+              //       result[SUB_CATEGORY_ID] == '') {
+              //     isClickBaseLineList = false;
+              //   } else {
+              //     isClickBaseLineList = true;
+              //   }
+              // }
             },
           ),
           GestureDetector(
@@ -419,25 +425,32 @@ class _BottomNavigationImageAndTextState
               ],
             ),
             onTap: () async {
-              final dynamic result = await Navigator.pushNamed(
-                  context, RoutePaths.itemSearch,
-                  arguments: widget
-                      .searchProductProvider.productParameterHolder);
-              if (result != null) {
-                widget.searchProductProvider.productParameterHolder =
-                    result;
-                widget.searchProductProvider.resetLatestProductList(
-                    widget.searchProductProvider
-                        .productParameterHolder);
+              // await Navigator.pushNamed(
+              //   context,
+              //   RoutePaths.itemSearch,
+              // );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          ItemSearchView( appBar: widget.appBar,
+                            category: widget.category,
+                          )));
+              // if (result != null) {
+              //   widget.searchProductProvider.productParameterHolder =
+              //       result;
+              //   widget.searchProductProvider.resetLatestProductList(
+              //       widget.searchProductProvider
+              //           .productParameterHolder);
 
-                if (widget
-                    .searchProductProvider.productParameterHolder
-                    .isFiltered()) {
-                  isClickBaseLineTune = true;
-                } else {
-                  isClickBaseLineTune = false;
-                }
-              }
+              //   if (widget
+              //       .searchProductProvider.productParameterHolder
+              //       .isFiltered()) {
+              //     isClickBaseLineTune = true;
+              //   } else {
+              //     isClickBaseLineTune = false;
+              //   }
+              //   }
             },
           ),
           GestureDetector(
@@ -462,10 +475,19 @@ class _BottomNavigationImageAndTextState
               ],
             ),
             onTap: () async {
-              // final dynamic result = 
-              await Navigator.pushNamed(
-                  context, RoutePaths.itemSort,
-                  arguments: widget.category);
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          ItemSortingView(
+                            appBar: widget.appBar,
+                            catergory: widget.category,
+                          )));
+              // if (result != null) {
+              //   setState(() {
+              //     widget.category = result;
+              //   });
+              // }
               // if (result != null) {
               //   widget.searchProductProvider.productParameterHolder =
               //       result;

@@ -54,6 +54,7 @@ class CheckoutView extends StatefulWidget {
   int length = 0;
   List<String> promoprice = [];
   bool promoBool = false;
+  String documentId;
   @override
   _CheckoutViewState createState() => _CheckoutViewState();
 }
@@ -118,6 +119,9 @@ class _CheckoutViewState extends State<CheckoutView> {
               widget.promoprice.add(widget
                   .cartList[promocode.indexOf(prmo)]['PromoPrice']);
               widget.promoBool = true;
+              widget.documentId =
+                  widget.cartList[promocode.indexOf(prmo)].documentID;
+              print(widget.documentId);
               // print(widget.promocodePrice);
             });
           } else {
@@ -349,6 +353,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                       ),
                     ),
                     _OrderSummaryWidget(
+                      documentId: widget.documentId,
                       cartList: widget.cartList,
                       // psValueHolder: valueHolder,
                       productList: widget.productList,
@@ -473,11 +478,13 @@ class _OrderSummaryWidget extends StatefulWidget {
     @required this.couponDiscount,
     @required this.psValueHolder,
     @required this.cartList,
+    @required this.documentId,
   }) : super(key: key);
   final List<DocumentSnapshot> cartList;
   final List<Product> productList;
   final String couponDiscount;
   final PsValueHolder psValueHolder;
+  final String documentId;
 
   @override
   __OrderSummaryWidgetState createState() =>
@@ -921,9 +928,9 @@ class _PayState extends State<Pay> {
                 onPressed: () async {
                   // await payNow(provider.tokenData.data.message);
                   sl.get<FirebaseBloc>().orderProduct(
-                    users.uid,
-                   widget.orderList,
-                  );
+                        users.uid,
+                        widget.orderList,
+                      );
                   await Navigator.pushNamed(
                     context,
                     RoutePaths.checkoutSuccess,

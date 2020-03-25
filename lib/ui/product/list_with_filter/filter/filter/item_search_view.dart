@@ -1,5 +1,11 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
+
 import 'package:digitalproductstore/config/ps_colors.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
@@ -10,19 +16,17 @@ import 'package:digitalproductstore/ui/common/ps_special_check_text_widget.dart'
 import 'package:digitalproductstore/ui/common/ps_textfield_widget.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/holder/product_parameter_holder.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:provider/provider.dart';
-import 'package:rxdart/subjects.dart';
 
 class ItemSearchView extends StatefulWidget {
   const ItemSearchView({
+    Key key,
+    @required this.category,
     @required this.productParameterHolder,
-  });
-
+    @required this.appBar,
+  }) : super(key: key);
+  final dynamic category;
   final ProductParameterHolder productParameterHolder;
-
+  final String appBar;
   @override
   _ItemSearchViewState createState() => _ItemSearchViewState();
 }
@@ -52,148 +56,179 @@ class _ItemSearchViewState extends State<ItemSearchView> {
             bottom: ps_space_48),
         width: double.infinity,
         height: ps_space_44,
-        child: RaisedButton(
-          shape: const BeveledRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(7.0)),
-          ),
-          child: Text(Utils.getString(context, 'home_search__search')),
-          onPressed: () {
-            if (userInputItemNameTextEditingController.text != null) {
-              _searchProductProvider.productParameterHolder.searchTerm =
-                  userInputItemNameTextEditingController.text;
-            } else {
-              _searchProductProvider.productParameterHolder.searchTerm = '';
-            }
-            if (userInputMaximunPriceEditingController.text != null) {
-              _searchProductProvider.productParameterHolder.maxPrice =
-                  userInputMaximunPriceEditingController.text;
-            } else {
-              _searchProductProvider.productParameterHolder.maxPrice = '';
-            }
-            if (userInputMinimumPriceEditingController.text != null) {
-              _searchProductProvider.productParameterHolder.minPrice =
-                  userInputMinimumPriceEditingController.text;
-            } else {
-              _searchProductProvider.productParameterHolder.minPrice = '';
-            }
-            if (_searchProductProvider.isfirstRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_ONE;
-            }
+        child: StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection('ProductListID')
+                .where('UserService', isEqualTo: widget.category)
+                .orderBy('TimeStamp', descending: true)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return RaisedButton(
+                shape: const BeveledRectangleBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(7.0)),
+                ),
+                child: Text(
+                    Utils.getString(context, 'home_search__search')),
+                onPressed: () { 
+                  if (userInputItemNameTextEditingController.text !=
+                      null) {
+                    _searchProductProvider
+                            .productParameterHolder.searchTerm =
+                        userInputItemNameTextEditingController.text;
+                  } else {
+                    _searchProductProvider
+                        .productParameterHolder.searchTerm = '';
+                  }
+                  if (userInputMaximunPriceEditingController.text !=
+                      null) {
+                    _searchProductProvider
+                            .productParameterHolder.maxPrice =
+                        userInputMaximunPriceEditingController.text;
+                  } else {
+                    _searchProductProvider
+                        .productParameterHolder.maxPrice = '';
+                  }
+                  if (userInputMinimumPriceEditingController.text !=
+                      null) {
+                    _searchProductProvider
+                            .productParameterHolder.minPrice =
+                        userInputMinimumPriceEditingController.text;
+                  } else {
+                    _searchProductProvider
+                        .productParameterHolder.minPrice = '';
+                  }
+                  if (_searchProductProvider.isfirstRatingClicked) {
+                    _searchProductProvider.productParameterHolder
+                        .overallRating = RATING_ONE;
+                  }
 
-            if (_searchProductProvider.isSecondRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_TWO;
-            }
+                  if (_searchProductProvider.isSecondRatingClicked) {
+                    _searchProductProvider.productParameterHolder
+                        .overallRating = RATING_TWO;
+                  }
 
-            if (_searchProductProvider.isThirdRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_THREE;
-            }
+                  if (_searchProductProvider.isThirdRatingClicked) {
+                    _searchProductProvider.productParameterHolder
+                        .overallRating = RATING_THREE;
+                  }
 
-            if (_searchProductProvider.isfouthRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_FOUR;
-            }
+                  if (_searchProductProvider.isfouthRatingClicked) {
+                    _searchProductProvider.productParameterHolder
+                        .overallRating = RATING_FOUR;
+                  }
 
-            if (_searchProductProvider.isFifthRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_FIVE;
-            }
+                  if (_searchProductProvider.isFifthRatingClicked) {
+                    _searchProductProvider.productParameterHolder
+                        .overallRating = RATING_FIVE;
+                  }
 
-            if (!_searchProductProvider.isfirstRatingClicked &&
-                !_searchProductProvider.isSecondRatingClicked &&
-                !_searchProductProvider.isThirdRatingClicked &&
-                !_searchProductProvider.isfouthRatingClicked &&
-                !_searchProductProvider.isFifthRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating = '';
-            }
+                  if (!_searchProductProvider.isfirstRatingClicked &&
+                      !_searchProductProvider.isSecondRatingClicked &&
+                      !_searchProductProvider.isThirdRatingClicked &&
+                      !_searchProductProvider.isfouthRatingClicked &&
+                      !_searchProductProvider.isFifthRatingClicked) {
+                    _searchProductProvider
+                        .productParameterHolder.overallRating = '';
+                  }
 
-            if (_searchProductProvider.isSwitchedFeaturedProduct) {
-              _searchProductProvider.productParameterHolder.isFeatured =
-                  IS_FEATURED;
-            } else {
-              _searchProductProvider.productParameterHolder.isFeatured = ZERO;
-            }
+                  if (_searchProductProvider
+                      .isSwitchedFeaturedProduct) {
+                    _searchProductProvider.productParameterHolder
+                        .isFeatured = IS_FEATURED;
+                  } else {
+                    _searchProductProvider
+                        .productParameterHolder.isFeatured = ZERO;
+                  }
 
-            if (_searchProductProvider.isSwitchedDiscountPrice) {
-              _searchProductProvider.productParameterHolder.isDiscount =
-                  IS_DISCOUNT;
-            } else {
-              _searchProductProvider.productParameterHolder.isDiscount = ZERO;
-            }
+                  if (_searchProductProvider
+                      .isSwitchedDiscountPrice) {
+                    _searchProductProvider.productParameterHolder
+                        .isDiscount = IS_DISCOUNT;
+                  } else {
+                    _searchProductProvider
+                        .productParameterHolder.isDiscount = ZERO;
+                  }
 
-            if (_searchProductProvider.isSwitchedFreeProduct) {
-              _searchProductProvider.productParameterHolder.isFree = IS_FREE;
-            } else {
-              _searchProductProvider.productParameterHolder.isFree = ZERO;
-            }
+                  if (_searchProductProvider.isSwitchedFreeProduct) {
+                    _searchProductProvider
+                        .productParameterHolder.isFree = IS_FREE;
+                  } else {
+                    _searchProductProvider
+                        .productParameterHolder.isFree = ZERO;
+                  }
 
-            print(
-                'userInputText' + userInputItemNameTextEditingController.text);
+                  print('userInputText' +
+                      userInputItemNameTextEditingController.text);
 
-            Navigator.pop(
-                context, _searchProductProvider.productParameterHolder);
-          },
-          color: ps_ctheme__color_speical,
-          textColor: Colors.white,
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          splashColor: Colors.grey,
-        ));
+                  Navigator.pop(context,
+                      _searchProductProvider.productParameterHolder);
+                },
+                color: ps_ctheme__color_speical,
+                textColor: Colors.white,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                splashColor: Colors.grey,
+              );
+            }));
 
     repo1 = Provider.of<ProductRepository>(context);
 
     return PsWidgetWithAppBar<SearchProductProvider>(
-        appBarTitle:
-            Utils.getString(context, 'item_filter__filtered_by_product_type') ??
-                '',
+        appBarTitle: Utils.getString(
+                context, 'item_filter__filtered_by_product_type') ??
+            '',
         initProvider: () {
           return SearchProductProvider(repo: repo1);
         },
-        onProviderReady: (SearchProductProvider provider) {
-          _searchProductProvider = provider;
-          _searchProductProvider.productParameterHolder =
-              widget.productParameterHolder;
+        // onProviderReady: (SearchProductProvider provider) {
+        //   _searchProductProvider = provider;
+        //   _searchProductProvider.productParameterHolder =
+        //       widget.productParameterHolder;
 
-          userInputItemNameTextEditingController.text =
-              widget.productParameterHolder.searchTerm;
-          userInputMinimumPriceEditingController.text =
-              widget.productParameterHolder.minPrice;
-          userInputMaximunPriceEditingController.text =
-              widget.productParameterHolder.maxPrice;
+        //   userInputItemNameTextEditingController.text =
+        //       widget.productParameterHolder.searchTerm;
+        //   userInputMinimumPriceEditingController.text =
+        //       widget.productParameterHolder.minPrice;
+        //   userInputMaximunPriceEditingController.text =
+        //       widget.productParameterHolder.maxPrice;
 
-          if (widget.productParameterHolder.overallRating == RATING_ONE) {
-            _searchProductProvider.isfirstRatingClicked = true;
-          } else if (widget.productParameterHolder.overallRating ==
-              RATING_TWO) {
-            _searchProductProvider.isSecondRatingClicked = true;
-          } else if (widget.productParameterHolder.overallRating ==
-              RATING_THREE) {
-            _searchProductProvider.isThirdRatingClicked = true;
-          } else if (widget.productParameterHolder.overallRating ==
-              RATING_FOUR) {
-            _searchProductProvider.isfouthRatingClicked = true;
-          } else if (widget.productParameterHolder.overallRating ==
-              RATING_FIVE) {
-            _searchProductProvider.isFifthRatingClicked = true;
-          }
+        //   if (widget.productParameterHolder.overallRating == RATING_ONE) {
+        //     _searchProductProvider.isfirstRatingClicked = true;
+        //   } else if (widget.productParameterHolder.overallRating ==
+        //       RATING_TWO) {
+        //     _searchProductProvider.isSecondRatingClicked = true;
+        //   } else if (widget.productParameterHolder.overallRating ==
+        //       RATING_THREE) {
+        //     _searchProductProvider.isThirdRatingClicked = true;
+        //   } else if (widget.productParameterHolder.overallRating ==
+        //       RATING_FOUR) {
+        //     _searchProductProvider.isfouthRatingClicked = true;
+        //   } else if (widget.productParameterHolder.overallRating ==
+        //       RATING_FIVE) {
+        //     _searchProductProvider.isFifthRatingClicked = true;
+        //   }
 
-          if (widget.productParameterHolder.isDiscount == ONE) {
-            _searchProductProvider.isSwitchedDiscountPrice = true;
-          } else {
-            _searchProductProvider.isSwitchedDiscountPrice = false;
-          }
-          if (widget.productParameterHolder.isFeatured == ONE) {
-            _searchProductProvider.isSwitchedFeaturedProduct = true;
-          } else {
-            _searchProductProvider.isSwitchedFeaturedProduct = false;
-          }
-          if (widget.productParameterHolder.isFree == ONE) {
-            _searchProductProvider.isSwitchedFreeProduct = true;
-          } else {
-            _searchProductProvider.isSwitchedFreeProduct = false;
-          }
-        },
+        //   if (widget.productParameterHolder.isDiscount == ONE) {
+        //     _searchProductProvider.isSwitchedDiscountPrice = true;
+        //   } else {
+        //     _searchProductProvider.isSwitchedDiscountPrice = false;
+        //   }
+        //   if (widget.productParameterHolder.isFeatured == ONE) {
+        //     _searchProductProvider.isSwitchedFeaturedProduct = true;
+        //   } else {
+        //     _searchProductProvider.isSwitchedFeaturedProduct = false;
+        //   }
+        //   if (widget.productParameterHolder.isFree == ONE) {
+        //     _searchProductProvider.isSwitchedFreeProduct = true;
+        //   } else {
+        //     _searchProductProvider.isSwitchedFreeProduct = false;
+        //   }
+        // },
         actions: <Widget>[
           IconButton(
               icon: Icon(MaterialCommunityIcons.filter_remove_outline,
@@ -209,14 +244,16 @@ class _ItemSearchViewState extends State<ItemSearchView> {
                 _searchProductProvider.isfouthRatingClicked = false;
                 _searchProductProvider.isFifthRatingClicked = false;
 
-                _searchProductProvider.isSwitchedFeaturedProduct = false;
-                _searchProductProvider.isSwitchedDiscountPrice = false;
+                _searchProductProvider.isSwitchedFeaturedProduct =
+                    false;
+                _searchProductProvider.isSwitchedDiscountPrice =
+                    false;
                 _searchProductProvider.isSwitchedFreeProduct = false;
                 setState(() {});
               }),
         ],
-        builder: (BuildContext context, SearchProductProvider provider,
-            Widget child) {
+        builder: (BuildContext context,
+            SearchProductProvider provider, Widget child) {
           return CustomScrollView(
             scrollDirection: Axis.vertical,
             slivers: <Widget>[
@@ -268,10 +305,12 @@ dynamic setAllRatingFalse(SearchProductProvider provider) {
 }
 
 class _ProductNameWidget extends StatefulWidget {
-  const _ProductNameWidget({this.userInputItemNameTextEditingController});
+  const _ProductNameWidget(
+      {this.userInputItemNameTextEditingController});
   final TextEditingController userInputItemNameTextEditingController;
   @override
-  __ProductNameWidgetState createState() => __ProductNameWidgetState();
+  __ProductNameWidgetState createState() =>
+      __ProductNameWidgetState();
 }
 
 class __ProductNameWidgetState extends State<_ProductNameWidget> {
@@ -292,7 +331,8 @@ class __ProductNameWidgetState extends State<_ProductNameWidget> {
     //       hintText: Utils.getString(context, 'home_search__not_set')),
     // );
 
-    print('*****' + widget.userInputItemNameTextEditingController.text);
+    print(
+        '*****' + widget.userInputItemNameTextEditingController.text);
     return Column(
       children: <Widget>[
         // Container(
@@ -320,8 +360,10 @@ class __ProductNameWidgetState extends State<_ProductNameWidget> {
         //   child: _productTextFieldWidget,
         // ),
         PsTextFieldWidget(
-            titleText: Utils.getString(context, 'home_search__product_name'),
-            hintText: Utils.getString(context, 'home_search__not_set'),
+            titleText:
+                Utils.getString(context, 'home_search__product_name'),
+            hintText:
+                Utils.getString(context, 'home_search__not_set'),
             textEditingController:
                 widget.userInputItemNameTextEditingController),
       ],
@@ -341,13 +383,16 @@ class _ChangeRatingColor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color defaultBackgroundColor =
-        Utils.isLightMode(context) ? Colors.grey[200] : Colors.black54;
+    final Color defaultBackgroundColor = Utils.isLightMode(context)
+        ? Colors.grey[200]
+        : Colors.black54;
     return Container(
       width: MediaQuery.of(context).size.width / 5.5,
       height: ps_space_104,
       decoration: BoxDecoration(
-        color: checkColor ? defaultBackgroundColor : ps_ctheme__color_speical,
+        color: checkColor
+            ? defaultBackgroundColor
+            : ps_ctheme__color_speical,
       ),
       child: Center(
         child: Column(
@@ -357,7 +402,9 @@ class _ChangeRatingColor extends StatelessWidget {
           children: <Widget>[
             Icon(
               Icons.star,
-              color: checkColor ? ps_wtheme_icon_color : ps_wtheme_white_color,
+              color: checkColor
+                  ? ps_wtheme_icon_color
+                  : ps_wtheme_white_color,
             ),
             const SizedBox(
               height: ps_space_2,
@@ -380,7 +427,8 @@ class _ChangeRatingColor extends StatelessWidget {
 
 class _RatingRangeWidget extends StatefulWidget {
   @override
-  __RatingRangeWidgetState createState() => __RatingRangeWidgetState();
+  __RatingRangeWidgetState createState() =>
+      __RatingRangeWidgetState();
 }
 
 class __RatingRangeWidgetState extends State<_RatingRangeWidget> {
@@ -393,13 +441,15 @@ class __RatingRangeWidgetState extends State<_RatingRangeWidget> {
       if (!provider.isfirstRatingClicked) {
         // isfirstRatingClicked = true;
         return _ChangeRatingColor(
-          title: Utils.getString(context, 'home_search__one_and_higher'),
+          title:
+              Utils.getString(context, 'home_search__one_and_higher'),
           checkColor: true,
         );
       } else {
         // isfirstRatingClicked = false;
         return _ChangeRatingColor(
-          title: Utils.getString(context, 'home_search__one_and_higher'),
+          title:
+              Utils.getString(context, 'home_search__one_and_higher'),
           checkColor: false,
         );
       }
@@ -408,12 +458,14 @@ class __RatingRangeWidgetState extends State<_RatingRangeWidget> {
     dynamic _secondRatingRangeSelected() {
       if (!provider.isSecondRatingClicked) {
         return _ChangeRatingColor(
-          title: Utils.getString(context, 'home_search__two_and_higher'),
+          title:
+              Utils.getString(context, 'home_search__two_and_higher'),
           checkColor: true,
         );
       } else {
         return _ChangeRatingColor(
-          title: Utils.getString(context, 'home_search__two_and_higher'),
+          title:
+              Utils.getString(context, 'home_search__two_and_higher'),
           checkColor: false,
         );
       }
@@ -422,12 +474,14 @@ class __RatingRangeWidgetState extends State<_RatingRangeWidget> {
     dynamic _thirdRatingRangeSelected() {
       if (!provider.isThirdRatingClicked) {
         return _ChangeRatingColor(
-          title: Utils.getString(context, 'home_search__three_and_higher'),
+          title: Utils.getString(
+              context, 'home_search__three_and_higher'),
           checkColor: true,
         );
       } else {
         return _ChangeRatingColor(
-          title: Utils.getString(context, 'home_search__three_and_higher'),
+          title: Utils.getString(
+              context, 'home_search__three_and_higher'),
           checkColor: false,
         );
       }
@@ -436,12 +490,14 @@ class __RatingRangeWidgetState extends State<_RatingRangeWidget> {
     dynamic _fouthRatingRangeSelected() {
       if (!provider.isfouthRatingClicked) {
         return _ChangeRatingColor(
-          title: Utils.getString(context, 'home_search__four_and_higher'),
+          title: Utils.getString(
+              context, 'home_search__four_and_higher'),
           checkColor: true,
         );
       } else {
         return _ChangeRatingColor(
-          title: Utils.getString(context, 'home_search__four_and_higher'),
+          title: Utils.getString(
+              context, 'home_search__four_and_higher'),
           checkColor: false,
         );
       }
@@ -467,7 +523,8 @@ class __RatingRangeWidgetState extends State<_RatingRangeWidget> {
         Container(
           width: double.infinity,
           margin: const EdgeInsets.all(ps_space_12),
-          child: Text(Utils.getString(context, 'home_search__rating_range'),
+          child: Text(
+              Utils.getString(context, 'home_search__rating_range'),
               style: Theme.of(context).textTheme.body2),
         ),
         Row(
@@ -602,15 +659,17 @@ class _PriceWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.body2),
         ),
         _PriceTextWidget(
-          title: Utils.getString(context, 'home_search__lowest_price'),
+          title:
+              Utils.getString(context, 'home_search__lowest_price'),
           textField: TextField(
             maxLines: null,
             style: Theme.of(context).textTheme.body1,
             decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.only(left: ps_space_8, bottom: ps_space_12),
+              contentPadding: const EdgeInsets.only(
+                  left: ps_space_8, bottom: ps_space_12),
               border: InputBorder.none,
-              hintText: Utils.getString(context, 'home_search__not_set'),
+              hintText:
+                  Utils.getString(context, 'home_search__not_set'),
             ),
             keyboardType: TextInputType.number,
             controller: userInputMinimumPriceEditingController,
@@ -620,15 +679,17 @@ class _PriceWidget extends StatelessWidget {
           height: ps_space_1,
         ),
         _PriceTextWidget(
-          title: Utils.getString(context, 'home_search__highest_price'),
+          title:
+              Utils.getString(context, 'home_search__highest_price'),
           textField: TextField(
             maxLines: null,
             style: Theme.of(context).textTheme.body1,
             decoration: InputDecoration(
-              contentPadding:
-                  const EdgeInsets.only(left: ps_space_8, bottom: ps_space_12),
+              contentPadding: const EdgeInsets.only(
+                  left: ps_space_8, bottom: ps_space_12),
               border: InputBorder.none,
-              hintText: Utils.getString(context, 'home_search__not_set'),
+              hintText:
+                  Utils.getString(context, 'home_search__not_set'),
             ),
             keyboardType: TextInputType.number,
             controller: userInputMaximunPriceEditingController,
@@ -686,7 +747,8 @@ class _PriceTextWidget extends StatelessWidget {
 
 class _SpecialCheckWidget extends StatefulWidget {
   @override
-  __SpecialCheckWidgetState createState() => __SpecialCheckWidgetState();
+  __SpecialCheckWidgetState createState() =>
+      __SpecialCheckWidgetState();
 }
 
 class __SpecialCheckWidgetState extends State<_SpecialCheckWidget> {
@@ -697,11 +759,13 @@ class __SpecialCheckWidgetState extends State<_SpecialCheckWidget> {
         Container(
           margin: const EdgeInsets.all(ps_space_12),
           width: double.infinity,
-          child: Text(Utils.getString(context, 'home_search__special_check'),
+          child: Text(
+              Utils.getString(context, 'home_search__special_check'),
               style: Theme.of(context).textTheme.body2),
         ),
         SpecialCheckTextWidget(
-            title: Utils.getString(context, 'home_search__featured_product'),
+            title: Utils.getString(
+                context, 'home_search__featured_product'),
             icon: FontAwesome5.gem,
             checkTitle: 1,
             size: ps_space_18),
@@ -709,7 +773,8 @@ class __SpecialCheckWidgetState extends State<_SpecialCheckWidget> {
           height: ps_space_1,
         ),
         SpecialCheckTextWidget(
-            title: Utils.getString(context, 'home_search__discount_price'),
+            title: Utils.getString(
+                context, 'home_search__discount_price'),
             icon: Feather.percent,
             checkTitle: 2,
             size: ps_space_18),
@@ -717,7 +782,8 @@ class __SpecialCheckWidgetState extends State<_SpecialCheckWidget> {
           height: ps_space_1,
         ),
         SpecialCheckTextWidget(
-          title: Utils.getString(context, 'home_search__free_product'),
+          title:
+              Utils.getString(context, 'home_search__free_product'),
           icon: Octicons.gift,
           checkTitle: 3,
         ),

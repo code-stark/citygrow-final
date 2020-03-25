@@ -13,7 +13,9 @@ import 'package:provider/provider.dart';
 
 class ProductListWithFilterContainerView extends StatefulWidget {
   const ProductListWithFilterContainerView(
-      {@required this.productParameterHolder, @required this.appBarTitle,@required this.productList});
+      {@required this.productParameterHolder,
+      @required this.appBarTitle,
+      @required this.productList});
   final ProductParameterHolder productParameterHolder;
   final String appBarTitle;
   final List<DocumentSnapshot> productList;
@@ -28,8 +30,8 @@ class _ProductListWithFilterContainerViewState
   AnimationController animationController;
   @override
   void initState() {
-    animationController =
-        AnimationController(duration: animation_duration, vsync: this);
+    animationController = AnimationController(
+        duration: animation_duration, vsync: this);
     super.initState();
   }
 
@@ -39,7 +41,8 @@ class _ProductListWithFilterContainerViewState
     super.dispose();
   }
 
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>();
   BasketRepository basketRepository;
 
   @override
@@ -90,15 +93,18 @@ class _ProductListWithFilterContainerViewState
                 provider.loadBasketList();
                 return provider;
               },
-              child: Consumer<BasketProvider>(builder: (BuildContext context,
-                  BasketProvider basketProvider, Widget child) {
+              child: Consumer<BasketProvider>(builder:
+                  (BuildContext context,
+                      BasketProvider basketProvider, Widget child) {
                 return Stack(
                   children: <Widget>[
                     Container(
                       width: ps_space_40,
                       height: ps_space_40,
                       margin: const EdgeInsets.only(
-                          top: ps_space_8, left: ps_space_8, right: ps_space_8),
+                          top: ps_space_8,
+                          left: ps_space_8,
+                          right: ps_space_8),
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.black38,
@@ -126,9 +132,11 @@ class _ProductListWithFilterContainerViewState
                           child: Align(
                             alignment: Alignment.center,
                             child: Text(
-                              basketProvider.basketList.data.length > 99
+                              basketProvider.basketList.data.length >
+                                      99
                                   ? '99+'
-                                  : basketProvider.basketList.data.length
+                                  : basketProvider
+                                      .basketList.data.length
                                       .toString(),
                               textAlign: TextAlign.left,
                               style: Theme.of(context)
@@ -153,7 +161,9 @@ class _ProductListWithFilterContainerViewState
             )
           ],
         ),
-        body: ProductListWithFilterView(productList: widget.productList,
+        body: ProductListWithFilterView(
+          productList: widget.productList,
+          appBarTitle: widget.appBarTitle,
           animationController: animationController,
           productParameterHolder: widget.productParameterHolder,
         ),

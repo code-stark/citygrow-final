@@ -117,10 +117,10 @@ class PSApp extends StatefulWidget {
 }
 
 class _PSAppState extends State<PSApp> {
-  bool _isLanguageLoaded = false;
-
-  Completer<ThemeData> themeDataCompleter;
   PsSharedPreferences psSharedPreferences;
+  Completer<ThemeData> themeDataCompleter;
+
+  bool _isLanguageLoaded = false;
 
   @override
   void initState() {
@@ -415,12 +415,11 @@ class _PSAppState extends State<PSApp> {
                           (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final ProductParameterHolder
-                            productParameterHolder =
-                            args ?? ProductParameterHolder;
+                        // final ProductParameterHolder
+                        //     productParameterHolder =
+                        //     args ?? ProductParameterHolder;
                         return ItemSearchView(
-                            productParameterHolder:
-                                productParameterHolder);
+                           );
                       },
                       '${RoutePaths.itemSort}':
                           (BuildContext context) {

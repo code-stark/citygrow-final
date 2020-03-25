@@ -90,13 +90,42 @@ class FirebaseBloc {
           .document(uid)
           .collection('order')
           .document(uuid)
-          .setData(data[i].data);
+          .setData(data[i].data)
+          .whenComplete(() => firestore
+                  .collection("AppUsers")
+                  .document(uid)
+                  .collection('order')
+                  .document(uuid)
+                  .updateData({
+                'timestamp': Timestamp.now(),
+                'transactionID': uuid.substring(0, 8),
+                'status': 'pending',
+                'buyeruid': uid
+              }));
+
       await firestore
           .collection("Sellers")
           .document(data[i].data['PersonID'])
           .collection('order')
           .document(uuid)
-          .setData(data[i].data);
+          .setData(data[i].data)
+          .whenComplete(() => firestore
+                  .collection("Sellers")
+                  .document(data[i].data['PersonID'])
+                  .collection('order')
+                  .document(uuid)
+                  .updateData({
+                'timestamp': Timestamp.now(),
+                'transactionID': uuid.substring(0, 8),
+                'status': 'pending',
+                'buyeruid': uid
+              }));
+      await firestore
+          .collection("AppUsers")
+          .document(uid)
+          .collection('cart')
+          .document(data[i].documentID)
+          .delete();
     }
   }
 }

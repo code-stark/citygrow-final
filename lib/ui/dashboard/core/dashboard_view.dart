@@ -356,21 +356,21 @@ class _HomeViewState extends State<DashboardView>
                                 updateSelectedIndexWithAnimation(title, index);
                               }),
                         ),
-                    // if (user.uid != null)
-                    //   if (user.uid != null && user.uid != '')
-                    //     Visibility(
-                    //       visible: true,
-                    //       child: _DrawerMenuWidget(
-                    //         icon: Icons.swap_horiz,
-                    //         title: Utils.getString(
-                    //             context, 'home__menu_drawer_transaction'),
-                    //         index: REQUEST_CODE__MENU_TRANSACTION_FRAGMENT,
-                    //         onTap: (String title, int index) {
-                    //           Navigator.pop(context);
-                    //           updateSelectedIndexWithAnimation(title, index);
-                    //         },
-                    //       ),
-                    //     ),
+                    if (user.uid != null)
+                      if (user.uid != null && user.uid != '')
+                        Visibility(
+                          visible: true,
+                          child: _DrawerMenuWidget(
+                            icon: Icons.swap_horiz,
+                            title: Utils.getString(
+                                context, 'home__menu_drawer_transaction'),
+                            index: REQUEST_CODE__MENU_TRANSACTION_FRAGMENT,
+                            onTap: (String title, int index) {
+                              Navigator.pop(context);
+                              updateSelectedIndexWithAnimation(title, index);
+                            },
+                          ),
+                        ),
                     // if (user.uid != null)
                     //   if (user.uid != null && user.uid != '')
                     //     Visibility(
