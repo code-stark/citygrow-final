@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/config/route_paths.dart';
@@ -11,22 +12,24 @@ import 'package:digitalproductstore/viewobject/holder/intent_holder/product_list
 import 'package:digitalproductstore/viewobject/holder/product_parameter_holder.dart';
 import 'package:digitalproductstore/viewobject/holder/tag_object_holder.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class RelatedProductsTileView extends StatefulWidget {
   const RelatedProductsTileView({
     Key key,
     @required this.productDetail,
+    @required this.category,
   }) : super(key: key);
 
   final ProductDetailProvider productDetail;
+  final String category;
 
   @override
   _RelatedProductsTileViewState createState() =>
       _RelatedProductsTileViewState();
 }
 
-class _RelatedProductsTileViewState extends State<RelatedProductsTileView> {
+class _RelatedProductsTileViewState
+    extends State<RelatedProductsTileView> {
   // ProductRepository repo1;
   // RelatedProductProvider provider;
 
@@ -35,7 +38,8 @@ class _RelatedProductsTileViewState extends State<RelatedProductsTileView> {
     // repo1 = Provider.of<ProductRepository>(context);
 
     final Widget _expansionTileTitleWidget = Text(
-        Utils.getString(context, 'related_product_tile__related_product'),
+        Utils.getString(
+            context, 'related_product_tile__related_product'),
         style: Theme.of(context).textTheme.subhead.copyWith());
 
     // final List<String> tags =
@@ -69,17 +73,20 @@ class _RelatedProductsTileViewState extends State<RelatedProductsTileView> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(
-                bottom: ps_space_16, left: ps_space_16, right: ps_space_16),
+                bottom: ps_space_16,
+                left: ps_space_16,
+                right: ps_space_16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(
-                  Utils.getString(context, 'related_product_tile__related_tag'),
-                  style: Theme.of(context).textTheme.body2,
-                ),
-                const SizedBox(
-                  height: ps_space_12,
-                ),
+                // Text(
+                //   Utils.getString(
+                //       context, 'related_product_tile__related_tag'),
+                //   style: Theme.of(context).textTheme.bodyText2,
+                // ),
+                // const SizedBox(
+                //   height: ps_space_12,
+                // ),
                 // _RelatedTagsWidget(
                 //   tagObjectList: tagObjectList,
                 //   productDetailProvider: widget.productDetail,
@@ -87,10 +94,11 @@ class _RelatedProductsTileViewState extends State<RelatedProductsTileView> {
                 const SizedBox(
                   height: ps_space_12,
                 ),
-                const _RelatedProductWidget(
-                    // productDetail: widget.productDetail,
-                    //provider: RelatedProductProvider(repo: repo1),
-                    )
+                _RelatedProductWidget(
+                  category: widget.category,
+                  // productDetail: widget.productDetail,
+                  //provider: RelatedProductProvider(repo: repo1),
+                )
               ],
             ),
           )
@@ -122,23 +130,28 @@ class _RelatedTagsWidget extends StatelessWidget {
           shrinkWrap: true,
           slivers: <Widget>[
             SliverList(
-              delegate:
-                  SliverChildBuilderDelegate((BuildContext context, int index) {
+              delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
                 if (tagObjectList != null) {
                   return RelatedTagsHorizontalListItem(
                     tagParameterHolder: tagObjectList[index],
                     onTap: () async {
-                      final ProductParameterHolder productParameterHolder =
-                          ProductParameterHolder().resetParameterHolder();
+                      final ProductParameterHolder
+                          productParameterHolder =
+                          ProductParameterHolder()
+                              .resetParameterHolder();
 
                       if (index == 0) {
                         productParameterHolder.catId =
-                            productDetailProvider.productDetail.data.catId;
+                            productDetailProvider
+                                .productDetail.data.catId;
                       } else if (index == 1) {
                         productParameterHolder.catId =
-                            productDetailProvider.productDetail.data.catId;
+                            productDetailProvider
+                                .productDetail.data.catId;
                         productParameterHolder.subCatId =
-                            productDetailProvider.productDetail.data.subCatId;
+                            productDetailProvider
+                                .productDetail.data.subCatId;
                       } else {
                         productParameterHolder.searchTerm =
                             tagObjectList[index].tagName;
@@ -149,10 +162,12 @@ class _RelatedTagsWidget extends StatelessWidget {
                           productParameterHolder.subCatId +
                           'productParameterHolder.searchTerm ' +
                           productParameterHolder.searchTerm);
-                      Navigator.pushNamed(context, RoutePaths.filterProductList,
+                      Navigator.pushNamed(
+                          context, RoutePaths.filterProductList,
                           arguments: ProductListIntentHolder(
                             appBarTitle: tagObjectList[index].tagName,
-                            productParameterHolder: productParameterHolder,
+                            productParameterHolder:
+                                productParameterHolder,
                           ));
                     },
                   );
@@ -169,12 +184,13 @@ class _RelatedTagsWidget extends StatelessWidget {
 class _RelatedProductWidget extends StatelessWidget {
   const _RelatedProductWidget({
     Key key,
-    // @required this.productDetail,
-    // @required this.provider,
+    @required this.productDetail,
+    @required this.provider,
+    @required this.category,
   }) : super(key: key);
-
-  // final ProductDetailProvider productDetail;
-  // final RelatedProductProvider provider;
+  final String category;
+  final ProductDetailProvider productDetail;
+  final RelatedProductProvider provider;
   @override
   Widget build(BuildContext context) {
     // ChangeNotifierProvider<RelatedProductProvider>(
@@ -185,34 +201,51 @@ class _RelatedProductWidget extends StatelessWidget {
     //   },
     //   child:
 
-    return Container(
-      height: ps_space_300,
-      child: CustomScrollView(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          slivers: <Widget>[
-            //TODO: Related Post
-            // SliverList(
-            //   delegate: SliverChildBuilderDelegate(
-            //     (BuildContext context, int index) {
-            //       if (provider.relatedProductList.data != null ||
-            //           provider.relatedProductList.data.isNotEmpty) {
-            //         return ProductHorizontalListItem(
-            //           product: provider.relatedProductList.data[index],
-            //           onTap: () {
-            //             Navigator.pushNamed(context, RoutePaths.productDetail,
-            //                 arguments: provider.relatedProductList.data[index]);
-            //           },
-            //         );
-            //       } else {
-            //         return null;
-            //       }
-            //     },
-            //     childCount: provider.relatedProductList.data.length,
-            //   ),
-            // ),
-          ]),
-    );
-    ;
+    return StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance
+            .collection('ProductListID')
+            .where('category', isEqualTo: category)
+            .where('ProductReview', isEqualTo: true)
+            .orderBy('TimeStamp', descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Container(
+            height: ps_space_300,
+            child: CustomScrollView(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                slivers: <Widget>[
+                  //TODO: Related Post
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        if (snapshot.data != null) {
+                          return ProductHorizontalListItem(
+                            productList:
+                                snapshot.data.documents[index],
+                            // product: provider
+                            //     .relatedProductList.data[index],
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RoutePaths.productDetail,
+                                  arguments:
+                                      snapshot.data.documents[index]);
+                            },
+                          );
+                        } else {
+                          return null;
+                        }
+                      },
+                      childCount: snapshot.data.documents.length,
+                    ),
+                  ),
+                ]),
+          );
+        });
   }
 }

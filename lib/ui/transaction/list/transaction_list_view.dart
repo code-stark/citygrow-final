@@ -79,6 +79,7 @@ class _TransactionListViewState extends State<TransactionListView>
                   .collection('AppUsers')
                   .document(users.uid)
                   .collection('order')
+                  .orderBy('timestamp', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -133,15 +134,16 @@ class _TransactionListViewState extends State<TransactionListView>
                                           // transaction: provider
                                           //     .transactionList
                                           // .data[index],
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                                context,
-                                                RoutePaths
-                                                    .transactionDetail,
-                                                arguments: provider
-                                                    .transactionList
-                                                    .data[index]);
-                                          },
+                                          // onTap: () {
+                                          //   Navigator.pushNamed(
+                                          //       context,
+                                          //       RoutePaths
+                                          //           .transactionDetail,
+                                          //       arguments: snapshot
+                                          //               .data
+                                          //               .documents[
+                                          //           index]);
+                                          // },
                                         );
                                       },
                                       childCount: snapshot

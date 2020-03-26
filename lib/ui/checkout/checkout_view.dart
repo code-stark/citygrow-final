@@ -55,6 +55,8 @@ class CheckoutView extends StatefulWidget {
   List<String> promoprice = [];
   bool promoBool = false;
   String documentId;
+  String productuserUid;
+  String productReference;
   @override
   _CheckoutViewState createState() => _CheckoutViewState();
 }
@@ -121,7 +123,11 @@ class _CheckoutViewState extends State<CheckoutView> {
               widget.promoBool = true;
               widget.documentId =
                   widget.cartList[promocode.indexOf(prmo)].documentID;
-              print(widget.documentId);
+              widget.productuserUid = widget
+                  .cartList[promocode.indexOf(prmo)]['PersonID'];
+              widget.productReference = widget
+                  .cartList[promocode.indexOf(prmo)]['Reference'];
+              print(widget.productReference);
               // print(widget.promocodePrice);
             });
           } else {
@@ -379,10 +385,18 @@ class _CheckoutViewState extends State<CheckoutView> {
                                       .psValueHolder.paypalEnabled ==
                                   ONE)
                                 Pay(
+                                    productReference:
+                                        widget.productReference,
+                                    productUserUid:
+                                        widget.productuserUid,
+                                    documentID: widget.documentId,
                                     orderList: widget.cartList,
                                     productList: widget.productList,
                                     couponDiscount:
-                                        'couponDiscount' ?? '0.0',
+                                        (widget.promoprice.isEmpty)
+                                            ? '-'
+                                            : widget.promoprice[0]
+                                                .toString(),
                                     transactionSubmitProvider:
                                         provider,
                                     userLoginProvider:
@@ -774,6 +788,9 @@ class Pay extends StatefulWidget {
     @required this.userLoginProvider,
     @required this.basketProvider,
     @required this.orderList,
+    @required this.documentID,
+    @required this.productUserUid,
+    @required this.productReference,
   }) : super(key: key);
   final List<DocumentSnapshot> orderList;
   final List<Product> productList;
@@ -782,6 +799,9 @@ class Pay extends StatefulWidget {
   final TransactionHeaderProvider transactionSubmitProvider;
   final UserLoginProvider userLoginProvider;
   final BasketProvider basketProvider;
+  final String documentID;
+  final String productUserUid;
+  final String productReference;
 
   @override
   _PayState createState() => _PayState();
@@ -928,9 +948,13 @@ class _PayState extends State<Pay> {
                 onPressed: () async {
                   // await payNow(provider.tokenData.data.message);
                   sl.get<FirebaseBloc>().orderProduct(
-                        users.uid,
-                        widget.orderList,
-                      );
+                      users.uid,
+                      widget.orderList,
+                      widget.documentID,
+                      widget.couponDiscount,
+                      widget.productUserUid,
+                      widget.productReference);
+
                   await Navigator.pushNamed(
                     context,
                     RoutePaths.checkoutSuccess,

@@ -82,17 +82,7 @@ class _ProductHorizontalListItemState extends State<ProductHorizontalListItem> {
         .listen((event) =>
             event.documents.forEach((e) => fivestar.add(e['rating'])));
     int hi;
-    final numbers = (5 * fivestar.length +
-            4 * fourstar.length +
-            3 * threestar.length +
-            2 * twostar.length +
-            1 * onestar.length) /
-        (fivestar.length +
-                fourstar.length +
-                threestar.length +
-                twostar.length +
-                onestar.length)
-            .toDouble();
+
     return GestureDetector(
         onTap: widget.onTap,
         child: Card(
@@ -206,7 +196,7 @@ class _ProductHorizontalListItemState extends State<ProductHorizontalListItem> {
                                   top: ps_space_8,
                                   right: ps_space_8),
                               child: SmoothStarRating(
-                                  rating: stars().isNaN ? 0 : stars(),
+                                  rating: stars().isNaN ? 0 : stars().toDouble(),
                                   // double.parse(
                                   //     // product.ratingDetail.totalRatingValue
                                   //     ),

@@ -65,7 +65,8 @@ class HomeDashboardViewWidget extends StatefulWidget {
       _HomeDashboardViewWidgetState();
 }
 
-class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
+class _HomeDashboardViewWidgetState
+    extends State<HomeDashboardViewWidget> {
   // var provider2;
   PsValueHolder valueHolder;
   CategoryRepository repo1;
@@ -75,8 +76,10 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
   NotificationRepository notificationRepository;
   CategoryProvider _categoryProvider;
   final int count = 8;
-  final CategoryParameterHolder trendingCategory = CategoryParameterHolder();
-  final CategoryParameterHolder categoryIconList = CategoryParameterHolder();
+  final CategoryParameterHolder trendingCategory =
+      CategoryParameterHolder();
+  final CategoryParameterHolder categoryIconList =
+      CategoryParameterHolder();
 
   final FirebaseMessaging _fcm = FirebaseMessaging();
 
@@ -95,7 +98,8 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
     });
 
     if (Platform.isIOS) {
-      _fcm.requestNotificationPermissions(const IosNotificationSettings());
+      _fcm.requestNotificationPermissions(
+          const IosNotificationSettings());
     }
 
     _fcm.subscribeToTopic('broadcast');
@@ -140,8 +144,8 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
     }
   }
 
-  Future<void> _saveDeviceToken(
-      FirebaseMessaging _fcm, NotificationProvider notificationProvider) async {
+  Future<void> _saveDeviceToken(FirebaseMessaging _fcm,
+      NotificationProvider notificationProvider) async {
     // Get the current user
 
     // Get the token for this device
@@ -149,7 +153,8 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
     await notificationProvider.replaceNotiToken(fcmToken);
 
     final NotiRegisterParameterHolder notiRegisterParameterHolder =
-        NotiRegisterParameterHolder(platformName: PLATFORM, deviceId: fcmToken);
+        NotiRegisterParameterHolder(
+            platformName: PLATFORM, deviceId: fcmToken);
     print('Token Key $fcmToken');
     if (fcmToken != null) {
       await notificationProvider
@@ -164,7 +169,8 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
     repo2 = Provider.of<ProductRepository>(context);
     repo3 = Provider.of<ProductCollectionRepository>(context);
     shopInfoRepository = Provider.of<ShopInfoRepository>(context);
-    notificationRepository = Provider.of<NotificationRepository>(context);
+    notificationRepository =
+        Provider.of<NotificationRepository>(context);
     valueHolder = Provider.of<PsValueHolder>(context);
 
     return MultiProvider(
@@ -180,16 +186,19 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
           }),
           ChangeNotifierProvider<CategoryProvider>(
               create: (BuildContext context) {
-            _categoryProvider ??=
-                CategoryProvider(repo: repo1, psValueHolder: valueHolder);
-            _categoryProvider.loadCategoryList(categoryIconList.toMap());
+            _categoryProvider ??= CategoryProvider(
+                repo: repo1, psValueHolder: valueHolder);
+            _categoryProvider
+                .loadCategoryList(categoryIconList.toMap());
             return _categoryProvider;
           }),
           ChangeNotifierProvider<TrendingCategoryProvider>(
               create: (BuildContext context) {
-            final TrendingCategoryProvider provider = TrendingCategoryProvider(
-                repo: repo1, psValueHolder: valueHolder);
-            provider.loadTrendingCategoryList(trendingCategory.toMap());
+            final TrendingCategoryProvider provider =
+                TrendingCategoryProvider(
+                    repo: repo1, psValueHolder: valueHolder);
+            provider
+                .loadTrendingCategoryList(trendingCategory.toMap());
             return provider;
           }),
           ChangeNotifierProvider<SearchProductProvider>(
@@ -230,8 +239,10 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
           }),
           ChangeNotifierProvider<NotificationProvider>(
               create: (BuildContext context) {
-            final NotificationProvider provider = NotificationProvider(
-                repo: notificationRepository, psValueHolder: valueHolder);
+            final NotificationProvider provider =
+                NotificationProvider(
+                    repo: notificationRepository,
+                    psValueHolder: valueHolder);
 
             if (provider.psValueHolder.deviceToken == null ||
                 provider.psValueHolder.deviceToken == '') {
@@ -246,42 +257,47 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
           }),
         ],
         child: Container(
-          color: Utils.isLightMode(context) ? Colors.grey[100] : Colors.black12,
+          color: Utils.isLightMode(context)
+              ? Colors.grey[100]
+              : Colors.black12,
           child: CustomScrollView(
             scrollDirection: Axis.vertical,
             slivers: <Widget>[
               _HomeFeatureProductSliderListWidget(
                 animationController:
                     widget.animationController, //animationController,
-                animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
+                animation: Tween<double>(begin: 0.0, end: 1.0)
+                    .animate(CurvedAnimation(
                         parent: widget.animationController,
                         curve: Interval((1 / count) * 1, 1.0,
-                            curve: Curves.fastOutSlowIn))), //animation
+                            curve:
+                                Curves.fastOutSlowIn))), //animation
               ),
 
               ///
               /// category List Widget
               ///
-              _HomeCategoryHorizontalListWidget(
-                psValueHolder: valueHolder,
-                animationController:
-                    widget.animationController, //animationController,
-                animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
-                        parent: widget.animationController,
-                        curve: Interval((1 / count) * 2, 1.0,
-                            curve: Curves.fastOutSlowIn))), //animation
-              ),
+              // _HomeCategoryHorizontalListWidget(
+              //   psValueHolder: valueHolder,
+              //   animationController:
+              //       widget.animationController, //animationController,
+              //   animation: Tween<double>(begin: 0.0, end: 1.0)
+              //       .animate(CurvedAnimation(
+              //           parent: widget.animationController,
+              //           curve: Interval((1 / count) * 2, 1.0,
+              //               curve:
+              //                   Curves.fastOutSlowIn))), //animation
+              // ),
 
               _DiscountProductHorizontalListWidget(
                 animationController:
                     widget.animationController, //animationController,
-                animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
+                animation: Tween<double>(begin: 0.0, end: 1.0)
+                    .animate(CurvedAnimation(
                         parent: widget.animationController,
                         curve: Interval((1 / count) * 3, 1.0,
-                            curve: Curves.fastOutSlowIn))), //animation
+                            curve:
+                                Curves.fastOutSlowIn))), //animation
               ),
 
               // _HomeTrendingProductHorizontalListWidget(
@@ -293,49 +309,54 @@ class _HomeDashboardViewWidgetState extends State<HomeDashboardViewWidget> {
               //           curve: Interval((1 / count) * 4, 1.0,
               //               curve: Curves.fastOutSlowIn))), //animation
               // ),
-              _HomeSelectingProductTypeWidget(
-                animationController:
-                    widget.animationController, //animationController,
-                animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
-                        parent: widget.animationController,
-                        curve: Interval((1 / count) * 5, 1.0,
-                            curve: Curves.fastOutSlowIn))),
-              ),
-              _HomeTrendingCategoryHorizontalListWidget(
-                psValueHolder: valueHolder,
-                animationController:
-                    widget.animationController, //animationController,
-                animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
-                        parent: widget.animationController,
-                        curve: Interval((1 / count) * 6, 1.0,
-                            curve: Curves.fastOutSlowIn))), //animation
-              ),
+              // _HomeSelectingProductTypeWidget(
+              //   animationController:
+              //       widget.animationController, //animationController,
+              //   animation: Tween<double>(begin: 0.0, end: 1.0)
+              //       .animate(CurvedAnimation(
+              //           parent: widget.animationController,
+              //           curve: Interval((1 / count) * 5, 1.0,
+              //               curve: Curves.fastOutSlowIn))),
+              // ),
+              // _HomeTrendingCategoryHorizontalListWidget(
+              //   psValueHolder: valueHolder,
+              //   animationController:
+              //       widget.animationController, //animationController,
+              //   animation: Tween<double>(begin: 0.0, end: 1.0)
+              //       .animate(CurvedAnimation(
+              //           parent: widget.animationController,
+              //           curve: Interval((1 / count) * 6, 1.0,
+              //               curve:
+              //                   Curves.fastOutSlowIn))), //animation
+              // ),
 
               _HomeLatestProductHorizontalListWidget(
                 animationController:
                     widget.animationController, //animationController,
-                animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
+                animation: Tween<double>(begin: 0.0, end: 1.0)
+                    .animate(CurvedAnimation(
                         parent: widget.animationController,
                         curve: Interval((1 / count) * 7, 1.0,
-                            curve: Curves.fastOutSlowIn))), //animation
+                            curve:
+                                Curves.fastOutSlowIn))), //animation
               ),
 
-              _HomeCollectionHorizontalListWidget(
-                animationController:
-                    widget.animationController, //animationController,
-                animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-                    CurvedAnimation(
-                        parent: widget.animationController,
-                        curve: Interval((1 / count) * 8, 1.0,
-                            curve: Curves.fastOutSlowIn))), //animation
-              ),
+              // _HomeCollectionHorizontalListWidget(
+              //   animationController:
+              //       widget.animationController, //animationController,
+              //   animation: Tween<double>(begin: 0.0, end: 1.0)
+              //       .animate(CurvedAnimation(
+              //           parent: widget.animationController,
+              //           curve: Interval((1 / count) * 8, 1.0,
+              //               curve:
+              //                   Curves.fastOutSlowIn))), //animation
+              // ),
 
-              SliverToBoxAdapter(child: Consumer<ProductCollectionProvider>(
-                  builder: (BuildContext context,
-                      ProductCollectionProvider productProvider, Widget child) {
+              SliverToBoxAdapter(child:
+                  Consumer<ProductCollectionProvider>(builder:
+                      (BuildContext context,
+                          ProductCollectionProvider productProvider,
+                          Widget child) {
                 return const SizedBox(
                   height: ps_space_20,
                 );
@@ -363,11 +384,14 @@ class _HomeLatestProductHorizontalListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Consumer<SearchProductProvider>(
-        builder: (BuildContext context, SearchProductProvider productProvider,
-            Widget child) {
+        builder: (BuildContext context,
+            SearchProductProvider productProvider, Widget child) {
           return StreamBuilder<QuerySnapshot>(
-              stream:
-                  Firestore.instance.collection('ProductListID').snapshots(),
+              stream: Firestore.instance
+                  .collection('ProductListID')
+                  .where('ProductReview', isEqualTo: true)
+                  .orderBy('TimeStamp', descending: true)
+                  .snapshots(),
               builder: (context, latestProduct) {
                 if (!latestProduct.hasData) {
                   return Center(
@@ -380,137 +404,142 @@ class _HomeLatestProductHorizontalListWidget extends StatelessWidget {
                       return FadeTransition(
                         opacity: animation,
                         child: Transform(
-                          transform: Matrix4.translationValues(
-                              0.0, 100 * (1.0 - animation.value), 0.0),
-                          child: (productProvider.productList.data != null &&
-                                  productProvider.productList.data.isNotEmpty)
-                              ? Column(children: <Widget>[
-                                  _MyHeaderWidget(
-                                    headerName: Utils.getString(
-                                        context, 'dashboard__latest_product'),
-                                    viewAllClicked: () {
-                                      // Navigator.pushNamed(
-                                      //     context, RoutePaths.filterProductList,
-                                      //     arguments: ProductListIntentHolder(
-                                      //       appBarTitle: Utils.getString(
-                                      //           context,
-                                      //           'dashboard__latest_product'),
-                                      //       productParameterHolder:
-                                      //           ProductParameterHolder()
-                                      //               .getLatestParameterHolder(),
-                                      //     ));
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  ProductListWithFilterContainerView(
+                          transform: Matrix4.translationValues(0.0,
+                              100 * (1.0 - animation.value), 0.0),
+                          child:
+                              (productProvider.productList.data !=
+                                          null &&
+                                      productProvider.productList.data
+                                          .isNotEmpty)
+                                  ? Column(children: <Widget>[
+                                      _MyHeaderWidget(
+                                        headerName: Utils.getString(
+                                            context,
+                                            'dashboard__latest_product'),
+                                        viewAllClicked: () {
+                                          // Navigator.pushNamed(
+                                          //     context, RoutePaths.filterProductList,
+                                          //     arguments: ProductListIntentHolder(
+                                          //       appBarTitle: Utils.getString(
+                                          //           context,
+                                          //           'dashboard__latest_product'),
+                                          //       productParameterHolder:
+                                          //           ProductParameterHolder()
+                                          //               .getLatestParameterHolder(),
+                                          //     ));
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (BuildContext context) => ProductListWithFilterContainerView(
                                                       productParameterHolder:
                                                           ProductParameterHolder()
                                                               .getLatestParameterHolder(),
-                                                      appBarTitle: Utils.getString(
-                                                          context,
-                                                          'dashboard__latest_product'),
-                                                      productList: latestProduct
-                                                          .data.documents)));
-                                    },
-                                  ),
-                                  StreamBuilder<QuerySnapshot>(
-                                      stream: Firestore.instance
-                                          .collection('ProductListID')
-                                          .snapshots(),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot snapshot) {
-                                        if (snapshot.hasData) {
-                                          return Container(
-                                              height: ps_space_300,
-                                              width: MediaQuery.of(context)
+                                                      appBarTitle: Utils
+                                                          .getString(
+                                                              context,
+                                                              'dashboard__latest_product'),
+                                                      productList:
+                                                          latestProduct
+                                                              .data
+                                                              .documents)));
+                                        },
+                                      ),
+                                      Container(
+                                          height: ps_space_300,
+                                          width:
+                                              MediaQuery.of(context)
                                                   .size
                                                   .width,
-                                              child: ListView.builder(
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  itemCount: snapshot
-                                                      .data.documents.length
-                                                  // productProvider
-                                                  //     .productList.data.length
-                                                  ,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    if (productProvider
-                                                            .productList
-                                                            .status ==
-                                                        PsStatus
-                                                            .BLOCK_LOADING) {
-                                                      return Shimmer.fromColors(
+                                          child: ListView.builder(
+                                              scrollDirection:
+                                                  Axis.horizontal,
+                                              itemCount: latestProduct
+                                                  .data
+                                                  .documents
+                                                  .length
+                                              // productProvider
+                                              //     .productList.data.length
+                                              ,
+                                              itemBuilder:
+                                                  (BuildContext
+                                                          context,
+                                                      int index) {
+                                                if (productProvider
+                                                        .productList
+                                                        .status ==
+                                                    PsStatus
+                                                        .BLOCK_LOADING) {
+                                                  return Shimmer
+                                                      .fromColors(
                                                           baseColor:
-                                                              Colors.grey[300],
+                                                              Colors.grey[
+                                                                  300],
                                                           highlightColor:
-                                                              Colors.white,
+                                                              Colors
+                                                                  .white,
                                                           child: Row(
                                                               children: const <
                                                                   Widget>[
                                                                 PsFrameUIForLoading(),
                                                               ]));
-                                                    } else {
-                                                      return ProductHorizontalListItem(
-                                                        productList: snapshot
-                                                            .data
-                                                            .documents[index],
-                                                        // product: productProvider
-                                                        //     .productList.data[index],
-                                                        onTap: () {
-                                                          print(productProvider
-                                                              .productList
-                                                              .data[index]
-                                                              .defaultPhoto
-                                                              .imgPath);
-                                                          print(snapshot.data
-                                                                      .documents[
-                                                                  index]
-                                                              ['ProductName']);
-                                                          Navigator.pushNamed(
-                                                              context,
-                                                              RoutePaths
-                                                                  .productDetail,
-                                                              arguments: snapshot
-                                                                      .data
-                                                                      .documents[
-                                                                  index]);
-                                                          // Navigator
-                                                          //     .pushReplacement(
-                                                          //         context,
-                                                          //         MaterialPageRoute<
-                                                          //                 dynamic>(
-                                                          //             builder: (BuildContext
-                                                          //                     context) =>
-                                                          //                 ProductDetailView(
-                                                          //                   product:
-                                                          //                       productProvider.productList.data[index],
-                                                          //                   productList:
-                                                          //                       snapshot.data.documents[index],
-                                                          //                 )));
-                                                          // Navigator.pushNamed(
-                                                          //     context,
-                                                          //     RoutePaths
-                                                          //         .productDetail,
-                                                          //     arguments: <dynamic>[
-                                                          //       productProvider
-                                                          //           .productList
-                                                          //           .data[index],
-                                                          //       snapshot.data
-                                                          //           .documents[index]
-                                                          //     ]);
-                                                        },
-                                                      );
-                                                    }
-                                                  }));
-                                        } else {
-                                          return const CircularProgressIndicator();
-                                        }
-                                      })
-                                ])
-                              : Container(),
+                                                } else {
+                                                  return ProductHorizontalListItem(
+                                                    productList:
+                                                        latestProduct
+                                                                .data
+                                                                .documents[
+                                                            index],
+                                                    // product: productProvider
+                                                    //     .productList.data[index],
+                                                    onTap: () {
+                                                      print(productProvider
+                                                          .productList
+                                                          .data[index]
+                                                          .defaultPhoto
+                                                          .imgPath);
+                                                      print(latestProduct
+                                                                  .data
+                                                                  .documents[
+                                                              index][
+                                                          'ProductName']);
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          RoutePaths
+                                                              .productDetail,
+                                                          arguments: latestProduct
+                                                                  .data
+                                                                  .documents[
+                                                              index]);
+                                                      // Navigator
+                                                      //     .pushReplacement(
+                                                      //         context,
+                                                      //         MaterialPageRoute<
+                                                      //                 dynamic>(
+                                                      //             builder: (BuildContext
+                                                      //                     context) =>
+                                                      //                 ProductDetailView(
+                                                      //                   product:
+                                                      //                       productProvider.productList.data[index],
+                                                      //                   productList:
+                                                      //                       snapshot.data.documents[index],
+                                                      //                 )));
+                                                      // Navigator.pushNamed(
+                                                      //     context,
+                                                      //     RoutePaths
+                                                      //         .productDetail,
+                                                      //     arguments: <dynamic>[
+                                                      //       productProvider
+                                                      //           .productList
+                                                      //           .data[index],
+                                                      //       snapshot.data
+                                                      //           .documents[index]
+                                                      //     ]);
+                                                    },
+                                                  );
+                                                }
+                                              }))
+                                    ])
+                                  : Container(),
                         ),
                       );
                     });
@@ -533,8 +562,10 @@ class _HomeCollectionHorizontalListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Consumer<ProductCollectionProvider>(builder: (BuildContext context,
-          ProductCollectionProvider productProvider, Widget child) {
+      child: Consumer<ProductCollectionProvider>(builder:
+          (BuildContext context,
+              ProductCollectionProvider productProvider,
+              Widget child) {
         return AnimatedBuilder(
             animation: animationController,
             builder: (BuildContext context, Widget child) {
@@ -548,10 +579,11 @@ class _HomeCollectionHorizontalListWidget extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount:
-                          productProvider.productCollectionList.data.length,
+                      itemCount: productProvider
+                          .productCollectionList.data.length,
                       itemBuilder: (BuildContext context, int index) {
-                        if (productProvider.productCollectionList.status ==
+                        if (productProvider
+                                .productCollectionList.status ==
                             PsStatus.BLOCK_LOADING) {
                           return Shimmer.fromColors(
                               baseColor: Colors.grey[300],
@@ -560,10 +592,14 @@ class _HomeCollectionHorizontalListWidget extends StatelessWidget {
                                 PsFrameUIForLoading(),
                               ]));
                         } else {
-                          return (productProvider.productCollectionList.data !=
+                          return (productProvider
+                                          .productCollectionList
+                                          .data !=
                                       null &&
                                   productProvider
-                                      .productCollectionList.data.isNotEmpty)
+                                      .productCollectionList
+                                      .data
+                                      .isNotEmpty)
                               ? Column(
                                   children: <Widget>[
                                     _MyHeaderWidget(
@@ -571,8 +607,10 @@ class _HomeCollectionHorizontalListWidget extends StatelessWidget {
                                           .productCollectionList
                                           .data[index]
                                           .name,
-                                      productCollectionHeader: productProvider
-                                          .productCollectionList.data[index],
+                                      productCollectionHeader:
+                                          productProvider
+                                              .productCollectionList
+                                              .data[index],
                                       viewAllClicked: () {
                                         animationController.reverse();
                                         Navigator.pushNamed(
@@ -594,15 +632,16 @@ class _HomeCollectionHorizontalListWidget extends StatelessWidget {
                                     ),
                                     ProductCollectionHorizontalListView(
                                       product: productProvider
-                                          .productCollectionList.data[index],
+                                          .productCollectionList
+                                          .data[index],
                                       onTap: () {
                                         print(productProvider
                                             .productCollectionList
                                             .data[index]
                                             .defaultPhoto
                                             .imgPath);
-                                        Navigator.pushNamed(
-                                            context, RoutePaths.productDetail,
+                                        Navigator.pushNamed(context,
+                                            RoutePaths.productDetail,
                                             arguments: productProvider
                                                 .productCollectionList
                                                 .data[index]);
@@ -623,7 +662,8 @@ class _HomeCollectionHorizontalListWidget extends StatelessWidget {
   }
 }
 
-class _HomeTrendingProductHorizontalListWidget extends StatelessWidget {
+class _HomeTrendingProductHorizontalListWidget
+    extends StatelessWidget {
   const _HomeTrendingProductHorizontalListWidget({
     Key key,
     @required this.animationController,
@@ -637,8 +677,8 @@ class _HomeTrendingProductHorizontalListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Consumer<TrendingProductProvider>(
-        builder: (BuildContext context, TrendingProductProvider productProvider,
-            Widget child) {
+        builder: (BuildContext context,
+            TrendingProductProvider productProvider, Widget child) {
           return AnimatedBuilder(
             animation: animationController,
             builder: (BuildContext context, Widget child) {
@@ -652,13 +692,14 @@ class _HomeTrendingProductHorizontalListWidget extends StatelessWidget {
                       ? Column(
                           children: <Widget>[
                             _MyHeaderWidget(
-                              headerName: Utils.getString(
-                                  context, 'dashboard__trending_product'),
+                              headerName: Utils.getString(context,
+                                  'dashboard__trending_product'),
                               viewAllClicked: () {
-                                Navigator.pushNamed(
-                                    context, RoutePaths.filterProductList,
+                                Navigator.pushNamed(context,
+                                    RoutePaths.filterProductList,
                                     arguments: ProductListIntentHolder(
-                                        appBarTitle: Utils.getString(context,
+                                        appBarTitle: Utils.getString(
+                                            context,
                                             'dashboard__trending_product'),
                                         productParameterHolder:
                                             ProductParameterHolder()
@@ -667,35 +708,47 @@ class _HomeTrendingProductHorizontalListWidget extends StatelessWidget {
                             ),
                             Container(
                                 height: ps_space_300,
-                                width: MediaQuery.of(context).size.width,
+                                width:
+                                    MediaQuery.of(context).size.width,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        productProvider.productList.data.length,
+                                    itemCount: productProvider
+                                        .productList.data.length,
                                     itemBuilder:
-                                        (BuildContext context, int index) {
-                                      if (productProvider.productList.status ==
+                                        (BuildContext context,
+                                            int index) {
+                                      if (productProvider
+                                              .productList.status ==
                                           PsStatus.BLOCK_LOADING) {
                                         return Shimmer.fromColors(
-                                            baseColor: Colors.grey[300],
-                                            highlightColor: Colors.white,
-                                            child: Row(children: const <Widget>[
-                                              PsFrameUIForLoading(),
-                                            ]));
+                                            baseColor:
+                                                Colors.grey[300],
+                                            highlightColor:
+                                                Colors.white,
+                                            child: Row(
+                                                children: const <
+                                                    Widget>[
+                                                  PsFrameUIForLoading(),
+                                                ]));
                                       } else {
                                         return ProductHorizontalListItem(
                                           product: productProvider
-                                              .productList.data[index],
+                                              .productList
+                                              .data[index],
                                           onTap: () {
                                             print(productProvider
                                                 .productList
                                                 .data[index]
                                                 .defaultPhoto
                                                 .imgPath);
-                                            Navigator.pushNamed(context,
-                                                RoutePaths.productDetail,
-                                                arguments: productProvider
-                                                    .productList.data[index]);
+                                            Navigator.pushNamed(
+                                                context,
+                                                RoutePaths
+                                                    .productDetail,
+                                                arguments:
+                                                    productProvider
+                                                        .productList
+                                                        .data[index]);
                                           },
                                         );
                                       }
@@ -740,7 +793,9 @@ class _HomeSelectingProductTypeWidget extends StatelessWidget {
                     const SizedBox(
                       height: ps_space_36,
                     ),
-                    Text(Utils.getString(context, 'dashboard__welcome_text'),
+                    Text(
+                        Utils.getString(
+                            context, 'dashboard__welcome_text'),
                         style: Theme.of(context).textTheme.body1),
                     const SizedBox(
                       height: ps_space_12,
@@ -749,17 +804,20 @@ class _HomeSelectingProductTypeWidget extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1
-                            .copyWith(color: ps_ctheme__color_speical)),
+                            .copyWith(
+                                color: ps_ctheme__color_speical)),
                     const SizedBox(
                       height: ps_space_12,
                     ),
                     Container(
-                      color: Theme.of(context).brightness == Brightness.light
+                      color: Theme.of(context).brightness ==
+                              Brightness.light
                           ? Colors.white
                           : Colors.grey[900],
                       padding: const EdgeInsets.only(top: ps_space_8),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -914,7 +972,8 @@ class _HomeSelectingProductTypeWidget extends StatelessWidget {
 //   }
 // }
 
-class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
+class _HomeTrendingCategoryHorizontalListWidget
+    extends StatelessWidget {
   const _HomeTrendingCategoryHorizontalListWidget(
       {Key key,
       @required this.animationController,
@@ -929,9 +988,11 @@ class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(child: Consumer<TrendingCategoryProvider>(builder:
-        (BuildContext context,
-            TrendingCategoryProvider trendingCategoryProvider, Widget child) {
+    return SliverToBoxAdapter(child:
+        Consumer<TrendingCategoryProvider>(builder:
+            (BuildContext context,
+                TrendingCategoryProvider trendingCategoryProvider,
+                Widget child) {
       return AnimatedBuilder(
         animation: animationController,
         builder: (BuildContext context, Widget child) {
@@ -942,26 +1003,30 @@ class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
                       0.0, 100 * (1.0 - animation.value), 0.0),
                   child: Consumer<TrendingCategoryProvider>(builder:
                       (BuildContext context,
-                          TrendingCategoryProvider trendingCategoryProvider,
+                          TrendingCategoryProvider
+                              trendingCategoryProvider,
                           Widget child) {
-                    return (trendingCategoryProvider.categoryList.data !=
+                    return (trendingCategoryProvider
+                                    .categoryList.data !=
                                 null &&
                             trendingCategoryProvider
                                 .categoryList.data.isNotEmpty)
                         ? Column(children: <Widget>[
                             _MyHeaderWidget(
-                              headerName: Utils.getString(
-                                  context, 'dashboard__trending_category'),
+                              headerName: Utils.getString(context,
+                                  'dashboard__trending_category'),
                               viewAllClicked: () {
-                                Navigator.pushNamed(
-                                    context, RoutePaths.trendingCategoryList,
-                                    arguments: Utils.getString(context,
+                                Navigator.pushNamed(context,
+                                    RoutePaths.trendingCategoryList,
+                                    arguments: Utils.getString(
+                                        context,
                                         'tranding_category__trending_category_list'));
                               },
                             ),
                             Container(
                               height: ps_space_300,
-                              width: MediaQuery.of(context).size.width,
+                              width:
+                                  MediaQuery.of(context).size.width,
                               child: CustomScrollView(
                                   scrollDirection: Axis.horizontal,
                                   shrinkWrap: true,
@@ -971,21 +1036,29 @@ class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
                                           const SliverGridDelegateWithMaxCrossAxisExtent(
                                               maxCrossAxisExtent: 200,
                                               childAspectRatio: 0.8),
-                                      delegate: SliverChildBuilderDelegate(
-                                        (BuildContext context, int index) {
+                                      delegate:
+                                          SliverChildBuilderDelegate(
+                                        (BuildContext context,
+                                            int index) {
                                           if (trendingCategoryProvider
-                                                  .categoryList.status ==
-                                              PsStatus.BLOCK_LOADING) {
+                                                  .categoryList
+                                                  .status ==
+                                              PsStatus
+                                                  .BLOCK_LOADING) {
                                             return Shimmer.fromColors(
-                                                baseColor: Colors.grey[300],
-                                                highlightColor: Colors.white,
+                                                baseColor:
+                                                    Colors.grey[300],
+                                                highlightColor:
+                                                    Colors.white,
                                                 child: Row(
-                                                    children: const <Widget>[
+                                                    children: const <
+                                                        Widget>[
                                                       PsFrameUIForLoading(),
                                                     ]));
                                           } else {
                                             if (trendingCategoryProvider
-                                                        .categoryList.data !=
+                                                        .categoryList
+                                                        .data !=
                                                     null ||
                                                 trendingCategoryProvider
                                                     .categoryList
@@ -998,11 +1071,15 @@ class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
                                                         .data[index],
                                                 animationController:
                                                     animationController,
-                                                animation: Tween<double>(
-                                                        begin: 0.0, end: 1.0)
-                                                    .animate(
+                                                animation:
+                                                    Tween<double>(
+                                                            begin:
+                                                                0.0,
+                                                            end: 1.0)
+                                                        .animate(
                                                   CurvedAnimation(
-                                                    parent: animationController,
+                                                    parent:
+                                                        animationController,
                                                     curve: Interval(
                                                         (1 /
                                                                 trendingCategoryProvider
@@ -1023,11 +1100,11 @@ class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
                                                     final TouchCountParameterHolder
                                                         touchCountParameterHolder =
                                                         TouchCountParameterHolder(
-                                                            typeId:
-                                                                trendingCategoryProvider
-                                                                    .categoryList
-                                                                    .data[index]
-                                                                    .id,
+                                                            typeId: trendingCategoryProvider
+                                                                .categoryList
+                                                                .data[
+                                                                    index]
+                                                                .id,
                                                             typeName:
                                                                 FILTERING_TYPE_NAME_CATEGORY,
                                                             userId: trendingCategoryProvider
@@ -1048,7 +1125,8 @@ class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
                                                       productParameterHolder =
                                                       ProductParameterHolder()
                                                           .getLatestParameterHolder();
-                                                  productParameterHolder.catId =
+                                                  productParameterHolder
+                                                          .catId =
                                                       trendingCategoryProvider
                                                           .categoryList
                                                           .data[index]
@@ -1062,7 +1140,8 @@ class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
                                                         appBarTitle:
                                                             trendingCategoryProvider
                                                                 .categoryList
-                                                                .data[index]
+                                                                .data[
+                                                                    index]
                                                                 .name,
                                                         productParameterHolder:
                                                             productParameterHolder,
@@ -1074,8 +1153,11 @@ class _HomeTrendingCategoryHorizontalListWidget extends StatelessWidget {
                                             }
                                           }
                                         },
-                                        childCount: trendingCategoryProvider
-                                            .categoryList.data.length,
+                                        childCount:
+                                            trendingCategoryProvider
+                                                .categoryList
+                                                .data
+                                                .length,
                                       ),
                                     ),
                                   ]),
@@ -1103,10 +1185,16 @@ class _DiscountProductHorizontalListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
         // fdfdf
-        child: Consumer<DiscountProductProvider>(builder: (BuildContext context,
-            DiscountProductProvider productProvider, Widget child) {
+        child: Consumer<DiscountProductProvider>(builder:
+            (BuildContext context,
+                DiscountProductProvider productProvider,
+                Widget child) {
       return StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('ProductListID').snapshots(),
+          stream: Firestore.instance
+              .collection('ProductListID')
+              .where('Discount', isGreaterThan: 0)
+              .where('ProductReview', isEqualTo: true)
+              .snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -1119,28 +1207,35 @@ class _DiscountProductHorizontalListWidget extends StatelessWidget {
                   return FadeTransition(
                       opacity: animation,
                       child: Transform(
-                          transform: Matrix4.translationValues(
-                              0.0, 100 * (1.0 - animation.value), 0.0),
-                          child: (productProvider.productList.data != null &&
-                                  productProvider.productList.data.isNotEmpty)
+                          transform: Matrix4.translationValues(0.0,
+                              100 * (1.0 - animation.value), 0.0),
+                          child: (productProvider.productList.data !=
+                                      null &&
+                                  productProvider
+                                      .productList.data.isNotEmpty)
                               ? Column(children: <Widget>[
                                   _MyHeaderWidget(
                                     headerName: Utils.getString(
-                                        context, 'dashboard__discount_product'),
+                                        context,
+                                        'dashboard__discount_product'),
                                     viewAllClicked: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (BuildContext context) =>
+                                              builder: (BuildContext
+                                                      context) =>
                                                   ProductListWithFilterContainerView(
                                                       productParameterHolder:
                                                           ProductParameterHolder()
                                                               .getLatestParameterHolder(),
-                                                      appBarTitle: Utils.getString(
-                                                          context,
-                                                          'dashboard__discount_product'),
-                                                      productList: snapshot
-                                                          .data.documents)));
+                                                      appBarTitle: Utils
+                                                          .getString(
+                                                              context,
+                                                              'dashboard__discount_product'),
+                                                      productList:
+                                                          snapshot
+                                                              .data
+                                                              .documents)));
                                       // Navigator.pushNamed(
                                       //     context, RoutePaths.filterProductList,
                                       //     arguments: ProductListIntentHolder(
@@ -1154,27 +1249,40 @@ class _DiscountProductHorizontalListWidget extends StatelessWidget {
                                   ),
                                   Container(
                                       height: ps_space_300,
-                                      width: MediaQuery.of(context).size.width,
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width,
                                       child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount:
-                                              snapshot.data.documents.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
+                                          scrollDirection:
+                                              Axis.horizontal,
+                                          itemCount: snapshot
+                                              .data.documents.length,
+                                          itemBuilder:
+                                              (BuildContext context,
+                                                  int index) {
                                             if (productProvider
-                                                    .productList.status ==
-                                                PsStatus.BLOCK_LOADING) {
-                                              return Shimmer.fromColors(
-                                                  baseColor: Colors.grey[300],
-                                                  highlightColor: Colors.white,
-                                                  child: Row(
-                                                      children: const <Widget>[
-                                                        PsFrameUIForLoading(),
-                                                      ]));
+                                                    .productList
+                                                    .status ==
+                                                PsStatus
+                                                    .BLOCK_LOADING) {
+                                              return Shimmer
+                                                  .fromColors(
+                                                      baseColor:
+                                                          Colors.grey[
+                                                              300],
+                                                      highlightColor:
+                                                          Colors
+                                                              .white,
+                                                      child: Row(
+                                                          children: const <
+                                                              Widget>[
+                                                            PsFrameUIForLoading(),
+                                                          ]));
                                             } else {
                                               return ProductHorizontalListItem(
                                                 productList: snapshot
-                                                    .data.documents[index],
+                                                    .data
+                                                    .documents[index],
                                                 // product: productProvider
                                                 //     .productList.data[index],
                                                 onTap: () {
@@ -1183,10 +1291,14 @@ class _DiscountProductHorizontalListWidget extends StatelessWidget {
                                                   //     .data[index]
                                                   //     .defaultPhoto
                                                   //     .imgPath);
-                                                  Navigator.pushNamed(context,
-                                                      RoutePaths.productDetail,
-                                                      arguments: snapshot.data
-                                                          .documents[index]);
+                                                  Navigator.pushNamed(
+                                                      context,
+                                                      RoutePaths
+                                                          .productDetail,
+                                                      arguments: snapshot
+                                                              .data
+                                                              .documents[
+                                                          index]);
                                                   // Navigator.pushReplacement(
                                                   //     context,
                                                   //     MaterialPageRoute(
@@ -1223,18 +1335,20 @@ class _HomeFeatureProductSliderListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const int count = 6;
-    final Animation<double> animation = Tween<double>(begin: 0.0, end: 1.0)
-        .animate(CurvedAnimation(
+    final Animation<double> animation =
+        Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: animationController,
             curve: const Interval((1 / count) * 1, 1.0,
                 curve: Curves.fastOutSlowIn)));
 
     return SliverToBoxAdapter(
-      child: Consumer<FeaturedProductProvider>(builder: (BuildContext context,
-          FeaturedProductProvider productProvider, Widget child) {
+      child: Consumer<FeaturedProductProvider>(builder:
+          (BuildContext context,
+              FeaturedProductProvider productProvider, Widget child) {
         return StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
                 .collection('ProductListID')
+                .where('ProductReview', isEqualTo: true)
                 .where('Featured Product', isEqualTo: true)
                 .snapshots(),
             builder: (context, snapshot) {
@@ -1249,30 +1363,34 @@ class _HomeFeatureProductSliderListWidget extends StatelessWidget {
                     return FadeTransition(
                         opacity: animation,
                         child: Transform(
-                            transform: Matrix4.translationValues(
-                                0.0, 100 * (1.0 - animation.value), 0.0),
-                            child: (productProvider.productList.data != null &&
-                                    productProvider.productList.data.isNotEmpty)
+                            transform: Matrix4.translationValues(0.0,
+                                100 * (1.0 - animation.value), 0.0),
+                            child: (productProvider
+                                            .productList.data !=
+                                        null &&
+                                    productProvider
+                                        .productList.data.isNotEmpty)
                                 ? Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       _MyHeaderWidget(
-                                        headerName: Utils.getString(context,
+                                        headerName: Utils.getString(
+                                            context,
                                             'dashboard__feature_product'),
                                         viewAllClicked: () {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (BuildContext context) =>
-                                                      ProductListWithFilterContainerView(
-                                                          productParameterHolder:
-                                                              ProductParameterHolder()
-                                                                  .getLatestParameterHolder(),
-                                                          appBarTitle:
-                                                              Utils.getString(
-                                                                  context,
-                                                                  'dashboard__feature_product'),
-                                                          productList: snapshot
+                                                  builder: (BuildContext context) => ProductListWithFilterContainerView(
+                                                      productParameterHolder:
+                                                          ProductParameterHolder()
+                                                              .getLatestParameterHolder(),
+                                                      appBarTitle: Utils
+                                                          .getString(
+                                                              context,
+                                                              'dashboard__feature_product'),
+                                                      productList:
+                                                          snapshot
                                                               .data
                                                               .documents)));
                                         },
@@ -1282,33 +1400,42 @@ class _HomeFeatureProductSliderListWidget extends StatelessWidget {
                                             //color: Colors.grey[200],
                                             boxShadow: <BoxShadow>[
                                               BoxShadow(
-                                                  color:
-                                                      Utils.isLightMode(context)
-                                                          ? Colors.grey
-                                                              .withOpacity(0.5)
-                                                          : Colors.black
-                                                              .withOpacity(0.5),
+                                                  color: Utils
+                                                          .isLightMode(
+                                                              context)
+                                                      ? Colors.grey
+                                                          .withOpacity(
+                                                              0.5)
+                                                      : Colors.black
+                                                          .withOpacity(
+                                                              0.5),
                                                   offset:
-                                                      const Offset(1.1, 1.1),
+                                                      const Offset(
+                                                          1.1, 1.1),
                                                   blurRadius: 15.0),
                                             ],
                                           ),
-                                          margin: const EdgeInsets.only(
-                                              top: ps_space_8,
-                                              bottom: ps_space_20),
+                                          margin:
+                                              const EdgeInsets.only(
+                                                  top: ps_space_8,
+                                                  bottom:
+                                                      ps_space_20),
                                           width: double.infinity,
                                           child:
                                               // Column(
                                               //   mainAxisSize: MainAxisSize.max,
                                               //   children: <Widget>[
                                               FeatureProductSliderView(
-                                            productList:
-                                                snapshot.data.documents,
+                                            productList: snapshot
+                                                .data.documents,
                                             // featuredProductList: productProvider
                                             //     .productList.data,
-                                            onTap: (DocumentSnapshot product) {
-                                              Navigator.pushNamed(context,
-                                                  RoutePaths.productDetail,
+                                            onTap: (DocumentSnapshot
+                                                product) {
+                                              Navigator.pushNamed(
+                                                  context,
+                                                  RoutePaths
+                                                      .productDetail,
                                                   arguments: product);
                                             },
                                             //   ),
@@ -1346,105 +1473,108 @@ class __HomeCategoryHorizontalListWidgetState
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(child: Consumer<CategoryProvider>(
-      builder: (BuildContext context, CategoryProvider categoryProvider,
-          Widget child) {
+      builder: (BuildContext context,
+          CategoryProvider categoryProvider, Widget child) {
         return AnimatedBuilder(
             animation: widget.animationController,
             builder: (BuildContext context, Widget child) {
               return FadeTransition(
                   opacity: widget.animation,
                   child: Transform(
-                      transform: Matrix4.translationValues(
-                          0.0, 30 * (1.0 - widget.animation.value), 0.0),
-                      child: (categoryProvider.categoryList.data != null &&
-                              categoryProvider.categoryList.data.isNotEmpty)
+                      transform: Matrix4.translationValues(0.0,
+                          30 * (1.0 - widget.animation.value), 0.0),
+                      child: (categoryProvider.categoryList.data !=
+                                  null &&
+                              categoryProvider
+                                  .categoryList.data.isNotEmpty)
                           ? Column(children: <Widget>[
                               _MyHeaderWidget(
                                 headerName: Utils.getString(
                                     context, 'dashboard__categories'),
                                 viewAllClicked: () {
-                                  Navigator.pushNamed(
-                                      context, RoutePaths.categoryList,
+                                  Navigator.pushNamed(context,
+                                      RoutePaths.categoryList,
                                       arguments: 'Categories');
                                 },
                               ),
-                              Container(
-                                height: ps_space_120,
-                                margin: const EdgeInsets.only(top: ps_space_4),
-                                width: MediaQuery.of(context).size.width,
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    padding: const EdgeInsets.only(
-                                        left: ps_space_16),
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: categoryProvider
-                                        .categoryList.data.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      if (categoryProvider
-                                              .categoryList.status ==
-                                          PsStatus.BLOCK_LOADING) {
-                                        return Shimmer.fromColors(
-                                            baseColor: Colors.grey[300],
-                                            highlightColor: Colors.white,
-                                            child: Row(children: const <Widget>[
-                                              PsFrameUIForLoading(),
-                                            ]));
-                                      } else {
-                                        return CategoryHorizontalListItem(
-                                          category: categoryProvider
-                                              .categoryList.data[index],
-                                          onTap: () {
-                                            utilsCheckUserLoginId(
-                                                    widget.psValueHolder)
-                                                .then(
-                                                    (String loginUserId) async {
-                                              final TouchCountParameterHolder
-                                                  touchCountParameterHolder =
-                                                  TouchCountParameterHolder(
-                                                      typeId: categoryProvider
-                                                          .categoryList
-                                                          .data[index]
-                                                          .id,
-                                                      typeName:
-                                                          FILTERING_TYPE_NAME_CATEGORY,
-                                                      userId: categoryProvider
-                                                          .psValueHolder
-                                                          .loginUserId);
+                              // TODO: category
+                              // Container(
+                              //   height: ps_space_120,
+                              //   margin: const EdgeInsets.only(top: ps_space_4),
+                              //   width: MediaQuery.of(context).size.width,
+                              //   child: ListView.builder(
+                              //       shrinkWrap: true,
+                              //       padding: const EdgeInsets.only(
+                              //           left: ps_space_16),
+                              //       scrollDirection: Axis.horizontal,
+                              //       itemCount: categoryProvider
+                              //           .categoryList.data.length,
+                              //       itemBuilder:
+                              //           (BuildContext context, int index) {
+                              //         if (categoryProvider
+                              //                 .categoryList.status ==
+                              //             PsStatus.BLOCK_LOADING) {
+                              //           return Shimmer.fromColors(
+                              //               baseColor: Colors.grey[300],
+                              //               highlightColor: Colors.white,
+                              //               child: Row(children: const <Widget>[
+                              //                 PsFrameUIForLoading(),
+                              //               ]));
+                              //         } else {
+                              //           return CategoryHorizontalListItem(
+                              //             category: categoryProvider
+                              //                 .categoryList.data[index],
+                              //             onTap: () {
+                              //               utilsCheckUserLoginId(
+                              //                       widget.psValueHolder)
+                              //                   .then(
+                              //                       (String loginUserId) async {
+                              //                 final TouchCountParameterHolder
+                              //                     touchCountParameterHolder =
+                              //                     TouchCountParameterHolder(
+                              //                         typeId: categoryProvider
+                              //                             .categoryList
+                              //                             .data[index]
+                              //                             .id,
+                              //                         typeName:
+                              //                             FILTERING_TYPE_NAME_CATEGORY,
+                              //                         userId: categoryProvider
+                              //                             .psValueHolder
+                              //                             .loginUserId);
 
-                                              categoryProvider.postTouchCount(
-                                                  touchCountParameterHolder
-                                                      .toMap());
-                                            });
-                                            print(categoryProvider
-                                                .categoryList
-                                                .data[index]
-                                                .defaultPhoto
-                                                .imgPath);
-                                            final ProductParameterHolder
-                                                productParameterHolder =
-                                                ProductParameterHolder()
-                                                    .getLatestParameterHolder();
-                                            productParameterHolder.catId =
-                                                categoryProvider.categoryList
-                                                    .data[index].id;
-                                            Navigator.pushNamed(context,
-                                                RoutePaths.filterProductList,
-                                                arguments:
-                                                    ProductListIntentHolder(
-                                                  appBarTitle: categoryProvider
-                                                      .categoryList
-                                                      .data[index]
-                                                      .name,
-                                                  productParameterHolder:
-                                                      productParameterHolder,
-                                                ));
-                                          },
-                                          // )
-                                        );
-                                      }
-                                    }),
-                              )
+                              //                 categoryProvider.postTouchCount(
+                              //                     touchCountParameterHolder
+                              //                         .toMap());
+                              //               });
+                              //               print(categoryProvider
+                              //                   .categoryList
+                              //                   .data[index]
+                              //                   .defaultPhoto
+                              //                   .imgPath);
+                              //               final ProductParameterHolder
+                              //                   productParameterHolder =
+                              //                   ProductParameterHolder()
+                              //                       .getLatestParameterHolder();
+                              //               productParameterHolder.catId =
+                              //                   categoryProvider.categoryList
+                              //                       .data[index].id;
+                              //               Navigator.pushNamed(context,
+                              //                   RoutePaths.filterProductList,
+                              //                   arguments:
+                              //                       ProductListIntentHolder(
+                              //                     appBarTitle: categoryProvider
+                              //                         .categoryList
+                              //                         .data[index]
+                              //                         .name,
+                              //                     productParameterHolder:
+                              //                         productParameterHolder,
+                              //                   ));
+                              //             },
+                              //             // )
+                              //           );
+                              //         }
+                              //       }),
+                              // )
                             ])
                           : Container()));
             });

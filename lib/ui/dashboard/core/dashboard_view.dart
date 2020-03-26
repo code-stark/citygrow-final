@@ -22,6 +22,7 @@ import 'package:digitalproductstore/ui/dashboard/home/home_dashboard_view.dart';
 import 'package:digitalproductstore/ui/history/list/history_list_view.dart';
 import 'package:digitalproductstore/ui/language/setting/language_setting_view.dart';
 import 'package:digitalproductstore/ui/product/favourite/favourite_product_list_view.dart';
+import 'package:digitalproductstore/ui/product/list_with_filter/product_list_with_filter_container.dart';
 import 'package:digitalproductstore/ui/product/list_with_filter/product_list_with_filter_view.dart';
 import 'package:digitalproductstore/ui/product/purchase_product/purchase_product_grid_view.dart';
 import 'package:digitalproductstore/ui/search/home_item_search_view.dart';
@@ -74,13 +75,14 @@ class _HomeViewState extends State<DashboardView>
   String phoneNumber = '';
   String phoneId = '';
 
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>();
   ShopInfoProvider shopInfoProvider;
 
   @override
   void initState() {
-    animationController =
-        AnimationController(duration: animation_duration, vsync: this);
+    animationController = AnimationController(
+        duration: animation_duration, vsync: this);
 
     super.initState();
   }
@@ -141,35 +143,42 @@ class _HomeViewState extends State<DashboardView>
     final Users users = Provider.of<Users>(context);
     int index = REQUEST_CODE__MENU_HOME_FRAGMENT;
     String title;
-    final PsValueHolder psValueHolder = Provider.of<PsValueHolder>(context);
+    final PsValueHolder psValueHolder =
+        Provider.of<PsValueHolder>(context);
     switch (param) {
       case 0:
         index = REQUEST_CODE__MENU_HOME_FRAGMENT;
-        title = Utils.getString(
-            context, 'app_name'); //Utils.getString(context, 'dashboard__home');
+        title = Utils.getString(context,
+            'app_name'); //Utils.getString(context, 'dashboard__home');
         break;
       case 1:
         index = REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT;
-        title = Utils.getString(context, 'home__bottom_app_bar_shop_info');
+        title = Utils.getString(
+            context, 'home__bottom_app_bar_shop_info');
         break;
       case 2:
         index = REQUEST_CODE__DASHBOARD_SELECT_WHICH_USER_FRAGMENT;
-        title = (users != null || users.uid != null || users.uid != '')
+        title = (users != null ||
+                users.uid != null ||
+                users.uid != '')
             ? Utils.getString(context, 'home__bottom_app_bar_login')
-            : Utils.getString(context, 'home__bottom_app_bar_verify_email');
+            : Utils.getString(
+                context, 'home__bottom_app_bar_verify_email');
         break;
       case 3:
         index = REQUEST_CODE__DASHBOARD_SEARCH_FRAGMENT;
-        title = Utils.getString(context, 'home__bottom_app_bar_search');
+        title =
+            Utils.getString(context, 'home__bottom_app_bar_search');
         break;
       case 4:
         index = REQUEST_CODE__DASHBOARD_BASKET_FRAGMENT;
-        title = Utils.getString(context, 'home__bottom_app_bar_basket_list');
+        title = Utils.getString(
+            context, 'home__bottom_app_bar_basket_list');
         break;
       default:
         index = 0;
-        title = Utils.getString(
-            context, 'app_name'); //Utils.getString(context, 'dashboard__home');
+        title = Utils.getString(context,
+            'app_name'); //Utils.getString(context, 'dashboard__home');
         break;
     }
     return <dynamic>[title, index];
@@ -184,15 +193,16 @@ class _HomeViewState extends State<DashboardView>
     shopInfoRepository = Provider.of<ShopInfoRepository>(context);
     userRepository = Provider.of<UserRepository>(context);
     valueHolder = Provider.of<PsValueHolder>(context);
-    productRepository = Provider.of<ProductRepository>(context); // later check
+    productRepository =
+        Provider.of<ProductRepository>(context); // later check
     basketRepository = Provider.of<BasketRepository>(context);
     final dynamic data = EasyLocalizationProvider.of(context).data;
 
     timeDilation = 1.0;
 
     if (isFirstTime) {
-      appBarTitle = Utils.getString(
-          context, 'app_name'); //Utils.getString(context, 'dashboard__home');
+      appBarTitle = Utils.getString(context,
+          'app_name'); //Utils.getString(context, 'dashboard__home');
       isFirstTime = false;
     }
 
@@ -219,7 +229,8 @@ class _HomeViewState extends State<DashboardView>
                         context, 'home__quit_dialog_description'),
                     leftButtonText: Utils.getString(
                         context, 'app_info__cancel_button_name'),
-                    rightButtonText: Utils.getString(context, 'dialog__ok'),
+                    rightButtonText:
+                        Utils.getString(context, 'dialog__ok'),
                     onAgreeTap: () {
                       SystemNavigator.pop();
                     });
@@ -227,10 +238,11 @@ class _HomeViewState extends State<DashboardView>
           false;
     }
 
-    final Animation<double> animation = Tween<double>(begin: 0.0, end: 1.0)
-        .animate(CurvedAnimation(
+    final Animation<double> animation =
+        Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: animationController,
-            curve: const Interval(0.5 * 1, 1.0, curve: Curves.fastOutSlowIn)));
+            curve: const Interval(0.5 * 1, 1.0,
+                curve: Curves.fastOutSlowIn)));
     final Users user = Provider.of<Users>(context);
     return EasyLocalizationProvider(
       data: data,
@@ -248,262 +260,329 @@ class _HomeViewState extends State<DashboardView>
                 builder: (BuildContext context, UserProvider provider,
                     Widget child) {
                   print(provider.psValueHolder.loginUserId);
-                  return ListView(padding: EdgeInsets.zero, children: <Widget>[
-                    _DrawerHeaderWidget(),
-                    ListTile(
-                      title: Text(
-                          Utils.getString(context, 'home__drawer_menu_home')),
-                    ),
-                    _DrawerMenuWidget(
-                        icon: Icons.store,
-                        title:
-                            Utils.getString(context, 'home__drawer_menu_home'),
-                        index: REQUEST_CODE__MENU_HOME_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(
-                              Utils.getString(context, 'app_name'), index);
-                        }),
-                    _DrawerMenuWidget(
-                        icon: Icons.category,
-                        title: Utils.getString(
-                            context, 'home__drawer_menu_category'),
-                        index: REQUEST_CODE__MENU_CATEGORY_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    _DrawerMenuWidget(
-                        icon: Icons.schedule,
-                        title: Utils.getString(
-                            context, 'home__drawer_menu_latest_product'),
-                        index: REQUEST_CODE__MENU_LATEST_PRODUCT_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    _DrawerMenuWidget(
-                        icon: Feather.percent,
-                        title: Utils.getString(
-                            context, 'home__drawer_menu_discount_product'),
-                        index: REQUEST_CODE__MENU_DISCOUNT_PRODUCT_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    _DrawerMenuWidget(
-                        icon: Icons.trending_up,
-                        title: Utils.getString(
-                            context, 'home__drawer_menu_trending_product'),
-                        index: REQUEST_CODE__MENU_TRENDING_PRODUCT_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    _DrawerMenuWidget(
-                        icon: Feather.book_open,
-                        title:
-                            Utils.getString(context, 'home__menu_drawer_blog'),
-                        index: REQUEST_CODE__MENU_BLOG_FRAGMENT, //17
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    _DrawerMenuWidget(
-                        icon: Icons.folder_open,
-                        title: Utils.getString(
-                            context, 'home__menu_drawer_collection'),
-                        index: REQUEST_CODE__MENU_COLLECTION_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    const Divider(
-                      height: ps_space_1,
-                    ),
-                    ListTile(
-                      title: Text(Utils.getString(
-                          context, 'home__menu_drawer_user_info')),
-                    ),
-                    // TODO(Profile LogoOut): Profile LogoOut
-                    _DrawerMenuWidget(
-                        icon: Icons.person,
-                        title: Utils.getString(
-                            context, 'home__menu_drawer_profile'),
-                        index: REQUEST_CODE__MENU_SELECT_WHICH_USER_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          title = (user != null ||
-                                  user.uid != null ||
-                                  user.uid != '')
-                              ? Utils.getString(
-                                  context, 'home__menu_drawer_profile')
-                              : Utils.getString(
-                                  context, 'home__bottom_app_bar_verify_email');
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    if (user != null)
-                      if (user.uid != null && user.uid != '')
-                        Visibility(
-                          visible: true,
-                          child: _DrawerMenuWidget(
-                              icon: Icons.favorite_border,
-                              title: Utils.getString(
-                                  context, 'home__menu_drawer_favourite'),
-                              index: REQUEST_CODE__MENU_FAVOURITE_FRAGMENT,
-                              onTap: (String title, int index) {
-                                Navigator.pop(context);
-                                updateSelectedIndexWithAnimation(title, index);
-                              }),
+                  return ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        _DrawerHeaderWidget(),
+                        ListTile(
+                          title: Text(Utils.getString(
+                              context, 'home__drawer_menu_home')),
                         ),
-                    if (user.uid != null)
-                      if (user.uid != null && user.uid != '')
-                        Visibility(
-                          visible: true,
-                          child: _DrawerMenuWidget(
-                            icon: Icons.swap_horiz,
+                        _DrawerMenuWidget(
+                            icon: Icons.store,
                             title: Utils.getString(
-                                context, 'home__menu_drawer_transaction'),
-                            index: REQUEST_CODE__MENU_TRANSACTION_FRAGMENT,
+                                context, 'home__drawer_menu_home'),
+                            index: REQUEST_CODE__MENU_HOME_FRAGMENT,
                             onTap: (String title, int index) {
                               Navigator.pop(context);
-                              updateSelectedIndexWithAnimation(title, index);
-                            },
-                          ),
-                        ),
-                    // if (user.uid != null)
-                    //   if (user.uid != null && user.uid != '')
-                    //     Visibility(
-                    //       visible: true,
-                    //       child: _DrawerMenuWidget(
-                    //           icon: Icons.book,
-                    //           title: Utils.getString(
-                    //               context, 'home__menu_drawer_user_history'),
-                    //           index:
-                    //               REQUEST_CODE__MENU_USER_HISTORY_FRAGMENT, //14
-                    //           onTap: (String title, int index) {
-                    //             Navigator.pop(context);
-                    //             updateSelectedIndexWithAnimation(title, index);
-                    //           }),
-                    //     ),
-                    if (user.uid != null)
-                      if (user.uid != null && user.uid != '')
-                        Visibility(
-                          visible: true,
-                          child: _DrawerMenuWidget(
-                              icon: FontAwesome.product_hunt,
-                              title: Utils.getString(context,
-                                  'home__menu_drawer_purchased_product'),
-                              index:
-                                  REQUEST_CODE__MENU_PURCHASED_PRODUCT_FRAGMENT, //14
-                              onTap: (String title, int index) {
-                                Navigator.pop(context);
-                                updateSelectedIndexWithAnimation(title, index);
-                              }),
-                        ),
-                    if (user.uid != null)
-                      if (user.uid != null && user.uid != '')
-                        Visibility(
-                          visible: true,
-                          child: ListTile(
-                            leading: Icon(
-                              Icons.power_settings_new,
-                              color: Utils.isLightMode(context)
-                                  ? ps_ctheme__color_speical
-                                  : Colors.white,
-                            ),
-                            title: Text(
-                              Utils.getString(
-                                  context, 'home__menu_drawer_logout'),
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            onTap: () async {
-                              Navigator.pop(context);
-                              showDialog<dynamic>(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ConfirmDialogView(
-                                        description: Utils.getString(context,
-                                            'home__logout_dialog_description'),
-                                        leftButtonText: Utils.getString(context,
-                                            'home__logout_dialog_cancel_button'),
-                                        rightButtonText: Utils.getString(
-                                            context,
-                                            'home__logout_dialog_ok_button'),
-                                        onAgreeTap: () async {
-                                          setState(() {
-                                            _currentIndex =
-                                                REQUEST_CODE__MENU_HOME_FRAGMENT;
-                                          });
-                                          provider.replaceLoginUserId('');
-
-                                          await FacebookLogin().logOut();
-                                          await GoogleSignIn().signOut();
-                                          await FirebaseAuth.instance.signOut();
-                                        });
+                              updateSelectedIndexWithAnimation(
+                                  Utils.getString(
+                                      context, 'app_name'),
+                                  index);
+                            }),
+                        StreamBuilder<QuerySnapshot>(
+                            stream: Firestore.instance
+                                .collection('ProductListID')
+                                .where('ProductReview',
+                                    isEqualTo: true)
+                                .where('Featured Product',
+                                    isEqualTo: true)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return _DrawerMenuWidget(
+                                  icon: Icons.category,
+                                  title: Utils.getString(context,
+                                      'home__drawer_menu_category'),
+                                  index:
+                                      REQUEST_CODE__MENU_CATEGORY_FRAGMENT,
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext
+                                                    context) =>
+                                                ProductListWithFilterContainerView(
+                                                    productParameterHolder:
+                                                        ProductParameterHolder()
+                                                            .getLatestParameterHolder(),
+                                                    appBarTitle: Utils
+                                                        .getString(
+                                                            context,
+                                                            'dashboard__feature_product'),
+                                                    productList: snapshot
+                                                        .data
+                                                        .documents)));
                                   });
-                            },
-                          ),
+                            }),
+                        _DrawerMenuWidget(
+                            icon: Icons.schedule,
+                            title: Utils.getString(context,
+                                'home__drawer_menu_latest_product'),
+                            index:
+                                REQUEST_CODE__MENU_LATEST_PRODUCT_FRAGMENT,
+                            onTap: (String title, int index) {
+                              Navigator.pop(context);
+                              updateSelectedIndexWithAnimation(
+                                  title, index);
+                            }),
+                        _DrawerMenuWidget(
+                            icon: Feather.percent,
+                            title: Utils.getString(context,
+                                'home__drawer_menu_discount_product'),
+                            index:
+                                REQUEST_CODE__MENU_DISCOUNT_PRODUCT_FRAGMENT,
+                            onTap: (String title, int index) {
+                              Navigator.pop(context);
+                              updateSelectedIndexWithAnimation(
+                                  title, index);
+                            }),
+                        // _DrawerMenuWidget(
+                        //     icon: Icons.trending_up,
+                        //     title: Utils.getString(
+                        //         context, 'home__drawer_menu_trending_product'),
+                        //     index: REQUEST_CODE__MENU_TRENDING_PRODUCT_FRAGMENT,
+                        //     onTap: (String title, int index) {
+                        //       Navigator.pop(context);
+                        //       updateSelectedIndexWithAnimation(title, index);
+                        //     }),
+                        // _DrawerMenuWidget(
+                        //     icon: Feather.book_open,
+                        //     title:
+                        //         Utils.getString(context, 'home__menu_drawer_blog'),
+                        //     index: REQUEST_CODE__MENU_BLOG_FRAGMENT, //17
+                        //     onTap: (String title, int index) {
+                        //       Navigator.pop(context);
+                        //       updateSelectedIndexWithAnimation(title, index);
+                        //     }),
+                        // _DrawerMenuWidget(
+                        //     icon: Icons.folder_open,
+                        //     title: Utils.getString(
+                        //         context, 'home__menu_drawer_collection'),
+                        //     index: REQUEST_CODE__MENU_COLLECTION_FRAGMENT,
+                        //     onTap: (String title, int index) {
+                        //       Navigator.pop(context);
+                        //       updateSelectedIndexWithAnimation(title, index);
+                        //     }),
+                        const Divider(
+                          height: ps_space_1,
                         ),
-                    const Divider(
-                      height: ps_space_1,
-                    ),
-                    ListTile(
-                      title: Text(
-                          Utils.getString(context, 'home__menu_drawer_app')),
-                    ),
-                    _DrawerMenuWidget(
-                        icon: Icons.g_translate,
-                        title: Utils.getString(
-                            context, 'home__menu_drawer_language'),
-                        index: REQUEST_CODE__MENU_LANGUAGE_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation('', index);
-                        }),
-                    _DrawerMenuWidget(
-                        icon: Icons.contacts,
-                        title: Utils.getString(
-                            context, 'home__menu_drawer_contact_us'),
-                        index: REQUEST_CODE__MENU_CONTACT_US_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    _DrawerMenuWidget(
-                        icon: Icons.settings,
-                        title: Utils.getString(
-                            context, 'home__menu_drawer_setting'),
-                        index: REQUEST_CODE__MENU_SETTING_FRAGMENT,
-                        onTap: (String title, int index) {
-                          Navigator.pop(context);
-                          updateSelectedIndexWithAnimation(title, index);
-                        }),
-                    ListTile(
-                      leading: Icon(
-                        Icons.star_border,
-                        color: Utils.isLightMode(context)
-                            ? ps_ctheme__color_speical
-                            : Colors.white,
-                      ),
-                      title: Text(
-                        Utils.getString(
-                            context, 'home__menu_drawer_rate_this_app'),
-                        style: Theme.of(context).textTheme.body1,
-                      ),
-                      onTap: () {
-                        Navigator.pop(context);
-                        utilsLaunchURL();
-                      },
-                    )
-                  ]);
+                        ListTile(
+                          title: Text(Utils.getString(context,
+                              'home__menu_drawer_user_info')),
+                        ),
+                        // TODO(Profile LogoOut): Profile LogoOut
+                        _DrawerMenuWidget(
+                            icon: Icons.person,
+                            title: Utils.getString(
+                                context, 'home__menu_drawer_profile'),
+                            index:
+                                REQUEST_CODE__MENU_SELECT_WHICH_USER_FRAGMENT,
+                            onTap: (String title, int index) {
+                              Navigator.pop(context);
+                              title = (user != null ||
+                                      user.uid != null ||
+                                      user.uid != '')
+                                  ? Utils.getString(context,
+                                      'home__menu_drawer_profile')
+                                  : Utils.getString(context,
+                                      'home__bottom_app_bar_verify_email');
+                              updateSelectedIndexWithAnimation(
+                                  title, index);
+                            }),
+                        if (user != null)
+                          if (user.uid != null && user.uid != '')
+                            Visibility(
+                              visible: true,
+                              child: _DrawerMenuWidget(
+                                  icon: Icons.favorite_border,
+                                  title: Utils.getString(context,
+                                      'home__menu_drawer_favourite'),
+                                  index:
+                                      REQUEST_CODE__MENU_FAVOURITE_FRAGMENT,
+                                  onTap: (String title, int index) {
+                                    Navigator.pop(context);
+                                    updateSelectedIndexWithAnimation(
+                                        title, index);
+                                  }),
+                            ),
+                        if (user.uid != null)
+                          if (user.uid != null && user.uid != '')
+                            Visibility(
+                              visible: true,
+                              child: _DrawerMenuWidget(
+                                icon: Icons.swap_horiz,
+                                title: Utils.getString(context,
+                                    'home__menu_drawer_transaction'),
+                                index:
+                                    REQUEST_CODE__MENU_TRANSACTION_FRAGMENT,
+                                onTap: (String title, int index) {
+                                  Navigator.pop(context);
+                                  updateSelectedIndexWithAnimation(
+                                      title, index);
+                                },
+                              ),
+                            ),
+                        // if (user.uid != null)
+                        //   if (user.uid != null && user.uid != '')
+                        //     Visibility(
+                        //       visible: true,
+                        //       child: _DrawerMenuWidget(
+                        //           icon: Icons.book,
+                        //           title: Utils.getString(
+                        //               context, 'home__menu_drawer_user_history'),
+                        //           index:
+                        //               REQUEST_CODE__MENU_USER_HISTORY_FRAGMENT, //14
+                        //           onTap: (String title, int index) {
+                        //             Navigator.pop(context);
+                        //             updateSelectedIndexWithAnimation(title, index);
+                        //           }),
+                        //     ),
+                        if (user.uid != null)
+                          if (user.uid != null && user.uid != '')
+                            Visibility(
+                              visible: true,
+                              child: _DrawerMenuWidget(
+                                  icon: FontAwesome.product_hunt,
+                                  title: Utils.getString(context,
+                                      'home__menu_drawer_purchased_product'),
+                                  index:
+                                      REQUEST_CODE__MENU_PURCHASED_PRODUCT_FRAGMENT, //14
+                                  onTap: (String title, int index) {
+                                    Navigator.pop(context);
+                                    updateSelectedIndexWithAnimation(
+                                        title, index);
+                                  }),
+                            ),
+                        if (user.uid != null)
+                          if (user.uid != null && user.uid != '')
+                            Visibility(
+                              visible: true,
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.power_settings_new,
+                                  color: Utils.isLightMode(context)
+                                      ? ps_ctheme__color_speical
+                                      : Colors.white,
+                                ),
+                                title: Text(
+                                  Utils.getString(context,
+                                      'home__menu_drawer_logout'),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1,
+                                ),
+                                onTap: () async {
+                                  Navigator.pop(context);
+                                  showDialog<dynamic>(
+                                      context: context,
+                                      builder:
+                                          (BuildContext context) {
+                                        return ConfirmDialogView(
+                                            description: Utils.getString(
+                                                context,
+                                                'home__logout_dialog_description'),
+                                            leftButtonText:
+                                                Utils.getString(
+                                                    context,
+                                                    'home__logout_dialog_cancel_button'),
+                                            rightButtonText:
+                                                Utils.getString(
+                                                    context,
+                                                    'home__logout_dialog_ok_button'),
+                                            onAgreeTap: () async {
+                                              setState(() {
+                                                _currentIndex =
+                                                    REQUEST_CODE__MENU_HOME_FRAGMENT;
+                                              });
+                                              provider
+                                                  .replaceLoginUserId(
+                                                      '');
+
+                                              await FacebookLogin()
+                                                  .logOut();
+                                              await GoogleSignIn()
+                                                  .signOut();
+                                              await FirebaseAuth
+                                                  .instance
+                                                  .signOut();
+                                            });
+                                      });
+                                },
+                              ),
+                            ),
+                        const Divider(
+                          height: ps_space_1,
+                        ),
+                        ListTile(
+                          title: Text(Utils.getString(
+                              context, 'home__menu_drawer_app')),
+                        ),
+                        _DrawerMenuWidget(
+                            icon: Icons.g_translate,
+                            title: Utils.getString(context,
+                                'home__menu_drawer_language'),
+                            index:
+                                REQUEST_CODE__MENU_LANGUAGE_FRAGMENT,
+                            onTap: (String title, int index) {
+                              Navigator.pop(context);
+                              updateSelectedIndexWithAnimation(
+                                  '', index);
+                            }),
+                        _DrawerMenuWidget(
+                            icon: Icons.contacts,
+                            title:
+                                Utils.getString(context,
+                                    'home__menu_drawer_contact_us'),
+                            index:
+                                REQUEST_CODE__MENU_CONTACT_US_FRAGMENT,
+                            onTap: (String title, int index) {
+                              Navigator.pop(context);
+                              updateSelectedIndexWithAnimation(
+                                  title, index);
+                            }),
+                        _DrawerMenuWidget(
+                            icon: Icons.settings,
+                            title: Utils.getString(
+                                context, 'home__menu_drawer_setting'),
+                            index:
+                                REQUEST_CODE__MENU_SETTING_FRAGMENT,
+                            onTap: (String title, int index) {
+                              Navigator.pop(context);
+                              updateSelectedIndexWithAnimation(
+                                  title, index);
+                            }),
+                        ListTile(
+                          leading: Icon(
+                            Icons.star_border,
+                            color: Utils.isLightMode(context)
+                                ? ps_ctheme__color_speical
+                                : Colors.white,
+                          ),
+                          title: Text(
+                            Utils.getString(context,
+                                'home__menu_drawer_rate_this_app'),
+                            style:
+                                Theme.of(context).textTheme.bodyText1,
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            utilsLaunchURL();
+                          },
+                        )
+                      ]);
                 },
               ),
             ),
           ),
           appBar: AppBar(
             backgroundColor: (appBarTitle ==
-                        Utils.getString(context, 'home__verify_email') ||
+                        Utils.getString(
+                            context, 'home__verify_email') ||
                     appBarTitle ==
                         Utils.getString(context, 'home_verify_phone'))
                 ? ps_ctheme__color_speical
@@ -513,22 +592,27 @@ class _HomeViewState extends State<DashboardView>
               style: Theme.of(context).textTheme.title.copyWith(
                   fontWeight: FontWeight.bold,
                   color: (appBarTitle ==
-                              Utils.getString(context, 'home__verify_email') ||
+                              Utils.getString(
+                                  context, 'home__verify_email') ||
                           appBarTitle ==
-                              Utils.getString(context, 'home_verify_phone'))
+                              Utils.getString(
+                                  context, 'home_verify_phone'))
                       ? Colors.white
                       : Utils.isLightMode(context)
                           ? ps_ctheme__color_speical
-                          : Colors.white //Theme.of(context).appBarTheme.color,
+                          : Colors
+                              .white //Theme.of(context).appBarTheme.color,
                   ),
             ),
             titleSpacing: 0,
             elevation: 0,
             iconTheme: IconThemeData(
                 color: (appBarTitle ==
-                            Utils.getString(context, 'home__verify_email') ||
+                            Utils.getString(
+                                context, 'home__verify_email') ||
                         appBarTitle ==
-                            Utils.getString(context, 'home_verify_phone'))
+                            Utils.getString(
+                                context, 'home_verify_phone'))
                     ? Colors.white
                     : Utils.isLightMode(context)
                         ? ps_ctheme__color_speical
@@ -536,48 +620,50 @@ class _HomeViewState extends State<DashboardView>
             textTheme: Theme.of(context).textTheme,
             brightness: Utils.getBrightnessForAppBar(context),
             actions: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.notifications_none,
-                  color: (appBarTitle ==
-                              Utils.getString(context, 'home__verify_email') ||
-                          appBarTitle ==
-                              Utils.getString(context, 'home_verify_phone'))
-                      ? Colors.white
-                      : Theme.of(context).iconTheme.color,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    RoutePaths.notiList,
-                  );
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Feather.book_open,
-                  color: (appBarTitle ==
-                              Utils.getString(context, 'home__verify_email') ||
-                          appBarTitle ==
-                              Utils.getString(context, 'home_verify_phone'))
-                      ? Colors.white
-                      : Theme.of(context).iconTheme.color,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    RoutePaths.blogList,
-                  );
-                },
-              ),
+              // IconButton(
+              //   icon: Icon(
+              //     Icons.notifications_none,
+              //     color: (appBarTitle ==
+              //                 Utils.getString(context, 'home__verify_email') ||
+              //             appBarTitle ==
+              //                 Utils.getString(context, 'home_verify_phone'))
+              //         ? Colors.white
+              //         : Theme.of(context).iconTheme.color,
+              //   ),
+              //   onPressed: () {
+              //     Navigator.pushNamed(
+              //       context,
+              //       RoutePaths.notiList,
+              //     );
+              //   },
+              // ),
+              // IconButton(
+              //   icon: Icon(
+              //     Feather.book_open,
+              //     color: (appBarTitle ==
+              //                 Utils.getString(context, 'home__verify_email') ||
+              //             appBarTitle ==
+              //                 Utils.getString(context, 'home_verify_phone'))
+              //         ? Colors.white
+              //         : Theme.of(context).iconTheme.color,
+              //   ),
+              //   onPressed: () {
+              //     Navigator.pushNamed(
+              //       context,
+              //       RoutePaths.blogList,
+              //     );
+              //   },
+              // ),
               ChangeNotifierProvider<BasketProvider>(
                   create: (BuildContext context) {
                 final BasketProvider provider =
                     BasketProvider(repo: basketRepository);
                 provider.loadBasketList();
                 return provider;
-              }, child: Consumer<BasketProvider>(builder: (BuildContext context,
-                      BasketProvider basketProvider, Widget child) {
+              }, child: Consumer<BasketProvider>(builder:
+                      (BuildContext context,
+                          BasketProvider basketProvider,
+                          Widget child) {
                 final Users users = Provider.of<Users>(context);
 
                 return StreamBuilder<QuerySnapshot>(
@@ -628,9 +714,11 @@ class _HomeViewState extends State<DashboardView>
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    snapshot.data.documents.length > 99
+                                    snapshot.data.documents.length >
+                                            99
                                         ? '99+'
-                                        : snapshot.data.documents.length
+                                        : snapshot
+                                            .data.documents.length
                                             .toString(),
                                     textAlign: TextAlign.left,
                                     style: Theme.of(context)
@@ -644,8 +732,8 @@ class _HomeViewState extends State<DashboardView>
                                 ),
                               ),
                               onTap: () {
-                                utilsNavigateOnUserVerificationView(context,
-                                    () {
+                                utilsNavigateOnUserVerificationView(
+                                    context, () {
                                   Navigator.pushNamed(
                                     context,
                                     RoutePaths.basketList,
@@ -660,7 +748,8 @@ class _HomeViewState extends State<DashboardView>
           ),
           bottomNavigationBar: _currentIndex ==
                       REQUEST_CODE__MENU_HOME_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT ||
                   _currentIndex ==
                       REQUEST_CODE__DASHBOARD_SELECT_WHICH_USER_FRAGMENT ||
                   _currentIndex ==
@@ -671,17 +760,22 @@ class _HomeViewState extends State<DashboardView>
                       REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT || //go to register
                   _currentIndex ==
                       REQUEST_CODE__DASHBOARD_VERIFY_EMAIL_FRAGMENT || //go to email verify
-                  _currentIndex == REQUEST_CODE__DASHBOARD_SEARCH_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_BASKET_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_SEARCH_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_BASKET_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT ||
                   _currentIndex ==
                       REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT
               ? Visibility(
                   visible: true,
                   child: BottomNavigationBar(
                     type: BottomNavigationBarType.fixed,
-                    currentIndex: getBottonNavigationIndex(_currentIndex),
+                    currentIndex:
+                        getBottonNavigationIndex(_currentIndex),
                     showUnselectedLabels: true,
                     backgroundColor: Utils.isLightMode(context)
                         ? Colors.white
@@ -708,15 +802,15 @@ class _HomeViewState extends State<DashboardView>
                       BottomNavigationBarItem(
                         icon: Icon(Icons.info_outline),
                         title: Text(
-                          Utils.getString(
-                              context, 'home__bottom_app_bar_shop_info'),
+                          Utils.getString(context,
+                              'home__bottom_app_bar_shop_info'),
                         ),
                       ),
                       BottomNavigationBarItem(
                           icon: Icon(Icons.person),
                           title: Text(
-                            Utils.getString(
-                                context, 'home__bottom_app_bar_login'),
+                            Utils.getString(context,
+                                'home__bottom_app_bar_login'),
                           )),
                       BottomNavigationBarItem(
                         icon: Icon(Icons.search),
@@ -728,8 +822,8 @@ class _HomeViewState extends State<DashboardView>
                       BottomNavigationBarItem(
                           icon: Icon(Icons.shopping_cart),
                           title: Text(
-                            Utils.getString(
-                                context, 'home__bottom_app_bar_basket_list'),
+                            Utils.getString(context,
+                                'home__bottom_app_bar_basket_list'),
                           ))
                     ],
                   ),
@@ -737,22 +831,28 @@ class _HomeViewState extends State<DashboardView>
               : null,
           floatingActionButton: _currentIndex ==
                       REQUEST_CODE__MENU_HOME_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT ||
                   _currentIndex ==
                       REQUEST_CODE__DASHBOARD_SELECT_WHICH_USER_FRAGMENT ||
                   _currentIndex ==
                       REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT ||
                   _currentIndex ==
                       REQUEST_CODE__DASHBOARD_FORGOT_PASSWORD_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT ||
                   _currentIndex ==
                       REQUEST_CODE__DASHBOARD_VERIFY_EMAIL_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_SEARCH_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_BASKET_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_SEARCH_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_BASKET_FRAGMENT ||
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT ||
                   _currentIndex ==
                       REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT
+                  _currentIndex ==
+                      REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT
               ? Container(
                   height: 65.0,
                   width: 65.0,
@@ -762,8 +862,8 @@ class _HomeViewState extends State<DashboardView>
                           borderRadius: BorderRadius.circular(8.0),
                           boxShadow: <BoxShadow>[
                             BoxShadow(
-                                color:
-                                    ps_ctheme__color_speical.withOpacity(0.3),
+                                color: ps_ctheme__color_speical
+                                    .withOpacity(0.3),
                                 offset: const Offset(1.1, 1.1),
                                 blurRadius: 10.0),
                           ],
@@ -775,7 +875,8 @@ class _HomeViewState extends State<DashboardView>
           body: Builder(
             builder: (BuildContext context) {
               final Users users = Provider.of<Users>(context);
-              if (_currentIndex == REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT) {
+              if (_currentIndex ==
+                  REQUEST_CODE__DASHBOARD_SHOP_INFO_FRAGMENT) {
                 // 1 Way
                 //
                 // return MultiProvider(
@@ -821,11 +922,14 @@ class _HomeViewState extends State<DashboardView>
                       slivers: <Widget>[
                         ShopInfoView(
                             animationController: animationController,
-                            animation: Tween<double>(begin: 0.0, end: 1.0)
-                                .animate(CurvedAnimation(
-                                    parent: animationController,
-                                    curve: const Interval((1 / 2) * 1, 1.0,
-                                        curve: Curves.fastOutSlowIn))))
+                            animation:
+                                Tween<double>(begin: 0.0, end: 1.0)
+                                    .animate(CurvedAnimation(
+                                        parent: animationController,
+                                        curve: const Interval(
+                                            (1 / 2) * 1, 1.0,
+                                            curve: Curves
+                                                .fastOutSlowIn))))
                       ],
                     ));
               } else if (_currentIndex ==
@@ -833,12 +937,16 @@ class _HomeViewState extends State<DashboardView>
                 return ChangeNotifierProvider<UserProvider>(
                     create: (BuildContext context) {
                   final UserProvider provider = UserProvider(
-                      repo: userRepository, psValueHolder: valueHolder);
+                      repo: userRepository,
+                      psValueHolder: valueHolder);
                   //provider.getUserLogin();
                   return provider;
-                }, child: Consumer<UserProvider>(builder: (BuildContext context,
-                        UserProvider provider, Widget child) {
-                  if (users != null || users.uid != null || users.uid != '') {
+                }, child: Consumer<UserProvider>(builder:
+                        (BuildContext context, UserProvider provider,
+                            Widget child) {
+                  if (users != null ||
+                      users.uid != null ||
+                      users.uid != '') {
                     if (users.uid == null ||
                         users.uid == null ||
                         users.uid == null ||
@@ -847,19 +955,23 @@ class _HomeViewState extends State<DashboardView>
                           currentIndex: _currentIndex,
                           animationController: animationController,
                           animation: animation,
-                          updateCurrentIndex: (String title, int index) {
+                          updateCurrentIndex:
+                              (String title, int index) {
                             if (index != null) {
-                              updateSelectedIndexWithAnimation(title, index);
+                              updateSelectedIndexWithAnimation(
+                                  title, index);
                             }
                           },
-                          updateUserCurrentIndex:
-                              (String title, int index, String userId) {
+                          updateUserCurrentIndex: (String title,
+                              int index, String userId) {
                             if (index != null) {
-                              updateSelectedIndexWithAnimation(title, index);
+                              updateSelectedIndexWithAnimation(
+                                  title, index);
                             }
                             if (userId != null) {
                               _userId = userId;
-                              provider.psValueHolder.loginUserId = userId;
+                              provider.psValueHolder.loginUserId =
+                                  userId;
                             }
                           });
                     } else {
@@ -892,7 +1004,8 @@ class _HomeViewState extends State<DashboardView>
                   // }
                 }));
               }
-              if (_currentIndex == REQUEST_CODE__DASHBOARD_SEARCH_FRAGMENT) {
+              if (_currentIndex ==
+                  REQUEST_CODE__DASHBOARD_SEARCH_FRAGMENT) {
                 // 2nd Way
                 //SearchProductProvider searchProductProvider;
 
@@ -903,12 +1016,14 @@ class _HomeViewState extends State<DashboardView>
                         animationController: animationController,
                         animation: animation,
                         productParameterHolder:
-                            ProductParameterHolder().getLatestParameterHolder())
+                            ProductParameterHolder()
+                                .getLatestParameterHolder())
                   ],
                 );
               } else if (_currentIndex ==
                       REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT) {
+                  _currentIndex ==
+                      REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT) {
                 return Stack(children: <Widget>[
                   Image.asset(
                     'assets/images/login_app_bg.jpg',
@@ -916,54 +1031,60 @@ class _HomeViewState extends State<DashboardView>
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
-                  CustomScrollView(scrollDirection: Axis.vertical, slivers: <
-                      Widget>[
-                    PhoneSignInView(
-                        animationController: animationController,
-                        goToLoginSelected: () {
-                          animationController
-                              .reverse()
-                              .then<dynamic>((void data) {
-                            if (!mounted) {
-                              return;
-                            }
-                            if (_currentIndex ==
-                                REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT) {
-                              updateSelectedIndexWithAnimation(
-                                  Utils.getString(context, 'home_login'),
-                                  REQUEST_CODE__MENU_LOGIN_FRAGMENT);
-                            }
-                            if (_currentIndex ==
-                                REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT) {
-                              updateSelectedIndexWithAnimation(
-                                  Utils.getString(context, 'home_login'),
-                                  REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT);
-                            }
-                          });
-                        },
-                        phoneSignInSelected:
-                            (String name, String phoneNo, String verifyId) {
-                          phoneUserName = name;
-                          phoneNumber = phoneNo;
-                          phoneId = verifyId;
-                          if (_currentIndex ==
-                              REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT) {
-                            updateSelectedIndexWithAnimation(
-                                Utils.getString(context, 'home_verify_phone'),
-                                REQUEST_CODE__MENU_PHONE_VERIFY_FRAGMENT);
-                          }
-                          if (_currentIndex ==
-                              REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT) {
-                            updateSelectedIndexWithAnimation(
-                                Utils.getString(context, 'home_verify_phone'),
-                                REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT);
-                          }
-                        })
-                  ])
+                  CustomScrollView(
+                      scrollDirection: Axis.vertical,
+                      slivers: <Widget>[
+                        PhoneSignInView(
+                            animationController: animationController,
+                            goToLoginSelected: () {
+                              animationController
+                                  .reverse()
+                                  .then<dynamic>((void data) {
+                                if (!mounted) {
+                                  return;
+                                }
+                                if (_currentIndex ==
+                                    REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT) {
+                                  updateSelectedIndexWithAnimation(
+                                      Utils.getString(
+                                          context, 'home_login'),
+                                      REQUEST_CODE__MENU_LOGIN_FRAGMENT);
+                                }
+                                if (_currentIndex ==
+                                    REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT) {
+                                  updateSelectedIndexWithAnimation(
+                                      Utils.getString(
+                                          context, 'home_login'),
+                                      REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT);
+                                }
+                              });
+                            },
+                            phoneSignInSelected: (String name,
+                                String phoneNo, String verifyId) {
+                              phoneUserName = name;
+                              phoneNumber = phoneNo;
+                              phoneId = verifyId;
+                              if (_currentIndex ==
+                                  REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT) {
+                                updateSelectedIndexWithAnimation(
+                                    Utils.getString(
+                                        context, 'home_verify_phone'),
+                                    REQUEST_CODE__MENU_PHONE_VERIFY_FRAGMENT);
+                              }
+                              if (_currentIndex ==
+                                  REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT) {
+                                updateSelectedIndexWithAnimation(
+                                    Utils.getString(
+                                        context, 'home_verify_phone'),
+                                    REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT);
+                              }
+                            })
+                      ])
                 ]);
               } else if (_currentIndex ==
                       REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__MENU_PHONE_VERIFY_FRAGMENT) {
+                  _currentIndex ==
+                      REQUEST_CODE__MENU_PHONE_VERIFY_FRAGMENT) {
                 return _CallVerifyPhoneWidget(
                     userName: phoneUserName,
                     phoneNumber: phoneNumber,
@@ -974,8 +1095,8 @@ class _HomeViewState extends State<DashboardView>
                     updateCurrentIndex: (String title, int index) {
                       updateSelectedIndexWithAnimation(title, index);
                     },
-                    updateUserCurrentIndex:
-                        (String title, int index, String userId) async {
+                    updateUserCurrentIndex: (String title, int index,
+                        String userId) async {
                       if (userId != null) {
                         _userId = userId;
                       }
@@ -986,7 +1107,8 @@ class _HomeViewState extends State<DashboardView>
                     });
               } else if (_currentIndex ==
                       REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT) {
+                  _currentIndex ==
+                      REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT) {
                 return ProfileView(
                   scaffoldKey: scaffoldKey,
                   animationController: animationController,
@@ -1001,24 +1123,24 @@ class _HomeViewState extends State<DashboardView>
                 return ProductListWithFilterView(
                   key: const Key('1'),
                   animationController: animationController,
-                  productParameterHolder:
-                      ProductParameterHolder().getLatestParameterHolder(),
+                  productParameterHolder: ProductParameterHolder()
+                      .getLatestParameterHolder(),
                 );
               } else if (_currentIndex ==
                   REQUEST_CODE__MENU_DISCOUNT_PRODUCT_FRAGMENT) {
                 return ProductListWithFilterView(
                   key: const Key('2'),
                   animationController: animationController,
-                  productParameterHolder:
-                      ProductParameterHolder().getDiscountParameterHolder(),
+                  productParameterHolder: ProductParameterHolder()
+                      .getDiscountParameterHolder(),
                 );
               } else if (_currentIndex ==
                   REQUEST_CODE__MENU_TRENDING_PRODUCT_FRAGMENT) {
                 return ProductListWithFilterView(
                   key: const Key('3'),
                   animationController: animationController,
-                  productParameterHolder:
-                      ProductParameterHolder().getTrendingParameterHolder(),
+                  productParameterHolder: ProductParameterHolder()
+                      .getTrendingParameterHolder(),
                 );
               } else if (_currentIndex ==
                       REQUEST_CODE__DASHBOARD_FORGOT_PASSWORD_FRAGMENT ||
@@ -1046,13 +1168,15 @@ class _HomeViewState extends State<DashboardView>
                               if (_currentIndex ==
                                   REQUEST_CODE__MENU_FORGOT_PASSWORD_FRAGMENT) {
                                 updateSelectedIndexWithAnimation(
-                                    Utils.getString(context, 'home_login'),
+                                    Utils.getString(
+                                        context, 'home_login'),
                                     REQUEST_CODE__MENU_LOGIN_FRAGMENT);
                               }
                               if (_currentIndex ==
                                   REQUEST_CODE__DASHBOARD_FORGOT_PASSWORD_FRAGMENT) {
                                 updateSelectedIndexWithAnimation(
-                                    Utils.getString(context, 'home_login'),
+                                    Utils.getString(
+                                        context, 'home_login'),
                                     REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT);
                               }
                             });
@@ -1062,7 +1186,8 @@ class _HomeViewState extends State<DashboardView>
                 ]);
               } else if (_currentIndex ==
                       REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__MENU_REGISTER_FRAGMENT) {
+                  _currentIndex ==
+                      REQUEST_CODE__MENU_REGISTER_FRAGMENT) {
                 return Stack(children: <Widget>[
                   Image.asset(
                     'assets/images/login_app_bg.jpg',
@@ -1070,51 +1195,57 @@ class _HomeViewState extends State<DashboardView>
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
-                  CustomScrollView(scrollDirection: Axis.vertical, slivers: <
-                      Widget>[
-                    RegisterView(
-                        buildContexts: context,
-                        animationController: animationController,
-                        onRegisterSelected: () {
-                          if (_currentIndex ==
-                              REQUEST_CODE__MENU_REGISTER_FRAGMENT) {
-                            updateSelectedIndexWithAnimation(
-                                Utils.getString(context, 'home__verify_email'),
-                                REQUEST_CODE__MENU_VERIFY_EMAIL_FRAGMENT);
-                          }
-                          if (_currentIndex ==
-                              REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT) {
-                            updateSelectedIndexWithAnimation(
-                                Utils.getString(context, 'home__verify_email'),
-                                REQUEST_CODE__DASHBOARD_VERIFY_EMAIL_FRAGMENT);
-                          }
-                        },
-                        goToLoginSelected: () {
-                          animationController
-                              .reverse()
-                              .then<dynamic>((void data) {
-                            if (!mounted) {
-                              return;
-                            }
-                            if (_currentIndex ==
-                                REQUEST_CODE__MENU_REGISTER_FRAGMENT) {
-                              updateSelectedIndexWithAnimation(
-                                  Utils.getString(context, 'home_login'),
-                                  REQUEST_CODE__MENU_LOGIN_FRAGMENT);
-                            }
-                            if (_currentIndex ==
-                                REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT) {
-                              updateSelectedIndexWithAnimation(
-                                  Utils.getString(context, 'home_login'),
-                                  REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT);
-                            }
-                          });
-                        })
-                  ])
+                  CustomScrollView(
+                      scrollDirection: Axis.vertical,
+                      slivers: <Widget>[
+                        RegisterView(
+                            buildContexts: context,
+                            animationController: animationController,
+                            onRegisterSelected: () {
+                              if (_currentIndex ==
+                                  REQUEST_CODE__MENU_REGISTER_FRAGMENT) {
+                                updateSelectedIndexWithAnimation(
+                                    Utils.getString(context,
+                                        'home__verify_email'),
+                                    REQUEST_CODE__MENU_VERIFY_EMAIL_FRAGMENT);
+                              }
+                              if (_currentIndex ==
+                                  REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT) {
+                                updateSelectedIndexWithAnimation(
+                                    Utils.getString(context,
+                                        'home__verify_email'),
+                                    REQUEST_CODE__DASHBOARD_VERIFY_EMAIL_FRAGMENT);
+                              }
+                            },
+                            goToLoginSelected: () {
+                              animationController
+                                  .reverse()
+                                  .then<dynamic>((void data) {
+                                if (!mounted) {
+                                  return;
+                                }
+                                if (_currentIndex ==
+                                    REQUEST_CODE__MENU_REGISTER_FRAGMENT) {
+                                  updateSelectedIndexWithAnimation(
+                                      Utils.getString(
+                                          context, 'home_login'),
+                                      REQUEST_CODE__MENU_LOGIN_FRAGMENT);
+                                }
+                                if (_currentIndex ==
+                                    REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT) {
+                                  updateSelectedIndexWithAnimation(
+                                      Utils.getString(
+                                          context, 'home_login'),
+                                      REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT);
+                                }
+                              });
+                            })
+                      ])
                 ]);
               } else if (_currentIndex ==
                       REQUEST_CODE__DASHBOARD_VERIFY_EMAIL_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__MENU_VERIFY_EMAIL_FRAGMENT) {
+                  _currentIndex ==
+                      REQUEST_CODE__MENU_VERIFY_EMAIL_FRAGMENT) {
                 return _CallVerifyEmailWidget(
                     animationController: animationController,
                     animation: animation,
@@ -1122,8 +1253,8 @@ class _HomeViewState extends State<DashboardView>
                     updateCurrentIndex: (String title, int index) {
                       updateSelectedIndexWithAnimation(title, index);
                     },
-                    updateUserCurrentIndex:
-                        (String title, int index, String userId) async {
+                    updateUserCurrentIndex: (String title, int index,
+                        String userId) async {
                       if (userId != null) {
                         _userId = userId;
                       }
@@ -1134,7 +1265,8 @@ class _HomeViewState extends State<DashboardView>
                     });
               } else if (_currentIndex ==
                       REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT ||
-                  _currentIndex == REQUEST_CODE__MENU_LOGIN_FRAGMENT) {
+                  _currentIndex ==
+                      REQUEST_CODE__MENU_LOGIN_FRAGMENT) {
                 return _CallLoginWidget(
                     currentIndex: _currentIndex,
                     animationController: animationController,
@@ -1159,12 +1291,16 @@ class _HomeViewState extends State<DashboardView>
                 return ChangeNotifierProvider<UserProvider>(
                     create: (BuildContext context) {
                   final UserProvider provider = UserProvider(
-                      repo: userRepository, psValueHolder: valueHolder);
+                      repo: userRepository,
+                      psValueHolder: valueHolder);
 //TODO: userlogin
                   return provider;
-                }, child: Consumer<UserProvider>(builder: (BuildContext context,
-                        UserProvider provider, Widget child) {
-                  if (user != null || user.uid != null || user.uid != '') {
+                }, child: Consumer<UserProvider>(builder:
+                        (BuildContext context, UserProvider provider,
+                            Widget child) {
+                  if (user != null ||
+                      user.uid != null ||
+                      user.uid != '') {
                     if (user == null ||
                         user.uid == null ||
                         user.uid == null ||
@@ -1181,53 +1317,56 @@ class _HomeViewState extends State<DashboardView>
                               scrollDirection: Axis.vertical,
                               slivers: <Widget>[
                                 LoginView(
-                                  animationController: animationController,
+                                  animationController:
+                                      animationController,
                                   animation: animation,
-                                  onGoogleSignInSelected: (String userId) {
+                                  onGoogleSignInSelected:
+                                      (String userId) {
                                     setState(() {
                                       _currentIndex =
                                           REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT;
                                       _userId = userId;
-                                      provider.psValueHolder.loginUserId =
-                                          userId;
+                                      provider.psValueHolder
+                                          .loginUserId = userId;
                                     });
                                   },
-                                  onFbSignInSelected: (String userId) {
+                                  onFbSignInSelected:
+                                      (String userId) {
                                     setState(() {
                                       _currentIndex =
                                           REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT;
                                       _userId = userId;
-                                      provider.psValueHolder.loginUserId =
-                                          userId;
+                                      provider.psValueHolder
+                                          .loginUserId = userId;
                                     });
                                   },
                                   onPhoneSignInSelected: () {
                                     if (_currentIndex ==
                                         REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT) {
                                       updateSelectedIndexWithAnimation(
-                                          Utils.getString(
-                                              context, 'home_phone_signin'),
+                                          Utils.getString(context,
+                                              'home_phone_signin'),
                                           REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT);
                                     }
                                     if (_currentIndex ==
                                         REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT) {
                                       updateSelectedIndexWithAnimation(
-                                          Utils.getString(
-                                              context, 'home_phone_signin'),
+                                          Utils.getString(context,
+                                              'home_phone_signin'),
                                           REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT);
                                     }
                                     if (_currentIndex ==
                                         REQUEST_CODE__MENU_SELECT_WHICH_USER_FRAGMENT) {
                                       updateSelectedIndexWithAnimation(
-                                          Utils.getString(
-                                              context, 'home_phone_signin'),
+                                          Utils.getString(context,
+                                              'home_phone_signin'),
                                           REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT);
                                     }
                                     if (_currentIndex ==
                                         REQUEST_CODE__DASHBOARD_SELECT_WHICH_USER_FRAGMENT) {
                                       updateSelectedIndexWithAnimation(
-                                          Utils.getString(
-                                              context, 'home_phone_signin'),
+                                          Utils.getString(context,
+                                              'home_phone_signin'),
                                           REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT);
                                     }
                                   },
@@ -1236,8 +1375,8 @@ class _HomeViewState extends State<DashboardView>
                                       _currentIndex =
                                           REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT;
                                       _userId = userId;
-                                      provider.psValueHolder.loginUserId =
-                                          userId;
+                                      provider.psValueHolder
+                                          .loginUserId = userId;
                                     });
                                   },
                                   onForgotPasswordSelected: () {
@@ -1245,13 +1384,14 @@ class _HomeViewState extends State<DashboardView>
                                       _currentIndex =
                                           REQUEST_CODE__MENU_FORGOT_PASSWORD_FRAGMENT;
                                       appBarTitle = Utils.getString(
-                                          context, 'home__forgot_password');
+                                          context,
+                                          'home__forgot_password');
                                     });
                                   },
                                   onSignInSelected: () {
                                     updateSelectedIndexWithAnimation(
-                                        Utils.getString(
-                                            context, 'home__register'),
+                                        Utils.getString(context,
+                                            'home__register'),
                                         REQUEST_CODE__MENU_REGISTER_FRAGMENT);
                                   },
                                 ),
@@ -1270,14 +1410,17 @@ class _HomeViewState extends State<DashboardView>
                         animationController: animationController,
                         animation: animation,
                         currentIndex: _currentIndex,
-                        updateCurrentIndex: (String title, int index) {
-                          updateSelectedIndexWithAnimation(title, index);
+                        updateCurrentIndex:
+                            (String title, int index) {
+                          updateSelectedIndexWithAnimation(
+                              title, index);
                         },
-                        updateUserCurrentIndex:
-                            (String title, int index, String userId) async {
+                        updateUserCurrentIndex: (String title,
+                            int index, String userId) async {
                           if (userId != null) {
                             _userId = userId;
-                            provider.psValueHolder.loginUserId = userId;
+                            provider.psValueHolder.loginUserId =
+                                userId;
                           }
                           setState(() {
                             appBarTitle = title;
@@ -1322,12 +1465,15 @@ class _HomeViewState extends State<DashboardView>
                     });
               } else if (_currentIndex ==
                   REQUEST_CODE__MENU_CONTACT_US_FRAGMENT) {
-                return ContactUsView(animationController: animationController);
-              } else if (_currentIndex == REQUEST_CODE__MENU_SETTING_FRAGMENT) {
+                return ContactUsView(
+                    animationController: animationController);
+              } else if (_currentIndex ==
+                  REQUEST_CODE__MENU_SETTING_FRAGMENT) {
                 return SettingView(
                   animationController: animationController,
                 );
-              } else if (_currentIndex == REQUEST_CODE__MENU_BLOG_FRAGMENT) {
+              } else if (_currentIndex ==
+                  REQUEST_CODE__MENU_BLOG_FRAGMENT) {
                 return BlogListView(
                   animationController: animationController,
                 );
@@ -1409,19 +1555,22 @@ class _CallLoginWidget extends StatelessWidget {
           width: double.infinity,
           fit: BoxFit.cover,
         ),
-        CustomScrollView(scrollDirection: Axis.vertical, slivers: <Widget>[
+        CustomScrollView(scrollDirection: Axis.vertical, slivers: <
+            Widget>[
           LoginView(
             animationController: animationController,
             animation: animation,
             onGoogleSignInSelected: (String userId) {
               if (currentIndex == REQUEST_CODE__MENU_LOGIN_FRAGMENT) {
                 updateUserCurrentIndex(
-                    Utils.getString(context, 'home__menu_drawer_profile'),
+                    Utils.getString(
+                        context, 'home__menu_drawer_profile'),
                     REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT,
                     userId);
               } else {
                 updateUserCurrentIndex(
-                    Utils.getString(context, 'home__menu_drawer_profile'),
+                    Utils.getString(
+                        context, 'home__menu_drawer_profile'),
                     REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT,
                     userId);
               }
@@ -1429,12 +1578,14 @@ class _CallLoginWidget extends StatelessWidget {
             onFbSignInSelected: (String userId) {
               if (currentIndex == REQUEST_CODE__MENU_LOGIN_FRAGMENT) {
                 updateUserCurrentIndex(
-                    Utils.getString(context, 'home__menu_drawer_profile'),
+                    Utils.getString(
+                        context, 'home__menu_drawer_profile'),
                     REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT,
                     userId);
               } else {
                 updateUserCurrentIndex(
-                    Utils.getString(context, 'home__menu_drawer_profile'),
+                    Utils.getString(
+                        context, 'home__menu_drawer_profile'),
                     REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT,
                     userId);
               }
@@ -1445,7 +1596,8 @@ class _CallLoginWidget extends StatelessWidget {
                     Utils.getString(context, 'home_phone_signin'),
                     REQUEST_CODE__MENU_PHONE_SIGNIN_FRAGMENT);
               }
-              if (currentIndex == REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT) {
+              if (currentIndex ==
+                  REQUEST_CODE__DASHBOARD_LOGIN_FRAGMENT) {
                 updateCurrentIndex(
                     Utils.getString(context, 'home_phone_signin'),
                     REQUEST_CODE__DASHBOARD_PHONE_SIGNIN_FRAGMENT);
@@ -1466,12 +1618,14 @@ class _CallLoginWidget extends StatelessWidget {
             onProfileSelected: (String userId) {
               if (currentIndex == REQUEST_CODE__MENU_LOGIN_FRAGMENT) {
                 updateUserCurrentIndex(
-                    Utils.getString(context, 'home__menu_drawer_profile'),
+                    Utils.getString(
+                        context, 'home__menu_drawer_profile'),
                     REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT,
                     userId);
               } else {
                 updateUserCurrentIndex(
-                    Utils.getString(context, 'home__menu_drawer_profile'),
+                    Utils.getString(
+                        context, 'home__menu_drawer_profile'),
                     REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT,
                     userId);
               }
@@ -1489,10 +1643,12 @@ class _CallLoginWidget extends StatelessWidget {
             },
             onSignInSelected: () {
               if (currentIndex == REQUEST_CODE__MENU_LOGIN_FRAGMENT) {
-                updateCurrentIndex(Utils.getString(context, 'home__register'),
+                updateCurrentIndex(
+                    Utils.getString(context, 'home__register'),
                     REQUEST_CODE__MENU_REGISTER_FRAGMENT);
               } else {
-                updateCurrentIndex(Utils.getString(context, 'home__register'),
+                updateCurrentIndex(
+                    Utils.getString(context, 'home__register'),
                     REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT);
               }
             },
@@ -1534,27 +1690,33 @@ class _CallVerifyPhoneWidget extends StatelessWidget {
           phoneId: phoneId,
           animationController: animationController,
           onProfileSelected: (String userId) {
-            if (currentIndex == REQUEST_CODE__MENU_PHONE_VERIFY_FRAGMENT) {
+            if (currentIndex ==
+                REQUEST_CODE__MENU_PHONE_VERIFY_FRAGMENT) {
               updateUserCurrentIndex(
-                  Utils.getString(context, 'home__menu_drawer_profile'),
+                  Utils.getString(
+                      context, 'home__menu_drawer_profile'),
                   REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT,
                   userId);
             } else if (currentIndex ==
                 REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT) {
               updateUserCurrentIndex(
-                  Utils.getString(context, 'home__menu_drawer_profile'),
+                  Utils.getString(
+                      context, 'home__menu_drawer_profile'),
                   REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT,
                   userId);
               // updateCurrentIndex(REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT);
             }
           },
           onSignInSelected: () {
-            if (currentIndex == REQUEST_CODE__MENU_PHONE_VERIFY_FRAGMENT) {
-              updateCurrentIndex(Utils.getString(context, 'home__register'),
+            if (currentIndex ==
+                REQUEST_CODE__MENU_PHONE_VERIFY_FRAGMENT) {
+              updateCurrentIndex(
+                  Utils.getString(context, 'home__register'),
                   REQUEST_CODE__MENU_REGISTER_FRAGMENT);
             } else if (currentIndex ==
                 REQUEST_CODE__DASHBOARD_PHONE_VERIFY_FRAGMENT) {
-              updateCurrentIndex(Utils.getString(context, 'home__register'),
+              updateCurrentIndex(
+                  Utils.getString(context, 'home__register'),
                   REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT);
             }
             // else if (currentIndex ==
@@ -1592,35 +1754,43 @@ class _CallVerifyEmailWidget extends StatelessWidget {
         child: VerifyEmailView(
           animationController: animationController,
           onProfileSelected: (String userId) {
-            if (currentIndex == REQUEST_CODE__MENU_VERIFY_EMAIL_FRAGMENT) {
+            if (currentIndex ==
+                REQUEST_CODE__MENU_VERIFY_EMAIL_FRAGMENT) {
               updateUserCurrentIndex(
-                  Utils.getString(context, 'home__menu_drawer_profile'),
+                  Utils.getString(
+                      context, 'home__menu_drawer_profile'),
                   REQUEST_CODE__MENU_USER_PROFILE_FRAGMENT,
                   userId);
             } else if (currentIndex ==
                 REQUEST_CODE__DASHBOARD_VERIFY_EMAIL_FRAGMENT) {
               updateUserCurrentIndex(
-                  Utils.getString(context, 'home__menu_drawer_profile'),
+                  Utils.getString(
+                      context, 'home__menu_drawer_profile'),
                   REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT,
                   userId);
               // updateCurrentIndex(REQUEST_CODE__DASHBOARD_USER_PROFILE_FRAGMENT);
             }
           },
           onSignInSelected: () {
-            if (currentIndex == REQUEST_CODE__MENU_VERIFY_EMAIL_FRAGMENT) {
-              updateCurrentIndex(Utils.getString(context, 'home__register'),
+            if (currentIndex ==
+                REQUEST_CODE__MENU_VERIFY_EMAIL_FRAGMENT) {
+              updateCurrentIndex(
+                  Utils.getString(context, 'home__register'),
                   REQUEST_CODE__MENU_REGISTER_FRAGMENT);
             } else if (currentIndex ==
                 REQUEST_CODE__DASHBOARD_VERIFY_EMAIL_FRAGMENT) {
-              updateCurrentIndex(Utils.getString(context, 'home__register'),
+              updateCurrentIndex(
+                  Utils.getString(context, 'home__register'),
                   REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT);
             } else if (currentIndex ==
                 REQUEST_CODE__DASHBOARD_SELECT_WHICH_USER_FRAGMENT) {
-              updateCurrentIndex(Utils.getString(context, 'home__register'),
+              updateCurrentIndex(
+                  Utils.getString(context, 'home__register'),
                   REQUEST_CODE__DASHBOARD_REGISTER_FRAGMENT);
             } else if (currentIndex ==
                 REQUEST_CODE__MENU_SELECT_WHICH_USER_FRAGMENT) {
-              updateCurrentIndex(Utils.getString(context, 'home__register'),
+              updateCurrentIndex(
+                  Utils.getString(context, 'home__register'),
                   REQUEST_CODE__MENU_REGISTER_FRAGMENT);
             }
           },
@@ -1688,7 +1858,8 @@ class _DrawerHeaderWidget extends StatelessWidget {
           ),
         ],
       ),
-      decoration: const BoxDecoration(color: ps_ctheme__color_speical),
+      decoration:
+          const BoxDecoration(color: ps_ctheme__color_speical),
     );
   }
 }

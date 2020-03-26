@@ -6,6 +6,7 @@ import 'package:digitalproductstore/viewobject/transaction_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 
 class TransactionListItem extends StatelessWidget {
   const TransactionListItem({
@@ -164,7 +165,66 @@ class _TransactionTextWidget extends StatelessWidget {
       right: ps_space_16,
       top: ps_space_8,
     );
-
+    final Widget _productTextWidget = Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          Utils.getString(context, 'Product Name :'),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(fontWeight: FontWeight.normal),
+        ),
+        Text(
+          ' ${transactionID['ProductName']}' ?? '-',
+          style: Theme.of(context).textTheme.bodyText1.copyWith(
+              color: ps_ctheme__color_speical,
+              fontWeight: FontWeight.normal),
+        )
+      ],
+    );
+    final Widget _refeTextWidget = Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          Utils.getString(context, 'Reference No :'),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(fontWeight: FontWeight.normal),
+        ),
+        Text(
+          ' ${transactionID['Reference']}' ?? '-',
+          style: Theme.of(context).textTheme.bodyText1.copyWith(
+              color: ps_ctheme__color_speical,
+              fontWeight: FontWeight.normal),
+        )
+      ],
+    );
+    final Widget _timeTextWidget = Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          Utils.getString(context, 'Buy Time:'),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(fontWeight: FontWeight.normal),
+        ),
+        Text(
+          DateFormat('y-MM-EEEE-d  hh:mm:ss')
+                  .format(transactionID['timestamp'].toDate())
+                  .toString() ??
+              '-',
+          style: Theme.of(context).textTheme.bodyText1.copyWith(
+              color: ps_ctheme__color_speical,
+              fontWeight: FontWeight.normal),
+        )
+      ],
+    );
     final Widget _totalAmountTextWidget = Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,7 +244,25 @@ class _TransactionTextWidget extends StatelessWidget {
         )
       ],
     );
-
+    final Widget _catergoryTextWidget = Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          Utils.getString(context, 'Category :'),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(fontWeight: FontWeight.normal),
+        ),
+        Text(
+          ' ${transactionID['category']}' ?? '-',
+          style: Theme.of(context).textTheme.bodyText1.copyWith(
+              color: ps_ctheme__color_speical,
+              fontWeight: FontWeight.normal),
+        )
+      ],
+    );
     final Widget _statusTextWidget = Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -197,7 +275,7 @@ class _TransactionTextWidget extends StatelessWidget {
               .copyWith(fontWeight: FontWeight.normal),
         ),
         Text(
-          transactionID['status']  ?? '-',
+          transactionID['status'] ?? '-',
           style: Theme.of(context)
               .textTheme
               .bodyText1
@@ -218,6 +296,19 @@ class _TransactionTextWidget extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: _paddingEdgeInsetWidget,
+            child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: _productTextWidget),
+          ),Padding(
+            padding: _paddingEdgeInsetWidget,
+            child: _catergoryTextWidget,
+          ),
+          Padding(
+            padding: _paddingEdgeInsetWidget,
+            child: _refeTextWidget,
+          ),
+          Padding(
+            padding: _paddingEdgeInsetWidget,
             child: _totalAmountTextWidget,
           ),
           Padding(
@@ -226,13 +317,17 @@ class _TransactionTextWidget extends StatelessWidget {
           ),
           Padding(
             padding: _paddingEdgeInsetWidget,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                _viewDetailTextWidget,
-              ],
-            ),
+            child: _timeTextWidget,
           ),
+          // Padding(
+          //   padding: _paddingEdgeInsetWidget,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.end,
+          //     children: <Widget>[
+          //       _viewDetailTextWidget,
+          //     ],
+          //   ),
+          // ),
           const SizedBox(
             height: ps_space_8,
           )

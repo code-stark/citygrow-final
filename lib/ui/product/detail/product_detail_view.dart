@@ -123,9 +123,9 @@ class _ProductDetailState extends State<ProductDetailView>
         'views': FieldValue.increment(1),
       };
       return Firestore.instance
-              .collection('ProductListID')
-              .document(widget.productList.documentID)
-              .updateData(data);
+          .collection('ProductListID')
+          .document(widget.productList.documentID)
+          .updateData(data);
     }
     // else if (widget.productList != null) {
     //   final Map<String, FieldValue> data = {
@@ -214,7 +214,8 @@ class _ProductDetailState extends State<ProductDetailView>
             create: (BuildContext context) {
               final ProductDetailProvider productDetailProvider =
                   ProductDetailProvider(
-                      repo: productRepo, psValueHolder: psValueHolder);
+                      repo: productRepo,
+                      psValueHolder: psValueHolder);
 
               // utilsCheckUserLoginId(psValueHolder)
               //     .then((String loginUserId) async {
@@ -244,7 +245,8 @@ class _ProductDetailState extends State<ProductDetailView>
             create: (BuildContext context) {
               final RelatedProductProvider relatedProductProvider =
                   RelatedProductProvider(
-                      repo: relatedProductRepo, psValueHolder: psValueHolder);
+                      repo: relatedProductRepo,
+                      psValueHolder: psValueHolder);
 
               return relatedProductProvider;
             },
@@ -269,8 +271,8 @@ class _ProductDetailState extends State<ProductDetailView>
           )
         ],
             child: Consumer<ProductDetailProvider>(
-              builder: (BuildContext context, ProductDetailProvider provider,
-                  Widget child) {
+              builder: (BuildContext context,
+                  ProductDetailProvider provider, Widget child) {
                 if (widget.productList != null &&
                     widget.productList['images'] != null) {
                   ///
@@ -300,7 +302,8 @@ class _ProductDetailState extends State<ProductDetailView>
                   // basketProvider.loadBasketList();
 
                   return Consumer<BasketProvider>(builder:
-                      (BuildContext context, BasketProvider basketProvider,
+                      (BuildContext context,
+                          BasketProvider basketProvider,
                           Widget child) {
                     return StreamBuilder<QuerySnapshot>(
                         stream: Firestore.instance
@@ -320,9 +323,11 @@ class _ProductDetailState extends State<ProductDetailView>
                                 SliverAppBar(
                                   automaticallyImplyLeading: true,
                                   brightness:
-                                      Utils.getBrightnessForAppBar(context),
+                                      Utils.getBrightnessForAppBar(
+                                          context),
                                   expandedHeight: ps_space_300,
-                                  iconTheme: Theme.of(context).iconTheme,
+                                  iconTheme:
+                                      Theme.of(context).iconTheme,
                                   leading:
                                       const PsBackButtonWithCircleBgWidget(),
                                   floating: false,
@@ -334,16 +339,19 @@ class _ProductDetailState extends State<ProductDetailView>
                                         Container(
                                           width: ps_space_40,
                                           height: ps_space_40,
-                                          margin: const EdgeInsets.only(
-                                              top: ps_space_8,
-                                              left: ps_space_8,
-                                              right: ps_space_8),
-                                          decoration: const BoxDecoration(
+                                          margin:
+                                              const EdgeInsets.only(
+                                                  top: ps_space_8,
+                                                  left: ps_space_8,
+                                                  right: ps_space_8),
+                                          decoration:
+                                              const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.black38,
                                           ),
                                           child: Align(
-                                            alignment: Alignment.center,
+                                            alignment:
+                                                Alignment.center,
                                             child: Icon(
                                               Icons.shopping_basket,
                                               color: Colors.white,
@@ -354,31 +362,43 @@ class _ProductDetailState extends State<ProductDetailView>
                                             child: Container(
                                               width: ps_space_40,
                                               height: ps_space_40,
-                                              margin: const EdgeInsets.only(
+                                              margin: const EdgeInsets
+                                                      .only(
                                                   top: ps_space_8,
                                                   left: ps_space_8,
                                                   right: ps_space_8),
-                                              decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
+                                              decoration:
+                                                  const BoxDecoration(
+                                                shape:
+                                                    BoxShape.circle,
                                                 color: Colors.black54,
                                               ),
                                               child: Align(
-                                                alignment: Alignment.center,
+                                                alignment:
+                                                    Alignment.center,
                                                 child: Text(
-                                                  snapshot.data.documents
+                                                  snapshot
+                                                              .data
+                                                              .documents
                                                               .length >
                                                           99
                                                       ? '99+'
                                                       : snapshot
-                                                          .data.documents.length
+                                                          .data
+                                                          .documents
+                                                          .length
                                                           .toString(),
-                                                  textAlign: TextAlign.left,
-                                                  style: Theme.of(context)
+                                                  textAlign:
+                                                      TextAlign.left,
+                                                  style: Theme.of(
+                                                          context)
                                                       .textTheme
                                                       .headline
                                                       .copyWith(
-                                                          fontSize: ps_space_16,
-                                                          color: Colors.white),
+                                                          fontSize:
+                                                              ps_space_16,
+                                                          color: Colors
+                                                              .white),
                                                   maxLines: 1,
                                                 ),
                                               ),
@@ -392,17 +412,19 @@ class _ProductDetailState extends State<ProductDetailView>
                                       ],
                                     )
                                   ],
-                                  backgroundColor: Utils.isLightMode(context)
-                                      ? ps_ctheme__color_speical
-                                      : Colors.black,
+                                  backgroundColor:
+                                      Utils.isLightMode(context)
+                                          ? ps_ctheme__color_speical
+                                          : Colors.black,
                                   flexibleSpace: FlexibleSpaceBar(
                                     background: Container(
-                                      color: Utils.isLightMode(context)
-                                          ? Colors.grey[100]
-                                          : Colors.grey[900],
+                                      color:
+                                          Utils.isLightMode(context)
+                                              ? Colors.grey[100]
+                                              : Colors.grey[900],
                                       child: PsNetworkImage(
-                                        firebasePhoto:
-                                            widget.productList['images'],
+                                        firebasePhoto: widget
+                                            .productList['images'],
                                         photoKey: '',
                                         // defaultPhoto: widget.product.defaultPhoto,
                                         width: double.infinity,
@@ -411,15 +433,17 @@ class _ProductDetailState extends State<ProductDetailView>
                                         onTap: () {
                                           Navigator.push(
                                               context,
-                                              MaterialPageRoute<dynamic>(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          GalleryGridView(
-                                                            product:
-                                                                widget.product,
-                                                            productList: widget
+                                              MaterialPageRoute<
+                                                      dynamic>(
+                                                  builder: (BuildContext
+                                                          context) =>
+                                                      GalleryGridView(
+                                                        product: widget
+                                                            .product,
+                                                        productList:
+                                                            widget
                                                                 .productList,
-                                                          )));
+                                                      )));
                                           // Navigator.pushNamed(
                                           //     context, RoutePaths.galleryGrid,
                                           //     arguments: widget.product);
@@ -429,14 +453,18 @@ class _ProductDetailState extends State<ProductDetailView>
                                   ),
                                 ),
                                 SliverList(
-                                  delegate: SliverChildListDelegate(<Widget>[
+                                  delegate: SliverChildListDelegate(<
+                                      Widget>[
                                     Container(
-                                      color: Utils.isLightMode(context)
-                                          ? Colors.grey[100]
-                                          : Colors.black87,
-                                      child: Column(children: <Widget>[
+                                      color:
+                                          Utils.isLightMode(context)
+                                              ? Colors.grey[100]
+                                              : Colors.black87,
+                                      child:
+                                          Column(children: <Widget>[
                                         _HeaderBoxWidget(
-                                          productList: widget.productList,
+                                          productList:
+                                              widget.productList,
                                           // productDetail: provider,
                                           product: widget.product,
                                         ),
@@ -445,13 +473,19 @@ class _ProductDetailState extends State<ProductDetailView>
                                         ),
                                         TermsAndPolicyTileView(),
                                         UserCommentTileView(
-                                          productList: widget.productList,
+                                          productList:
+                                              widget.productList,
                                           productDetail: provider,
                                         ),
                                         RelatedProductsTileView(
+                                          category:
+                                              widget.productList[
+                                                  'category'],
                                           productDetail: provider,
                                         ),
-                                        if (widget.productList['images'] != '0')
+                                        if (widget.productList[
+                                                'images'] !=
+                                            '0')
                                           const SizedBox(
                                             height: ps_space_40,
                                           ),
@@ -532,13 +566,15 @@ class UserCommentTileView extends StatelessWidget {
                                   builder: (BuildContext context) =>
                                       CommentListView(
                                         productList: productList,
-                                        commentsList: snapshot.data.documents,
+                                        commentsList:
+                                            snapshot.data.documents,
                                       )));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(ps_space_16),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
                                 Utils.getString(context,
@@ -546,13 +582,16 @@ class UserCommentTileView extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .body1
-                                    .copyWith(color: ps_ctheme__color_speical),
+                                    .copyWith(
+                                        color:
+                                            ps_ctheme__color_speical),
                               ),
                               GestureDetector(
                                   onTap: () async {
                                     final dynamic returnData =
                                         await Navigator.pushNamed(
-                                            context, RoutePaths.commentList,
+                                            context,
+                                            RoutePaths.commentList,
                                             arguments: productDetail
                                                 .productDetail.data);
 
@@ -678,11 +717,14 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
                 )),
             Container(
               margin: const EdgeInsets.only(
-                  left: ps_space_20, right: ps_space_20, bottom: ps_space_8),
+                  left: ps_space_20,
+                  right: ps_space_20,
+                  bottom: ps_space_8),
               child: Card(
                 elevation: 0.0,
                 shape: const BeveledRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(ps_space_8)),
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(ps_space_8)),
                 ),
                 color: Utils.isLightMode(context)
                     ? Colors.orange[50]
@@ -695,13 +737,16 @@ class __HeaderBoxWidgetState extends State<_HeaderBoxWidget> {
                     'ontrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source',
                     // maxLines: 3,
                     // overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        letterSpacing: 0.8,
-                        fontSize: 16,
-                        color: Utils.isLightMode(context)
-                            ? Colors.black45
-                            : Colors.white,
-                        height: 1.3),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(
+                            letterSpacing: 0.8,
+                            fontSize: 16,
+                            color: Utils.isLightMode(context)
+                                ? Colors.black45
+                                : Colors.white,
+                            height: 1.3),
                   ),
                 ),
               ),
@@ -762,21 +807,23 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
         widget.productList.documentID != null) {
       return ChangeNotifierProvider<FavouriteProductProvider>(
           create: (BuildContext context) {
-        final FavouriteProductProvider provider = FavouriteProductProvider(
-            repo: favouriteRepo, psValueHolder: psValueHolder);
+        final FavouriteProductProvider provider =
+            FavouriteProductProvider(
+                repo: favouriteRepo, psValueHolder: psValueHolder);
         // provider.loadFavouriteList('prd9a3bfa2b7ab0f0693e84d834e73224bb');
 
         return provider;
       }, child: Consumer<FavouriteProductProvider>(builder:
-              (BuildContext context, FavouriteProductProvider provider,
-                  Widget child) {
+              (BuildContext context,
+                  FavouriteProductProvider provider, Widget child) {
         final Users users = Provider.of<Users>(context);
         return StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance
                 .collection('AppUsers')
                 .document(users.uid)
                 .collection('favorite')
-                .where('Reference', isEqualTo: widget.productList['Reference'])
+                .where('Reference',
+                    isEqualTo: widget.productList['Reference'])
                 .snapshots(),
             builder: (context, favorite) {
               final dynamic fav = favorite;
@@ -785,7 +832,8 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                   child: CircularProgressIndicator(),
                 );
               }
-              final List<DocumentSnapshot> documents = favorite.data.documents;
+              final List<DocumentSnapshot> documents =
+                  favorite.data.documents;
 
               return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -793,14 +841,17 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                     Expanded(
                       child: Text(
                         widget.productList['ProductName'] ?? '',
-                        style: Theme.of(context).textTheme.headline6.copyWith(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            .copyWith(),
                       ),
                     ),
                     GestureDetector(
                         onTap: () async {
                           if (await utilsCheckInternetConnectivity()) {
-                            utilsNavigateOnUserVerificationView(context,
-                                () async {
+                            utilsNavigateOnUserVerificationView(
+                                context, () async {
                               // if (fav.toString().length == 0) {
                               //   setState(() {
                               //     widget.productDetail.productDetail.data
@@ -837,15 +888,18 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                                     widget.productList.documentID);
                               } else if (documents.isNotEmpty) {
                                 sl.get<FirebaseBloc>().deleteFav(
-                                    documents[0].documentID, users.uid);
+                                    documents[0].documentID,
+                                    users.uid);
                               }
 
                               // print(fav['Reference'].toString().length);
                               if (documents.isNotEmpty) {
                                 if (documents != null &&
                                     documents[0].data['Reference'] ==
-                                        widget.productList['Reference'] &&
-                                    documents[0].data['Reference'] != null &&
+                                        widget.productList[
+                                            'Reference'] &&
+                                    documents[0].data['Reference'] !=
+                                        null &&
                                     documents.length == 0) {
                                   icon = Container(
                                     padding: const EdgeInsets.only(
@@ -855,11 +909,13 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                                         bottom: ps_space_6),
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: ps_ctheme__color_speical,
+                                            color:
+                                                ps_ctheme__color_speical,
                                             width: 1),
                                         shape: BoxShape.circle),
                                     child: const Icon(Icons.favorite,
-                                        color: ps_ctheme__color_speical),
+                                        color:
+                                            ps_ctheme__color_speical),
                                   );
                                 } else {
                                   icon = Container(
@@ -870,11 +926,14 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                                         bottom: ps_space_6),
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: ps_ctheme__color_speical,
+                                            color:
+                                                ps_ctheme__color_speical,
                                             width: 1),
                                         shape: BoxShape.circle),
-                                    child: const Icon(Icons.favorite_border,
-                                        color: ps_ctheme__color_speical),
+                                    child: const Icon(
+                                        Icons.favorite_border,
+                                        color:
+                                            ps_ctheme__color_speical),
                                   );
                                 }
                               }
@@ -888,8 +947,8 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return ErrorDialog(
-                                    message: Utils.getString(
-                                        context, 'error_dialog__no_internet'),
+                                    message: Utils.getString(context,
+                                        'error_dialog__no_internet'),
                                   );
                                 });
                           }
@@ -904,11 +963,14 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                                         bottom: ps_space_6),
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: ps_ctheme__color_speical,
+                                            color:
+                                                ps_ctheme__color_speical,
                                             width: 1),
                                         shape: BoxShape.circle),
-                                    child: const Icon(Icons.favorite_border,
-                                        color: ps_ctheme__color_speical),
+                                    child: const Icon(
+                                        Icons.favorite_border,
+                                        color:
+                                            ps_ctheme__color_speical),
                                   )
                                 : icon = Container(
                                     padding: const EdgeInsets.only(
@@ -918,11 +980,13 @@ class __FavouriteWidgetState extends State<_FavouriteWidget> {
                                         bottom: ps_space_6),
                                     decoration: BoxDecoration(
                                         border: Border.all(
-                                            color: ps_ctheme__color_speical,
+                                            color:
+                                                ps_ctheme__color_speical,
                                             width: 1),
                                         shape: BoxShape.circle),
                                     child: const Icon(Icons.favorite,
-                                        color: ps_ctheme__color_speical),
+                                        color:
+                                            ps_ctheme__color_speical),
                                   )
                             : null)
                   ]);
@@ -959,40 +1023,40 @@ class _HeaderRatingWidget extends StatelessWidget {
           .where('reference', isEqualTo: productref['Reference'])
           .where('rating', isEqualTo: 1)
           .snapshots()
-          .listen((event) =>
-              event.documents.forEach((e) => onestar.add(e['rating'])));
+          .listen((event) => event.documents
+              .forEach((e) => onestar.add(e['rating'])));
 
       Firestore.instance
           .collection('rating')
           .where('reference', isEqualTo: productref['Reference'])
           .where('rating', isEqualTo: 2)
           .snapshots()
-          .listen((event) =>
-              event.documents.forEach((e) => twostar.add(e['rating'])));
+          .listen((event) => event.documents
+              .forEach((e) => twostar.add(e['rating'])));
 
       Firestore.instance
           .collection('rating')
           .where('reference', isEqualTo: productref['Reference'])
           .where('rating', isEqualTo: 3)
           .snapshots()
-          .listen((event) =>
-              event.documents.forEach((e) => threestar.add(e['rating'])));
+          .listen((event) => event.documents
+              .forEach((e) => threestar.add(e['rating'])));
 
       Firestore.instance
           .collection('rating')
           .where('reference', isEqualTo: productref['Reference'])
           .where('rating', isEqualTo: 4)
           .snapshots()
-          .listen((event) =>
-              event.documents.forEach((e) => fourstar.add(e['rating'])));
+          .listen((event) => event.documents
+              .forEach((e) => fourstar.add(e['rating'])));
 
       Firestore.instance
           .collection('rating')
           .where('reference', isEqualTo: productref['Reference'])
           .where('rating', isEqualTo: 5)
           .snapshots()
-          .listen((event) =>
-              event.documents.forEach((e) => fivestar.add(e['rating'])));
+          .listen((event) => event.documents
+              .forEach((e) => fivestar.add(e['rating'])));
       int hi;
       return StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance
@@ -1043,8 +1107,8 @@ class _HeaderRatingWidget extends StatelessWidget {
             // }
             // final list = List.filled(ratingsnap.data.documents.length, 1);
             // print(list);
-            List.generate(
-                ratingsnap.data.documents.length, (index) => index = hi);
+            List.generate(ratingsnap.data.documents.length,
+                (index) => index = hi);
 
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1113,7 +1177,8 @@ class _HeaderRatingWidget extends StatelessWidget {
                         },
                         child: (ratingsnap.data.documents.length != 0)
                             ? Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: <Widget>[
                                   // Text(
                                   //   productDetail.productDetail.data
@@ -1130,7 +1195,8 @@ class _HeaderRatingWidget extends StatelessWidget {
                                   // ),
                                   Text(
                                     '(' +
-                                        ratingsnap.data.documents.length
+                                        ratingsnap
+                                            .data.documents.length
                                             .toString() +
                                         ' ${Utils.getString(context, 'product_detail__reviews')})',
                                     overflow: TextOverflow.ellipsis,
@@ -1147,7 +1213,8 @@ class _HeaderRatingWidget extends StatelessWidget {
                     ),
                     if (productref['quantity'] > 0)
                       Text(
-                        Utils.getString(context, 'product_detail__in_stock'),
+                        Utils.getString(
+                            context, 'product_detail__in_stock'),
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1
@@ -1185,10 +1252,13 @@ class _HeaderRatingWidget extends StatelessWidget {
                             ),
                             Text(
                               // 'Featured \n Products',
-                              Utils.getString(
-                                  context, 'product_detail__featured_products'),
+                              Utils.getString(context,
+                                  'product_detail__featured_products'),
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.body1.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .body1
+                                  .copyWith(
                                     color: ps_ctheme__color_speical,
                                   ),
                             ),
@@ -1230,7 +1300,8 @@ class _HeaderPriceWidget extends StatefulWidget {
   final ProductDetailProvider productProvider;
 
   @override
-  __HeaderPriceWidgetState createState() => __HeaderPriceWidgetState();
+  __HeaderPriceWidgetState createState() =>
+      __HeaderPriceWidgetState();
 }
 
 class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
@@ -1239,11 +1310,12 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
 
   Future<bool> requestWritePermission() async {
     final Map<PermissionGroup, PermissionStatus> permissionss =
-        await PermissionHandler()
-            .requestPermissions(<PermissionGroup>[PermissionGroup.storage]);
+        await PermissionHandler().requestPermissions(
+            <PermissionGroup>[PermissionGroup.storage]);
     if (permissionss != null &&
         permissionss.isNotEmpty &&
-        permissionss[PermissionGroup.storage] == PermissionStatus.granted) {
+        permissionss[PermissionGroup.storage] ==
+            PermissionStatus.granted) {
       return true;
     } else {
       return false;
@@ -1258,8 +1330,10 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
       dir = await getExternalStorageDirectory();
     }
 
-    final String downloadDirectoryPath = '${dir.path}/$downloadFolder';
-    final Directory downloadDirectory = Directory(downloadDirectoryPath);
+    final String downloadDirectoryPath =
+        '${dir.path}/$downloadFolder';
+    final Directory downloadDirectory =
+        Directory(downloadDirectoryPath);
 
     final bool isThere = downloadDirectory.existsSync();
     if (!isThere) {
@@ -1270,8 +1344,8 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
 
     // for android
 
-    await dio.download(
-        ps_app_image_url + name, '${dir.path}/$downloadFolder/$name', //.jpg
+    await dio.download(ps_app_image_url + name,
+        '${dir.path}/$downloadFolder/$name', //.jpg
         onReceiveProgress: (int rec, int total) {
       print('Rec: $rec , Total: $total');
 
@@ -1279,14 +1353,17 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
           double.parse(((rec / total) * 100).toStringAsFixed(0));
       print('progress : $progress');
       downloadProgressDialog.update(
-          message: Utils.getString(context, 'product_detail__downloading_file'),
+          message: Utils.getString(
+              context, 'product_detail__downloading_file'),
           progressWidget: Container(
               padding: const EdgeInsets.all(10.0),
               child: const CircularProgressIndicator()),
           progress: progress,
           maxProgress: 100.0,
           progressTextStyle: const TextStyle(
-              color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+              color: Colors.black,
+              fontSize: 13.0,
+              fontWeight: FontWeight.w400),
           messageTextStyle: const TextStyle(
               color: Colors.black,
               fontSize: 15.0,
@@ -1299,9 +1376,9 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
         context: context,
         builder: (BuildContext context) {
           return SuccessDialog(
-            message:
-                Utils.getString(context, 'success_dialog__download_success') +
-                    '${dir.path}/$downloadFolder/$name',
+            message: Utils.getString(
+                    context, 'success_dialog__download_success') +
+                '${dir.path}/$downloadFolder/$name',
           );
         });
   }
@@ -1314,7 +1391,8 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
         showLogs: true);
     //Optional
     downloadProgressDialog.style(
-      message: Utils.getString(context, 'product_detail__downloading_file'),
+      message: Utils.getString(
+          context, 'product_detail__downloading_file'),
       borderRadius: 5.0,
       backgroundColor: Colors.white,
       progressWidget: Container(
@@ -1325,9 +1403,13 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
       progress: 0.0,
       maxProgress: 100.0,
       progressTextStyle: const TextStyle(
-          color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+          color: Colors.black,
+          fontSize: 13.0,
+          fontWeight: FontWeight.w400),
       messageTextStyle: const TextStyle(
-          color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600),
+          color: Colors.black,
+          fontSize: 15.0,
+          fontWeight: FontWeight.w600),
     );
 
     if (widget.productPrice['Orignal Price'] != null &&
@@ -1349,7 +1431,8 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1
-                          .copyWith(decoration: TextDecoration.lineThrough),
+                          .copyWith(
+                              decoration: TextDecoration.lineThrough),
                     )
                   else
                     Container(),
@@ -1369,7 +1452,8 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
                     Text(
                       widget.productPrice["price"] != '0'
                           ? '₹${widget.productPrice["price"]}'
-                          : Utils.getString(context, 'global_product__free'),
+                          : Utils.getString(
+                              context, 'global_product__free'),
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
@@ -1442,24 +1526,28 @@ class __HeaderPriceWidgetState extends State<_HeaderPriceWidget> {
                       //   size: ps_space_20,
                       // ),
                       onPressed: () async {
-                        utilsNavigateOnUserVerificationView(context, () async {
+                        utilsNavigateOnUserVerificationView(context,
+                            () async {
                           final DownloadProductParameterHolder
                               downloadProductParameterHolder =
                               DownloadProductParameterHolder(
-                                  userId: widget.productProvider.psValueHolder
-                                      .loginUserId,
-                                  productId: widget
-                                      .productProvider.productDetail.data.id);
+                                  userId: widget.productProvider
+                                      .psValueHolder.loginUserId,
+                                  productId: widget.productProvider
+                                      .productDetail.data.id);
 
-                          final PsResource<List<DownloadProduct>> _apiStatus =
-                              await widget.productProvider
+                          final PsResource<List<DownloadProduct>>
+                              _apiStatus = await widget
+                                  .productProvider
                                   .postDownloadProductList(
-                                      downloadProductParameterHolder.toMap());
+                                      downloadProductParameterHolder
+                                          .toMap());
 
                           if (_apiStatus.data != null) {
                             final DownloadProduct downloadProduct =
                                 _apiStatus.data[0];
-                            requestWritePermission().then((bool status) async {
+                            requestWritePermission()
+                                .then((bool status) async {
                               if (status) {
                                 downloadFile(downloadProduct.imgPath);
                                 downloadProgressDialog.show();
@@ -1548,14 +1636,17 @@ class _HeaderButtonWidget extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          snapshot.data.documents.length.toString() ?? '',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          snapshot.data.documents.length.toString() ??
+                              '',
+                          style:
+                              Theme.of(context).textTheme.bodyText1,
                         ),
                         const SizedBox(
                           height: ps_space_8,
                         ),
                         Text(
-                          Utils.getString(context, 'product_detail__comments'),
+                          Utils.getString(
+                              context, 'product_detail__comments'),
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ],
@@ -1579,14 +1670,17 @@ class _HeaderButtonWidget extends StatelessWidget {
                     Column(
                       children: <Widget>[
                         Text(
-                          productList.data['views']?.toString() ?? '0',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          productList.data['views']?.toString() ??
+                              '0',
+                          style:
+                              Theme.of(context).textTheme.bodyText1,
                         ),
                         const SizedBox(
                           height: ps_space_8,
                         ),
                         Text(
-                          Utils.getString(context, 'product_detail__seen'),
+                          Utils.getString(
+                              context, 'product_detail__seen'),
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ],
@@ -1668,8 +1762,10 @@ class __AddToBasketAndBuyButtonWidgetState
                   color: Utils.isLightMode(context)
                       ? Colors.grey[400]
                       : Colors.grey[900],
-                  blurRadius: 10.0, // has the effect of softening the shadow
-                  spreadRadius: 0, // has the effect of extending the shadow
+                  blurRadius:
+                      10.0, // has the effect of softening the shadow
+                  spreadRadius:
+                      0, // has the effect of extending the shadow
                   offset: const Offset(
                     0.0, // horizontal, move right 10
                     0.0, // vertical, move down 10
@@ -1686,8 +1782,8 @@ class __AddToBasketAndBuyButtonWidgetState
                     child: RaisedButton.icon(
                       label: Flexible(
                         child: Text(
-                          Utils.getString(
-                              context, 'product_detail__add_to_basket'),
+                          Utils.getString(context,
+                              'product_detail__add_to_basket'),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           softWrap: false,
@@ -1709,7 +1805,8 @@ class __AddToBasketAndBuyButtonWidgetState
                           .copyWith(color: Colors.white)
                           .color,
                       onPressed: () async {
-                        utilsNavigateOnUserVerificationView(context, () async {
+                        utilsNavigateOnUserVerificationView(context,
+                            () async {
                           sl.get<FirebaseBloc>().uploadBasket(
                               widget.productList.data,
                               users.uid,
@@ -1733,7 +1830,8 @@ class __AddToBasketAndBuyButtonWidgetState
                     child: RaisedButton.icon(
                       label: Flexible(
                         child: Text(
-                          Utils.getString(context, 'product_detail__buy'),
+                          Utils.getString(
+                              context, 'product_detail__buy'),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           textAlign: TextAlign.center,
@@ -1758,7 +1856,8 @@ class __AddToBasketAndBuyButtonWidgetState
                       onPressed: () async {
                         // await widget.basketProvider.addBasketList(
                         //     widget.productProvider.productDetail.data);
-                        utilsNavigateOnUserVerificationView(context, () async {
+                        utilsNavigateOnUserVerificationView(context,
+                            () async {
                           sl.get<FirebaseBloc>().uploadBasket(
                               widget.productList.data,
                               users.uid,
@@ -1800,15 +1899,18 @@ class _FloatingActionButton extends StatefulWidget {
   final List<IconData> icons;
   final List<String> label;
   @override
-  __FloatingActionButtonState createState() => __FloatingActionButtonState();
+  __FloatingActionButtonState createState() =>
+      __FloatingActionButtonState();
 }
 
-class __FloatingActionButtonState extends State<_FloatingActionButton> {
+class __FloatingActionButtonState
+    extends State<_FloatingActionButton> {
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: List<Widget>.generate(widget.icons.length, (int index) {
+      children:
+          List<Widget>.generate(widget.icons.length, (int index) {
         final Widget child = Row(children: <Widget>[
           Container(
               // alignment: FractionalOffset.centerLeft,
@@ -1816,7 +1918,8 @@ class __FloatingActionButtonState extends State<_FloatingActionButton> {
               child: ScaleTransition(
             scale: CurvedAnimation(
               parent: widget.controller,
-              curve: Interval(0.0, 1.0 - index / widget.label.length / 1.0,
+              curve: Interval(
+                  0.0, 1.0 - index / widget.label.length / 1.0,
                   curve: Curves.easeIn),
             ),
             // child: Container(
@@ -1838,7 +1941,8 @@ class __FloatingActionButtonState extends State<_FloatingActionButton> {
             child: ScaleTransition(
               scale: CurvedAnimation(
                 parent: widget.controller,
-                curve: Interval(0.0, 1.0 - index / widget.icons.length / 2.0,
+                curve: Interval(
+                    0.0, 1.0 - index / widget.icons.length / 2.0,
                     curve: Curves.easeOut),
               ),
               child: FloatingActionButton(
@@ -1853,29 +1957,30 @@ class __FloatingActionButtonState extends State<_FloatingActionButton> {
         ]);
         return child;
       }).toList()
-        ..add(
-          FloatingActionButton(
-            child: AnimatedBuilder(
-              animation: widget.controller,
-              builder: (BuildContext context, Widget child) {
-                return Transform(
-                  transform:
-                      Matrix4.rotationZ(widget.controller.value * 0.5 * 2),
-                  alignment: FractionalOffset.center,
-                  child: Icon(
-                      widget.controller.isDismissed ? Icons.mail : Icons.close),
-                );
-              },
+            ..add(
+              FloatingActionButton(
+                child: AnimatedBuilder(
+                  animation: widget.controller,
+                  builder: (BuildContext context, Widget child) {
+                    return Transform(
+                      transform: Matrix4.rotationZ(
+                          widget.controller.value * 0.5 * 2),
+                      alignment: FractionalOffset.center,
+                      child: Icon(widget.controller.isDismissed
+                          ? Icons.mail
+                          : Icons.close),
+                    );
+                  },
+                ),
+                onPressed: () {
+                  if (widget.controller.isDismissed) {
+                    widget.controller.forward();
+                  } else {
+                    widget.controller.reverse();
+                  }
+                },
+              ),
             ),
-            onPressed: () {
-              if (widget.controller.isDismissed) {
-                widget.controller.forward();
-              } else {
-                widget.controller.reverse();
-              }
-            },
-          ),
-        ),
     );
   }
 }

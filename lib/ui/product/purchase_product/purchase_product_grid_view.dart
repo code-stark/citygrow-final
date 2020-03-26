@@ -208,6 +208,7 @@ class _PurchasedProductGridView
                       .collection('AppUsers')
                       .document(users.uid)
                       .collection('order')
+                      .orderBy('timestamp', descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {

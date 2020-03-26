@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_config.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/provider/transaction/transaction_detail_provider.dart';
@@ -15,16 +16,19 @@ class TransactionItemListView extends StatefulWidget {
   const TransactionItemListView({
     Key key,
     @required this.transaction,
+    @required this.transactionList,
   }) : super(key: key);
 
   final TransactionHeader transaction;
+  final DocumentSnapshot transactionList;
 
   @override
   _TransactionItemListViewState createState() =>
       _TransactionItemListViewState();
 }
 
-class _TransactionItemListViewState extends State<TransactionItemListView>
+class _TransactionItemListViewState
+    extends State<TransactionItemListView>
     with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
 
@@ -45,13 +49,13 @@ class _TransactionItemListViewState extends State<TransactionItemListView>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _transactionDetailProvider
-            .nextTransactionDetailList(widget.transaction);
+        // _transactionDetailProvider
+        //     .nextTransactionDetailList(widget.transaction);
       }
     });
 
-    animationController =
-        AnimationController(duration: animation_duration, vsync: this);
+    animationController = AnimationController(
+        duration: animation_duration, vsync: this);
 
     super.initState();
   }
@@ -72,7 +76,8 @@ class _TransactionItemListViewState extends State<TransactionItemListView>
       return Future<bool>.value(false);
     }
 
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey =
+        GlobalKey<ScaffoldState>();
     data = EasyLocalizationProvider.of(context).data;
     repo1 = Provider.of<TransactionDetailRepository>(context);
     return WillPopScope(
@@ -81,14 +86,16 @@ class _TransactionItemListViewState extends State<TransactionItemListView>
             data: data,
             child: ChangeNotifierProvider<TransactionDetailProvider>(
               create: (BuildContext context) {
-                final TransactionDetailProvider provider =
-                    TransactionDetailProvider(repo: repo1);
-                provider.loadTransactionDetailList(widget.transaction);
-                _transactionDetailProvider = provider;
-                return provider;
+                // final TransactionDetailProvider provider =
+                //     TransactionDetailProvider(repo: repo1);
+                // provider
+                //     .loadTransactionDetailList(widget.transaction);
+                // _transactionDetailProvider = provider;
+                // return provider;
               },
               child: Consumer<TransactionDetailProvider>(builder:
-                  (BuildContext context, TransactionDetailProvider provider,
+                  (BuildContext context,
+                      TransactionDetailProvider provider,
                       Widget child) {
                 return Scaffold(
                   key: scaffoldKey,
@@ -96,7 +103,8 @@ class _TransactionItemListViewState extends State<TransactionItemListView>
                     brightness: Utils.getBrightnessForAppBar(context),
                     iconTheme: Theme.of(context).iconTheme,
                     title: Text(
-                      Utils.getString(context, 'transaction_detail__title'),
+                      Utils.getString(
+                          context, 'transaction_detail__title'),
                       textAlign: TextAlign.center,
                       style: Theme.of(context)
                           .textTheme
@@ -120,50 +128,66 @@ class _TransactionItemListViewState extends State<TransactionItemListView>
                               slivers: <Widget>[
                                 SliverToBoxAdapter(
                                   child: _TransactionNoWidget(
+                                      transactionList:
+                                          widget.transactionList,
                                       transaction: widget.transaction,
                                       scaffoldKey: scaffoldKey),
                                 ),
                                 SliverList(
-                                  delegate: SliverChildBuilderDelegate(
-                                    (BuildContext context, int index) {
-                                      if (provider.transactionDetailList.data !=
+                                  delegate:
+                                      SliverChildBuilderDelegate(
+                                    (BuildContext context,
+                                        int index) {
+                                      if (widget.transactionList
+                                                  .data !=
                                               null ||
-                                          provider.transactionDetailList.data
+                                          widget.transactionList.data
                                               .isNotEmpty) {
-                                        final int count = provider
-                                            .transactionDetailList.data.length;
+                                        final int count = widget
+                                            .transactionList
+                                            .data
+                                            .length;
                                         return TransactionItemView(
+                                          transactionList:
+                                              widget.transactionList,
                                           animationController:
                                               animationController,
                                           animation: Tween<double>(
-                                                  begin: 0.0, end: 1.0)
+                                                  begin: 0.0,
+                                                  end: 1.0)
                                               .animate(
                                             CurvedAnimation(
-                                              parent: animationController,
+                                              parent:
+                                                  animationController,
                                               curve: Interval(
-                                                  (1 / count) * index, 1.0,
-                                                  curve: Curves.fastOutSlowIn),
+                                                  (1 / count) * index,
+                                                  1.0,
+                                                  curve: Curves
+                                                      .fastOutSlowIn),
                                             ),
                                           ),
-                                          transaction: provider
-                                              .transactionDetailList
-                                              .data[index],
+                                          // transaction: provider
+                                          //     .transactionDetailList
+                                          //     .data[index],
                                         );
                                       } else {
                                         return null;
                                       }
                                     },
-                                    childCount: provider
-                                        .transactionDetailList.data.length,
+                                    childCount: widget
+                                        .transactionList.data.length,
                                   ),
                                 ),
                               ]),
                           onRefresh: () {
                             return provider
-                                .resetTransactionDetailList(widget.transaction);
+                                .resetTransactionDetailList(
+                                    widget.transaction);
                           },
                         )),
-                    PSProgressIndicator(provider.transactionDetailList.status)
+                    // PSProgressIndicator(
+                    //     // provider.transactionDetailList.status
+                    //     )
                   ]),
                 );
               }),
@@ -176,8 +200,9 @@ class _TransactionNoWidget extends StatelessWidget {
     Key key,
     @required this.transaction,
     this.scaffoldKey,
+    @required this.transactionList,
   }) : super(key: key);
-
+  final DocumentSnapshot transactionList;
   final TransactionHeader transaction;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -204,9 +229,11 @@ class _TransactionNoWidget extends StatelessWidget {
         Clipboard.setData(ClipboardData(text: transaction.transCode));
         scaffoldKey.currentState.showSnackBar(SnackBar(
           content: Tooltip(
-            message: Utils.getString(context, 'transaction_detail__copy'),
+            message:
+                Utils.getString(context, 'transaction_detail__copy'),
             child: Text(
-              Utils.getString(context, 'transaction_detail__copied_data'),
+              Utils.getString(
+                  context, 'transaction_detail__copied_data'),
               style: Theme.of(context).textTheme.title.copyWith(
                     color: Colors.orange,
                   ),
@@ -235,15 +262,18 @@ class _TransactionNoWidget extends StatelessWidget {
                         const SizedBox(
                           width: ps_space_12,
                         ),
-                        Expanded(
-                          child: Text(
-                            '${Utils.getString(context, 'transaction_detail__trans_no')} : ${transaction.transCode}',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context).textTheme.title.copyWith(
-                                fontSize: ps_space_16,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                        // Expanded(
+                        //   child: Text(
+                        //     '${Utils.getString(context, 'transaction_detail__trans_no')} : ${transaction.transCode}',
+                        //     textAlign: TextAlign.left,
+                        //     style: Theme.of(context)
+                        //         .textTheme
+                        //         .title
+                        //         .copyWith(
+                        //             fontSize: ps_space_16,
+                        //             fontWeight: FontWeight.bold),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -253,54 +283,55 @@ class _TransactionNoWidget extends StatelessWidget {
             ),
             _dividerWidget,
             _TransactionNoTextWidget(
-              transationInfoText: transaction.totalItemCount,
+              transationInfoText:
+                  transactionList.data.length.toString(),
               title:
                   '${Utils.getString(context, 'transaction_detail__total_item_count')} :',
             ),
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  '${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.totalItemAmount)}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__total_item_price')} :',
-            ),
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  '${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.discountAmount)}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__discount')} :',
-            ),
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  '${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.cuponDiscountAmount)}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__coupon_discount')} :',
-            ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       '${Utils.getPriceFormat(transaction.totalItemAmount)}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__total_item_price')} :',
+            // ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       '${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.discountAmount)}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__discount')} :',
+            // ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       '${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.cuponDiscountAmount)}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__coupon_discount')} :',
+            // ),
             const SizedBox(
               height: ps_space_12,
             ),
             _dividerWidget,
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  '${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.subTotalAmount)}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__sub_total')} :',
-            ),
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  '${transaction.currencySymbol} ${transaction.taxAmount}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__tax')}(${transaction.taxPercent} %) :',
-            ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       '${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.subTotalAmount)}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__sub_total')} :',
+            // ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       '${transaction.currencySymbol} ${transaction.taxAmount}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__tax')}(${transaction.taxPercent} %) :',
+            // ),
             const SizedBox(
               height: ps_space_12,
             ),
             _dividerWidget,
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  '${transaction.currencySymbol} ${transaction.balanceAmount}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__total')} :',
-            ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       '${transaction.currencySymbol} ${transaction.balanceAmount}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__total')} :',
+            // ),
             const SizedBox(
               height: ps_space_12,
             ),

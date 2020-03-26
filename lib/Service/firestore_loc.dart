@@ -82,7 +82,8 @@ class FirebaseBloc {
   }
 
   //! order
-  void orderProduct(uid, List<DocumentSnapshot> data) async {
+  void orderProduct(uid, List<DocumentSnapshot> data, documentID,
+      discountPrice, productuserUid, productReference) async {
     for (var i = 0; i < data.length; i++) {
       final String uuid = Uuid().v1();
       await firestore
@@ -91,7 +92,7 @@ class FirebaseBloc {
           .collection('order')
           .document(uuid)
           .setData(data[i].data)
-          .whenComplete(() => firestore
+          .whenComplete(() async => await firestore
                   .collection("AppUsers")
                   .document(uid)
                   .collection('order')
@@ -109,7 +110,7 @@ class FirebaseBloc {
           .collection('order')
           .document(uuid)
           .setData(data[i].data)
-          .whenComplete(() => firestore
+          .whenComplete(() async => await firestore
                   .collection("Sellers")
                   .document(data[i].data['PersonID'])
                   .collection('order')
@@ -127,5 +128,39 @@ class FirebaseBloc {
           .document(data[i].documentID)
           .delete();
     }
+    //! Seller
+    final QuerySnapshot results = await Firestore.instance
+        .collection('Sellers')
+        .document(productuserUid)
+        .collection('order')
+        .where('Reference', isEqualTo: productReference)
+        .where('buyeruid', isEqualTo: uid)
+        .getDocuments();
+    final List<DocumentSnapshot> documents = results.documents;
+    firestore
+        .collection("Sellers")
+        .document(productuserUid)
+        .collection('order')
+        .document(documents[0].documentID)
+        .updateData({
+      'price': FieldValue.increment(-int.parse(discountPrice))
+    });
+    //! users
+    final QuerySnapshot resultss = await Firestore.instance
+        .collection('AppUsers')
+        .document(uid)
+        .collection('order')
+        .where('Reference', isEqualTo: productReference)
+        .where('buyeruid', isEqualTo: uid)
+        .getDocuments();
+    final List<DocumentSnapshot> documentss = resultss.documents;
+    firestore
+        .collection("AppUsers")
+        .document(uid)
+        .collection('order')
+        .document(documentss[0].documentID)
+        .updateData({
+      'price': FieldValue.increment(-int.parse(discountPrice))
+    });
   }
 }

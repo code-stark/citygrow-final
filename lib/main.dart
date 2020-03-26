@@ -377,10 +377,11 @@ class _PSAppState extends State<PSApp> {
                           (BuildContext context) {
                         final Object args =
                             ModalRoute.of(context).settings.arguments;
-                        final TransactionHeader transaction =
-                            args ?? TransactionHeader;
+                        final DocumentSnapshot transaction =
+                            args ?? DocumentSnapshot;
                         return TransactionItemListView(
-                          transaction: transaction,
+                          transactionList: transaction,
+                          // transaction: transaction,
                         );
                       },
                       '${RoutePaths.productDetail}':

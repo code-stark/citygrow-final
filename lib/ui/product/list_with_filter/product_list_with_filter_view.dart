@@ -111,7 +111,7 @@ class _ProductListWithFilterViewState
             ? Colors.grey[100]
             : Colors.grey[900],
         child: Stack(children: <Widget>[
-          if (widget.productList.isNotEmpty &&
+          if (widget.productList != null &&
               widget.productList.length != null)
             Container(
                 margin: const EdgeInsets.only(
@@ -185,10 +185,10 @@ class _ProductListWithFilterViewState
                     //         .productParameterHolder);
                   },
                 ))
-          else if (provider.productList.status !=
+          else if (widget.productList !=
                   PsStatus.PROGRESS_LOADING &&
-              provider.productList.status != PsStatus.BLOCK_LOADING &&
-              provider.productList.status != PsStatus.NOACTION)
+             widget.productList != PsStatus.BLOCK_LOADING &&
+              widget.productList != PsStatus.NOACTION)
             Align(
               child: Container(
                 child: Column(
@@ -240,7 +240,7 @@ class _ProductListWithFilterViewState
                   child: BottomNavigationImageAndText(
                       appBar: widget.appBarTitle,
                       category:
-                          widget.productList[0].data['UserService'],
+                          widget.productList[0].data['UserService'] ?? '',
                       searchProductProvider: _searchProductProvider)),
             ),
           ),

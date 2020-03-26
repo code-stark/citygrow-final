@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/transaction_detail.dart';
@@ -11,12 +12,14 @@ class TransactionItemView extends StatelessWidget {
     this.animationController,
     this.animation,
     this.onTap,
+    @required this.transactionList,
   }) : super(key: key);
 
   final TransactionDetail transaction;
   final Function onTap;
   final AnimationController animationController;
   final Animation<double> animation;
+  final DocumentSnapshot transactionList;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,7 @@ class TransactionItemView extends StatelessWidget {
                   child: GestureDetector(
                     onTap: onTap,
                     child: _ItemWidget(
+                      transactionList: transactionList,
                       transaction: transaction,
                     ),
                   )));
@@ -43,9 +47,11 @@ class _ItemWidget extends StatelessWidget {
   const _ItemWidget({
     Key key,
     @required this.transaction,
+    @required this.transactionList,
   }) : super(key: key);
 
   final TransactionDetail transaction;
+  final DocumentSnapshot transactionList;
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +61,13 @@ class _ItemWidget extends StatelessWidget {
       height: ps_space_2,
       color: Colors.grey,
     );
-    if (transaction.originalPrice != '0' && transaction.discountAmount != '0') {
-      balancePrice = double.parse(transaction.originalPrice) -
-          double.parse(transaction.discountAmount);
+    if (transactionList.data['price'] != 0 &&
+        transactionList.data['Orignal Price'] != 0) {
+      balancePrice =
+          transactionList.data['Orignal Price'] -
+              transactionList.data['price'];
 
-      subTotal = balancePrice * double.parse(transaction.qty);
+      // subTotal = balancePrice * double.parse(transaction.qty);
     } else {
       balancePrice = double.parse(transaction.originalPrice);
       subTotal = double.parse(transaction.originalPrice) *
@@ -81,10 +89,14 @@ class _ItemWidget extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      transaction.productName ?? '-',
+                      transactionList['ProductName'] ?? '-',
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.title.copyWith(
-                          fontSize: ps_space_16, fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .title
+                          .copyWith(
+                              fontSize: ps_space_16,
+                              fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -93,32 +105,33 @@ class _ItemWidget extends StatelessWidget {
             _dividerWidget,
             _TransactionNoTextWidget(
               transationInfoText:
-                  '${transaction.currencySymbol}  ${Utils.getPriceFormat(transaction.originalPrice)}',
+                  transactionList.data['Orignal Price'].toString(),
               title:
                   '${Utils.getString(context, 'transaction_detail__price')} :',
             ),
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  ' ${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.discountAmount)}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__discount_avaiable_amount')} :',
-            ),
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  '${transaction.currencySymbol} ${Utils.getPriceFormat(balancePrice.toString())}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__balance')} :',
-            ),
-            _TransactionNoTextWidget(
-              transationInfoText: '${transaction.qty}',
-              title: '${Utils.getString(context, 'transaction_detail__qty')} :',
-            ),
-            _TransactionNoTextWidget(
-              transationInfoText:
-                  ' ${transaction.currencySymbol} ${Utils.getPriceFormat(subTotal.toString())}',
-              title:
-                  '${Utils.getString(context, 'transaction_detail__sub_total')} :',
-            ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       ' ${transaction.currencySymbol} ${Utils.getPriceFormat(transaction.discountAmount)}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__discount_avaiable_amount')} :',
+            // ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       '${transaction.currencySymbol} ${Utils.getPriceFormat(balancePrice.toString())}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__balance')} :',
+            // ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText: '${transaction.qty}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__qty')} :',
+            // ),
+            // _TransactionNoTextWidget(
+            //   transationInfoText:
+            //       ' ${transaction.currencySymbol} ${Utils.getPriceFormat(subTotal.toString())}',
+            //   title:
+            //       '${Utils.getString(context, 'transaction_detail__sub_total')} :',
+            // ),
             const SizedBox(
               height: ps_space_12,
             ),
