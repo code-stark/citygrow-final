@@ -280,6 +280,18 @@ class _HomeViewState extends State<DashboardView>
                                       context, 'app_name'),
                                   index);
                             }),
+
+                        // _DrawerMenuWidget(
+                        //     icon: Icons.category,
+                        //     title: Utils.getString(context,
+                        //         'home__drawer_menu_category'),
+                        //     index:
+                        //         REQUEST_CODE__MENU_LATEST_PRODUCT_FRAGMENT,
+                        //     onTap: (String title, int index) {
+                        //       Navigator.pop(context);
+                        //       updateSelectedIndexWithAnimation(
+                        //           title, index);
+                        //     }),
                         StreamBuilder<QuerySnapshot>(
                             stream: Firestore.instance
                                 .collection('ProductListID')
@@ -295,12 +307,14 @@ class _HomeViewState extends State<DashboardView>
                                 );
                               }
                               return _DrawerMenuWidget(
-                                  icon: Icons.category,
+                                  icon: Icons.schedule,
                                   title: Utils.getString(context,
-                                      'home__drawer_menu_category'),
+                                      'home__drawer_menu_latest_product'),
                                   index:
                                       REQUEST_CODE__MENU_CATEGORY_FRAGMENT,
-                                  onTap: () {
+                                  onTap: (String title, int index) {
+                                    updateSelectedIndexWithAnimation(
+                                        title, index);
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -318,17 +332,6 @@ class _HomeViewState extends State<DashboardView>
                                                         .data
                                                         .documents)));
                                   });
-                            }),
-                        _DrawerMenuWidget(
-                            icon: Icons.schedule,
-                            title: Utils.getString(context,
-                                'home__drawer_menu_latest_product'),
-                            index:
-                                REQUEST_CODE__MENU_LATEST_PRODUCT_FRAGMENT,
-                            onTap: (String title, int index) {
-                              Navigator.pop(context);
-                              updateSelectedIndexWithAnimation(
-                                  title, index);
                             }),
                         _DrawerMenuWidget(
                             icon: Feather.percent,

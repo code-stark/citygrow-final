@@ -1,13 +1,11 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
 import 'package:digitalproductstore/config/ps_colors.dart';
-import 'package:digitalproductstore/config/ps_constants.dart';
 import 'package:digitalproductstore/config/ps_dimens.dart';
 import 'package:digitalproductstore/provider/product/search_product_provider.dart';
 import 'package:digitalproductstore/repository/product_repository.dart';
@@ -44,6 +42,7 @@ class _ItemSearchViewState extends State<ItemSearchView> {
 
   @override
   Widget build(BuildContext context) {
+   
     print(
         '............................Build UI Again ............................');
 
@@ -57,11 +56,48 @@ class _ItemSearchViewState extends State<ItemSearchView> {
         width: double.infinity,
         height: ps_space_44,
         child: StreamBuilder<QuerySnapshot>(
-            stream: Firestore.instance
-                .collection('ProductListID')
-                .where('UserService', isEqualTo: widget.category)
-                .orderBy('TimeStamp', descending: true)
-                .snapshots(),
+            stream: (userInputItemNameTextEditingController.text.isNotEmpty)
+                ? Firestore.instance
+                    .collection('ProductListID')
+                    .where('UserService', isEqualTo: widget.category)
+                    .where('ProductName',
+                        arrayContains: userInputItemNameTextEditingController
+                            .text)
+                    .orderBy('TimeStamp', descending: true)
+                    .snapshots()
+                : (userInputItemNameTextEditingController.text.isNotEmpty && userInputMaximunPriceEditingController.text.isNotEmpty)
+                    ? Firestore.instance
+                        .collection('ProductListID')
+                        .where('UserService',
+                            isEqualTo: widget.category)
+                        .where('field')
+                        .orderBy('TimeStamp', descending: true)
+                        .snapshots()
+                    : (userInputItemNameTextEditingController.text.isNotEmpty &&
+                            userInputMinimumPriceEditingController
+                                .text.isNotEmpty)
+                        ? Firestore.instance
+                            .collection('ProductListID')
+                            .where('UserService',
+                                isEqualTo: widget.category)
+                            .where('field')
+                            .orderBy('TimeStamp', descending: true)
+                            .snapshots()
+                        : (userInputItemNameTextEditingController.text.isNotEmpty && userInputMinimumPriceEditingController.text.isNotEmpty && userInputMaximunPriceEditingController.text.isNotEmpty)
+                            ? Firestore.instance
+                                .collection('ProductListID')
+                                .where('UserService',
+                                    isEqualTo: widget.category)
+                                .where('field')
+                                .orderBy('TimeStamp',
+                                    descending: true)
+                                .snapshots()
+                            : Firestore.instance
+                                .collection('ProductListID')
+                                .where('UserService', isEqualTo: widget.category)
+                                .where('field')
+                                .orderBy('TimeStamp', descending: true)
+                                .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(
@@ -75,99 +111,99 @@ class _ItemSearchViewState extends State<ItemSearchView> {
                 ),
                 child: Text(
                     Utils.getString(context, 'home_search__search')),
-                onPressed: () { 
-                  if (userInputItemNameTextEditingController.text !=
-                      null) {
-                    _searchProductProvider
-                            .productParameterHolder.searchTerm =
-                        userInputItemNameTextEditingController.text;
-                  } else {
-                    _searchProductProvider
-                        .productParameterHolder.searchTerm = '';
-                  }
-                  if (userInputMaximunPriceEditingController.text !=
-                      null) {
-                    _searchProductProvider
-                            .productParameterHolder.maxPrice =
-                        userInputMaximunPriceEditingController.text;
-                  } else {
-                    _searchProductProvider
-                        .productParameterHolder.maxPrice = '';
-                  }
-                  if (userInputMinimumPriceEditingController.text !=
-                      null) {
-                    _searchProductProvider
-                            .productParameterHolder.minPrice =
-                        userInputMinimumPriceEditingController.text;
-                  } else {
-                    _searchProductProvider
-                        .productParameterHolder.minPrice = '';
-                  }
-                  if (_searchProductProvider.isfirstRatingClicked) {
-                    _searchProductProvider.productParameterHolder
-                        .overallRating = RATING_ONE;
-                  }
+                onPressed: () {
+                  // if (userInputItemNameTextEditingController.text !=
+                  //     null) {
+                  //   _searchProductProvider
+                  //           .productParameterHolder.searchTerm =
+                  //       userInputItemNameTextEditingController.text;
+                  // } else {
+                  //   _searchProductProvider
+                  //       .productParameterHolder.searchTerm = '';
+                  // }
+                  // if (userInputMaximunPriceEditingController.text !=
+                  //     null) {
+                  //   _searchProductProvider
+                  //           .productParameterHolder.maxPrice =
+                  //       userInputMaximunPriceEditingController.text;
+                  // } else {
+                  //   _searchProductProvider
+                  //       .productParameterHolder.maxPrice = '';
+                  // }
+                  // if (userInputMinimumPriceEditingController.text !=
+                  //     null) {
+                  //   _searchProductProvider
+                  //           .productParameterHolder.minPrice =
+                  //       userInputMinimumPriceEditingController.text;
+                  // } else {
+                  //   _searchProductProvider
+                  //       .productParameterHolder.minPrice = '';
+                  // }
+                  // if (_searchProductProvider.isfirstRatingClicked) {
+                  //   _searchProductProvider.productParameterHolder
+                  //       .overallRating = RATING_ONE;
+                  // }
 
-                  if (_searchProductProvider.isSecondRatingClicked) {
-                    _searchProductProvider.productParameterHolder
-                        .overallRating = RATING_TWO;
-                  }
+                  // if (_searchProductProvider.isSecondRatingClicked) {
+                  //   _searchProductProvider.productParameterHolder
+                  //       .overallRating = RATING_TWO;
+                  // }
 
-                  if (_searchProductProvider.isThirdRatingClicked) {
-                    _searchProductProvider.productParameterHolder
-                        .overallRating = RATING_THREE;
-                  }
+                  // if (_searchProductProvider.isThirdRatingClicked) {
+                  //   _searchProductProvider.productParameterHolder
+                  //       .overallRating = RATING_THREE;
+                  // }
 
-                  if (_searchProductProvider.isfouthRatingClicked) {
-                    _searchProductProvider.productParameterHolder
-                        .overallRating = RATING_FOUR;
-                  }
+                  // if (_searchProductProvider.isfouthRatingClicked) {
+                  //   _searchProductProvider.productParameterHolder
+                  //       .overallRating = RATING_FOUR;
+                  // }
 
-                  if (_searchProductProvider.isFifthRatingClicked) {
-                    _searchProductProvider.productParameterHolder
-                        .overallRating = RATING_FIVE;
-                  }
+                  // if (_searchProductProvider.isFifthRatingClicked) {
+                  //   _searchProductProvider.productParameterHolder
+                  //       .overallRating = RATING_FIVE;
+                  // }
 
-                  if (!_searchProductProvider.isfirstRatingClicked &&
-                      !_searchProductProvider.isSecondRatingClicked &&
-                      !_searchProductProvider.isThirdRatingClicked &&
-                      !_searchProductProvider.isfouthRatingClicked &&
-                      !_searchProductProvider.isFifthRatingClicked) {
-                    _searchProductProvider
-                        .productParameterHolder.overallRating = '';
-                  }
+                  // if (!_searchProductProvider.isfirstRatingClicked &&
+                  //     !_searchProductProvider.isSecondRatingClicked &&
+                  //     !_searchProductProvider.isThirdRatingClicked &&
+                  //     !_searchProductProvider.isfouthRatingClicked &&
+                  //     !_searchProductProvider.isFifthRatingClicked) {
+                  //   _searchProductProvider
+                  //       .productParameterHolder.overallRating = '';
+                  // }
 
-                  if (_searchProductProvider
-                      .isSwitchedFeaturedProduct) {
-                    _searchProductProvider.productParameterHolder
-                        .isFeatured = IS_FEATURED;
-                  } else {
-                    _searchProductProvider
-                        .productParameterHolder.isFeatured = ZERO;
-                  }
+                  // if (_searchProductProvider
+                  //     .isSwitchedFeaturedProduct) {
+                  //   _searchProductProvider.productParameterHolder
+                  //       .isFeatured = IS_FEATURED;
+                  // } else {
+                  //   _searchProductProvider
+                  //       .productParameterHolder.isFeatured = ZERO;
+                  // }
 
-                  if (_searchProductProvider
-                      .isSwitchedDiscountPrice) {
-                    _searchProductProvider.productParameterHolder
-                        .isDiscount = IS_DISCOUNT;
-                  } else {
-                    _searchProductProvider
-                        .productParameterHolder.isDiscount = ZERO;
-                  }
+                  // if (_searchProductProvider
+                  //     .isSwitchedDiscountPrice) {
+                  //   _searchProductProvider.productParameterHolder
+                  //       .isDiscount = IS_DISCOUNT;
+                  // } else {
+                  //   _searchProductProvider
+                  //       .productParameterHolder.isDiscount = ZERO;
+                  // }
 
-                  if (_searchProductProvider.isSwitchedFreeProduct) {
-                    _searchProductProvider
-                        .productParameterHolder.isFree = IS_FREE;
-                  } else {
-                    _searchProductProvider
-                        .productParameterHolder.isFree = ZERO;
-                  }
+                  // if (_searchProductProvider.isSwitchedFreeProduct) {
+                  //   _searchProductProvider
+                  //       .productParameterHolder.isFree = IS_FREE;
+                  // } else {
+                  // _searchProductProvider
+                  //     .productParameterHolder.isFree = ZERO;
+                  // }
 
-                  print('userInputText' +
-                      userInputItemNameTextEditingController.text);
+                  // print('userInputText' +
+                  //     userInputItemNameTextEditingController.text);
 
-                  Navigator.pop(context,
-                      _searchProductProvider.productParameterHolder);
+                  // Navigator.pop(context,
+                  //     _searchProductProvider.productParameterHolder);
                 },
                 color: ps_ctheme__color_speical,
                 textColor: Colors.white,
@@ -722,7 +758,7 @@ class _PriceTextWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: Theme.of(context).textTheme.body1,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             Container(
                 decoration: BoxDecoration(
@@ -761,7 +797,7 @@ class __SpecialCheckWidgetState extends State<_SpecialCheckWidget> {
           width: double.infinity,
           child: Text(
               Utils.getString(context, 'home_search__special_check'),
-              style: Theme.of(context).textTheme.body2),
+              style: Theme.of(context).textTheme.bodyText2),
         ),
         SpecialCheckTextWidget(
             title: Utils.getString(

@@ -15,7 +15,7 @@
     android:name=".Application" -->
     <application
         android:name=".Application"
-        android:label="Digital Product Store"
+        android:label="CityGrow"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

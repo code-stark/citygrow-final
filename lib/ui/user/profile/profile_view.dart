@@ -12,6 +12,7 @@ import 'package:digitalproductstore/ui/common/ps_ui_widget.dart';
 import 'package:digitalproductstore/ui/transaction/item/transaction_list_item.dart';
 import 'package:digitalproductstore/utils/utils.dart';
 import 'package:digitalproductstore/viewobject/common/ps_value_holder.dart';
+import 'package:digitalproductstore/viewobject/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -41,27 +42,30 @@ class _ProfilePageState extends State<ProfileView>
     widget.animationController.forward();
     return SingleChildScrollView(
         child: Container(
-      height: widget.flag == REQUEST_CODE__DASHBOARD_SELECT_WHICH_USER_FRAGMENT
+      height: widget.flag ==
+              REQUEST_CODE__DASHBOARD_SELECT_WHICH_USER_FRAGMENT
           ? MediaQuery.of(context).size.height - 100
           : MediaQuery.of(context).size.height - 40,
-      child: CustomScrollView(scrollDirection: Axis.vertical, slivers: <Widget>[
-        _ProfileDetailWidget(
-          animationController: widget.animationController,
-          animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-            CurvedAnimation(
-              parent: widget.animationController,
-              curve:
-                  const Interval((1 / 4) * 2, 1.0, curve: Curves.fastOutSlowIn),
+      child: CustomScrollView(
+          scrollDirection: Axis.vertical,
+          slivers: <Widget>[
+            _ProfileDetailWidget(
+              animationController: widget.animationController,
+              animation: Tween<double>(begin: 0.0, end: 1.0).animate(
+                CurvedAnimation(
+                  parent: widget.animationController,
+                  curve: const Interval((1 / 4) * 2, 1.0,
+                      curve: Curves.fastOutSlowIn),
+                ),
+              ),
+              userId: widget.userId,
             ),
-          ),
-          userId: widget.userId,
-        ),
-        _TransactionListViewWidget(
-          scaffoldKey: widget.scaffoldKey,
-          animationController: widget.animationController,
-          userId: widget.userId,
-        )
-      ]),
+            _TransactionListViewWidget(
+              scaffoldKey: widget.scaffoldKey,
+              animationController: widget.animationController,
+              userId: widget.userId,
+            )
+          ]),
     ));
   }
 }
@@ -77,8 +81,10 @@ class _TransactionListViewWidget extends StatelessWidget {
   final AnimationController animationController;
   final String userId;
   final GlobalKey<ScaffoldState> scaffoldKey;
+
   @override
   Widget build(BuildContext context) {
+    final Users users = Provider.of<Users>(context);
     TransactionHeaderRepository transactionHeaderRepository;
     PsValueHolder psValueHolder;
     transactionHeaderRepository =
@@ -88,80 +94,113 @@ class _TransactionListViewWidget extends StatelessWidget {
     return SliverToBoxAdapter(
         child: ChangeNotifierProvider<TransactionHeaderProvider>(
             create: (BuildContext context) {
-      final TransactionHeaderProvider provider = TransactionHeaderProvider(
-          repo: transactionHeaderRepository, psValueHolder: psValueHolder);
+      final TransactionHeaderProvider provider =
+          TransactionHeaderProvider(
+              repo: transactionHeaderRepository,
+              psValueHolder: psValueHolder);
       if (provider.psValueHolder.loginUserId == null ||
           provider.psValueHolder.loginUserId == '') {
         provider.loadTransactionList(userId);
       } else {
-        provider.loadTransactionList(provider.psValueHolder.loginUserId);
+        provider
+            .loadTransactionList(provider.psValueHolder.loginUserId);
       }
 
       return provider;
     }, child: Consumer<TransactionHeaderProvider>(builder:
-                (BuildContext context, TransactionHeaderProvider provider,
+                (BuildContext context,
+                    TransactionHeaderProvider provider,
                     Widget child) {
-      if (provider.transactionList != null &&
-          provider.transactionList.data != null) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: ps_space_44),
-          child: Stack(children: <Widget>[
-            Container(
-                margin: const EdgeInsets.only(
-                    left: ps_space_12,
-                    right: ps_space_12,
-                    top: 0,
-                    bottom: ps_space_8),
-                child: RefreshIndicator(
-                  child: CustomScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      slivers: <Widget>[
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              if (provider.transactionList.data != null ||
-                                  provider.transactionList.data.isNotEmpty) {
-                                final int count =
-                                    provider.transactionList.data.length;
-                                return TransactionListItem(
-                                  scaffoldKey: scaffoldKey,
-                                  animationController: animationController,
-                                  animation: Tween<double>(begin: 0.0, end: 1.0)
-                                      .animate(
-                                    CurvedAnimation(
-                                      parent: animationController,
-                                      curve: Interval((1 / count) * index, 1.0,
-                                          curve: Curves.fastOutSlowIn),
-                                    ),
-                                  ),
-                                  transaction:
-                                      provider.transactionList.data[index],
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, RoutePaths.transactionDetail,
-                                        arguments: provider
-                                            .transactionList.data[index]);
+      return StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance
+              .collection('AppUsers')
+              .document(users.uid)
+              .collection('order')
+              .orderBy('timestamp', descending: true)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.data.documents != null &&
+                snapshot.data != null) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Padding(
+                padding: const EdgeInsets.only(bottom: ps_space_44),
+                child: Stack(children: <Widget>[
+                  Container(
+                      margin: const EdgeInsets.only(
+                          left: ps_space_12,
+                          right: ps_space_12,
+                          top: 0,
+                          bottom: ps_space_8),
+                      child: RefreshIndicator(
+                        child: CustomScrollView(
+                            physics:
+                                const NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            slivers: <Widget>[
+                              SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                                    if (snapshot.data.documents !=
+                                            null ||
+                                        snapshot.data.documents
+                                            .isNotEmpty) {
+                                      final int count = snapshot
+                                          .data.documents.length;
+                                      return TransactionListItem(
+                                        transactionList: snapshot
+                                            .data.documents[index],
+                                        scaffoldKey: scaffoldKey,
+                                        animationController:
+                                            animationController,
+                                        animation: Tween<double>(
+                                                begin: 0.0, end: 1.0)
+                                            .animate(
+                                          CurvedAnimation(
+                                            parent:
+                                                animationController,
+                                            curve: Interval(
+                                                (1 / count) * index,
+                                                1.0,
+                                                curve: Curves
+                                                    .fastOutSlowIn),
+                                          ),
+                                        ),
+                                        // transaction: provider
+                                        //     .transactionList
+                                        //     .data[index],
+                                        // onTap: () {
+                                        //   Navigator.pushNamed(
+                                        //       context,
+                                        //       RoutePaths
+                                        //           .transactionDetail,
+                                        //       arguments: snapshot.data
+                                        //           .documents[index]);
+                                        // },
+                                      );
+                                    } else {
+                                      return null;
+                                    }
                                   },
-                                );
-                              } else {
-                                return null;
-                              }
-                            },
-                            childCount: provider.transactionList.data.length,
-                          ),
-                        ),
-                      ]),
-                  onRefresh: () {
-                    return provider.resetTransactionList();
-                  },
-                )),
-          ]),
-        );
-      } else {
-        return Container();
-      }
+                                  childCount:
+                                      snapshot.data.documents.length,
+                                ),
+                              ),
+                            ]),
+                        onRefresh: () {
+                          return provider.resetTransactionList();
+                        },
+                      )),
+                ]),
+              );
+            } else {
+              return Container();
+            }
+          });
     })));
   }
 }
@@ -202,7 +241,8 @@ class _ProfileDetailWidget extends StatelessWidget {
         }
         return provider;
       }, child: Consumer<UserLoginProvider>(builder:
-              (BuildContext context, UserLoginProvider provider, Widget child) {
+              (BuildContext context, UserLoginProvider provider,
+                  Widget child) {
         if (users != null && users.uid != null) {
           return StreamBuilder<DocumentSnapshot>(
               stream: Firestore.instance
@@ -224,7 +264,9 @@ class _ProfileDetailWidget extends StatelessWidget {
                           opacity: animation,
                           child: Transform(
                               transform: Matrix4.translationValues(
-                                  0.0, 100 * (1.0 - animation.value), 0.0),
+                                  0.0,
+                                  100 * (1.0 - animation.value),
+                                  0.0),
                               child: Container(
                                 child: Column(
                                   children: <Widget>[
@@ -259,7 +301,8 @@ class _ProfileDetailWidget extends StatelessWidget {
 }
 
 class _JoinDateWidget extends StatelessWidget {
-  const _JoinDateWidget({this.userProvider, @required this.usersData});
+  const _JoinDateWidget(
+      {this.userProvider, @required this.usersData});
   final UserLoginProvider userProvider;
   final DocumentSnapshot usersData;
 
@@ -402,12 +445,12 @@ class _EditAndHistoryRowWidget extends StatelessWidget {
           userLoginProvider: userLoginProvider,
           checkText: 0,
         ),
-        _verticalLineWidget,
-        _EditAndHistoryTextWidget(
-          snapshot: usersData,
-          userLoginProvider: userLoginProvider,
-          checkText: 1,
-        ),
+        // _verticalLineWidget,
+        // _EditAndHistoryTextWidget(
+        //   snapshot: usersData,
+        //   userLoginProvider: userLoginProvider,
+        //   checkText: 1,
+        // ),
         _verticalLineWidget,
         _EditAndHistoryTextWidget(
           snapshot: usersData,
@@ -477,7 +520,8 @@ class _EditAndHistoryTextWidget extends StatelessWidget {
                             .copyWith(fontWeight: FontWeight.bold),
                       )
                     : Text(
-                        Utils.getString(context, 'profile__transaction'),
+                        Utils.getString(
+                            context, 'profile__transaction'),
                         softWrap: false,
                         style: Theme.of(context)
                             .textTheme
@@ -528,7 +572,8 @@ class _OrderAndSeeAllWidget extends StatelessWidget {
 }
 
 class _ImageAndTextWidget extends StatelessWidget {
-  const _ImageAndTextWidget({this.userProvider, @required this.usersData});
+  const _ImageAndTextWidget(
+      {this.userProvider, @required this.usersData});
   final UserLoginProvider userProvider;
   final DocumentSnapshot usersData;
   @override
@@ -578,15 +623,18 @@ class _ImageAndTextWidget extends StatelessWidget {
                     usersData['phonenumber'] != '' &&
                             usersData['phonenumber'] != null
                         ? usersData['phonenumber']
-                        : Utils.getString(context, 'profile__phone_no'),
+                        : Utils.getString(
+                            context, 'profile__phone_no'),
                     style: Theme.of(context).textTheme.subtitle2,
                   ),
                   _spacingWidget,
                   //!about me
                   Text(
-                    usersData['aboutme'] != '' && usersData['aboutme'] != null
+                    usersData['aboutme'] != '' &&
+                            usersData['aboutme'] != null
                         ? usersData['aboutme']
-                        : Utils.getString(context, 'profile__about_me'),
+                        : Utils.getString(
+                            context, 'profile__about_me'),
                     style: Theme.of(context).textTheme.bodyText1,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

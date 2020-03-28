@@ -105,15 +105,15 @@ class _LoginViewState extends State<LoginView> {
                           _spacingWidget,
                           _DividerORWidget(),
                           _spacingWidget,
-                          _LoginWithPhoneWidget(
-                              onPhoneSignInSelected:
-                                  widget.onPhoneSignInSelected),
+                          // _LoginWithPhoneWidget(
+                          //     onPhoneSignInSelected:
+                          //         widget.onPhoneSignInSelected),
                           // Currently Facebook Login is still not available
                           // https://github.com/roughike/flutter_facebook_login/issues/231
                           if (Platform.isAndroid)
-                            _LoginWithFbWidget(
-                                userProvider: provider,
-                                onFbSignInSelected: widget.onFbSignInSelected),
+                            // _LoginWithFbWidget(
+                            //     userProvider: provider,
+                            //     onFbSignInSelected: widget.onFbSignInSelected),
                           _LoginWithGoogleWidget(
                               userProvider: provider,
                               onGoogleSignInSelected:

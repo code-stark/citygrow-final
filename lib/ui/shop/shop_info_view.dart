@@ -84,31 +84,31 @@ class _ShopInfoViewWidget extends StatelessWidget {
                   icon: FontAwesome.wordpress,
                   title:
                       Utils.getString(context, 'shop_info__visit_our_website'),
-                  link: provider.shopInfo.data.aboutWebsite),
-              _LinkAndTitle(
-                  icon: FontAwesome.facebook,
-                  title: Utils.getString(context, 'shop_info__facebook'),
-                  link: provider.shopInfo.data.facebook),
-              _LinkAndTitle(
-                  icon: FontAwesome.google_plus_circle,
-                  title: Utils.getString(context, 'shop_info__google_plus'),
-                  link: provider.shopInfo.data.googlePlus),
-              _LinkAndTitle(
-                  icon: FontAwesome.twitter_square,
-                  title: Utils.getString(context, 'shop_info__twitter'),
-                  link: provider.shopInfo.data.twitter),
-              _LinkAndTitle(
-                  icon: FontAwesome.instagram,
-                  title: Utils.getString(context, 'shop_info__instagram'),
-                  link: provider.shopInfo.data.instagram),
-              _LinkAndTitle(
-                  icon: FontAwesome.youtube,
-                  title: Utils.getString(context, 'shop_info__youtube'),
-                  link: provider.shopInfo.data.youtube),
-              _LinkAndTitle(
-                  icon: FontAwesome.pinterest,
-                  title: Utils.getString(context, 'shop_info__pinterest'),
-                  link: provider.shopInfo.data.pinterest),
+                  link: 'http://citygrow.in/'),
+              // _LinkAndTitle(
+              //     icon: FontAwesome.facebook,
+              //     title: Utils.getString(context, 'shop_info__facebook'),
+              //     link: provider.shopInfo.data.facebook),
+              // _LinkAndTitle(
+              //     icon: FontAwesome.google_plus_circle,
+              //     title: Utils.getString(context, 'shop_info__google_plus'),
+              //     link: provider.shopInfo.data.googlePlus),
+              // _LinkAndTitle(
+              //     icon: FontAwesome.twitter_square,
+              //     title: Utils.getString(context, 'shop_info__twitter'),
+              //     link: provider.shopInfo.data.twitter),
+              // _LinkAndTitle(
+              //     icon: FontAwesome.instagram,
+              //     title: Utils.getString(context, 'shop_info__instagram'),
+              //     link: provider.shopInfo.data.instagram),
+              // _LinkAndTitle(
+              //     icon: FontAwesome.youtube,
+              //     title: Utils.getString(context, 'shop_info__youtube'),
+              //     link: provider.shopInfo.data.youtube),
+              // _LinkAndTitle(
+              //     icon: FontAwesome.pinterest,
+              //     title: Utils.getString(context, 'shop_info__pinterest'),
+              //     link: provider.shopInfo.data.pinterest),
               _SourceAddressWidget(
                 data: provider.shopInfo.data,
               ),
@@ -154,7 +154,7 @@ class _LinkAndTitle extends StatelessWidget {
               ),
               Text(
                 title,
-                style: Theme.of(context).textTheme.body2,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ],
           ),
@@ -251,8 +251,8 @@ class ImageAndTextWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                data.name,
-                // 'aditya jha',
+                // data.name,
+                'CityGrow.In',
                 style: Theme.of(context).textTheme.subtitle2.copyWith(
                       color: ps_ctheme__color_speical,
                     ),
@@ -260,13 +260,13 @@ class ImageAndTextWidget extends StatelessWidget {
               _spacingWidget,
               InkWell(
                 child: Text(
-                  data.aboutPhone1,
-                  // '8999855914',
+                  // data.aboutPhone1,
+                  '8999996369',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(),
                 ),
                 onTap: () async {
-                  if (await canLaunch('tel://${data.aboutPhone1}')) {
-                    await launch('tel://${data.aboutPhone1}');
+                  if (await canLaunch('tel://${8999996369}')) {
+                    await launch('tel://${8999996369}');
                   } else {
                     throw 'Could not Call Phone Number 1';
                   }
@@ -284,16 +284,17 @@ class ImageAndTextWidget extends StatelessWidget {
                   ),
                   InkWell(
                     child: Text(
-                      data.codEmail,
-                      style: Theme.of(context).textTheme.body1.copyWith(
+                      // data.codEmail,
+                      'citygrow.in@gmail.com',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
                             color: ps_ctheme__color_about_us,
                           ),
                     ),
                     onTap: () async {
-                      if (await canLaunch('mailto:teamps.is.cool@gmail.com')) {
-                        await launch('mailto:teamps.is.cool@gmail.com');
+                      if (await canLaunch('mailto:citygrow.in@gmail.com')) {
+                        await launch('mailto:citygrow.in@gmail.com');
                       } else {
-                        throw 'Could not launch teamps.is.cool@gmail.com';
+                        throw 'Could not launch citygrow.in@gmail.com';
                       }
                     },
                   ),
@@ -350,45 +351,46 @@ class _PhoneAndContactWidget extends StatelessWidget {
                 _spacingWidget,
                 InkWell(
                   child: Text(
-                    phone.aboutPhone1,
-                    style: Theme.of(context).textTheme.body1.copyWith(),
+                    // phone.aboutPhone1,
+                    '+918999996369',
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(),
                   ),
                   onTap: () async {
-                    if (await canLaunch('tel://${phone.aboutPhone1}')) {
-                      await launch('tel://${phone.aboutPhone1}');
+                    if (await canLaunch('tel://${8999996369}')) {
+                      await launch('tel://${8999996369}');
                     } else {
                       throw 'Could not Call Phone Number 1';
                     }
                   },
                 ),
-                _spacingWidget,
-                InkWell(
-                  child: Text(
-                    phone.aboutPhone2,
-                    style: Theme.of(context).textTheme.body1.copyWith(),
-                  ),
-                  onTap: () async {
-                    if (await canLaunch('tel://${phone.aboutPhone2}')) {
-                      await launch('tel://${phone.aboutPhone2}');
-                    } else {
-                      throw 'Could not Call Phone Number 2';
-                    }
-                  },
-                ),
-                _spacingWidget,
-                InkWell(
-                  child: Text(
-                    phone.aboutPhone3,
-                    style: Theme.of(context).textTheme.body1.copyWith(),
-                  ),
-                  onTap: () async {
-                    if (await canLaunch('tel://${phone.aboutPhone3}')) {
-                      await launch('tel://${phone.aboutPhone3}');
-                    } else {
-                      throw 'Could not Call Phone Number 3';
-                    }
-                  },
-                ),
+                // _spacingWidget,
+                // InkWell(
+                //   child: Text(
+                //     phone.aboutPhone2,
+                //     style: Theme.of(context).textTheme.body1.copyWith(),
+                //   ),
+                //   onTap: () async {
+                //     if (await canLaunch('tel://${phone.aboutPhone2}')) {
+                //       await launch('tel://${phone.aboutPhone2}');
+                //     } else {
+                //       throw 'Could not Call Phone Number 2';
+                //     }
+                //   },
+                // ),
+                // _spacingWidget,
+                // InkWell(
+                //   child: Text(
+                //     phone.aboutPhone3,
+                //     style: Theme.of(context).textTheme.body1.copyWith(),
+                //   ),
+                //   onTap: () async {
+                //     if (await canLaunch('tel://${phone.aboutPhone3}')) {
+                //       await launch('tel://${phone.aboutPhone3}');
+                //     } else {
+                //       throw 'Could not Call Phone Number 3';
+                //     }
+                //   },
+                // ),
               ],
             ),
           ],

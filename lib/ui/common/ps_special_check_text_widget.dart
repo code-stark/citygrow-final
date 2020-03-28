@@ -11,18 +11,22 @@ class SpecialCheckTextWidget extends StatefulWidget {
     @required this.icon,
     @required this.checkTitle,
     this.size = ps_space_20,
+    @required this.booleanls,
   }) : super(key: key);
 
   final String title;
   final IconData icon;
   final int checkTitle;
   final double size;
+  final Function booleanls;
 
   @override
-  _SpecialCheckTextWidgetState createState() => _SpecialCheckTextWidgetState();
+  _SpecialCheckTextWidgetState createState() =>
+      _SpecialCheckTextWidgetState();
 }
 
-class _SpecialCheckTextWidgetState extends State<SpecialCheckTextWidget> {
+class _SpecialCheckTextWidgetState
+    extends State<SpecialCheckTextWidget> {
   @override
   Widget build(BuildContext context) {
     final SearchProductProvider provider =
@@ -42,8 +46,9 @@ class _SpecialCheckTextWidgetState extends State<SpecialCheckTextWidget> {
               Row(
                 children: <Widget>[
                   Container(
-                      width:
-                          widget.size < ps_space_20 ? ps_space_20 : widget.size,
+                      width: widget.size < ps_space_20
+                          ? ps_space_20
+                          : widget.size,
                       child: Icon(
                         widget.icon,
                         size: widget.size,
@@ -54,7 +59,7 @@ class _SpecialCheckTextWidgetState extends State<SpecialCheckTextWidget> {
                   ),
                   Text(
                     widget.title,
-                    style: Theme.of(context).textTheme.body1,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
               ),

@@ -64,88 +64,88 @@ class _ItemSearchViewState extends State<HomeItemSearchView> {
           ),
           child: Text(Utils.getString(context, 'home_search__search')),
           onPressed: () async {
-            if (userInputItemNameTextEditingController.text != null &&
-                userInputItemNameTextEditingController.text != '') {
-              _searchProductProvider.productParameterHolder.searchTerm =
-                  userInputItemNameTextEditingController.text;
-            } else {
-              _searchProductProvider.productParameterHolder.searchTerm = '';
-            }
-            if (userInputMaximunPriceEditingController.text != null) {
-              _searchProductProvider.productParameterHolder.maxPrice =
-                  userInputMaximunPriceEditingController.text;
-            } else {
-              _searchProductProvider.productParameterHolder.maxPrice = '';
-            }
-            if (userInputMinimumPriceEditingController.text != null) {
-              _searchProductProvider.productParameterHolder.minPrice =
-                  userInputMinimumPriceEditingController.text;
-            } else {
-              _searchProductProvider.productParameterHolder.minPrice = '';
-            }
-            if (_searchProductProvider.isfirstRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_ONE;
-            }
+            // if (userInputItemNameTextEditingController.text != null &&
+            //     userInputItemNameTextEditingController.text != '') {
+            //   _searchProductProvider.productParameterHolder.searchTerm =
+            //       userInputItemNameTextEditingController.text;
+            // } else {
+            //   _searchProductProvider.productParameterHolder.searchTerm = '';
+            // }
+            // if (userInputMaximunPriceEditingController.text != null) {
+            //   _searchProductProvider.productParameterHolder.maxPrice =
+            //       userInputMaximunPriceEditingController.text;
+            // } else {
+            //   _searchProductProvider.productParameterHolder.maxPrice = '';
+            // }
+            // if (userInputMinimumPriceEditingController.text != null) {
+            //   _searchProductProvider.productParameterHolder.minPrice =
+            //       userInputMinimumPriceEditingController.text;
+            // } else {
+            //   _searchProductProvider.productParameterHolder.minPrice = '';
+            // }
+            // if (_searchProductProvider.isfirstRatingClicked) {
+            //   _searchProductProvider.productParameterHolder.overallRating =
+            //       RATING_ONE;
+            // }
 
-            if (_searchProductProvider.isSecondRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_TWO;
-            }
+            // if (_searchProductProvider.isSecondRatingClicked) {
+            //   _searchProductProvider.productParameterHolder.overallRating =
+            //       RATING_TWO;
+            // }
 
-            if (_searchProductProvider.isThirdRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_THREE;
-            }
+            // if (_searchProductProvider.isThirdRatingClicked) {
+            //   _searchProductProvider.productParameterHolder.overallRating =
+            //       RATING_THREE;
+            // }
 
-            if (_searchProductProvider.isfouthRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_FOUR;
-            }
+            // if (_searchProductProvider.isfouthRatingClicked) {
+            //   _searchProductProvider.productParameterHolder.overallRating =
+            //       RATING_FOUR;
+            // }
 
-            if (_searchProductProvider.isFifthRatingClicked) {
-              _searchProductProvider.productParameterHolder.overallRating =
-                  RATING_FIVE;
-            }
+            // if (_searchProductProvider.isFifthRatingClicked) {
+            //   _searchProductProvider.productParameterHolder.overallRating =
+            //       RATING_FIVE;
+            // }
 
-            if (_searchProductProvider.isSwitchedFeaturedProduct) {
-              _searchProductProvider.productParameterHolder.isFeatured =
-                  IS_FEATURED;
-            } else {
-              _searchProductProvider.productParameterHolder.isFeatured = ZERO;
-            }
-            if (_searchProductProvider.isSwitchedDiscountPrice) {
-              _searchProductProvider.productParameterHolder.isDiscount =
-                  IS_DISCOUNT;
-            } else {
-              _searchProductProvider.productParameterHolder.isDiscount = ZERO;
-            }
-            if (_searchProductProvider.isSwitchedFreeProduct) {
-              _searchProductProvider.productParameterHolder.isFree = IS_FREE;
-            } else {
-              _searchProductProvider.productParameterHolder.isFree = ZERO;
-            }
-            if (_searchProductProvider.categoryId != null) {
-              _searchProductProvider.productParameterHolder.catId =
-                  _searchProductProvider.categoryId;
-            }
-            if (_searchProductProvider.subCategoryId != null) {
-              _searchProductProvider.productParameterHolder.subCatId =
-                  _searchProductProvider.subCategoryId;
-            }
-            print(
-                'userInputText' + userInputItemNameTextEditingController.text);
-            final dynamic result =
-                await Navigator.pushNamed(context, RoutePaths.filterProductList,
-                    arguments: ProductListIntentHolder(
-                      appBarTitle: Utils.getString(
-                          context, 'home_search__app_bar_title'),
-                      productParameterHolder:
-                          _searchProductProvider.productParameterHolder,
-                    ));
-            if (result != null && result is ProductParameterHolder) {
-              _searchProductProvider.productParameterHolder = result;
-            }
+            // if (_searchProductProvider.isSwitchedFeaturedProduct) {
+            //   _searchProductProvider.productParameterHolder.isFeatured =
+            //       IS_FEATURED;
+            // } else {
+            //   _searchProductProvider.productParameterHolder.isFeatured = ZERO;
+            // }
+            // if (_searchProductProvider.isSwitchedDiscountPrice) {
+            //   _searchProductProvider.productParameterHolder.isDiscount =
+            //       IS_DISCOUNT;
+            // } else {
+            //   _searchProductProvider.productParameterHolder.isDiscount = ZERO;
+            // }
+            // if (_searchProductProvider.isSwitchedFreeProduct) {
+            //   _searchProductProvider.productParameterHolder.isFree = IS_FREE;
+            // } else {
+            //   _searchProductProvider.productParameterHolder.isFree = ZERO;
+            // }
+            // if (_searchProductProvider.categoryId != null) {
+            //   _searchProductProvider.productParameterHolder.catId =
+            //       _searchProductProvider.categoryId;
+            // }
+            // if (_searchProductProvider.subCategoryId != null) {
+            //   _searchProductProvider.productParameterHolder.subCatId =
+            //       _searchProductProvider.subCategoryId;
+            // }
+            // print(
+            //     'userInputText' + userInputItemNameTextEditingController.text);
+            // final dynamic result =
+            //     await Navigator.pushNamed(context, RoutePaths.filterProductList,
+            //         arguments: ProductListIntentHolder(
+            //           appBarTitle: Utils.getString(
+            //               context, 'home_search__app_bar_title'),
+            //           productParameterHolder:
+            //               _searchProductProvider.productParameterHolder,
+            //         ));
+            // if (result != null && result is ProductParameterHolder) {
+            //   _searchProductProvider.productParameterHolder = result;
+            // }
           },
           color: ps_ctheme__color_speical,
           textColor: Colors.white,
